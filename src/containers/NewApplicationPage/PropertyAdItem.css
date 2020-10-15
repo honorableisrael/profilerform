@@ -1,0 +1,12 @@
+.fp-affordability-test-property-display-wrapper .fp-property-image-preview img {
+  display: inline-block;
+  height: 100px;
+  width: 140px;
+}
+
+.text-trim {
+  white-space: nowrap;
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

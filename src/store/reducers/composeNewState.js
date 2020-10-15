@@ -1,0 +1,1 @@
+export const composeNewState = (state, key, { payload }) => ({ ...state, [key]: payload });

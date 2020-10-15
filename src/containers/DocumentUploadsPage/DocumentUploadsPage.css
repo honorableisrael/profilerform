@@ -1,0 +1,155 @@
+.fp-w10 {
+  width: 10%;
+}
+
+.table-bordered {
+  border: 1px solid #ddd !important;
+}
+
+table caption {
+  padding: 0.5em 0;
+}
+
+@media screen and (max-width: 767px) {
+  table caption {
+    display: none;
+  }
+}
+
+.fp-upload-action {
+  font-weight: normal;
+  color: #333333;
+  font-size: 13px;
+  position: relative;
+}
+
+.fp-upload-file-title,
+.fp-upload-file-header {
+  font-size: 14px;
+  color: #333333;
+}
+
+.fp-upload-btn {
+  color: #fff;
+  background-color: #0073f0;
+  border: 1px solid #0073f0;
+  padding: 8px 25px;
+  line-height: 1.7;
+  border-radius: 0.25rem;
+  font-weight: 400;
+  font-size: 13px;
+  width: 55%;
+}
+
+.fp-upload-action i {
+  margin: 0 10px;
+}
+
+.fp-upload-action-btn {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+  padding: 6px 12px;
+  line-height: 1.7;
+  border-radius: 0.25rem;
+  font-weight: 400;
+  font-size: 13px;
+  width: 25%;
+  border: none;
+}
+
+.fp-upload-action input.fp-file-upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+span.rejected {
+  padding: 8px 15px;
+  background: #e8d0d2;
+  color: #ff0000;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+span.pending {
+  padding: 8px 15px;
+  background: #cce1f6;
+  color: #0073f0;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+span.approved {
+  padding: 8px 15px;
+  background: #5cb85c;
+  color: #fff;
+  font-weight: 500;
+  font-size: 12px;
+}
+/* 
+.fp-file-upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 1;
+  filter: alpha(opacity=0);
+} */
+
+.fp-document-upload-action-dropdown {
+  display: inline-block;
+}
+
+.fp-document-upload-action-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 130px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 18px;
+}
+
+.fp-document-upload-action-dropdown-content span {
+  color: #333333;
+  font-size: 12px;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.fp-document-upload-action-dropdown-content span:hover {
+  background-color: #f1f1f1;
+}
+
+.fp-document-upload-action-dropdown:hover
+  .fp-document-upload-action-dropdown-content {
+  display: block;
+}
+
+@keyframes showDots {
+  33% { content: '.'; }
+  66% { content: '..'; }
+  100% { content: '...'; }
+}
+
+span.uploading-indicator {
+  position: absolute;
+}
+
+span.uploading-indicator i::after {
+  font-size: 1em;
+  content: '';
+  animation: showDots 1.5s linear infinite forwards;
+}

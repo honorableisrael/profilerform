@@ -1,0 +1,173 @@
+/* Animation */
+@keyframes changeOpacity {
+  0% {
+    opacity: 0.25;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+
+#fp-login-auth-page {
+  background-color: #ffffff;
+  /* overflow: hidden; */
+  height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.fp-login-auth-page {
+  padding: 0px;
+}
+
+.fp-login-auth-page-landing {
+  margin-top: 80px;
+}
+
+.fp-login-notification {
+  background: #e0f4fb;
+  border-color: #bce7f6;
+  color: #147494;
+  margin-bottom: 20px;
+}
+
+.fp-login-notification .fp-login-notification-content-wrapper {
+  display: flex;
+  flex: 1 1 100%;
+  padding: 16px 0 0 16px;
+  flex-flow: row wrap;
+  min-width: 0;
+}
+
+.fp-login-notification .fp-login-notification-content-title {
+  font-size: 23px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
+
+.fp-login-notification .fp-login-notification-content-text {
+  color: inherit;
+  margin: 16px 0;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.fp-login-notification .fp-login-notification-content {
+  text-align: center;
+  flex: 1 1 250px;
+  margin: 0 16px 16px 0;
+  min-width: 0;
+  word-wrap: break-word;
+}
+
+.fp-login-auth-page-landing-subtitle {
+  font-size: 27px;
+  font-weight: 700;
+  color: #0a2e654d !important;
+  text-align: center;
+  margin-top: -20px;
+  margin-bottom: 20px;
+}
+
+.fp-login-auth-page-sidebar {
+  background: #022f8f;
+  padding: 0;
+}
+
+/* sidebar */
+.fp-login-auth-page-sidebar {
+  padding: 10px 90px 35px 90px;
+  height: 100vh;
+}
+
+.fp-login-auth-page-sidebar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 100%;
+  /* padding: 60px 90px 35px 90px; */
+  color: #fff;
+  text-align: center;
+  position: relative;
+}
+
+.fp-login-auth-page-sidebar-wrapper h2 {
+  color: #fff;
+  font-size: 32px;
+  font-size: 2rem;
+  margin: 20px 0 15px 0;
+  font-weight: 400;
+}
+
+.fp-login-auth-page-sidebar-wrapper p {
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+.fp-login-auth-page-sidebar-wrapper .fp-login-page-sidebar-copyright {
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  width: 100%;
+  opacity: 0.5;
+  font-size: 13px;
+}
+
+.error-list.fp-errors-display-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.error-list.fp-errors-display-list .error-item {
+  font-size: 17px;
+  margin: 10px 0;
+  color: #f00;
+  animation: changeOpacity 3.5s infinite;
+  display: block;
+}
+
+/* .fp-login-auth-page-sidebar-text .fp-login-auth-page-sidebar-action-text {
+  margin: 30px 0 0;
+  padding: 0px 40px;
+}
+
+.fp-login-auth-page-sidebar-text .fp-login-auth-page-sidebar-action-text h2 {
+  color: #ffffff;
+  font-size: 37px;
+  line-height: 42px;
+  max-width: 250px;
+  font-weight: 500;
+}
+.fp-login-auth-page-sidebar-text .fp-login-auth-page-sidebar-action-text p {
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 400;
+  opacity: 0.48;
+  line-height: 30px;
+  margin: 20px 0px;
+  max-width: 340px;
+  padding-bottom: 30px;
+}
+
+.fp-login-auth-page-sidebar-text .fp-login-auth-page-sidebar-bg-pattern {
+  background: url("../Resource/bg-pattern-sidebar.png");
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 85%;
+  height: 100%;
+  background-size: cover;
+  background-position: 50%;
+  top: -10px;
+} */

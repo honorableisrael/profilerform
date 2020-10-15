@@ -1,0 +1,2412 @@
+@media only screen and (min-device-width: 1440px) {
+  .fp-mortgage-application-mobile-landscape-view {
+    display: none;
+  }
+}
+
+@media only screen and (min-device-width: 1280px) and (max-device-width: 1440px) {
+  .fp-mortgage-application-mobile-landscape-view {
+    display: none;
+  }
+  /* Homepage */
+
+  .fp-hero-banner-text-content {
+    padding: 100px 0 30px;
+  }
+}
+
+/* iPads (portrait and landscape) ----------- */
+/* Cover HTML Responsive all screens styles */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  #navbarText.navbar-collapse.collapse {
+    display: none !important;
+  }
+
+  /* General Responsive Styles */
+  .navbar-nav li.nav-item {
+    margin-left: 20px;
+  }
+
+  /* Homepage Html Responsive Styles */
+  .fp-hero-banner-text-content {
+    padding: 0px 0 40px;
+  }
+
+  .fp-hero-banner-text-content h2 {
+    width: 100% !important;
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .fp-hero-banner-text-content p {
+    width: 100% !important;
+    margin: 20px 0 0;
+    font-size: 14px;
+  }
+
+  .fp-hero-banner-text-buttons {
+    margin-bottom: 60px;
+  }
+
+  #fp-hero-banner .fp-hero-banner-img {
+    max-width: 382px;
+    height: 100%;
+    background-position: inherit;
+  }
+
+  .fp-hero-banner-pattern {
+    opacity: 0.02;
+    top: 10%;
+  }
+
+  #fp-simple-steps.fp-simple-steps {
+    padding: 40px 0;
+  }
+
+  .fp-simple-steps .fp-simple-steps-wrapper h2 {
+    font-size: 28px;
+  }
+
+  .fp-simple-steps-contents .fp-simple-steps-affordability-img,
+  .fp-simple-steps-contents .fp-simple-steps-eligibility-img,
+  .fp-simple-steps-contents .fp-simple-steps-apply-now-img {
+    height: 70px;
+    width: 70px;
+  }
+
+  .fp-simple-steps-wrapper .fp-simple-steps-contents h4 {
+    font-size: 15px;
+    line-height: 23px;
+  }
+
+  .fp-simple-steps-wrapper .fp-simple-steps-contents p {
+    margin: 20px 0;
+    font-size: 13px;
+  }
+
+  .text-center.d-none-top {
+    margin-top: 40px;
+  }
+  .fp-landing-mortgage-nhf-rates .fp-landing-mortgage-rates-line-pattern {
+    display: none;
+  }
+
+  .fp-landing-mortgage-nhf-rates .fp-landing-mortgage-nhf-rates-wrapper {
+    margin-top: -100px;
+  }
+  .fp-landing-mortgage-nhf-rates .fp-landing-mortgage-nhf-rates-wrapper h2 {
+    font-size: 30px;
+    margin-bottom: -20px;
+  }
+
+  .fp-landing-mortgage-nhf-rates .fp-landing-mortgage-rates-content::before {
+    top: 20%;
+  }
+
+  .fp-landing-mortgage-nhf-rates .fp-landing-mortgage-rates-content p,
+  .fp-landing-mortgage-nhf-rates .fp-landing-nhf-rates-content p {
+    font-size: 14px;
+    margin-bottom: -4px;
+  }
+
+  .fp-landing-mortgage-nhf-rates
+    .fp-landing-mortgage-rates-content
+    span.ordinary {
+    font-size: 13px;
+    margin: 0 28px;
+  }
+
+  .fp-landing-mortgage-nhf-rates .fp-landing-nhf-rates-content span.nhf {
+    font-size: 13px;
+    margin: 0 55px;
+  }
+  .fp-landing-why-choose-us .fp-landing-why-choose-us-dotted-pattern {
+    top: 250%;
+    width: 173px;
+  }
+  .fp-landing-why-choose-us .fp-landing-why-choose-us-wrapper {
+    padding: 0 0 30px;
+    margin-top: 50px;
+  }
+
+  .fp-landing-why-choose-us-wrapper .fp-landing-why-choose-us-text::before {
+    left: 89%;
+  }
+
+  .fp-landing-why-choose-us-wrapper .fp-landing-why-choose-us-text h4 {
+    width: 100% !important;
+    margin: 5px 0;
+  }
+
+  .fp-landing-why-choose-us-text-features-wrapper
+    .fp-landing-why-choose-us-text-features {
+    padding: 10px 0px;
+    margin: auto 10px;
+  }
+
+  .fp-landing-why-choose-us-text-features-wrapper h4 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  #fp-landing-testimonials.fp-landing-testimonials {
+    padding: 40px 0;
+  }
+
+  .fp-landing-testimonials-content-wrapper h2 {
+    margin-bottom: 30px;
+    font-size: 33px;
+  }
+
+  .fp-landing-testimonials-rates.d-flex.justify-content-center.mb-3.position-relative {
+    margin-bottom: 10px !important;
+  }
+
+  .fp-landing-faqs .fp-landing-faqs-contents-wrapper {
+    padding: 60px 0;
+  }
+
+  .fp-landing-faqs-contents-wrapper h2 {
+    font-size: 33px;
+  }
+  .fp-landing-faqs-contents-wrapper .fp-landing-faqs-contents h4 {
+    font-size: 24px;
+    line-height: 36px;
+    margin: 0;
+  }
+
+  .fp-landing-faqs-contents-wrapper .fp-landing-faqs-contents p {
+    font-size: 15px;
+    margin-top: 10px;
+  }
+
+  .fp-landing-faqs-contents-wrapper .fp-faqs-more {
+    margin-top: -40px;
+  }
+
+  #fp-call-action.fp-call-action {
+    padding: 0;
+  }
+
+  .fp-call-action-wrapper h2 {
+    font-size: 33px;
+  }
+  .fp-landing-footer .fp-landing-footer-bottom p {
+    padding: 0;
+    margin-top: 7px;
+  }
+
+  /* Affordability Pages */
+
+  .col-md-5.fp-affordability-test-application-form.push {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .col-md-7.fp-nhf-affordability-eligibility-application-sidebar {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar {
+    left: 52%;
+  }
+  .fp-affordability-test-application-form-wrapper {
+    margin-top: 90px;
+  }
+
+  .fp-affordability-test-application-form-wrapper label {
+    font-size: 14px;
+  }
+
+  .fp-affordability-test-application-form-wrapper
+    .fp-affordability-test-application-form-title {
+    font-size: 24px;
+  }
+
+  .fp-affordability-test-application-form-wrapper
+    .fp-affordability-test-application-form-subtitle {
+    font-size: 15px;
+  }
+
+  .fp-save-result-button {
+    margin-right: 10px;
+  }
+
+  .fp-check-loan-availability {
+    font-size: 14px !important;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper {
+    margin-top: 80px;
+    padding: 20px;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .d-flex.justify-content-between {
+    display: flex !important;
+    flex-direction: column;
+  }
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-loanable-amount
+    span,
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-monthly-repayment
+    span {
+    font-size: 18px;
+  }
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-loanable-amount
+    h2,
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-monthly-repayment
+    h2 {
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+  .fp-affordability-test-result-summary
+    .fp-affordability-test-result-summary-text
+    h2 {
+    line-height: 21px;
+  }
+
+  .fp-affordability-test-result-summary
+    .fp-affordability-test-result-summary-text
+    p {
+    font-size: 14px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  /* NHF Affordability */
+  .col-md-5.fp-nhf-affordability-eligibility-application-form {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .fp-nhf-affordability-eligibility-application-form {
+    padding-top: 80px;
+  }
+
+  .fp-affordability-test-application-form.overlay::after,
+  .fp-nhf-affordability-eligibility-application-form.overlay::after {
+    /* height: 100vh; */
+    width: 100vw;
+  }
+
+  .result.fp-affordability-test-application-form-buttons
+    .fp-check-loan-availability {
+    font-size: 13px !important;
+  }
+
+  /* Login Page */
+  .fp-login-auth-page-landing {
+    margin-top: 60px;
+  }
+  .col-md-6.offset-md-3.mt-2.fp-login-auth-page-landing-form {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-left: 0;
+    padding: 0 40px;
+  }
+
+  /* Dashboard Homepage */
+  .fp-mobile-navigation-toggle {
+    display: block;
+  }
+
+  .fp-mortgage-search-form {
+    display: none;
+  }
+
+  .fp-mortgage-notification-chat-profile-wrapper > div {
+    /* margin: 0 10px; */
+    /* margin-right: 5px; */
+  }
+
+  .fp-mortgage-user-profile-wrapper {
+    display: flex !important;
+    align-items: center;
+  }
+
+  .fp-mobile-navigation-user-avatar {
+    display: block;
+  }
+
+  .fp-mobile-navigation-user-avatar-navigation-logo {
+    width: 120px;
+    height: 22px;
+    margin: 15px 10px;
+  }
+
+  .fp-mortgage-sidebar .toggleCancel {
+    margin-left: 60px;
+  }
+
+  .fp-mortgage-sidebar .fp-mobile-navigation-user-avatar {
+    padding: 10px 0 35px 10px;
+    margin-bottom: 20px;
+  }
+
+  .fp-mortgage-sidebar .fp-mobile-navigation-user-avatar {
+    display: none;
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  .fp-mortgage-nav-wrapper {
+    padding-top: 5px;
+  }
+
+  .fp-mortgage-notification-chat-profile-wrapper .fp-mortgage-notification,
+  .fp-mortgage-notification-chat-profile-wrapper .fp-mortgage-chat {
+    position: relative;
+    margin-top: 0;
+    margin-left: 20px;
+  }
+
+  .fp-mortgage-sidebar {
+    display: none;
+  }
+
+  .fp-mortgage-content-wrapper {
+    width: 100%;
+  }
+
+  .container.fp-mortgage-w100 {
+    max-width: 100% !important;
+  }
+
+  .fp-dashboard-section {
+    margin-top: 20px;
+  }
+
+  .fp-mortgage-date-caption-apply-for-mortgage-wrapper {
+    padding: 0 30px;
+  }
+
+  .fp-mortgage-date-caption-apply-for-mortgage-wrapper span {
+    font-weight: 600;
+  }
+
+  .fp-mortgage-date-caption-apply-for-mortgage-wrapper h2 {
+    font-size: 22px;
+    margin: 5px 0 10px;
+  }
+  .fp-mortgage-date-caption-apply-for-mortgage-wrapper p {
+    font-size: 14px;
+    margin: 10px 0 25px;
+    max-width: 590px;
+  }
+
+  .fp-dashboard-mortgage-btn {
+    display: inline;
+    font-size: 13px;
+    padding: 10px !important;
+  }
+  .fp-mortgage-approval-status {
+    width: 500px;
+  }
+
+  .fp-mortgage-approval-status
+    .fp-dashboard-mortgage-loan-requirement-status-wrap {
+    padding: 30px 0px 0 0;
+  }
+
+  .fp-mortgage-application-title-wrapper h2 {
+    font-size: 13px;
+    padding-right: 10px;
+  }
+  .fp-mortgage-application-menu-tabs .fp-active-menu-tab {
+    padding: 5px;
+  }
+  .fp-mortgage-application-menu-tabs span {
+    font-size: 13px;
+  }
+
+  .col-md-9.fp-mortgage-application-summary-wrapper {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .fp-mortgage-application-content .fp-application-details {
+    width: 370px;
+    padding: 15px 15px;
+  }
+
+  .fp-mortgage-reference-no-status .fp-mortgage-reference-no h4 {
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .fp-mortgage-reference-no-status {
+    padding-bottom: 0;
+  }
+
+  .fp-mortgage-loan-amount {
+    padding: 8px 0;
+  }
+
+  .fp-mortgage-application-date-loan-type {
+    padding-bottom: 5px;
+  }
+
+  .fp-mortgage-application-lender-interest {
+    margin-top: 0;
+    padding-bottom: 5px;
+  }
+
+  .fp-mortgage-application-document-view {
+    padding-bottom: 0;
+  }
+
+  .fp-mortgage-application-document-view .fp-divider {
+    height: 25px;
+    margin: 0;
+  }
+
+  .col-md-3.fp-credit-score {
+    flex: 0 0 100%;
+    max-width: 100%;
+    position: relative;
+    z-index: 0;
+    left: 0;
+  }
+  .fp-mortgage-credit-score-content {
+    padding: 20px 50px 50px;
+  }
+  .fp-mortgage-wallet {
+    display: none;
+  }
+
+  .fp-mortgage-credit-score-content .fp-mortgage-bottom-pattern {
+    width: 180px;
+    height: 180px;
+    clip: rect(0px, 144px, 185px, 0px);
+    left: 80%;
+    top: 9%;
+    z-index: 0;
+  }
+
+  .fp-mortgage-reference-no-status .fp-mortgage-status span {
+    padding: 7px 15px;
+  }
+
+  .fp-mortgage-application-lender-interest .fp-mortgage-application-lender h4,
+  .fp-mortgage-application-lender-interest
+    .fp-mortgage-application-interest
+    h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+  }
+  /* Application details */
+  .fp-mortgage-blank-lender-wrapper {
+    margin: 0 3px;
+  }
+
+  .fp-mortgage-blank-lender-wrapper svg {
+    width: 180px;
+  }
+
+  .fp-mortgage-application-lender-info-wrapper
+    .fp-mortgage-application-lender-content {
+    flex-direction: column;
+  }
+
+  .fp-mortgage-application-lender-content p {
+    margin-top: -5px;
+  }
+
+  .fp-mortgage-application-reference-no-loan-status
+    .fp-mortgage-application-date {
+    margin: 0 10px 0px 0px;
+  }
+  .fp-mortgage-loan-amount-repayment-interest-rate
+    .fp-mortgage-loan-amount-wrap
+    h2 {
+    font-size: 22px;
+  }
+  .fp-mortgage-loan-amount-repayment-interest-rate .fp-mortgage-repayment h2,
+  .fp-mortgage-loan-amount-repayment-interest-rate
+    .fp-mortgage-loan-interest-rate
+    h2 {
+    font-size: 22px;
+  }
+  .fp-mortgage-loan-type-application-wrap .fp-mortgage-loan-application-type {
+    height: 53px;
+  }
+  .fp-mortgage-loan-documents-uploads .fp-document-badge {
+    padding: 5px 10px;
+    margin-top: 0;
+    font-weight: 800;
+    height: 18px;
+  }
+
+  /* Mobile Navigation */
+  .fp-mortgage-sidebar.showMenu {
+    display: block;
+    z-index: 2000;
+    background: #ffffff;
+  }
+
+  /* Contact Us Page */
+  #fp-mortgage-application-contact-us-top-info
+    .fp-mortgage-application-contact-us-top-info-pattern {
+    height: 210px;
+  }
+
+  .fp-mortgage-application-contact-us-features h2 {
+    margin-right: 0;
+    margin-top: -40px;
+    font-size: 25px;
+    line-height: 30px;
+  }
+
+  .fp-mortgage-application-contact-us-top-info-wrapper .fp-desktop-header {
+    display: none;
+  }
+  .fp-mortgage-application-contact-us-top-info-wrapper h2 {
+    font-size: 40px;
+    color: #fff;
+    line-height: 25px;
+    margin-top: 20px;
+  }
+
+  #fp-mortgage-application-contact-us-form-features
+    .fp-mortgage-application-contact-us-form {
+    margin-top: -110px;
+    padding: 20px 30px;
+  }
+
+  .fp-mortgage-application-contact-us-form-text p {
+    font-size: 20px;
+    line-height: 25px;
+  }
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (max-device-width: 768px) {
+  /* General Responsive Styles */
+  .navbar-nav li.nav-item {
+    line-height: 25px;
+    margin-left: 0px;
+  }
+
+  .fp-mortgage-application-mobile-landscape-menu
+    .fp-mortgage-application-mobile-landscape-menu-wrapper {
+    height: 35vh;
+    z-index: 120;
+  }
+
+  /* Homepage Html Responsive Styles */
+  #fp-hero-banner .fp-hero-banner-img {
+    max-width: 372px;
+    height: 100%;
+    background-position: inherit;
+  }
+  .fp-landing-footer .fp-landing-footer-bottom {
+    padding: 8px 0 15px;
+    margin-top: 5px;
+  }
+
+  .fp-lender-rates-wrapper {
+    padding: 10px 0;
+  }
+
+  .col-2.text-center.fp-lenders-rates-text {
+    max-width: 25% !important;
+    flex: 25% !important;
+    font-size: 10px;
+  }
+  .col-2.text-center.fp-lenders-rates-text strong {
+    text-align: left;
+  }
+  .col-10.d-none-mx-width {
+    max-width: 75% !important;
+    flex: 75% !important;
+  }
+
+  /* Affordability Pages */
+
+  .col-md-5.fp-affordability-test-application-form.push {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .col-md-7.fp-nhf-affordability-eligibility-application-sidebar {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar {
+    left: 52%;
+  }
+  .fp-affordability-test-application-form-wrapper {
+    margin-top: 90px;
+  }
+
+  .fp-affordability-test-application-form-wrapper label {
+    font-size: 14px;
+  }
+
+  .fp-affordability-test-application-form-wrapper
+    .fp-affordability-test-application-form-title {
+    font-size: 24px;
+  }
+
+  .fp-affordability-test-application-form-wrapper
+    .fp-affordability-test-application-form-subtitle {
+    font-size: 15px;
+  }
+
+  .fp-save-result-button {
+    margin-right: 10px;
+  }
+
+  .fp-check-loan-availability {
+    font-size: 14px !important;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper {
+    margin-top: 80px;
+    padding: 20px;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .d-flex.justify-content-between {
+    display: flex !important;
+    flex-direction: column;
+  }
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-loanable-amount
+    span,
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-monthly-repayment
+    span {
+    font-size: 18px;
+  }
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-loanable-amount
+    h2,
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-monthly-repayment
+    h2 {
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+  .fp-affordability-test-result-summary
+    .fp-affordability-test-result-summary-text
+    h2 {
+    line-height: 21px;
+  }
+
+  .fp-affordability-test-result-summary
+    .fp-affordability-test-result-summary-text
+    p {
+    font-size: 14px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  /* User Dashboard */
+  .fp-mortgage-user-profile-wrapper {
+    display: none;
+  }
+
+  /* .fp-mortgage-notification-chat-profile-wrapper > div {
+    margin: 0;
+  } */
+
+  .fp-mortgage-notification-chat-profile-wrapper .fp-mortgage-notification,
+  .fp-mortgage-notification-chat-profile-wrapper .fp-mortgage-chat {
+    position: relative;
+    margin-top: 0;
+    margin-left: 20px;
+  }
+
+  .fp-mortgage-sidebar {
+    display: none;
+  }
+
+  .fp-mortgage-content-wrapper {
+    width: 100%;
+  }
+
+  .container.fp-mortgage-w100 {
+    max-width: 100% !important;
+  }
+
+  .fp-dashboard-section {
+    margin-top: 20px;
+  }
+
+  .fp-mortgage-date-caption-apply-for-mortgage-wrapper {
+    padding: 0 30px;
+  }
+
+  .fp-mortgage-date-caption-apply-for-mortgage-wrapper span {
+    font-weight: 600;
+  }
+
+  .fp-mortgage-date-caption-apply-for-mortgage-wrapper h2 {
+    font-size: 22px;
+    margin: 5px 0 10px;
+  }
+  .fp-mortgage-date-caption-apply-for-mortgage-wrapper p {
+    font-size: 14px;
+    margin: 10px 0 25px;
+    max-width: 590px;
+  }
+
+  .fp-dashboard-mortgage-btn {
+    display: inline;
+    font-size: 13px;
+    padding: 10px !important;
+  }
+  .fp-mortgage-approval-status {
+    width: 500px;
+  }
+
+  .fp-mortgage-approval-status
+    .fp-dashboard-mortgage-loan-requirement-status-wrap {
+    padding: 30px 0px 0 0;
+  }
+
+  .fp-mortgage-application-title-wrapper h2 {
+    font-size: 13px;
+    padding-right: 10px;
+  }
+  .fp-mortgage-application-menu-tabs .fp-active-menu-tab {
+    padding: 5px;
+  }
+  .fp-mortgage-application-menu-tabs span {
+    font-size: 13px;
+  }
+
+  .col-md-9.fp-mortgage-application-summary-wrapper {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .fp-mortgage-application-content .fp-application-details {
+    width: 350px;
+    padding: 15px 15px;
+  }
+
+  .fp-mortgage-reference-no-status .fp-mortgage-reference-no h4 {
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .col-md-3.fp-credit-score {
+    flex: 0 0 100%;
+    max-width: 100%;
+    position: relative;
+    z-index: 0;
+    left: 0;
+  }
+  .fp-mortgage-credit-score-content {
+    padding: 20px 50px 50px;
+  }
+  .fp-mortgage-wallet {
+    display: none;
+  }
+
+  .fp-mortgage-credit-score-content .fp-mortgage-bottom-pattern {
+    width: 180px;
+    height: 180px;
+    clip: rect(0px, 138px, 185px, 0px);
+    left: 80%;
+    top: 9%;
+    z-index: 0;
+  }
+  .fp-mortgage-reference-no-status .fp-mortgage-status span {
+    padding: 7px 15px;
+  }
+
+  .fp-mortgage-application-lender-interest .fp-mortgage-application-lender h4,
+  .fp-mortgage-application-lender-interest
+    .fp-mortgage-application-interest
+    h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+  }
+
+  /* Application details */
+
+  .fp-mortgage-blank-lender-wrapper {
+    margin: 0 3px;
+  }
+
+  .fp-mortgage-blank-lender-wrapper svg {
+    width: 180px;
+  }
+
+  .fp-mortgage-application-lender-info-wrapper
+    .fp-mortgage-application-lender-content {
+    flex-direction: column;
+  }
+
+  .fp-mortgage-application-lender-content p {
+    margin-top: -5px;
+  }
+
+  .fp-mortgage-application-reference-no-loan-status
+    .fp-mortgage-application-date {
+    margin: 0 10px 0px 0px;
+  }
+  .fp-mortgage-loan-amount-repayment-interest-rate
+    .fp-mortgage-loan-amount-wrap
+    h2 {
+    font-size: 22px;
+  }
+  .fp-mortgage-loan-amount-repayment-interest-rate .fp-mortgage-repayment h2,
+  .fp-mortgage-loan-amount-repayment-interest-rate
+    .fp-mortgage-loan-interest-rate
+    h2 {
+    font-size: 22px;
+  }
+  .fp-mortgage-loan-type-application-wrap .fp-mortgage-loan-application-type {
+    height: 53px;
+  }
+  .fp-mortgage-loan-documents-uploads .fp-document-badge {
+    padding: 5px 10px;
+    margin-top: 0;
+    font-weight: 800;
+    height: 18px;
+  }
+  /* Document Page */
+  .fp-upload-btn {
+    padding: 8px 15px;
+  }
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width: 321px) and (max-device-width: 480px) {
+  /* General Responsive Styles */
+  .navbar-nav li.nav-item {
+    line-height: 25px;
+    margin-left: 0px;
+  }
+
+  #navbarText.navbar-collapse.collapse {
+    display: none !important;
+  }
+
+  .navbar-expand-md .navbar-toggler {
+    display: none;
+  }
+
+  .fp-mortgage-application-mobile-landscape-menu
+    .fp-mortgage-application-mobile-landscape-menu-wrapper {
+    height: 100vh;
+    z-index: 120;
+  }
+
+  /* Homepage */
+  #fp-hero-banner.fp-hero-banner {
+    padding: 0;
+  }
+
+  .fp-hero-banner-pattern {
+    opacity: 0.1;
+  }
+
+  .fp-hero-banner-text-content-buttons .fp-hero-banner-text-content {
+    padding: 0 10px;
+  }
+
+  #fp-hero-banner .fp-hero-banner-img {
+    display: none;
+  }
+
+  .fp-hero-banner-text-content h2 {
+    width: 100% !important;
+    font-size: 50px;
+    line-height: 55px;
+  }
+  .fp-hero-banner-text-content p {
+    width: 100% !important;
+    font-size: 16px;
+    color: #121212;
+    /* line-height: 1.5; */
+    margin: 30px 0;
+  }
+
+  #fp-partners.fp-partners {
+    padding: 10px 0px;
+  }
+
+  .fp-partners .fp-partners-icon-img.first-trust {
+    margin: 0;
+  }
+
+  .fp-partners .fp-partners-icon-img.stanbic-ibtc {
+    margin-top: -40px;
+    height: 170px;
+  }
+  .fp-partners .fp-partners-icon-img.standard-chartered {
+    margin-top: -40px;
+    height: 120px;
+  }
+  .fp-partners .fp-partners-icon-img.nmrc {
+    height: 110px;
+  }
+
+  #fp-simple-steps.fp-simple-steps {
+    padding: 30px 0;
+    background-position: 8%;
+    background-size: cover;
+  }
+
+  .fp-simple-steps-wrapper .fp-landing-simple-steps-circle-pattern {
+    width: 100px;
+    height: 100px;
+    top: 12%;
+  }
+
+  .fp-simple-steps .fp-simple-steps-wrapper h2 {
+    font-size: 27px;
+    margin-bottom: 10px;
+  }
+
+  .fp-simple-steps-wrapper .fp-simple-steps-contents h4 {
+    font-size: 19px;
+    line-height: normal;
+  }
+
+  .fp-simple-steps-wrapper .fp-simple-steps-contents p {
+    margin: 30px 0;
+    font-size: 13px;
+  }
+
+  .fp-simple-steps-contents .fp-simple-steps-affordability-img,
+  .fp-simple-steps-contents .fp-simple-steps-eligibility-img,
+  .fp-simple-steps-contents .fp-simple-steps-apply-now-img {
+    height: 80px;
+    width: 80px;
+    margin-top: 20px;
+  }
+
+  .fp-simple-steps-wrapper
+    .fp-simple-steps-contents
+    a.fp-simple-steps-get-started-btn {
+    margin-top: 40px;
+  }
+
+  .fp-landing-mortgage-rates-line-pattern,
+  .fp-landing-why-choose-us .fp-landing-why-choose-us-dotted-pattern {
+    display: none;
+  }
+
+  .text-center.d-none-top {
+    margin-top: 70px;
+  }
+
+  .fp-landing-mortgage-nhf-rates .fp-landing-mortgage-nhf-rates-wrapper {
+    margin-top: -103px;
+  }
+
+  .fp-landing-mortgage-nhf-rates .fp-landing-mortgage-rates-content::before {
+    width: 200px;
+    height: 1px;
+    top: 103.5%;
+    left: 0;
+    margin-left: 73px;
+  }
+  .fp-landing-mortgage-nhf-rates .fp-landing-mortgage-nhf-rates-wrapper h2 {
+    line-height: 42px;
+  }
+  .fp-landing-mortgage-nhf-rates
+    .fp-landing-mortgage-rates-content
+    span.ordinary {
+    margin: 0 65px;
+  }
+
+  .fp-landing-mortgage-nhf-rates .fp-landing-nhf-rates-content span.nhf {
+    margin: 0 90px;
+  }
+
+  .fp-landing-why-choose-us .fp-landing-why-choose-us-wrapper {
+    margin-top: 0px;
+    padding: 20px 0;
+  }
+
+  .fp-landing-why-choose-us-wrapper .fp-landing-why-choose-us-text {
+    margin-top: 0;
+  }
+
+  .fp-landing-why-choose-us-wrapper .fp-landing-why-choose-us-text::before,
+  .fp-landing-why-choose-us-text .fp-landing-why-choose-use-finance-logo {
+    display: none;
+  }
+
+  .fp-landing-why-choose-us-wrapper .fp-landing-why-choose-us-text h4 {
+    /* width: 100%;
+    text-align: center; */
+    display: none;
+  }
+
+  .fp-landing-why-choose-us-text-features-wrapper {
+    margin-bottom: 20px;
+  }
+
+  .fp-landing-why-choose-us-text-features-wrapper h4 {
+    font-size: 26px;
+  }
+
+  .fp-landing-why-choose-us-text-features-wrapper
+    .fp-landing-why-choose-us-text-features {
+    padding: 10px 20px;
+    text-align: center;
+  }
+  #fp-landing-testimonials.fp-landing-testimonials {
+    padding: 40px 0;
+  }
+
+  .fp-landing-testimonials-content-wrapper .fp-landing-testimonials-content {
+    margin-bottom: 20px;
+  }
+
+  .fp-landing-faqs .fp-landing-faqs-contents-wrapper {
+    padding: 50px 0;
+  }
+
+  .fp-landing-faqs-contents-wrapper .fp-landing-faqs-contents {
+    padding: 10px;
+  }
+
+  .fp-landing-faqs-contents-wrapper h2 {
+    font-size: 25px;
+  }
+
+  .fp-landing-faqs-contents-wrapper .fp-landing-faqs-contents h4 {
+    font-size: 22px;
+    line-height: 28px;
+    margin-top: 20px;
+  }
+
+  .fp-landing-faqs-contents-wrapper .fp-landing-faqs-contents p {
+    font-size: 15px;
+    line-height: 27px;
+  }
+
+  .fp-landing-faqs-contents-wrapper .fp-faqs-more {
+    /* font-weight: 800;
+    font-size: 22px;
+    line-height: 36px;
+    color: #00b1ab; */
+    margin-left: 10px;
+  }
+
+  #fp-call-action.fp-call-action {
+    padding: 0;
+  }
+
+  .fp-call-action .fp-call-action-wrapper {
+    padding: 20px 0;
+  }
+
+  .fp-call-action-wrapper h2 {
+    font-size: 26px;
+  }
+
+  .fp-call-action-wrapper .fp-call-action-buttons {
+    padding: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fp-call-action .fp-call-action-button-theme {
+    margin-right: 0px;
+  }
+
+  .fp-call-action .fp-call-action-button-outline {
+    margin: 20px 0;
+  }
+
+  .fp-landing-footer .fp-landing-footer-top {
+    padding: 20px;
+  }
+
+  .fp-landing-footer-company-info .fp-landing-footer-finance-logo {
+    height: 30px;
+    background-size: cover;
+  }
+
+  .fp-landing-footer-nda-info p {
+    line-height: 20px;
+  }
+
+  .fp-landing-footer-site-links h4 {
+    font-size: 19px;
+    margin: 10px 0;
+  }
+
+  .fp-landing-footer .fp-landing-footer-bottom {
+    padding: 10px;
+  }
+
+  .fp-landing-footer .fp-landing-footer-bottom p {
+    padding: 0;
+  }
+
+  .fp-lender-rates-wrapper {
+    padding: 10px 0;
+  }
+
+  .col-2.text-center.fp-lenders-rates-text {
+    max-width: 40% !important;
+    flex: 40% !important;
+    font-size: 10px;
+  }
+  .col-2.text-center.fp-lenders-rates-text strong {
+    text-align: left;
+  }
+
+  .col-10.d-none-mx-width {
+    max-width: 50% !important;
+    flex: 50% !important;
+  }
+
+  /* Affordability Test */
+
+  .col-md-5.fp-affordability-test-application-form.push {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .col-md-5.fp-affordability-test-application-form.push.overlay {
+    display: none;
+  }
+  .col-md-7.fp-nhf-affordability-eligibility-application-sidebar.show {
+    display: block;
+    height: 100%;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar {
+    left: 0%;
+  }
+
+  .col-md-7.fp-nhf-affordability-eligibility-application-sidebar {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .fp-affordability-test-result-summary
+    .fp-affordability-test-result-summary-text
+    h2 {
+    display: none;
+  }
+
+  .fp-affordability-test-result-summary
+    .fp-affordability-test-result-summary-text
+    p {
+    display: none;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-loanable-amount
+    span,
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-monthly-repayment
+    span {
+    font-size: 15px;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-loanable-amount
+    h2,
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-monthly-repayment
+    h2 {
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 5px;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper {
+    margin-top: 60px;
+  }
+
+  .fp-affordability-test-result-summary
+    .fp-affordability-test-property-display {
+    height: 300px;
+  }
+
+  .fp-nh-affordability-regular-affordability-property-suggestion-content {
+    margin: 0;
+  }
+
+  .result.fp-affordability-test-application-form-buttons
+    .fp-check-loan-availability {
+    font-size: 10px !important;
+    font-weight: 800;
+  }
+  .col-md-7.fp-nhf-affordability-eligibility-application-sidebar {
+    display: none;
+  }
+
+  .fp-affordability-test-application-form-wrapper {
+    margin-top: 70px;
+    padding: 10px;
+  }
+
+  /* User Dashboard */
+  .navbar-item.fp-mortgage-search-form {
+    display: none;
+  }
+
+  .fp-mortgage-content-wrapper {
+    padding-top: 40px;
+    width: 100%;
+  }
+  .fp-welcome-box {
+    flex-direction: column;
+    padding: 20px 0;
+  }
+  .fp-mortgage-date-caption-apply-for-mortgage-wrapper {
+    padding: 0 20px;
+  }
+
+  /* .fp-dashboard-mortgage-btn {
+    position: absolute;
+    top: 80%;
+  } */
+
+  .fp-mortgage-approval-status {
+    max-width: 400px;
+    /* padding: 20px 0; */
+    padding: 20px 5px;
+  }
+  .fp-dashboard-mortgage-loan-requirement-status-wrap {
+    justify-content: flex-start;
+  }
+  .fp-mortgage-approval-status
+    .fp-dashboard-mortgage-loan-requirement-status-wrap {
+    padding: 10px 0px;
+  }
+
+  .fp-dashboard-mortgage-loan-requirement-status-wrap
+    .fp-dashboard-mortgage-loan-requirement-status {
+    justify-content: flex-start;
+    padding: 0 10px;
+  }
+
+  .fp-mortgage-application-menu-tabs span {
+    margin: 0 10px;
+  }
+
+  .fp-mortgage-application-title-wrapper h2 {
+    font-size: 15px;
+    padding-right: 10px;
+  }
+
+  .col-md-6.fp-regular-mortgage-application,
+  .col-md-6.fp-nhf-mortgage-application {
+    padding: 0;
+  }
+
+  .fp-regular-mortgage-application .fp-mortgage-application-list {
+    padding: 0 0 10px;
+  }
+
+  .fp-mortgage-application-content .fp-application-details {
+    width: 330px;
+    padding: 15px 15px;
+  }
+
+  .fp-nhf-mortgage-application {
+    margin-top: 20px;
+  }
+
+  .fp-mortgage-credit-score-content .fp-mortgage-bottom-pattern {
+    left: 57%;
+  }
+
+  /* Mortgage Application */
+  .fp-mortgage-applications-multi-tab-actions-buttons {
+    padding: 20px 10px 40px !important;
+    flex-direction: column;
+  }
+  .fp-mortgage-applications-multi-tab-actions-buttons
+    .fp-mortgage-applications-multi-tab {
+    margin: 25px 0;
+  }
+  .responsive-table .col::before {
+    text-align: left;
+  }
+  .col.col-2,
+  .col.col-3 {
+    max-width: 100%;
+  }
+  .fp-dashboard-more-actions {
+    padding: 10px 27px !important;
+  }
+
+  /* Application details */
+
+  .fp-mortgage-blank-lender-wrapper {
+    margin: 20px 40px;
+  }
+
+  .fp-mortgage-blank-lender-wrapper svg {
+    width: 200px;
+  }
+
+  .fp-mortgage-application-loan-info-display {
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  .fp-mortgage-application-loan-info-display
+    .fp-mortgage-application-reference-no-loan-status {
+    flex-direction: column;
+  }
+  .fp-mortgage-application-reference-no-loan-status
+    .fp-mortgage-application-reference-no
+    span,
+  .fp-mortgage-application-reference-no-loan-status
+    .fp-mortgage-application-date
+    span,
+  .fp-mortgage-application-reference-no-loan-status
+    .fp-mortgage-application-status
+    span {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .fp-mortgage-application-reference-no-loan-status
+    .fp-mortgage-application-reference-no
+    h4,
+  .fp-mortgage-application-reference-no-loan-status
+    .fp-mortgage-application-date
+    h4 {
+    font-size: 14px;
+    color: #555555;
+    font-weight: 700;
+    margin-top: 5px;
+  }
+  .fp-mortgage-loan-amount-repayment-interest-rate {
+    flex-direction: column;
+  }
+  .fp-mortgage-loan-amount-wrap,
+  .fp-mortgage-repayment,
+  .fp-mortgage-loan-interest-rate {
+    margin-bottom: 10px;
+  }
+  .fp-mortgage-loan-more-information {
+    flex-direction: column;
+  }
+
+  .fp-mortgage-loan-more-information-left {
+    justify-content: space-around;
+    flex-direction: row;
+    padding: 30px 0;
+    margin-top: -20px;
+  }
+
+  .fp-mortgage-loan-more-information-left .fp-mortgage-loan-requirement-status {
+    flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+  .fp-mortgage-loan-more-information-left
+    .fp-mortgage-loan-requirement-status
+    svg {
+    width: 25px;
+  }
+  .fp-mortgage-loan-more-information-left
+    .fp-mortgage-loan-requirement-status
+    h4 {
+    width: 100%;
+    font-size: 11px;
+    padding: 0 11px;
+    margin: 0;
+    text-align: center;
+  }
+
+  .fp-mortgage-loan-more-information-right
+    .fp-mortgage-loan-property-address-wrap
+    h4 {
+    font-size: 13px;
+  }
+
+  .fp-mortgage-loan-documents-uploads-actions
+    .fp-mortgage-loan-documents-uploads-actions-right {
+    flex-direction: column;
+  }
+  .fp-mortgage-loan-documents-uploads-actions-right
+    .fp-mortgage-loan-documents-uploads {
+    margin: 10px 0;
+  }
+  .fp-mortgage-loan-amount-repayment-interest-rate
+    .fp-mortgage-loan-amount-wrap
+    h2::before {
+    margin-right: 0;
+  }
+
+  /* document page */
+  .fp-upload-action {
+    width: 110px !important;
+  }
+
+  /* Contact Us Page */
+  #fp-mortgage-application-contact-us-top-info
+    .fp-mortgage-application-contact-us-top-info-pattern {
+    height: 190px;
+  }
+
+  .fp-mortgage-application-contact-us-features h2 {
+    margin-right: 0;
+    margin-top: 40px;
+    font-size: 25px;
+    line-height: 30px;
+  }
+
+  .fp-mortgage-application-contact-us-top-info-wrapper .fp-desktop-header {
+    display: none;
+  }
+
+  .fp-mortgage-application-contact-us-top-info-wrapper h2 {
+    font-size: 40px;
+    color: #fff;
+    line-height: 25px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  #fp-mortgage-application-contact-us-form-features .col-md-4 {
+    order: 2;
+  }
+
+  #fp-mortgage-application-contact-us-form-features .col-md-8 {
+    order: 1;
+  }
+
+  #fp-mortgage-application-contact-us-form-features
+    .fp-mortgage-application-contact-us-form {
+    margin-top: -40px;
+    padding: 20px 30px;
+  }
+
+  .fp-mortgage-application-contact-us-form-text p {
+    font-size: 20px;
+    line-height: 25px;
+  }
+
+  /*Eligibility */
+  .col-md-7.fp-eligibility-test-application-form {
+    order: 1;
+  }
+  .fp-eligibility-test-application-form-wrapper.landing {
+    margin-top: 70px;
+  }
+
+  .fp-eligibility-test-application-form-wrapper.other {
+    padding: 50px 0;
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  .fp-multi-step-form-wrapper {
+    padding: 90px 15px 10px;
+  }
+
+  .fp-multi-step-form-wrapper.half {
+    width: 100%;
+  }
+
+  .fp-multi-step-button-white {
+    width: fit-content;
+  }
+
+  .col-md-5.fp-eligibility-test-sidebar {
+    display: none;
+  }
+
+  .fp-eligibility-test-application-form-wrapper.result {
+    padding: 100px 0;
+  }
+
+  .fp-eligibility-test-application-form-wrapper
+    .fp-affordability-test-payment-summary {
+    padding: 15px;
+  }
+
+  .fp-affordability-test-payment-summary .fp-loan-limit::before {
+    top: 45%;
+    left: 44%;
+  }
+
+  @media only screen and (max-width: 375px) {
+    .fp-mortgage-application-content .fp-application-details {
+      width: 340px;
+      padding: 15px 15px;
+      margin: 0 40px 0 0;
+    }
+    /* Contact Us Page */
+
+    #fp-mortgage-application-contact-us-top-info
+      .fp-mortgage-application-contact-us-top-info-pattern {
+      height: 195px;
+    }
+
+    .fp-mortgage-application-contact-us-options {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .fp-mortgage-application-contact-us-header-text
+      .fp-mortgage-application-contact-us-info {
+      margin: 0 auto;
+    }
+
+    /* Nhf Affordability */
+
+    .fp-nh-affordability-regular-affordability-property-suggestion-list {
+      height: 320px;
+    }
+
+    .fp-property-suggestion-button {
+      margin-top: 0px;
+    }
+
+    .fp-nh-affordability-regular-affordability-property-suggestion-list
+      .fp-nh-affordability-regular-affordability-property-suggestion-img {
+      height: 60px;
+    }
+
+    .fp-nh-affordability-regular-affordability-property-suggestion-list {
+      height: 290px;
+    }
+    .fp-nh-affordability-regular-affordability-property-property-info
+      .fp-property-finance-options {
+      margin-top: 0;
+    }
+
+    /* Eligibility */
+    .fp-affordability-test-payment-summary .fp-loan-limit::before {
+      top: 45%;
+      left: 42%;
+    }
+
+    @media only screen and (max-device-height: 812px) {
+      /* .fp-nh-affordability-regular-affordability-property-suggestion-list {
+        height: 360px;
+      } */
+    }
+  }
+
+  @media only screen and (min-width: 414px) {
+    .fp-mortgage-application-content .fp-application-details {
+      width: 380px;
+      padding: 15px 15px;
+      margin: 0 40px 0 0;
+    }
+
+    /* Contact Us Page */
+    #fp-mortgage-application-contact-us-top-info
+      .fp-mortgage-application-contact-us-top-info-pattern {
+      height: 195px;
+    }
+    .fp-mortgage-application-contact-us-options {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .fp-mortgage-application-contact-us-header-text
+      .fp-mortgage-application-contact-us-info {
+      margin: 0 auto;
+    }
+  }
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width: 320px) {
+  #navbarText.navbar-collapse.collapse {
+    display: none !important;
+  }
+
+  .navbar-expand-md .navbar-toggler {
+    display: none;
+  }
+
+  .fp-mortgage-application-mobile-landscape-menu
+    .fp-mortgage-application-mobile-landscape-menu-wrapper {
+    height: 100vh;
+    z-index: 120;
+  }
+
+  /* Homepage */
+  #fp-hero-banner.fp-hero-banner {
+    padding: 0;
+  }
+
+  .fp-hero-banner-pattern {
+    opacity: 0.1;
+  }
+
+  .fp-hero-banner-text-content-buttons .fp-hero-banner-text-content {
+    padding: 0 10px;
+  }
+
+  #fp-hero-banner .fp-hero-banner-img {
+    display: none;
+  }
+
+  .fp-hero-banner-text-content h2 {
+    width: 100% !important;
+    font-size: 50px;
+    line-height: 55px;
+    margin-top: 80px;
+  }
+
+  .fp-hero-banner-text-content p {
+    width: 100% !important;
+    font-size: 16px;
+    color: #121212;
+    /* line-height: 1.5; */
+    margin: 30px 0;
+  }
+
+  #fp-partners.fp-partners {
+    padding: 10px 0px;
+  }
+
+  #fp-partners.fp-partners .col-md-3 {
+    width: 50%;
+  }
+
+  .fp-partners .fp-partners-icon-img.first-trust {
+    margin: 0;
+  }
+
+  .fp-partners .fp-partners-icon-img.stanbic-ibtc {
+    margin-top: -20px;
+    height: 170px;
+  }
+  .fp-partners .fp-partners-icon-img.standard-chartered {
+    margin-top: -40px;
+    height: 120px;
+  }
+  .fp-partners .fp-partners-icon-img.nmrc {
+    height: 110px;
+    margin-top: -30px;
+  }
+
+  #fp-simple-steps.fp-simple-steps {
+    padding: 30px 0;
+    background-position: 8%;
+    background-size: cover;
+  }
+
+  .fp-simple-steps-wrapper .fp-landing-simple-steps-circle-pattern {
+    width: 100px;
+    height: 100px;
+  }
+
+  .fp-simple-steps .fp-simple-steps-wrapper h2 {
+    font-size: 27px;
+    margin-bottom: 10px;
+  }
+
+  .fp-simple-steps-wrapper .fp-simple-steps-contents h4 {
+    font-size: 19px;
+    line-height: normal;
+  }
+
+  .fp-simple-steps-wrapper .fp-simple-steps-contents p {
+    margin: 10px 0;
+    font-size: 13px;
+  }
+
+  .fp-simple-steps-contents .fp-simple-steps-affordability-img,
+  .fp-simple-steps-contents .fp-simple-steps-eligibility-img,
+  .fp-simple-steps-contents .fp-simple-steps-apply-now-img {
+    height: 80px;
+    width: 80px;
+    margin-top: 20px;
+  }
+
+  .fp-simple-steps-wrapper
+    .fp-simple-steps-contents
+    a.fp-simple-steps-get-started-btn {
+    margin-top: 40px;
+  }
+
+  .fp-landing-mortgage-rates-line-pattern,
+  .fp-landing-why-choose-us .fp-landing-why-choose-us-dotted-pattern {
+    display: none;
+  }
+
+  .text-center.d-none-top {
+    margin-top: 70px;
+  }
+
+  .fp-landing-mortgage-nhf-rates .fp-landing-mortgage-nhf-rates-wrapper {
+    margin-top: -103px;
+  }
+
+  .fp-landing-mortgage-nhf-rates .fp-landing-mortgage-rates-content::before {
+    width: 200px;
+    height: 1px;
+    top: 103.5%;
+    left: 0;
+  }
+
+  .fp-landing-mortgage-nhf-rates .fp-landing-mortgage-nhf-rates-wrapper h2 {
+    line-height: 42px;
+  }
+  .fp-landing-mortgage-nhf-rates
+    .fp-landing-mortgage-rates-content
+    span.ordinary {
+    margin: 0 35px;
+  }
+
+  .fp-landing-mortgage-nhf-rates .fp-landing-nhf-rates-content span.nhf {
+    margin: 0 70px;
+  }
+
+  .fp-landing-why-choose-us .fp-landing-why-choose-us-wrapper {
+    margin-top: 0px;
+    padding: 20px 0;
+  }
+
+  .fp-landing-why-choose-us-wrapper .fp-landing-why-choose-us-text {
+    margin-top: 0;
+  }
+
+  .fp-landing-why-choose-us-wrapper .fp-landing-why-choose-us-text::before,
+  .fp-landing-why-choose-us-text .fp-landing-why-choose-use-finance-logo {
+    display: none;
+  }
+
+  .fp-landing-why-choose-us-wrapper .fp-landing-why-choose-us-text h4 {
+    /* width: 100%;
+    text-align: center; */
+    display: none;
+  }
+
+  .fp-landing-why-choose-us-text-features-wrapper {
+    margin-bottom: 20px;
+  }
+
+  .fp-landing-why-choose-us-text-features-wrapper h4 {
+    font-size: 26px;
+  }
+
+  .fp-landing-why-choose-us-text-features-wrapper
+    .fp-landing-why-choose-us-text-features {
+    padding: 10px 20px;
+    text-align: center;
+  }
+  #fp-landing-testimonials.fp-landing-testimonials {
+    padding: 40px 0;
+  }
+
+  .fp-landing-testimonials-content-wrapper .fp-landing-testimonials-content {
+    margin-bottom: 20px;
+  }
+
+  .fp-landing-faqs .fp-landing-faqs-contents-wrapper {
+    padding: 50px 0;
+  }
+
+  .fp-landing-faqs-contents-wrapper .fp-landing-faqs-contents {
+    padding: 10px;
+  }
+
+  .fp-landing-faqs-contents-wrapper h2 {
+    font-size: 25px;
+  }
+
+  .fp-landing-faqs-contents-wrapper .fp-landing-faqs-contents h4 {
+    font-size: 22px;
+    line-height: 28px;
+    margin-top: 20px;
+  }
+
+  .fp-landing-faqs-contents-wrapper .fp-landing-faqs-contents p {
+    font-size: 15px;
+    line-height: 27px;
+  }
+
+  .fp-landing-faqs-contents-wrapper .fp-faqs-more {
+    /* font-weight: 800;
+    font-size: 22px;
+    line-height: 36px;
+    color: #00b1ab; */
+    margin-left: 10px;
+  }
+
+  #fp-call-action.fp-call-action {
+    padding: 0;
+  }
+
+  .fp-call-action .fp-call-action-wrapper {
+    padding: 20px 0;
+  }
+
+  .fp-call-action-wrapper h2 {
+    font-size: 26px;
+  }
+
+  .fp-call-action-wrapper .fp-call-action-buttons {
+    padding: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fp-call-action .fp-call-action-button-theme {
+    margin-right: 0px;
+  }
+
+  .fp-call-action .fp-call-action-button-outline {
+    margin: 20px 0;
+  }
+
+  .fp-landing-footer .fp-landing-footer-top {
+    padding: 20px;
+  }
+
+  .fp-landing-footer-company-info .fp-landing-footer-finance-logo {
+    height: 30px;
+    background-size: cover;
+  }
+
+  .fp-landing-footer-nda-info p {
+    line-height: 20px;
+  }
+
+  .fp-landing-footer-site-links h4 {
+    font-size: 19px;
+    margin: 10px 0;
+  }
+
+  .fp-landing-footer .fp-landing-footer-bottom {
+    padding: 15px;
+  }
+
+  .fp-landing-footer .fp-landing-footer-bottom p {
+    padding: 0;
+  }
+
+  .fp-lender-rates-wrapper {
+    padding: 10px 0;
+  }
+
+  .col-2.text-center.fp-lenders-rates-text {
+    max-width: 40% !important;
+    flex: 40% !important;
+    font-size: 10px;
+  }
+  .col-2.text-center.fp-lenders-rates-text strong {
+    text-align: left;
+  }
+  .col-10.d-none-mx-width {
+    max-width: 50% !important;
+    flex: 50% !important;
+  }
+
+  /* Affordability Test */
+  .col-md-5.fp-affordability-test-application-form.push {
+    flex: 0 0 1000%;
+    max-width: 100%;
+  }
+
+  .col-md-7.fp-nhf-affordability-eligibility-application-sidebar {
+    display: none;
+  }
+
+  .fp-affordability-test-application-form-wrapper {
+    margin-top: 70px;
+    padding: 10px;
+  }
+
+  .fp-affordability-test-application-form-wrapper
+    .fp-affordability-test-application-form-buttons {
+    padding-bottom: 0px;
+  }
+
+  .fp-check-loan-availability {
+    font-size: 12px !important;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper {
+    margin-top: 80px;
+    padding: 20px;
+  }
+  .navbar-item.fp-mortgage-search-form {
+    display: none;
+  }
+
+  .fp-mortgage-content-wrapper {
+    padding-top: 40px;
+    width: 100%;
+  }
+
+  .fp-welcome-box {
+    flex-direction: column;
+    padding: 20px 0;
+  }
+  .fp-mortgage-date-caption-apply-for-mortgage-wrapper {
+    padding: 0 20px;
+  }
+  .fp-mortgage-approval-status {
+    max-width: 400px;
+    padding: 20px;
+  }
+  .fp-dashboard-mortgage-loan-requirement-status-wrap {
+    justify-content: flex-start;
+  }
+  .fp-dashboard-mortgage-loan-requirement-status svg {
+    width: 25px !important;
+  }
+
+  .fp-dashboard-mortgage-loan-requirement-status-wrap {
+    margin-bottom: -10px;
+  }
+
+  .fp-dashboard-mortgage-loan-requirement-status-wrap h4 {
+    font-size: 14px;
+    margin: auto 6px;
+  }
+  .fp-mortgage-application-menu-tabs span {
+    font-size: 12px;
+  }
+  .fp-mortgage-application-menu-tabs span {
+    margin: 0px 6px;
+  }
+  .fp-mortgage-credit-score-content .fp-mortgage-bottom-pattern {
+    left: 52%;
+    top: 37%;
+  }
+
+  .col-md-6.fp-regular-mortgage-application,
+  .col-md-6.fp-nhf-mortgage-application {
+    padding: 0;
+  }
+
+  .fp-regular-mortgage-application .fp-mortgage-application-list {
+    padding: 0 0 30px;
+  }
+
+  .fp-mortgage-application-content .fp-application-details {
+    width: 290px;
+    padding: 15px 15px;
+    margin: 0 40px 0 0;
+  }
+
+  /* mortgage Application */
+
+  .fp-mortgage-applications-multi-tab-actions-buttons {
+    padding: 20px 15px 30px !important;
+    flex-direction: column;
+  }
+  .fp-mortgage-applications-multi-tab-actions-buttons
+    .fp-mortgage-applications-multi-tab {
+    margin: 25px 0;
+  }
+
+  .fp-mortgage-applications-multi-tab-actions-buttons
+    .fp-mortgage-applications-multi-tab
+    span.fp-active-menu-tab {
+    padding: 10px 15px;
+  }
+
+  .fp-mortgage-applications-multi-tab-actions-buttons
+    .fp-mortgage-applications-multi-tab
+    span {
+    font-size: 12px;
+  }
+
+  .fp-dashboard-chat-message-actions {
+    padding: 10px 15px !important;
+  }
+
+  .fp-dashboard-more-actions {
+    padding: 10px 13px !important;
+  }
+
+  .responsive-table .col::before {
+    text-align: left;
+  }
+
+  .col.col-2,
+  .col.col-3 {
+    max-width: 100%;
+  }
+
+  /* Application details */
+
+  .fp-mortgage-blank-lender-wrapper {
+    margin: 20px 23px;
+  }
+
+  .fp-mortgage-blank-lender-wrapper svg {
+    width: 200px;
+  }
+
+  .fp-mortgage-application-loan-info-display {
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  .fp-mortgage-application-loan-info-display
+    .fp-mortgage-application-reference-no-loan-status {
+    flex-direction: column;
+  }
+  .fp-mortgage-application-reference-no-loan-status
+    .fp-mortgage-application-reference-no
+    span,
+  .fp-mortgage-application-reference-no-loan-status
+    .fp-mortgage-application-date
+    span,
+  .fp-mortgage-application-reference-no-loan-status
+    .fp-mortgage-application-status
+    span {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .fp-mortgage-application-reference-no-loan-status
+    .fp-mortgage-application-reference-no
+    h4,
+  .fp-mortgage-application-reference-no-loan-status
+    .fp-mortgage-application-date
+    h4 {
+    font-size: 14px;
+    color: #555555;
+    font-weight: 700;
+    margin-top: 5px;
+  }
+  .fp-mortgage-loan-amount-repayment-interest-rate {
+    flex-direction: column;
+  }
+  .fp-mortgage-loan-amount-wrap,
+  .fp-mortgage-repayment,
+  .fp-mortgage-loan-interest-rate {
+    margin-bottom: 10px;
+  }
+  .fp-mortgage-loan-more-information {
+    flex-direction: column;
+  }
+
+  .fp-mortgage-loan-more-information-left {
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 30px;
+    margin-top: -20px;
+  }
+
+  .fp-mortgage-loan-more-information-left .fp-mortgage-loan-requirement-status {
+    flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+  .fp-mortgage-loan-more-information-left
+    .fp-mortgage-loan-requirement-status
+    svg {
+    width: 40px;
+    margin-bottom: 20px;
+  }
+  .fp-mortgage-loan-more-information-left
+    .fp-mortgage-loan-requirement-status
+    h4 {
+    /* width: 100%; */
+    font-size: 15px;
+    padding: 0 11px;
+    margin: 0 -10px;
+    /* text-align: center; */
+  }
+
+  .fp-mortgage-loan-more-information-right
+    .fp-mortgage-loan-property-address-wrap
+    h4 {
+    font-size: 13px;
+  }
+
+  .fp-mortgage-loan-documents-uploads-actions
+    .fp-mortgage-loan-documents-uploads-actions-right {
+    flex-direction: column;
+  }
+  .fp-mortgage-loan-documents-uploads-actions-right
+    .fp-mortgage-loan-documents-uploads {
+    margin: 10px 0;
+  }
+  .fp-mortgage-loan-amount-repayment-interest-rate
+    .fp-mortgage-loan-amount-wrap
+    h2::before {
+    margin-right: 0;
+  }
+  /* document page */
+  .fp-upload-action {
+    width: 110px !important;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+  /* Contact Us */
+  #fp-mortgage-application-contact-us-top-info
+    .fp-mortgage-application-contact-us-top-info-pattern {
+    height: 190px;
+  }
+
+  .fp-mortgage-application-contact-us-top-info-wrapper .fp-desktop-header {
+    display: none;
+  }
+
+  .fp-mortgage-application-contact-us-top-info-wrapper h2 {
+    font-size: 40px;
+    color: #fff;
+    line-height: 25px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  #fp-mortgage-application-contact-us-form-features .col-md-4 {
+    order: 2;
+  }
+
+  #fp-mortgage-application-contact-us-form-features .col-md-8 {
+    order: 1;
+  }
+
+  #fp-mortgage-application-contact-us-form-features
+    .fp-mortgage-application-contact-us-form {
+    margin-top: -50px;
+    padding: 20px 30px;
+  }
+
+  .fp-mortgage-application-contact-us-form-text p {
+    font-size: 20px;
+    line-height: 25px;
+  }
+<<<<<<< HEAD
+
+  .fp-mortgage-application-contact-us-features h2 {
+    margin-right: 0;
+    margin-top: 40px;
+    font-size: 25px;
+    line-height: 30px;
+  }
+
+  /* NHF Affordability */
+  .col-md-5.fp-nhf-affordability-eligibility-application-form.overlay {
+    display: none;
+  }
+
+  .col-md-7.fp-nhf-affordability-eligibility-application-sidebar {
+    display: block;
+    height: 100vh;
+  }
+
+  .col-md-7.fp-nhf-affordability-eligibility-application-sidebar {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar {
+    left: 0%;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper {
+    padding: 0px 20px;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-loanable-amount
+    span,
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-monthly-repayment
+    span {
+    font-size: 15px;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-loanable-amount
+    h2,
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-monthly-repayment
+    h2 {
+    font-size: 24px;
+    margin-top: 0px;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper hr {
+    margin: 10px;
+  }
+
+  .fp-affordability-test-result-summary
+    .fp-affordability-test-result-summary-text {
+    display: none;
+  }
+
+  .fp-nh-affordability-regular-affordability-property-suggestion-list {
+    width: 190px;
+    height: 221px;
+  }
+
+=======
+
+  .fp-mortgage-application-contact-us-features h2 {
+    margin-right: 0;
+    margin-top: 40px;
+    font-size: 25px;
+    line-height: 30px;
+  }
+
+  /* NHF Affordability */
+  .col-md-5.fp-nhf-affordability-eligibility-application-form.overlay {
+    display: none;
+  }
+
+  .col-md-7.fp-nhf-affordability-eligibility-application-sidebar {
+    display: block;
+    height: 100vh;
+  }
+
+  .col-md-7.fp-nhf-affordability-eligibility-application-sidebar {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar {
+    left: 0%;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper {
+    padding: 0px 20px;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-loanable-amount
+    span,
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-monthly-repayment
+    span {
+    font-size: 15px;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-loanable-amount
+    h2,
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper
+    .fp-affordability-test-monthly-repayment
+    h2 {
+    font-size: 24px;
+    margin-top: 0px;
+  }
+
+  .fp-nhf-affordability-eligibility-application-sidebar-wrapper hr {
+    margin: 10px;
+  }
+
+  .fp-affordability-test-result-summary
+    .fp-affordability-test-result-summary-text {
+    display: none;
+  }
+
+  .fp-nh-affordability-regular-affordability-property-suggestion-list {
+    width: 190px;
+    height: 221px;
+  }
+
+>>>>>>> b9f31f722656112bc73eb95cb1a569bc7339edc3
+  .fp-nh-affordability-regular-affordability-property-suggestion-list
+    .fp-nh-affordability-regular-affordability-property-suggestion-img {
+    height: 40px;
+  }
+
+  .fp-nh-affordability-regular-affordability-property-property-info
+    .fp-property-finance-options {
+    display: none;
+  }
+  .fp-nh-affordability-regular-affordability-property-property-info
+    .fp-property-property-verification {
+    display: none;
+  }
+
+  .fp-property-suggestion-button {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .fp-property-suggestion-button .fp-property-suggestion-button-view-more {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  /* Eligibility */
+  .col-md-5.fp-eligibility-test-sidebar {
+    display: none;
+  }
+
+  .fp-eligibility-test-application-form-wrapper.landing {
+    margin-top: 60px;
+  }
+
+  .fp-eligibility-test-application-form-wrapper
+    .fp-eligibility-test-application-form-title {
+    font-size: 25px;
+  }
+
+  .fp-eligibility-test-application-form-wrapper
+    .fp-eligibility-test-application-form-subtitle {
+    font-size: 16px;
+  }
+
+  .fp-eligibility-test-application-form-wrapper.other {
+    padding: 50px 0;
+    height: 720px;
+    overflow-x: hidden;
+  }
+
+  .fp-multi-step-form-wrapper.half {
+    width: 100%;
+  }
+  .fp-multi-step-form-wrapper {
+    padding: 70px 15px 10px;
+  }
+
+  .fp-multi-step-button-white {
+    width: fit-content;
+  }
+
+  .fp-eligibility-test-application-form-wrapper.result {
+    padding: 100px 0;
+  }
+  .fp-eligibility-test-application-form-wrapper
+    .fp-affordability-test-payment-summary {
+    flex-direction: column;
+    text-align: center;
+  }
+  .fp-affordability-test-payment-summary .fp-loan-limit::before {
+    width: 200px;
+    height: 1px;
+    top: 47.5%;
+    left: 20%;
+  }
+
+  .fp-affordability-test-payment-summary .fp-loan-limit {
+    margin-bottom: 10px;
+  }
+  .fp-affordability-test-payment-summary .fp-monthly-repayment {
+    margin-top: 10px;
+  }
+}
+
+.round.bottom.round #tawkchat-minified-box {
+  display: none;
+}
