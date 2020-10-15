@@ -98,7 +98,10 @@ const NewAffordabilityForm = ({ isNhf, setActiveTab, setFoundProperty, maxTenure
     valuesCloned.down_payment = valuesCloned.equity_contribution;
     delete valuesCloned.equity_contribution;
     try {
-      const { data: { data: { token } }} = await http.post('/police/profile', {...currentUser, ...valuesCloned});
+      const { data: { data: { token } }} = await http.post(
+        '/police/profile',
+        {...currentUser, ...valuesCloned, loanable_amount: rest.max_loanable_amount}
+      );
       if (token) {
         cookies.set('token', token);
         http.defaults.headers.Authorization = `Bearer ${token}`;
