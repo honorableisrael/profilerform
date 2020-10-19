@@ -24,7 +24,7 @@ const minOneError = 'Minimum of a year'
 const validationSchema = Yup.object().shape({
   employment_id: validations.requiredString,
   employment_present_position: validations.requiredString,
-  command: validations.requiredString,
+  // command: validations.requiredString,
   employment_state: validations.requiredString,
   employer_address: validations.requiredString,
   work_experience: validations.requiredInteger.min(1, minOneError),
@@ -46,7 +46,7 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
         initialValues={{
           employment_id: currentUser.employment_id,
           employment_present_position: currentUser.employment_present_position,
-          command: currentUser.command,
+          //command: currentUser.command,
           work_experience: currentUser.work_experience,
           employment_state: currentUser.employment_state,
           employer_address: currentUser.employer_address,
@@ -62,9 +62,9 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                 <div className="fp-personal-info-form">
                   <div>
                     <div>
-                      <h2 className="mt-3">
+                      {/* <h2 className="mt-3">
                         Please tell us about your employment
-                      </h2>
+                      </h2> */}
                       <div className="form-group row">
                         <div className="col-md-6 col-sm-12">
                           <label>
@@ -88,9 +88,9 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                           </label>
                           <WrappedInputWithError
                             type="text"
-                            name='command'
+                            name='employer_address'
                             placeholder="Command"
-                            value={values.command}
+                            value={values.employer_address}
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
@@ -112,7 +112,7 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                         </div>
                       </div>
                       <div className='row'>                      
-                        <div className='col-12'>
+                        {/* <div className='col-12'>
                           <label>
                             Employment Address
                             <sup>*</sup>
@@ -126,8 +126,8 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                             onChange={handleChange}
                             {...{ errors, touched }}
                           />
-                        </div>
-                        <div className='col-md-4 col-sm-12'>
+                        </div> */}
+                        <div className='col-md-6 col-sm-12'>
                           <label>
                             State of Deployment
                             <sup>*</sup>
@@ -144,7 +144,7 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                             {...{ errors, touched }}
                           />
                         </div>
-                        <div className='col-md-4 col-sm-12'>
+                        <div className='col-md-6 col-sm-12'>
                           <label>
                             Length of Service
                             <sup>*</sup>
@@ -160,7 +160,7 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                             {...{ errors, touched }}
                           />
                         </div>
-                        <div className='col-md-4 col-sm-12'>
+                        <div className='col-md-6 col-sm-12'>
                           <label>
                             Years to Retirement
                             <sup>*</sup>

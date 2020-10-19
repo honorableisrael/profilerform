@@ -9,7 +9,7 @@ const HeroSection = () => {
     <section className="hero-section">
       <article className="hero-headline-wrapper">
         <h1 className="hero-headline">
-          Home ownership begins with<br />us.<span
+          NPFPDCC Profiling and Home Ownership Platform<br />us.<span
             >Discover great mortgage deals from trusted lenders across the
             country, and get expert advice on the right option for you. Best of
             all, we are absolutely free!</span

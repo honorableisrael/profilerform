@@ -15,6 +15,10 @@ const Wrapper = styled.div`
     margin-right: 0px !important;
   }
 
+  /* & {
+    max-width: 320px;
+  } */
+
   .fp-property-suggestion-button-view-more {
     display: flex;
     align-items: center;
@@ -153,50 +157,69 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     & {
-        top: -60px;
-        z-index: 3;
-        position: fixed;
-        background: #ffffff;
-        width: 100vw !important;
-        height: 100vh !important;
-      }
+      top: -60px;
+      z-index: 3;
+      position: fixed;
+      background: #ffffff;
+      width: 100vw !important;
+      height: 100vh !important;
+    }
 
-      &,
-      & > * {
-        transition-delay: .2s !important;
-      }
+    &,
+    & > * {
+      transition-delay: .2s !important;
+    }
 
-      &.closed {
-        display: none;
-        transform: translateY(100vh) !important;
-      }
+    &.closed {
+      display: none;
+      transform: translateY(100vh) !important;
+    }
+
+    &:not(.closed) {
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      margin-top: 60px;
+      padding-top: 80px;
+    }
+
+    &:not(.closed) h3 {
+      top: 16px;
+      position: absolute;
+      text-align: center;
+    }
   }
 `;
 
-const PropertySuggestionSection = ({ closed, properties, goToEligibility, found, setPropertyStoreData }) => {
+const PropertySuggestionSection = ({
+  closed, properties, goToEligibility, found, setPropertyStoreData, submittedAffordability, activeTab
+}) => {
   return properties && properties.length ? (
     <Wrapper className={`property-suggestions-section ${ closed ? 'closed' : ''}`}>
       <h3>
         Property suggestions.
-        <span>
+        {/* <span>
           Based on your input, we found you the properties below on, and I think you’d absolutely love them!
           Select one of them if it meets your expectation, otherwise click "PROCEED TO REQUEST PROPERTY"
+        </span> */}
+        <span>
+          You may choose from our list of projects
         </span>
       </h3>
       {
         properties.map((property) => (
           <PropertyAdItem
             key={property.id}
-            {...{ property, goToEligibility, setPropertyStoreData }}
+            {...{ property, activeTab, submittedAffordability, goToEligibility, setPropertyStoreData }}
           />
         ))
       }
     </Wrapper>
-  ) : ''
+  ) : '';
 }
 
 const mapStateToProps = ({ properties }, ownProps) => {
-  return { ...properties.data, ...ownProps };
+  return { properties: properties.data, ...ownProps };
 };
  
 export default connect(mapStateToProps)(PropertySuggestionSection);

@@ -7,7 +7,6 @@ import { faAngleDown, faAngleUp, faExclamationTriangle, faExpand } from '@fortaw
 
 import NewHeader from '../NewHeader';
 import SummarySection from './SummarySection';
-import NewMortgageForm from '../NewMortgageForm';
 import withNewStyles from '../../hocs/withNewStyles';
 import NewEligibilityForm from '../NewEligibilityForm';
 import NewAffordabilityForm from '../NewAffordabilityForm';
@@ -19,6 +18,9 @@ import http from '../../config/axios.config';
 import { batchDispatcher } from '../../utils/applicationBatchDispatchHelper';
 import propertyActions from '../../store/actions/propertyActions';
 import requestActions from '../../store/actions/requestActions';
+import ProfileFormWrapper from '../ProfileForm';
+import fetchProperties from '../../utils/fetchProperties';
+import { clearCommas } from '../../utils/currencyUtils';
 
 
 const Wrapper = styled.div`
@@ -319,8 +321,20 @@ const Wrapper = styled.div`
     }
   }
 
+  /* @media screen and (min-width: 768px) { */
+    [class*='form-section'] {
+      flex-grow: 2;
+    }
+  /* } */
+
   .mortgage-flow-nav {
-    width: 50vw;
+    /* width: 50vw; */
+  }
+
+  input.expand-suggestions:checked ~ .property-suggestions-section {
+    width: 100vw;
+    position: absolute;
+    background: white;
   }
 `;
 
@@ -385,15 +399,19 @@ const Wrapper = styled.div`
 //   )
 // });
 
-const NewApplicationPage = ({ properties, dispatch }) => {
+const NewApplicationPage = ({ properties, budget, dispatch }) => {
   const [activeTab, setActiveTab] = useState(0);
+  const [success, setSuccess] = useState(false);
   const [foundProperty, setFoundProperty] = useState(false);
   const [summaryStickerOpen, setSummaryStickerOpen] = useState(false);
   const [suggestionsStickerOpen, setSuggestionsStickerOpen] = useState(false);
   const thereAreProperties = properties && properties.length;
+  const [submitted, setSubmitted] = useState(false);
+  const [submittedAffordability, setSubmittedAffordability] = useState(false);
   const [formDataJSON, setFormDataJSON] = useState(
     JSON.stringify({ states: [], propertyTypes: [] })
   );
+
 
   const { states, propertyTypes } = JSON.parse(formDataJSON);
   const statesMapped = {};
@@ -403,7 +421,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
 
   const setPropertyStoreData = async ({
     id, property_city, property_bedrooms,
-    property_price_raw, property_type, property_state
+    property_price, property_type, property_state
   }) => {
     const fctVariants = ['abuja', 'fct'];
     const cityName = property_city?.toLowerCase();
@@ -418,13 +436,25 @@ const NewApplicationPage = ({ properties, dispatch }) => {
       const { data: { data: cities } } = await http.get(`/general/all-cities/${propertyStateId}`);
       const city = (cities || []).find(({ name }) => name.toLowerCase() === cityName);
       const cityId = city?.id;
-      batchDispatcher({
+      const values = {
         property_id: id, state_id: propertyStateId,
-        property_value: property_price_raw, city_id: cityId,
+        property_value: +clearCommas(property_price), city_id: cityId,
         property_bedroom: property_bedrooms, property_type_id: propertyTypeId
-      },
-      requestActions, dispatch);
+      };
+      batchDispatcher(values, requestActions, dispatch);
+      await http.post(
+        '/police/property-request',
+        {
+          budget,
+          ...values,
+          request_type: 'home',
+          directed_to: 'police Deve',
+          payment_option: 'mortgage',
+          found_property: foundProperty
+        }
+      );
       setFoundProperty(true);
+      setSuccess(true);
       setTimeout(goToEligibility, 200);
     } catch (error) {
       alert('An error occured. Please try again');
@@ -440,6 +470,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
         ]);
 
         setFormDataJSON(JSON.stringify({ states, propertyTypes }));
+        fetchProperties(dispatch);
       } catch (error) { console.log(error.message); }
     })();
   }, []);
@@ -449,7 +480,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
   // if (!userEmail) return <NoEmailAlert />;
   
   const goToEligibility = () => {
-    if (activeTab !== 1) setActiveTab(1);
+    if (activeTab !== 2) setActiveTab(2);
   }
   const handleTabChange = ({ target: { value } }) => setActiveTab(+value);
 
@@ -501,21 +532,21 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                 sectionHeading="Affordability test"
               />
 
-              <div className="affordability-form-section">
+              <div className="profile-form-section">
                 <div className="form-content-wrapper">
-                  <h2 className="section-heading">How much can I afford to borrow?</h2>
-                  <NewAffordabilityForm
+                  <h2 className="section-heading">Tell us about yourself</h2>
+                  <ProfileFormWrapper
                     {...{ setActiveTab, setFoundProperty }}
                   />
                 </div>
               </div>
               <PropertySuggestionSection
                 closed={!suggestionsStickerOpen}
-                {...{goToEligibility, setPropertyStoreData}}
+                {...{goToEligibility, setPropertyStoreData, submittedAffordability, activeTab}}
               />
             </div>
           </div>
-          <label className="mortgage-flow-nav" htmlFor="affordabilty-test">Affordability Test</label>
+          <label className="mortgage-flow-nav" htmlFor="affordabilty-test">Profile</label>
           {/* <!--Eligibity Tab--> */}
           <input
             name="mortgage-flow-nav"
@@ -529,30 +560,48 @@ const NewApplicationPage = ({ properties, dispatch }) => {
           />
           <div className="mortgage-flow-page">
             <div className="eligibility-page-content">
+              {
+                thereAreProperties ? (
+                  <>
+                    <label className="property-suggestion-toggle" htmlFor="expand-suggestions2">
+                      <FontAwesomeIcon className='fas' icon={faExpand} /> Expand
+                    </label>
+                    <input
+                      type="checkbox"
+                      name="expand-suggestions"
+                      id="expand-suggestions2"
+                      className="expand-suggestions"
+                    />
+                  </>
+                ) : ''
+              }
               <SummarySection
                 closed={!summaryStickerOpen}
-                sectionHeading="Eligibility test"
+                sectionHeading="Affordability test"
               />
-              <div className="eligibility-form-section">
-                <h2 className="section-heading">Request a property</h2>
-                {
-                  activeTab === 1 ? (
-                    <NewEligibilityForm
-                      {...{ setActiveTab, states, propertyTypes, foundProperty }}
-                    />
-                  ) : ''
-                }
+
+              <div className="affordability-form-section">
+                <div className="form-content-wrapper">
+                  <h2 className="section-heading">How much can I afford to borrow?</h2>
+                  {
+                    activeTab === 1 ? (
+                      <NewAffordabilityForm
+                        {...{ setActiveTab, setFoundProperty, setSubmittedAffordability }}
+                      />
+                    ) : ''
+                  }
+                </div>
               </div>
               {/* <!-- <div className="application-highlight-section"></div> --> */}
-              {/* <PropertySuggestionSection
+              <PropertySuggestionSection
                 closed={!suggestionsStickerOpen}
-                {...{goToEligibility}}
-              /> */}
+                {...{goToEligibility, setPropertyStoreData, submittedAffordability, activeTab}}
+              />
             </div>
           </div>
-          <label className="mortgage-flow-nav" htmlFor="eligibility-test">Property Request</label>
+          <label className="mortgage-flow-nav" htmlFor="eligibility-test">Affordability Test</label>
           {/* <!--Application Tab--> */}
-          {/* <input
+          <input
             name="mortgage-flow-nav"
             type="radio"
             value="2"
@@ -564,26 +613,44 @@ const NewApplicationPage = ({ properties, dispatch }) => {
           />
           <div className="mortgage-flow-page">
             <div className="mortgage-page-content">
+              {
+                thereAreProperties ? (
+                  <>
+                    <label className="property-suggestion-toggle" htmlFor="expand-suggestions3">
+                      <FontAwesomeIcon className='fas' icon={faExpand} /> Expand
+                    </label>
+                    <input
+                      type="checkbox"
+                      name="expand-suggestions"
+                      id="expand-suggestions3"
+                      className="expand-suggestions"
+                    />
+                  </>
+                ) : ''
+              }
               <SummarySection
                 closed={!summaryStickerOpen}
-                sectionHeading="Mortgage application"
+                sectionHeading="Eligibility test"
               />
-              <div className="application-form-section">
-                <h2 className="section-heading">Mortgage Application</h2>
+              <div className="eligibility-form-section">
+                <h2 className="section-heading">Request a property</h2>
                 {
                   activeTab === 2 ? (
-                    <NewMortgageForm
-                      {...{ setActiveTab }}
+                    <NewEligibilityForm
+                      {...{
+                        setActiveTab, propertyTypes, foundProperty,
+                        setSubmitted, success, setSuccess, states
+                      }}
                     />
                   ) : ''
                 }
               </div>
-              {/* <!-- <div className="application-highlight-section"></div> --> /}
+              {/* <!-- <div className="application-highlight-section"></div> --> */}
             </div>
           </div>
-          <label className="mortgage-flow-nav" htmlFor="mortgage-application">Mortgage Application</label> */}
+          <label className="mortgage-flow-nav" htmlFor="mortgage-application">Property Request</label>
           {
-            thereAreProperties && activeTab === 0 ? (
+            thereAreProperties ? (
               <div
                 className="suggestions-sticker d-flex"
                 onClick={() => setSuggestionsStickerOpen(!suggestionsStickerOpen)}
@@ -608,6 +675,8 @@ const NewApplicationPage = ({ properties, dispatch }) => {
   );
 };
  
-const mapStateToProps = ({ properties, currentUser: { email } }, ownProps) => ({ ...properties.data, email, ...ownProps });
+const mapStateToProps = ({ properties, affordability: { max_loanable_amount }, currentUser: { email } }, ownProps) => ({
+  properties: properties.data, budget: max_loanable_amount, email, ...ownProps
+});
 
 export default withNewStyles(connect(mapStateToProps)(NewApplicationPage));

@@ -53,15 +53,15 @@ class Routes extends Component {
 
             <Route
               exact
-              path='/application/request'
+              path='/application'
               component={NewApplicationPage}
             />            
-            
+{/*             
             <Route
               exact
               path='/application/profile'
               component={ProfilePage}
-            />            
+            />             */}
             <Route component={Error404Page} />
           </Switch>
         </div>

@@ -44,11 +44,13 @@ const Wrapper = styled.div`
 `;
 // const CircularLoader = styled(CircularLoader)
 
-const NewEligibilityForm = ({ setActiveTab, states, propertyTypes, foundProperty, affordability, request }) => {
-  const dispatch = useDispatch();
+const NewEligibilityForm = ({
+  setActiveTab, states, propertyTypes, success, setSuccess, foundProperty, affordability, request, setSubmitted
+}) => {
+  // const dispatch = useDispatch();
   const { max_loanable_amount } = affordability;
   const [stateId, setStateId] = useState('');
-  const [success, setSuccess] = useState(false);
+  // const [success, setSuccess] = useState(false);
   const [citiesJSON, setCitiesJSON] = useState('[]');
   const [loadingCities, setLoadingCities] = useState(false);
   // const getHandleChange = handleChangeRetriever(dispatch);
@@ -82,6 +84,7 @@ const NewEligibilityForm = ({ setActiveTab, states, propertyTypes, foundProperty
           found_property: foundProperty
         }
       );
+      setSubmitted(true);
       setSuccess(true);
     } catch (error) {
       console.log(error.message);
@@ -250,7 +253,7 @@ const NewEligibilityForm = ({ setActiveTab, states, propertyTypes, foundProperty
                           {
                             isSubmitting ? (
                               <ButtonSpinner />
-                            ) : 'submit'
+                            ) : 'continue'
                           }
                         </button>
                       </div>

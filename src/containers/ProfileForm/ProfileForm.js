@@ -57,7 +57,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
     }
   };
   const userClone = {...currentUser};
-  delete userClone.employment_id; delete userClone.employment_present_position; delete userClone.command;
+  delete userClone.employment_id; delete userClone.employment_present_position;
   delete userClone.state; delete userClone.work_experience; delete userClone.year_to_retirement;
   delete userClone.work_experience; delete userClone.profession; delete userClone.employer_address;
   delete userClone.employment_state;
@@ -80,9 +80,9 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                 <div className="fp-personal-info-form">
                   <div>
                     <div>
-                      <h2 className="mt-3">
+                      {/* <h2 className="mt-3">
                         Please tell us about yourself
-                      </h2>
+                      </h2> */}
                       <div className="form-group row">
                         <div className="col-md-6 col-sm-12">
                           <label>
@@ -148,7 +148,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                       </div>
 
                       <div className='row'>
-                        <div className='col-md-4 col-sm-12'>
+                        <div className='col-md-6 col-sm-12'>
                           <label>
                             Email
                             <sup>*</sup>
@@ -164,7 +164,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                           />
                         </div>
 
-                        <div className='col-md-4 col-sm-12'>
+                        <div className='col-md-6 col-sm-12'>
                           <label>
                             Phone
                             <sup>*</sup>
@@ -180,7 +180,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                           />
                         </div>
 
-                        <div className='col-md-4 col-sm-12'>
+                        <div className='col-md-6 col-sm-12'>
                         <label>
                             Date of birth
                             <sup>*</sup>
@@ -198,7 +198,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                       </div>
 
                       <div className='row'>                      
-                        <div className='col-md-4 col-sm-12'>
+                        <div className='col-md-6 col-sm-12'>
                           <label>
                             Sex
                             <sup>*</sup>
@@ -213,7 +213,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                             {...{ errors, touched }}
                           />
                         </div>
-                        <div className='col-md-4 col-sm-12'>
+                        <div className='col-md-6 col-sm-12'>
                           <label>
                             State of Origin
                             <sup>*</sup>
@@ -230,7 +230,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                             {...{ errors, touched }}
                           />
                         </div>
-                        <div className='col-md-4 col-sm-12'>
+                        <div className='col-md-6 col-sm-12'>
                           <label>
                             Whatsapp Number
                             <sup>*</sup>
@@ -307,7 +307,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                       <div className='row'>
                         {
                           !isNotOtherHometype ? (
-                            <div className='col-md-5 col-sm-12'>
+                            <div className='col-md-6 col-sm-12'>
                               <label>If others, please specify</label>
                               <WrappedInputWithError
                                 type="text"
@@ -323,7 +323,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                         }
                       </div>
                       <div className='row'>                      
-                        <div className='col-md-4 col-sm-12'>
+                        <div className='col-md-6 col-sm-12'>
                           <label>
                             Preferred Mode of Contact
                             <sup>*</sup>
@@ -343,7 +343,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                             {...{ errors, touched }}
                           />
                         </div>
-                        <div className='col-md-4 col-sm-12'>
+                        <div className='col-md-6 col-sm-12'>
                           <label>
                             Number of Dependents
                             <sup>*</sup>
@@ -358,7 +358,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                             {...{ errors, touched }}
                           />
                         </div>
-                        <div className='col-md-4 col-sm-12'>
+                        <div className='col-md-6 col-sm-12'>
                           <label>
                             Password
                           </label>
@@ -386,7 +386,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                       {
                         isSubmitting ? (
                           <ButtonSpinner />
-                        ) : 'submit'
+                        ) : 'continue'
                       }
                     </button>
                   </div>

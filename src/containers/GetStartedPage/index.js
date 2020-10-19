@@ -98,7 +98,7 @@ const GetStartedPage = () => {
 
             <div className="col pa-0 ma-0">
               {/* <!-- Right Side - NHF Loan --> */}
-              <Link to="/application/profile" className="select-mortgage-link">
+              <Link to="/application" className="select-mortgage-link">
                 <div className="select-nhf-loan">
                   <span className="select-arrow">
                     <FontAwesomeIcon className='fas' icon={faLongArrowAltRight} />

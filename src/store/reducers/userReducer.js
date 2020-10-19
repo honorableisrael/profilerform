@@ -21,7 +21,7 @@ const initialState = {
   marital_status: "single",
   employment_id: '',
   employment_present_position: '',
-  command: '',
+  // command: '',
   profession: 'Police',
   employer_address: '',
   employment_state: '',
@@ -59,7 +59,7 @@ const userReducer = (state = initialState, action) => {
   case userTypes.SET_EMPLOYMENT_ID: return { ...state, employment_id: action.payload };
   case userTypes.SET_EMPLOYMENT_STATE: return { ...state, employment_state: action.payload };
   case userTypes.SET_EMPLOYER_ADDRESS: return { ...state, employer_address: action.payload };
-  case userTypes.SET_COMMAND: return { ...state, command: action.payload };
+  // case userTypes.SET_COMMAND: return { ...state, command: action.payload };
   case userTypes.SET_EMPLOYMENT_PRESENT_POSITION: return { ...state, employment_present_position: action.payload };
   default: return state;
   }

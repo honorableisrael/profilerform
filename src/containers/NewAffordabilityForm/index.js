@@ -14,7 +14,6 @@ import affordabilityActions from '../../store/actions/affordabilityActions';
 import { formatCurrencyInput, handleChangeRetriever } from '../../utils/currencyUtils';
 import { invalidValueErrorMessage, requiredFieldErrorMessage } from '../../utils/validationMessageUtils';
 import { DEFAULT_RADIO_VALUES } from '../../constants';
-import fetchProperties from '../../utils/fetchProperties';
 import ButtonSpinner from '../ButtonSpinner';
 import { RefreshCw } from 'react-feather';
 import http from '../../config/axios.config';
@@ -73,8 +72,10 @@ const validationSchema = (() => {
 });
 
 
-const NewAffordabilityForm = ({ isNhf, setActiveTab, setFoundProperty, maxTenure, currentUser, ...rest }) => {
-  const dispatch = useDispatch();
+const NewAffordabilityForm = ({
+  setActiveTab, setFoundProperty, maxTenure, currentUser,
+  setSubmittedAffordability, dispatch, ...rest
+}) => {
   const [submittedAtLeastOnce, setsubmittedAtLeastOnce] = useState(false);
 
   const getHandleChange = handleChangeRetriever(dispatch);
@@ -92,7 +93,7 @@ const NewAffordabilityForm = ({ isNhf, setActiveTab, setFoundProperty, maxTenure
 
   
   const handleSubmit = async (values) => {
-    if (submittedAtLeastOnce) return setActiveTab(1);
+    if (submittedAtLeastOnce) return setActiveTab(2);
     const valuesCloned = {...values};
     valuesCloned.have_equity = Number(valuesCloned.have_equity === 'yes');
     valuesCloned.down_payment = valuesCloned.equity_contribution;
@@ -106,8 +107,8 @@ const NewAffordabilityForm = ({ isNhf, setActiveTab, setFoundProperty, maxTenure
         cookies.set('token', token);
         http.defaults.headers.Authorization = `Bearer ${token}`;
       }
-      await fetchProperties(rest.max_loanable_amount, values.location, dispatch);
       setsubmittedAtLeastOnce(true);
+      setSubmittedAffordability(true);
     } catch (error) { console.log(error) }
   };
 
@@ -257,7 +258,7 @@ const NewAffordabilityForm = ({ isNhf, setActiveTab, setFoundProperty, maxTenure
                 </div>
               </div>
 
-              <div className='row form-group'>
+              {/* <div className='row form-group'>
                 <div className='col-md-6 col-12 column'>
                   <label>Preferred Location?</label>
                   <input
@@ -269,7 +270,7 @@ const NewAffordabilityForm = ({ isNhf, setActiveTab, setFoundProperty, maxTenure
                     onChange={handleChange}
                   />
                 </div>
-              </div>
+              </div> */}
 
               <div className='row mt-5'>
                 {

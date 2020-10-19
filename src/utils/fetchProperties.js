@@ -1,13 +1,11 @@
 import Axios from "axios";
+import http from "../config/axios.config";
 
 import propertyActions from '../store/actions/propertyActions';
 
 
-const fetchProperties = async (loan_amount, location, dispatch) => {
-  const res = await Axios.get(
-    `https://account.newhomes.ng/api/properties/showbyprice/${
-      loan_amount}${location ? `/${location}` : ''}`
-    );
+const fetchProperties = async (dispatch) => {
+  const res = await http.get('police/all-properties');
   if (dispatch) dispatch(propertyActions.setProperties(res.data.data))
   return res;
 };

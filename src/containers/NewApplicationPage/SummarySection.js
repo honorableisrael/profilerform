@@ -118,8 +118,7 @@ const Wrapper = styled.div`
 
 const SummarySection = ({ heading, closed, ...rest }) => {
   let {
-    monthly_gross_pay, have_additional_income, additional_income,
-    outstanding_loans, rate, tenure,
+    monthly_gross_pay, outstanding_loans, rate, tenure,
     maxTenure, max_loanable_amount, monthly_repayment
   } = rest;
   const dispatch = useDispatch();
@@ -180,19 +179,19 @@ const SummarySection = ({ heading, closed, ...rest }) => {
           <h3>Summary</h3>
           <div className="summary-value-wrapper">
             <p>Maximum Loanable</p>
-            <h3 className="monetary-value">{formatCurrencyInput(max_loanable_amount || '')}</h3>
+            <h3 className="monetary-value">{formatCurrencyInput(max_loanable_amount || '') || '\t***,***'}</h3>
           </div>
         </div>
         <div>
           <div className="summary-value-wrapper">
             <p>Est. Monthly Repayment</p>
-            <h3 className="monetary-value">{formatCurrencyInput(monthly_repayment || '')}</h3>
+            <h3 className="monetary-value">{formatCurrencyInput(monthly_repayment || '') || '\t***,***'}</h3>
           </div>
         </div>
         <div>
           <div className="summary-value-wrapper">
             <p>Maximum Tenure</p>
-            <h3>{maxTenure} years</h3>
+            <h3>{maxTenure || '**'} years</h3>
           </div>
         </div>
       </div>
@@ -200,8 +199,8 @@ const SummarySection = ({ heading, closed, ...rest }) => {
   );
 };
 
-const mapStateToProps = ({ affordability, earnings }, ownProps) => {
-  return { ...affordability, ...earnings, ...ownProps };
+const mapStateToProps = ({ affordability, currentUser: { year_to_retirement }, earnings }, ownProps) => {
+  return { ...affordability, ...earnings, tenure: year_to_retirement, maxTenure: year_to_retirement, ...ownProps };
 };
 
 export default connect(mapStateToProps)(SummarySection);

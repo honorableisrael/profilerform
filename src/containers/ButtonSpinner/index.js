@@ -4,9 +4,9 @@ import styled from '@emotion/styled';
 
 const Wrapper = styled.div`
   & {
-    width: 24px;
-    height: 24px;
     transform: rotate(0deg) !important;
+    width: ${props => props.size || '24px'};
+    height: ${props => props.size || '24px'};
     /* transition: transform infinite; */
   }
 `;

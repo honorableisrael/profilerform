@@ -392,6 +392,10 @@ const Wrapper = styled.div`
     padding: var(--content-padding);
   }
 
+  .hero-section .get-started {
+    margin-top: 24px;
+  }
+
   /* Hero Headline */
   .hero-headline-wrapper {
     display: -webkit-box;
@@ -408,7 +412,7 @@ const Wrapper = styled.div`
   }
 
   .hero-headline {
-    font-size: 88px;
+    font-size: 60px;
     /* font-size: min(50vw, 88px); */
     font-weight: 900;
     color: var(--pale-navy-blue);
@@ -1533,6 +1537,10 @@ const Wrapper = styled.div`
     font-weight: 900;
     line-height: 125.2%;
     color: var(--black-color);
+  }
+
+  .application-flow .section-heading {
+    font-size: 1.5rem;
   }
 
   .section-heading.light {

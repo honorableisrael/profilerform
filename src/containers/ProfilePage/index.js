@@ -299,7 +299,7 @@ const Wrapper = styled.div`
     }
 
     .property-suggestion-toggle,
-    .property-suggestion-toggle + input {
+    .toggle + input {
       z-index: 100;
       display: none;
     }
