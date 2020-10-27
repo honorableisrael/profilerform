@@ -46,15 +46,6 @@ const getMinMaxTenure = (age) => {
   return { min, max };
 };
 
-/**
- * Total Annual Salary
-Monthly Gross Salary
-Outstanding Loans
-Affordability Property Request
-Monthly Expenses
-Do You Have Equity (Yes/No)?
-Yes (How Much)
- */
 const validationSchema = (() => {
   return Yup.object().shape({
     have_equity: validations.requiredString,
@@ -74,7 +65,7 @@ const validationSchema = (() => {
 
 const NewAffordabilityForm = ({
   setActiveTab, setFoundProperty, maxTenure, currentUser,
-  setSubmittedAffordability, dispatch, ...rest
+  setSubmittedAffordability, dispatch, alert, ...rest
 }) => {
   const [submittedAtLeastOnce, setsubmittedAtLeastOnce] = useState(false);
 
@@ -93,7 +84,7 @@ const NewAffordabilityForm = ({
 
   
   const handleSubmit = async (values) => {
-    if (submittedAtLeastOnce) return setActiveTab(2);
+    if (submittedAtLeastOnce) return alert();
     const valuesCloned = {...values};
     valuesCloned.have_equity = Number(valuesCloned.have_equity === 'yes');
     valuesCloned.down_payment = valuesCloned.equity_contribution;
@@ -275,22 +266,24 @@ const NewAffordabilityForm = ({
               <div className='row mt-5'>
                 {
                   submittedAtLeastOnce ? (
-                    <div className='col-md-4 col-sm-12'>
+                    <div className='col-md-8 col-sm-12'>
                       <button
                         type='button'
                         disabled={isSubmitting}
                         onClick={() => {
-                          setsubmittedAtLeastOnce(false);
-                          resetForm();
+                          setActiveTab(2);
+                          {/* setsubmittedAtLeastOnce(false); */}
+                          {/* resetForm(); */}
                         }}
                         className='btn fp-save-result-button m-0 d-flex align-items-center justify-content-center btn-block mb-3'
                       >
-                        <RefreshCw size='22px' color='#00b1ab' />
+                        {/* <RefreshCw size='22px' color='#00b1ab' /> */}
+                        proceed to request property
                       </button>
                     </div>
                   ) : ''
                 }
-                <div className={`col-md-${submittedAtLeastOnce ? 8 : 12} col-sm-12`}>
+                <div className={`col-md-${submittedAtLeastOnce ? 4 : 12} col-sm-12`}>
                   <button
                     type='submit'
                     className='w-100'
@@ -299,7 +292,7 @@ const NewAffordabilityForm = ({
                     {
                       isSubmitting ? (
                         <ButtonSpinner />
-                      ) : submittedAtLeastOnce ? 'proceed to request property' : 'submit'
+                      ) : 'submit'
                     }
                   </button>
                 </div>

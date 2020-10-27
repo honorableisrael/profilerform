@@ -7,6 +7,7 @@ import affordabilityTypes from '../../store/types/affordabilityTypes';
 import affordabilityActions from '../../store/actions/affordabilityActions';
 import requestActions from '../../store/actions/requestActions';
 import requestTypes from '../../store/types/requestTypes';
+import { clearCommas } from '../../utils/currencyUtils';
 
 
 const Wrapper = styled.div`
@@ -36,6 +37,16 @@ const Wrapper = styled.div`
     transition: box-shadow 0.3s ease;
     /* margin-top: 30px; */
     z-index: 100;
+  }
+
+  
+  &.error h3 span {
+    color: #ED2939;
+  }
+
+  &.error .fp-nh-affordability-regular-affordability-property-suggestion-list {
+    border: 2px solid red;
+    /* box-shadow: 0px 0px 6px red; */
   }
 
   .fp-nh-affordability-regular-affordability-property-suggestion-list .fp-nh-affordability-regular-affordability-property-suggestion-img {
@@ -192,10 +203,17 @@ const Wrapper = styled.div`
 `;
 
 const PropertySuggestionSection = ({
-  closed, properties, goToEligibility, found, setPropertyStoreData, submittedAffordability, activeTab
+  closed, properties, goToEligibility, /* found, */
+  setPropertyStoreData, submittedAffordability, activeTab,
+  equity_contribution, max_loanable_amount, alertUser
 }) => {
+  const affords = +clearCommas(equity_contribution) + +clearCommas(max_loanable_amount);
+  const filteredProperties = submittedAffordability
+    ?
+    (properties || []).filter(({ property_price }) => +clearCommas(property_price) <= affords)
+    : properties;
   return properties && properties.length ? (
-    <Wrapper className={`property-suggestions-section ${ closed ? 'closed' : ''}`}>
+    <Wrapper className={`property-suggestions-section ${ closed ? 'closed' : ''} ${alertUser ? ' error' : ''}`}>
       <h3>
         Property suggestions.
         {/* <span>
@@ -203,11 +221,15 @@ const PropertySuggestionSection = ({
           Select one of them if it meets your expectation, otherwise click "PROCEED TO REQUEST PROPERTY"
         </span> */}
         <span>
-          You may choose from our list of projects
+          {
+            alertUser
+              ? 'Please choose one these properties by clicking on "MAKE TARGET"'
+              : 'You may choose from our list of projects'
+          }
         </span>
       </h3>
       {
-        properties.map((property) => (
+        filteredProperties.map((property) => (
           <PropertyAdItem
             key={property.id}
             {...{ property, activeTab, submittedAffordability, goToEligibility, setPropertyStoreData }}
@@ -218,8 +240,10 @@ const PropertySuggestionSection = ({
   ) : '';
 }
 
-const mapStateToProps = ({ properties }, ownProps) => {
-  return { properties: properties.data, ...ownProps };
+const mapStateToProps = ({ properties, affordability: { equity_contribution, max_loanable_amount } }, ownProps) => {
+  return {
+    properties: properties.data, equity_contribution, max_loanable_amount, ...ownProps
+  };
 };
  
 export default connect(mapStateToProps)(PropertySuggestionSection);

@@ -37,8 +37,11 @@ const Wrapper = styled.div`
   }
 
   .error-message {
-    color: red !important;
     font-size: 14px !important;
+  }
+
+  .error-message {
+    color: red !important;
   }
 
   [type='submit'] {
@@ -402,6 +405,7 @@ const Wrapper = styled.div`
 const NewApplicationPage = ({ properties, budget, dispatch }) => {
   const [activeTab, setActiveTab] = useState(0);
   const [success, setSuccess] = useState(false);
+  const [alertUser, setAlertUser] = useState(false);
   const [foundProperty, setFoundProperty] = useState(false);
   const [summaryStickerOpen, setSummaryStickerOpen] = useState(false);
   const [suggestionsStickerOpen, setSuggestionsStickerOpen] = useState(false);
@@ -419,10 +423,13 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
   states.forEach(({ id, name }) => statesMapped[name.toLowerCase()] = id);
   propertyTypes.forEach(({ id, name }) => propertyTypesMapped[name.toLowerCase()] = id);
 
+  alert = () => setAlertUser(true);
+
   const setPropertyStoreData = async ({
     id, property_city, property_bedrooms,
     property_price, property_type, property_state
   }) => {
+    setAlertUser(false);
     const fctVariants = ['abuja', 'fct'];
     const cityName = property_city?.toLowerCase();
     const stateName = property_state?.toLowerCase();
@@ -542,7 +549,7 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
               </div>
               <PropertySuggestionSection
                 closed={!suggestionsStickerOpen}
-                {...{goToEligibility, setPropertyStoreData, submittedAffordability, activeTab}}
+                {...{goToEligibility, setPropertyStoreData, submittedAffordability, activeTab, alertUser}}
               />
             </div>
           </div>
@@ -586,7 +593,7 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
                   {
                     activeTab === 1 ? (
                       <NewAffordabilityForm
-                        {...{ setActiveTab, setFoundProperty, setSubmittedAffordability }}
+                        {...{ setActiveTab, setFoundProperty, setSubmittedAffordability, alert }}
                       />
                     ) : ''
                   }
@@ -595,7 +602,7 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
               {/* <!-- <div className="application-highlight-section"></div> --> */}
               <PropertySuggestionSection
                 closed={!suggestionsStickerOpen}
-                {...{goToEligibility, setPropertyStoreData, submittedAffordability, activeTab}}
+                {...{goToEligibility, setPropertyStoreData, submittedAffordability, activeTab, alertUser}}
               />
             </div>
           </div>
