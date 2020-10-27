@@ -48,11 +48,12 @@ const NewEligibilityForm = ({
   setActiveTab, states, propertyTypes, success, setSuccess, foundProperty, affordability, request, setSubmitted
 }) => {
   // const dispatch = useDispatch();
-  const { max_loanable_amount } = affordability;
   const [stateId, setStateId] = useState('');
   // const [success, setSuccess] = useState(false);
   const [citiesJSON, setCitiesJSON] = useState('[]');
   const [loadingCities, setLoadingCities] = useState(false);
+  const { max_loanable_amount, equity_contribution } = affordability;
+  const affords = +clearCommas(max_loanable_amount) + +clearCommas(equity_contribution);
   // const getHandleChange = handleChangeRetriever(dispatch);
 
   const cities = JSON.parse(citiesJSON);
@@ -121,9 +122,9 @@ const NewEligibilityForm = ({
           ) : (
             <Formik
               initialValues={{
-                budget: request.budget,
-                state_id: request.state_id,
                 city_id: request.city_id,
+                state_id: request.state_id,
+                budget: request.budget || affords,
                 property_value: request.property_value,
                 property_type_id: request.property_type_id,
                 property_bedroom: request.property_bedroom,
@@ -253,7 +254,7 @@ const NewEligibilityForm = ({
                           {
                             isSubmitting ? (
                               <ButtonSpinner />
-                            ) : 'continue'
+                            ) : 'submit'
                           }
                         </button>
                       </div>
