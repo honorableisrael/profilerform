@@ -12,22 +12,26 @@ import WrappedInput, { WrappedInputWithError } from '../WrappedInput';
 import affordabilityTypes from '../../store/types/affordabilityTypes';
 import affordabilityActions from '../../store/actions/affordabilityActions';
 import { formatCurrencyInput, handleChangeRetriever } from '../../utils/currencyUtils';
-import { invalidValueErrorMessage, requiredFieldErrorMessage } from '../../utils/validationMessageUtils';
+// import { invalidValueErrorMessage, requiredFieldErrorMessage } from '../../utils/validationMessageUtils';
 import { DEFAULT_RADIO_VALUES } from '../../constants';
 import ButtonSpinner from '../ButtonSpinner';
-import { RefreshCw } from 'react-feather';
 import http from '../../config/axios.config';
 import cookies from '../../utils/cookies';
 
 
 const Wrapper = styled.div`
-
+  .fp-save-result-button {
+    color: white;
+    background: teal;
+    border-color: #009688;
+    background-color: #009688;
+  }
 `;
 
 const yesNo = DEFAULT_RADIO_VALUES;
 
 
-const integerError = 'Please input a whole number';
+// const integerError = 'Please input a whole number';
 
 const getMinMaxTenure = (age) => {
   age = parseInt(age, 10);
@@ -65,7 +69,8 @@ const validationSchema = (() => {
 
 const NewAffordabilityForm = ({
   setActiveTab, setFoundProperty, maxTenure, currentUser,
-  setSubmittedAffordability, dispatch, alert, ...rest
+  setSubmittedAffordability, dispatch, alert, selectedProperty,
+  setPropertyStoreData, setSelectedProperty, submittedAffordability, ...rest
 }) => {
   const [submittedAtLeastOnce, setsubmittedAtLeastOnce] = useState(false);
 
@@ -84,12 +89,17 @@ const NewAffordabilityForm = ({
 
   
   const handleSubmit = async (values) => {
-    if (submittedAtLeastOnce) return alert();
     const valuesCloned = {...values};
     valuesCloned.have_equity = Number(valuesCloned.have_equity === 'yes');
     valuesCloned.down_payment = valuesCloned.equity_contribution;
     delete valuesCloned.equity_contribution;
     try {
+      if (submittedAtLeastOnce || submittedAffordability) {
+        if (!selectedProperty) return alert();
+        return await setPropertyStoreData(selectedProperty);
+        // setActiveTab(2);
+      }
+      
       const { data: { data: { token } }} = await http.post(
         '/police/profile',
         {...currentUser, ...valuesCloned, loanable_amount: rest.max_loanable_amount}
@@ -265,12 +275,13 @@ const NewAffordabilityForm = ({
 
               <div className='row mt-5'>
                 {
-                  submittedAtLeastOnce ? (
+                  (submittedAtLeastOnce || submittedAffordability) ? (
                     <div className='col-md-8 col-sm-12'>
                       <button
                         type='button'
                         disabled={isSubmitting}
                         onClick={() => {
+                          setSelectedProperty(null);
                           setActiveTab(2);
                           {/* setsubmittedAtLeastOnce(false); */}
                           {/* resetForm(); */}
@@ -278,12 +289,12 @@ const NewAffordabilityForm = ({
                         className='btn fp-save-result-button m-0 d-flex align-items-center justify-content-center btn-block mb-3'
                       >
                         {/* <RefreshCw size='22px' color='#00b1ab' /> */}
-                        proceed to request property
+                        proceed to property request
                       </button>
                     </div>
                   ) : ''
                 }
-                <div className={`col-md-${submittedAtLeastOnce ? 4 : 12} col-sm-12`}>
+                <div className={`col-md-${(submittedAtLeastOnce || submittedAffordability) ? 4 : 12} col-sm-12`}>
                   <button
                     type='submit'
                     className='w-100'

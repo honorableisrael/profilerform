@@ -10,6 +10,11 @@ import ButtonSpinner from "../ButtonSpinner";
 
 
 const Wrapper = styled.div`
+  &.selected {
+    transform: scale(1.05) !important;
+    border: 2px solid #009688 !important;
+  }
+
   .fp-property-finance-options h4 {
     font-size: 9px;
     font-weight: 600;
@@ -18,12 +23,23 @@ const Wrapper = styled.div`
   button:disabled {
     background-color: #999 !important;
   }
+/* 
+  input[type='radio'] {
+    z-index: 2;
+    top: 8px;
+    left: 8px;
+    width: 16px;
+    height: 16px;
+    position: absolute !important;
+  } */
 `;
 
 const PropertyAdItem = ({
   property,
   activeTab,
   goToEligibility,
+  selectedProperty,
+  setSelectedProperty,
   setPropertyStoreData,
   submittedAffordability,
   mortgageApplicationData,
@@ -31,9 +47,16 @@ const PropertyAdItem = ({
 }) => {
   // const baseImageUrl = "https://account.newhomes.ng";
   const [loading, setLoading] = useState(false);
-  const { property_cover_image } = property;
+  const { property_cover_image, id } = property;
+  const isSelected = id === (selectedProperty || {}).id;
   return (
-    <Wrapper className='fp-nh-affordability-regular-affordability-property-suggestion-list'>
+    <Wrapper className={`fp-nh-affordability-regular-affordability-property-suggestion-list${isSelected ? ' selected' : ''}`}>
+      {/* <input
+        type="radio"
+        checked={isSelected}
+        name="interested-property"
+        aria-label='Property of interest'
+      /> */}
       <div
         className='fp-nh-affordability-regular-affordability-property-suggestion-img'
         //style={{ backgroundImage: `url(${baseImageUrl}/${property_image})` }}
@@ -85,7 +108,7 @@ const PropertyAdItem = ({
         </div>
         <div className='fp-property-suggestion-button'>
           <button
-            disabled={activeTab === 0 || !submittedAffordability || loading}
+            disabled={activeTab === 0 || !submittedAffordability || loading || isSelected}
             onClick={async ({ target }) => {
               if (setMortgageApplicationData) {
                 const { title_docs, property_price_raw, property_full_address } = property;
@@ -99,9 +122,10 @@ const PropertyAdItem = ({
                 });
                 if (goToEligibility) goToEligibility({ target });
               } else if (setPropertyStoreData) {
-                setLoading(true)
-                await setPropertyStoreData(property);
-                setLoading(false);
+                setSelectedProperty(property);
+                {/* setLoading(true) */}
+                {/* await setPropertyStoreData(property); */}
+                {/* setLoading(false); */}
               }
             }}
             className='fp-property-suggestion-button-make-target item-btn'
