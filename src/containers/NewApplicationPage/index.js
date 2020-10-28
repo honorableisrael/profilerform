@@ -407,6 +407,7 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
   const [success, setSuccess] = useState(false);
   const [alertUser, setAlertUser] = useState(false);
   const [foundProperty, setFoundProperty] = useState(false);
+  const [selectedProperty, setSelectedProperty] = useState(null);
   const [summaryStickerOpen, setSummaryStickerOpen] = useState(false);
   const [suggestionsStickerOpen, setSuggestionsStickerOpen] = useState(false);
   const thereAreProperties = properties && properties.length;
@@ -425,6 +426,10 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
 
   alert = () => setAlertUser(true);
 
+  useEffect(() => {
+    if (selectedProperty) setAlertUser(false);
+  }, [selectedProperty]);
+
   const setPropertyStoreData = async ({
     id, property_city, property_bedrooms,
     property_price, property_type, property_state
@@ -439,7 +444,7 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
       ?
       (statesMapped[fctVariants[0]] || statesMapped[fctVariants[1]])
       : statesMapped[stateName];
-    try {
+    // try {
       const { data: { data: cities } } = await http.get(`/general/all-cities/${propertyStateId}`);
       const city = (cities || []).find(({ name }) => name.toLowerCase() === cityName);
       const cityId = city?.id;
@@ -457,16 +462,16 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
           request_type: 'home',
           directed_to: 'police Deve',
           payment_option: 'mortgage',
-          found_property: foundProperty
+          found_property: true
         }
       );
       setFoundProperty(true);
       setSuccess(true);
       setTimeout(goToEligibility, 200);
-    } catch (error) {
-      alert('An error occured. Please try again');
-      console.log(error.message);
-    }
+    // } catch (error) {
+    //   alert('An error occured. Please try again');
+    //   console.log(error.message);
+    // }
   };
 
   useEffect(() => {
@@ -549,7 +554,10 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
               </div>
               <PropertySuggestionSection
                 closed={!suggestionsStickerOpen}
-                {...{goToEligibility, setPropertyStoreData, submittedAffordability, activeTab, alertUser}}
+                {...{
+                  goToEligibility, setPropertyStoreData, submittedAffordability,
+                  activeTab, alertUser, selectedProperty, setSelectedProperty
+                }}
               />
             </div>
           </div>
@@ -593,7 +601,10 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
                   {
                     activeTab === 1 ? (
                       <NewAffordabilityForm
-                        {...{ setActiveTab, setFoundProperty, setSubmittedAffordability, alert }}
+                        {...{
+                          setActiveTab, setFoundProperty, setSubmittedAffordability, alert,
+                          submittedAffordability, selectedProperty, setSelectedProperty, setPropertyStoreData
+                        }}
                       />
                     ) : ''
                   }
@@ -602,7 +613,10 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
               {/* <!-- <div className="application-highlight-section"></div> --> */}
               <PropertySuggestionSection
                 closed={!suggestionsStickerOpen}
-                {...{goToEligibility, setPropertyStoreData, submittedAffordability, activeTab, alertUser}}
+                {...{
+                  goToEligibility, setPropertyStoreData, submittedAffordability,
+                  activeTab, alertUser, selectedProperty, setSelectedProperty
+                }}
               />
             </div>
           </div>

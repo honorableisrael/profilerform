@@ -82,7 +82,7 @@ const NewEligibilityForm = ({
           request_type: 'home',
           payment_option: 'mortgage',
           ...values,
-          found_property: foundProperty
+          found_property: false
         }
       );
       setSubmitted(true);
@@ -240,7 +240,7 @@ const NewEligibilityForm = ({
                           type='button'
                           disabled={isSubmitting}
                           className='w-100 item-btn mb-md-0 mb-3'
-                          onClick={() => setActiveTab(0)}
+                          onClick={() => setActiveTab(1)}
                         >
                           back
                         </button>

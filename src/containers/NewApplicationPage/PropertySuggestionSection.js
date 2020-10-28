@@ -205,12 +205,15 @@ const Wrapper = styled.div`
 const PropertySuggestionSection = ({
   closed, properties, goToEligibility, /* found, */
   setPropertyStoreData, submittedAffordability, activeTab,
-  equity_contribution, max_loanable_amount, alertUser
+  equity_contribution, max_loanable_amount, alertUser,
+  selectedProperty, setSelectedProperty
 }) => {
   const affords = +clearCommas(equity_contribution) + +clearCommas(max_loanable_amount);
   const filteredProperties = submittedAffordability
     ?
-    (properties || []).filter(({ property_price }) => +clearCommas(property_price) <= affords)
+    (properties || [])
+      .filter(({ property_price }) => +clearCommas(property_price) <= affords)
+      .sort((propertyA, propertyB) => +clearCommas(propertyB.property_price) - +clearCommas(propertyA.property_price))
     : properties;
   return properties && properties.length ? (
     <Wrapper className={`property-suggestions-section ${ closed ? 'closed' : ''} ${alertUser ? ' error' : ''}`}>
@@ -223,7 +226,8 @@ const PropertySuggestionSection = ({
         <span>
           {
             alertUser
-              ? 'Please choose one these properties by clicking on "MAKE TARGET"'
+              ? `Please choose one these properties by clicking on "MAKE TARGET" and then "SUBMIT".
+                  You can skip this step by clicking on "PROCEED TO PROPERTY REQUEST"`
               : 'You may choose from our list of projects'
           }
         </span>
@@ -232,7 +236,10 @@ const PropertySuggestionSection = ({
         filteredProperties.map((property) => (
           <PropertyAdItem
             key={property.id}
-            {...{ property, activeTab, submittedAffordability, goToEligibility, setPropertyStoreData }}
+            {...{
+              property, activeTab, submittedAffordability, goToEligibility,
+              setPropertyStoreData, selectedProperty, setSelectedProperty
+            }}
           />
         ))
       }
