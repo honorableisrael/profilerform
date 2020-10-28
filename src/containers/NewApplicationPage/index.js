@@ -448,26 +448,30 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
       const { data: { data: cities } } = await http.get(`/general/all-cities/${propertyStateId}`);
       const city = (cities || []).find(({ name }) => name.toLowerCase() === cityName);
       const cityId = city?.id;
+      const bedrooms = typeof property_bedrooms === 'string' && property_bedrooms.includes('-') ?
+        +property_bedrooms.split('-')[1].trim()
+        : property_bedrooms
       const values = {
         property_id: id, state_id: propertyStateId,
         property_value: +clearCommas(property_price), city_id: cityId,
-        property_bedroom: property_bedrooms, property_type_id: propertyTypeId
+        property_bedroom: bedrooms, property_type_id: propertyTypeId
       };
       batchDispatcher(values, requestActions, dispatch);
-      await http.post(
-        '/police/property-request',
-        {
-          budget,
-          ...values,
-          request_type: 'home',
-          directed_to: 'police Deve',
-          payment_option: 'mortgage',
-          found_property: true
-        }
-      );
+      // await http.post(
+      //   '/police/property-request',
+      //   {
+      //     budget,
+      //     ...values,
+      //     request_type: 'home',
+      //     directed_to: 'police Deve',
+      //     payment_option: 'mortgage',
+      //     found_property: true
+      //   }
+      // );
       setFoundProperty(true);
-      setSuccess(true);
-      setTimeout(goToEligibility, 200);
+      // setSuccess(true);
+      goToEligibility();
+      // setTimeout(goToEligibility, 200);
     // } catch (error) {
     //   alert('An error occured. Please try again');
     //   console.log(error.message);
