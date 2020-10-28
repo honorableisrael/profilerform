@@ -240,7 +240,10 @@ const NewEligibilityForm = ({
                           type='button'
                           disabled={isSubmitting}
                           className='w-100 item-btn mb-md-0 mb-3'
-                          onClick={() => setActiveTab(1)}
+                          onClick={() => {
+                            setSuccess(false);
+                            setActiveTab(1)
+                          }}
                         >
                           back
                         </button>
