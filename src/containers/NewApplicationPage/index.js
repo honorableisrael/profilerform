@@ -402,7 +402,7 @@ const Wrapper = styled.div`
 //   )
 // });
 
-const NewApplicationPage = ({ properties, budget, dispatch }) => {
+const NewApplicationPage = ({ properties, dispatch }) => {
   const [activeTab, setActiveTab] = useState(0);
   const [success, setSuccess] = useState(false);
   const [alertUser, setAlertUser] = useState(false);
@@ -414,11 +414,11 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
   const [submitted, setSubmitted] = useState(false);
   const [submittedAffordability, setSubmittedAffordability] = useState(false);
   const [formDataJSON, setFormDataJSON] = useState(
-    JSON.stringify({ states: [], propertyTypes: [] })
+    JSON.stringify({ states: [], propertyTypes: [], paymentOptions: [] })
   );
 
 
-  const { states, propertyTypes } = JSON.parse(formDataJSON);
+  const { states, propertyTypes, paymentOptions } = JSON.parse(formDataJSON);
   const statesMapped = {};
   const propertyTypesMapped = {};
   states.forEach(({ id, name }) => statesMapped[name.toLowerCase()] = id);
@@ -450,7 +450,7 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
       const cityId = city?.id;
       const bedrooms = typeof property_bedrooms === 'string' && property_bedrooms.includes('-') ?
         +property_bedrooms.split('-')[1].trim()
-        : property_bedrooms
+        : (+property_bedrooms || '');
       const values = {
         property_id: id, state_id: propertyStateId,
         property_value: +clearCommas(property_price), city_id: cityId,
@@ -481,11 +481,13 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
   useEffect(() => {
     (async () => {
       try {
-        const [{ data: { data: states } }, { data: { data: propertyTypes } }] = await Promise.all([
-          http.get('/general/all-states'), http.get('/general/all-properties-types/1')
+        const [
+          { data: { data: states } }, { data: { data: propertyTypes } }, { data: { data: paymentOptions } }
+        ] = await Promise.all([
+          http.get('/general/all-states'), http.get('/general/all-properties-types/1'), http.get('/general/finance-option')
         ]);
 
-        setFormDataJSON(JSON.stringify({ states, propertyTypes }));
+        setFormDataJSON(JSON.stringify({ states, propertyTypes, paymentOptions }));
         fetchProperties(dispatch);
       } catch (error) { console.log(error.message); }
     })();
@@ -606,7 +608,7 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
                     activeTab === 1 ? (
                       <NewAffordabilityForm
                         {...{
-                          setActiveTab, setFoundProperty, setSubmittedAffordability, alert,
+                          setActiveTab, setFoundProperty, setSubmittedAffordability, alert, paymentOptions,
                           submittedAffordability, selectedProperty, setSelectedProperty, setPropertyStoreData
                         }}
                       />
@@ -700,8 +702,8 @@ const NewApplicationPage = ({ properties, budget, dispatch }) => {
   );
 };
  
-const mapStateToProps = ({ properties, affordability: { max_loanable_amount }, currentUser: { email } }, ownProps) => ({
-  properties: properties.data, budget: max_loanable_amount, email, ...ownProps
+const mapStateToProps = ({ properties, currentUser: { email } }, ownProps) => ({
+  properties: properties.data, email, ...ownProps
 });
 
 export default withNewStyles(connect(mapStateToProps)(NewApplicationPage));

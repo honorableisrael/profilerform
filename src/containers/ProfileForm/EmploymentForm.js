@@ -25,6 +25,7 @@ const validationSchema = Yup.object().shape({
   employment_id: validations.requiredString,
   employment_present_position: validations.requiredString,
   // command: validations.requiredString,
+  // nhf_number: validations.requiredString,
   employment_state: validations.requiredString,
   employer_address: validations.requiredString,
   work_experience: validations.requiredInteger.min(1, minOneError),
@@ -47,6 +48,7 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
           employment_id: currentUser.employment_id,
           employment_present_position: currentUser.employment_present_position,
           //command: currentUser.command,
+          nhf_number: currentUser.nhf_number,
           work_experience: currentUser.work_experience,
           employment_state: currentUser.employment_state,
           employer_address: currentUser.employer_address,
@@ -68,16 +70,16 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                       <div className="form-group row">
                         <div className="col-md-6 col-sm-12">
                           <label>
-                            Police ID
+                            F/AP Number
                             <sup>*</sup>
                           </label>
                           <WrappedInputWithError
                             type="text"
-                            name='employment_id'
-                            value={values.employment_id}
-                            placeholder="Police ID"
                             onBlur={handleBlur}
+                            name='employment_id'
+                            placeholder="F/AP number"
                             onChange={handleChange}
+                            value={values.employment_id}
                             {...{ errors, touched }}
                           />
                         </div>
@@ -105,6 +107,18 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                             value={values.employment_present_position}
                             extractValue={({ name }) => name}
                             options={[{ name: 'Select a choice' }, ...ranks]}
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            {...{ errors, touched }}
+                          />
+                        </div>
+                        <div className="col-md-6 col-sm-12">
+                          <label>NHF Number</label>
+                          <WrappedInputWithError
+                            type="text"
+                            name='nhf_number'
+                            placeholder="NHF number"
+                            value={values.nhf_number}
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}

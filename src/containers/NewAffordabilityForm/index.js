@@ -8,7 +8,7 @@ import { connect, useDispatch } from 'react-redux';
 import { toTitleCase } from '../../utils/dashboardUtils';
 import earningsTypes from '../../store/types/earningsTypes';
 import { currencyFieldTransformer, validations } from '../../utils/yupUtils';
-import WrappedInput, { WrappedInputWithError } from '../WrappedInput';
+import WrappedInput, { WrappedInputWithError, WrappedSelectWithError } from '../WrappedInput';
 import affordabilityTypes from '../../store/types/affordabilityTypes';
 import affordabilityActions from '../../store/actions/affordabilityActions';
 import { formatCurrencyInput, handleChangeRetriever } from '../../utils/currencyUtils';
@@ -53,6 +53,7 @@ const getMinMaxTenure = (age) => {
 const validationSchema = (() => {
   return Yup.object().shape({
     have_equity: validations.requiredString,
+    payment_option: validations.requiredString,
     monthly_expenses: validations.currencyField,
     outstanding_loans: validations.currencyField,
     monthly_gross_pay: validations.requiredCurrencyField,
@@ -62,14 +63,21 @@ const validationSchema = (() => {
         is: value => value === DEFAULT_RADIO_VALUES[0],
         then: validations.requiredCurrencyField
       }
+    ]),
+    budget: validations.currencyFieldWithWhen([
+      'payment_option', {
+        is: value => value === paymentOptionsWithBudget.includes(value),
+        then: validations.requiredCurrencyField
+      }
     ])
   });
 });
 
+const paymentOptionsWithBudget = ['Installment Payment', 'Rent to Own'];
 
 const NewAffordabilityForm = ({
-  setActiveTab, setFoundProperty, maxTenure, currentUser,
-  setSubmittedAffordability, dispatch, alert, selectedProperty,
+  setActiveTab, setFoundProperty, maxTenure, currentUser, alert,
+  paymentOptions, setSubmittedAffordability, dispatch, selectedProperty,
   setPropertyStoreData, setSelectedProperty, submittedAffordability, ...rest
 }) => {
   const [submittedAtLeastOnce, setsubmittedAtLeastOnce] = useState(false);
@@ -92,6 +100,8 @@ const NewAffordabilityForm = ({
     const valuesCloned = {...values};
     valuesCloned.have_equity = Number(valuesCloned.have_equity === 'yes');
     valuesCloned.down_payment = valuesCloned.equity_contribution;
+    delete valuesCloned.budget;
+    delete valuesCloned.payment_option;
     delete valuesCloned.equity_contribution;
     try {
       if (submittedAtLeastOnce || submittedAffordability) {
@@ -117,7 +127,9 @@ const NewAffordabilityForm = ({
     <Wrapper className="container affordability-forms-wrapper">
       <Formik
         initialValues={{
+          budget: rest.budget,
           have_equity: rest.have_equity,
+          payment_option: rest.payment_option,
           monthly_expenses: rest.monthly_expenses,
           outstanding_loans: rest.outstanding_loans,
           monthly_gross_pay: rest.monthly_gross_pay,
@@ -127,10 +139,10 @@ const NewAffordabilityForm = ({
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
-        {({ values, errors, touched, handleChange, handleBlur, isSubmitting, resetForm }) => {
+        {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => {
           const { 
-            have_equity, outstanding_loans, monthly_gross_pay,
-            total_annual_salary, equity_contribution, monthly_expenses
+            have_equity, outstanding_loans, monthly_gross_pay, budget,
+            total_annual_salary, equity_contribution, monthly_expenses, payment_option
           } = values;
           return (
             <Form>
@@ -224,6 +236,55 @@ const NewAffordabilityForm = ({
                   </div>
                 ) : ''
               }
+
+              <div className="form-group row">
+                <div className="col-md-6 col-12">
+                  <label>
+                    Payment Option <sup>*</sup>
+                  </label>
+                  <WrappedSelectWithError
+                    textKey='option'
+                    name='payment_option'
+                    value={values.payment_option}
+                    extractValue={({ option }) => option}
+                    options={[{ option: 'Select a payment option' }, ...paymentOptions]}
+                    onBlur={handleBlur}
+                    onChange={({ target }) => {
+                      if (!paymentOptionsWithBudget.includes(target.value)) {
+                        getHandleChange(
+                          handleChange, affordabilityTypes.SET_BUDGET
+                        )({ target: { name: 'budget', value: '' } });
+                      }
+                      getHandleChange(handleChange, affordabilityTypes.SET_PAYMENT_OPTION)({ target });
+                    }}
+                    {...{ errors, touched }}
+                  />
+                </div>
+                {
+                  paymentOptionsWithBudget.includes(payment_option) ? (() => {
+                    const isInstallment = payment_option === paymentOptionsWithBudget[0];
+                      return (
+                      <div className="col-md-6 col-12">
+                        <label>
+                          {isInstallment ? 'Annual' : 'Monthly'} Budget
+                        </label>
+                        <WrappedInputWithError
+                          prepend='₦'
+                          type="text"
+                          name='budget'
+                          append={isInstallment ? 'annual' : 'monthly'}
+                          onBlur={handleBlur}
+                          placeholder="300,000"
+                          value={formatCurrencyInput(budget)}
+                          onChange={getHandleChange(handleChange, affordabilityTypes.SET_BUDGET, true)}
+                          {...{ errors, touched }}
+                        />
+                      </div>
+                    );
+                  })() : ''
+                }
+              </div>
+
               <div className="form-group row">
                 <div className="col-md-6 col-12">
                   <label>
@@ -258,7 +319,6 @@ const NewAffordabilityForm = ({
                   />
                 </div>
               </div>
-
               {/* <div className='row form-group'>
                 <div className='col-md-6 col-12 column'>
                   <label>Preferred Location?</label>

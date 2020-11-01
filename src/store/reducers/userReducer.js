@@ -17,6 +17,7 @@ const initialState = {
   mode_of_contact: '',
   no_of_dependents: '',
   password: '',
+  nhf_number: '',
   current_apartment_status: "owned",
   marital_status: "single",
   employment_id: '',
@@ -60,6 +61,7 @@ const userReducer = (state = initialState, action) => {
   case userTypes.SET_EMPLOYMENT_STATE: return { ...state, employment_state: action.payload };
   case userTypes.SET_EMPLOYER_ADDRESS: return { ...state, employer_address: action.payload };
   // case userTypes.SET_COMMAND: return { ...state, command: action.payload };
+  case userTypes.SET_NHF_NUMBER: return { ...state, nhf_number: action.payload };
   case userTypes.SET_EMPLOYMENT_PRESENT_POSITION: return { ...state, employment_present_position: action.payload };
   default: return state;
   }
