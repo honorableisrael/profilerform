@@ -45,7 +45,8 @@ const Wrapper = styled.div`
 // const CircularLoader = styled(CircularLoader)
 
 const NewEligibilityForm = ({
-  setActiveTab, states, propertyTypes, success, setSuccess, foundProperty, affordability, request, setSubmitted
+  setActiveTab, states, propertyTypes, success, setSuccess,
+  foundProperty, affordability, request, setSubmitted
 }) => {
   // const dispatch = useDispatch();
   const [stateId, setStateId] = useState('');
@@ -82,7 +83,9 @@ const NewEligibilityForm = ({
           request_type: 'home',
           payment_option: 'mortgage',
           ...values,
-          found_property: false
+          budget: affordability.budget,
+          payment_option: affordability.payment_option,
+          found_property: foundProperty
         }
       );
       setSubmitted(true);
@@ -95,7 +98,7 @@ const NewEligibilityForm = ({
 
   const validationSchema = (() => {
     return Yup.object().shape({
-      budget: validations.requiredCurrencyField,
+      // budget: validations.requiredCurrencyField,
       property_type_id: validations.requiredString,
       state_id: validations.requiredString,
       city_id: validations.requiredString,
@@ -124,7 +127,7 @@ const NewEligibilityForm = ({
               initialValues={{
                 city_id: request.city_id,
                 state_id: request.state_id,
-                budget: request.budget || affords,
+                //budget: request.budget || affords,
                 property_value: request.property_value,
                 property_type_id: request.property_type_id,
                 property_bedroom: request.property_bedroom,
@@ -216,7 +219,7 @@ const NewEligibilityForm = ({
                       </div>
                     </div>
 
-                    <div className='form-group row'>
+                    {/* <div className='form-group row'>
                       <div className="col-md-12">
                         <label>Budget *</label>
                         <WrappedInputWithError
@@ -232,7 +235,7 @@ const NewEligibilityForm = ({
                           You can afford up to ₦{formatCurrencyInput(max_loanable_amount)}. Any amount above this will be asumed to include your equity contribution
                         </p>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className='form-group row mt-5'>
                       <div className="col-md-6">
@@ -240,7 +243,10 @@ const NewEligibilityForm = ({
                           type='button'
                           disabled={isSubmitting}
                           className='w-100 item-btn mb-md-0 mb-3'
-                          onClick={() => setActiveTab(1)}
+                          onClick={() => {
+                            setSuccess(false);
+                            setActiveTab(1)
+                          }}
                         >
                           back
                         </button>

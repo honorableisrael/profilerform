@@ -6,10 +6,12 @@ const initialState = {
   age: 20,
   rate: 18,
   tenure: 20,
+  budget: '',
   isNhf: false,
   maxTenure: 30,
   loan_amount: 0,
   property_value: '',
+  payment_option: '',
   monthly_payment: "",
   monthly_repayment: 0,
   other_obligations: "",
@@ -40,6 +42,8 @@ export default (state = initialState, action) => {
     case types.SET_MAX_LOANABLE_AMOUNT: return composeNewState(state, 'max_loanable_amount', action);
     case types.SET_EQUITY_CONTRIBUTION: return composeNewState(state, 'equity_contribution', action);
     case types.SET_MONTHLY_EXPENSES: return composeNewState(state, 'monthly_expenses', action);
+    case types.SET_PAYMENT_OPTION: return composeNewState(state, 'payment_option', action);
+    case types.SET_BUDGET: return composeNewState(state, 'budget', action);
     case types.SET_HAVE_OTHER_OBLIGATIONS: return composeNewState(state, 'have_other_obligations', action);
     default: return { ...state };
   }
