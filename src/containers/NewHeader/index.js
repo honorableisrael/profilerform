@@ -44,10 +44,10 @@ const NewHeader = () => {
           </span>
           <span>
             <li>
-              <a onClick={() => setShowLoginDialog(true)}>Sign In</a>
+              <Link to="/auth/login" onClick={() => setShowLoginDialog(true)}>Sign In</Link>
             </li>
             <li>
-              <Link to="/register" className="acc-btn highlight">Sign up</Link>
+              <Link to="/auth/register" className="acc-btn highlight">Sign up</Link>
             </li>
           </span>
         </ul>

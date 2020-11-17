@@ -16,6 +16,7 @@ import NewHomepage from "./containers/NewHomepage";
 import GetStartedPage from "./containers/GetStartedPage";
 import NewApplicationPage from "./containers/NewApplicationPage";
 import ProfilePage from "./containers/ProfilePage";
+import ResetPassword from "./containers/ResetPassword/Index";
 
 class Routes extends Component {
   componentDidMount() {
@@ -37,6 +38,11 @@ class Routes extends Component {
               exact
               path='/get-started'
               component={GetStartedPage}
+            />
+            <Route
+              exact
+              path='/auth/password/reset'
+              component={ResetPassword}
             />
 
             {/* <Route

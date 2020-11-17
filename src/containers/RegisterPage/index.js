@@ -5,6 +5,9 @@ import { handleChange, validateForm } from "../../utils/authFormUtils";
 import signup from "../../store/middlewares/signup";
 import setIsAuthenticated from "../../store/actions/setIsAuthenticated";
 import setErrors from "../../store/actions/setErrors";
+import Header from "./../Header";
+import InputPassword from "./../../commons/InputPassword";
+import TextFieldGroup from "./../../commons/TextFieldGroup";
 
 class RegisterPage extends Component {
   state = {
@@ -44,16 +47,19 @@ class RegisterPage extends Component {
     const { errors, isLoading } = this.props;
     return (
       <div className='container-fluid px-0'>
-        <section id='fp-register-page-landing'>
-          <div className='container-fluid'>
-            <div className='row'>
-              <div className='col-md-8 offset-md-2'>
-                <div className='fp-login-auth-page-landing'>
+        <section id='fp-login-auth-page'>
+        <Header />
+        <p className='fp-login-auth-page-subheading'>
+                        Resgistering to this website, you accept our 
+                        <span className='fp-create-account-wrapper'><Link to='/terms' > {" "}Terms of use</Link></span> and our 
+                        <span className='fp-create-account-wrapper'><Link to='/privacy' > {" "}Privacy Policy</Link></span>
+        </p>
+
+        <div className='container-fluid fp-login-auth-page-landing'>
                   <div className='row'>
-                    <div className='col-md-6 offset-md-3'>
-                      <div className='fp-login-page-logo'></div>
+                    <div className='col-md-8 offset-md-2 mt-5 fp-login-auth-page-landing-form'>
                       <p className='fp-login-auth-page-landing-subtitle'>
-                        Create an account
+                        Sign Up
                       </p>
                         {
                           errors && errors.length ? (
@@ -70,87 +76,56 @@ class RegisterPage extends Component {
                         className='fp-login-form-wrapper needs-validation'
                         noValidate
                         onSubmit={this.handleSubmit}
-                      >
-                        <div className='form-group'>
-                          <label htmlFor='First Name'>First Name</label>
-                          <input
+                      > 
+                        <TextFieldGroup 
                             type='text'
-                            className='form-control'
+                            // className='form-control'
                             placeholder='First Name'
-                            data-state-name='firstname'
+                            name='firstname'
+                            value={this.state.firstname}
                             onChange={this.handleChange}
                             pattern='[a-zA-Z]+(?:-?[a-zA-Z])*'
                             required
-                          />
-                          <div className='invalid-feedback'>
-                            First name must be a sequence of letters (separated
-                            by hyphens or not)
-                          </div>
-                        </div>
-
-                        <div className='form-group'>
-                          <label htmlFor='Last Name'>Last Name</label>
-                          <input
+                            // error="First name must be a sequence of letters (separated
+                            // by hyphens or not)"
+                        />
+                        <TextFieldGroup 
                             type='text'
-                            className='form-control'
+                            // className='form-control'
                             placeholder='Last Name'
-                            data-state-name='lastname'
+                            name='lastname'
+                            value={this.state.lastname}
                             onChange={this.handleChange}
                             pattern='[a-zA-Z]+(?:-?[a-zA-Z])*'
                             required
-                          />
-                          <div className='invalid-feedback'>
-                            Last name must be a sequence of letters (separated
-                            by hyphens or not)
-                          </div>
-                        </div>
-
-                        <div className='form-group'>
-                          <label htmlFor='Email Address'>Email Address</label>
-                          <input
+                            // error="Last name must be a sequence of letters (separated
+                            // by hyphens or not)"
+                        />
+                        
+                        <TextFieldGroup 
                             type='email'
-                            className='form-control'
-                            placeholder='Email Address'
-                            data-state-name='email'
+                            // className='form-control'
+                            placeholder='Email'
+                            name='email'
+                            value={this.state.email}
                             onChange={this.handleChange}
                             pattern='^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$'
                             required
-                          />
-                          <div className='invalid-feedback'>
-                            Invalid email address
-                          </div>
-                        </div>
+                            // error="Invalid email address"
+                        />
 
-                        <div className='form-group'>
-                          <label htmlFor='Password' className='mg-b-0-f'>
-                            Password
-                          </label>
-                          <input
-                            type='password'
-                            className='toggled form-control'
-                            placeholder='Password'
-                            data-state-name='password'
+                        <InputPassword 
+                            type="password" 
+                            placeholder="Password"
+                            name='password'
+                            value={this.state.password}
                             onChange={this.handleChange}
                             minLength='6'
-                            required
-                          />
-                          <div className='invalid-feedback'>
-                            Password must be at least 6 characters long
-                          </div>
-                        </div>
+                          /> 
 
-                        <p className='fp-terms-privacy-policy'>
-                          By creating an account, you agree to Newhomes's &nbsp;
-                          <a className='' href='/'>
-                            Privacy Policy
-                          </a>
-                          &nbsp; and <a href='/'> Terms of Use</a>.
-                        </p>
-                        <button className='fp-modal-create-account-button' type='submit' disabled={isLoading}>
-                          Create Account
-                        </button>
+                        <input type="submit" className="btn-lg btn-info btn-block mt-4 mb-4" value="Sign Up" disabled={isLoading} />
                         <div className='fp-create-account-wrapper'>
-                          Already a member?
+                          Already have an Account?
                           <Link to='/auth/login' >
                             {" "}
                             Sign In.
@@ -160,9 +135,6 @@ class RegisterPage extends Component {
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
         </section>
       </div>
     );
@@ -171,9 +143,9 @@ class RegisterPage extends Component {
 
 const mapStateToProps = ({ root: state }, ownProps) => {
   return {
-    isAuthenticated: state.isAuthenticated,
-    isLoading: state.isLoading,
-    errors: state.errors,
+    // isAuthenticated: state.isAuthenticated,
+    // isLoading: state.isLoading,
+    // errors: state.errors,
     ...ownProps
   };
 };

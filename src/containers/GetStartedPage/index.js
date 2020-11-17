@@ -70,26 +70,32 @@ const GetStartedPage = () => {
                     <img
                       src={AccessBank}
                       className="select-lender-logo"
+                      alt="access"
                     />
                     <img
                       src={StandardChartered}
                       className="select-lender-logo"
+                      alt="standard chartered"
                     />
                     <img
                       src={StanbicBank}
                       className="select-lender-logo"
+                      alt="stanbic"
                     />
                     <img
                       src={FirstTrust}
                       className="select-lender-logo"
+                      alt="first trust"
                     />
                     <img
                       src={FirstTrust}
                       className="select-lender-logo"
+                      alt="first trust"
                     />
                     <img
                       src={StandardChartered}
                       className="select-lender-logo"
+                      alt="standard chartered"
                     />
                   </div>
                 </div>
@@ -108,26 +114,32 @@ const GetStartedPage = () => {
                     <img
                       src={StanbicBank}
                       className="select-lender-logo"
+                      alt="stanbic"
                     />
                     <img
                       src={StandardChartered}
                       className="select-lender-logo"
+                      alt="standard chartered"
                     />
                     <img
                       src={FirstTrust}
                       className="select-lender-logo"
+                      alt="first trust"
                     />
                     <img
                       src={AccessBank}
                       className="select-lender-logo"
+                      alt="access"
                     />
                     <img
                       src={StanbicBank}
                       className="select-lender-logo"
+                      alt="stanbic"
                     />
                     <img
                       src={StandardChartered}
                       className="select-lender-logo"
+                      alt="standard chartered"
                     />
                   </div>
                   <div className="select-loan-rate">

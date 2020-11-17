@@ -18,25 +18,67 @@
 }
 
 #fp-login-auth-page {
-  background-color: #ffffff;
+  background-color: #e5e5e5;
   /* overflow: hidden; */
   height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
   height: calc(var(--vh, 1vh) * 100);
 }
 
 .fp-login-auth-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 0px;
 }
 
 .fp-login-auth-page-landing {
-  margin-top: 80px;
+  width: 55%;
+  height: 75vh;
+  background: #ffffff;
+  border-radius: 8px;
+  border-top: 4px solid #5fb49c;
+
+  /* margin-top: 80px; */
+}
+@media only screen and (max-width: 600px) {
+  .fp-login-auth-page-landing {
+    width: 85%;
+  }
+}
+
+.fp-login-auth-page-landing-form {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  text-align: center;
 }
 
 .fp-login-notification {
   background: #e0f4fb;
   border-color: #bce7f6;
-  color: #147494;
+  color: #5fb49c;
   margin-bottom: 20px;
+}
+.fp-login-auth-page-subheading {
+  text-align: center;
+  padding: 0 10px;
+}
+.fp-forgotPassword {
+  text-align: right;
+  font-size: 14px;
+  line-height: 19.5px;
+  font-weight: 700;
+}
+.fp-create-account-wrapper > a:-webkit-any-link {
+  color: #5fb49c;
+  font-size: 14px;
+  line-height: 19.5px;
+  font-weight: 700;
+}
+
+.fp-forgotPassword-link:-webkit-any-link {
+  color: #5fb49c !important;
 }
 
 .fp-login-notification .fp-login-notification-content-wrapper {
@@ -70,57 +112,12 @@
 }
 
 .fp-login-auth-page-landing-subtitle {
-  font-size: 27px;
+  font-size: 24px;
   font-weight: 700;
-  color: #0a2e654d !important;
+  color: #333333 !important;
+  line-height: 29.21px;
   text-align: center;
-  margin-top: -20px;
-  margin-bottom: 20px;
-}
-
-.fp-login-auth-page-sidebar {
-  background: #022f8f;
-  padding: 0;
-}
-
-/* sidebar */
-.fp-login-auth-page-sidebar {
-  padding: 10px 90px 35px 90px;
-  height: 100vh;
-}
-
-.fp-login-auth-page-sidebar-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  min-height: 100%;
-  /* padding: 60px 90px 35px 90px; */
-  color: #fff;
-  text-align: center;
-  position: relative;
-}
-
-.fp-login-auth-page-sidebar-wrapper h2 {
-  color: #fff;
-  font-size: 32px;
-  font-size: 2rem;
-  margin: 20px 0 15px 0;
-  font-weight: 400;
-}
-
-.fp-login-auth-page-sidebar-wrapper p {
-  font-size: 18px;
-  opacity: 0.8;
-}
-
-.fp-login-auth-page-sidebar-wrapper .fp-login-page-sidebar-copyright {
-  position: absolute;
-  bottom: 25px;
-  left: 0;
-  width: 100%;
-  opacity: 0.5;
-  font-size: 13px;
+  margin-bottom: 30px;
 }
 
 .error-list.fp-errors-display-list {

@@ -11,6 +11,9 @@ import setLoading from "../../store/actions/setLoading";
 import setErrors from "../../store/actions/setErrors";
 import login from "../../store/middlewares/login";
 import setIsAuthenticated from "../../store/actions/setIsAuthenticated";
+import InputPassword from "./../../commons/InputPassword";
+import TextFieldGroup from "./../../commons/TextFieldGroup";
+import Header from "./../Header";
 
 // import LoginDoorIcon from "../Resource/fp-login-page-door-access.svg";
 
@@ -57,21 +60,21 @@ class LoginPage extends Component {
     event.preventDefault();
   };
 
+
   render() {
     const { errors, isLoading } = this.props;
     return (
+
       <div className='container-fluid px-0'>
         <ProgressBar isLoading={isLoading} />
         <section id='fp-login-auth-page'>
-          <div className='container-fluid'>
-            <div className='row'>
-              <div className='col-md-7'>
-                <div className='fp-login-auth-page-landing'>
+        <Header />
+        
+          <div className='container-fluid fp-login-auth-page-landing'>
                   <div className='row'>
-                    <div className='col-md-6 offset-md-3 mt-2 fp-login-auth-page-landing-form'>
-                      <div className='fp-login-page-logo'></div>
+                    <div className='col-md-8 offset-md-2 mt-5 fp-login-auth-page-landing-form'>
                       <p className='fp-login-auth-page-landing-subtitle'>
-                        Sign in to continue
+                        Sign in
                       </p>
                       {/* <div className='fp-login-notification'>
                         <div className='fp-login-notification-content-wrapper'>
@@ -111,119 +114,61 @@ class LoginPage extends Component {
                         noValidate
                         onBlur={this.handleBlur}
                         onSubmit={this.handleSubmit}
-                      >
-                        <div className='form-group'>
-                          <label htmlFor='Email address'>Email address</label>
-                          <input
+                      > 
+                        <TextFieldGroup 
                             type='email'
-                            className='form-control'
-                            placeholder='Email address'
-                            data-state-name='email'
+                            // className='form-control'
+                            placeholder='Email'
+                            name='email'
                             value={this.state.email}
                             onChange={this.handleChange}
                             pattern='^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$'
                             required
-                          />
-                          <div className='invalid-feedback'>
-                            Invalid email address
-                          </div>
-                        </div>
-                        <div className='form-group'>
-                          <label htmlFor='Password' className='mg-b-0-f'>
-                            Password
-                          </label>
-                          <input
-                            type='password'
-                            className='toggled form-control'
-                            placeholder='Password'
-                            data-state-name='password'
+                            // error="Invalid email address"
+                        />
+                        <InputPassword 
+                            type="password" 
+                            placeholder="Password"
+                            name='password'
                             value={this.state.password}
                             onChange={this.handleChange}
                             minLength='6'
-                            required
-                          />
-                          <div className='invalid-feedback'>
-                            Password must be at least 6 characters long
-                          </div>
-                        </div>
+                          /> 
 
-                        <div className='fp-checkbox fp-keep-me-logged-in'>
-                          <input
-                            type='checkbox'
-                            name='keepMeLoggedIn'
-                            data-state-name='keepMeLoggedIn'
-                          />
-                          <label
-                            htmlFor=' Keep me logged in'
-                            className='checkbox'
-                          >
-                            Keep me logged in
-                          </label>
-                        </div>
 
                         <div className='fp-login-options'>
                           <div className='fp-forgotPassword'>
-                            <Link to='/auth/password/reset'>
-                              Forgot password?
+                            <Link className="fp-forgotPassword-link" to='/auth/password/reset'>
+                              Forgot your password? Recover it
                             </Link>
                           </div>
                         </div>
-                        <p className='fp-terms-privacy-policy'>
-                          By logging in, you agree to Newhomes's{" "}
-                          <a className='' href='/'>
-                            Privacy Policy
-                          </a>{" "}
-                          and <a href='/'> Terms of Use</a>.
-                        </p>
-                        <button className='fp-modal-login-button' disabled={isLoading}>
-                          log in
-                        </button>
+                        <input type="submit" className="btn-lg btn-info btn-block mt-4 mb-4" value="Sign In" disabled={isLoading} />
                         <div className='fp-create-account-wrapper'>
-                          Not a member?
-                          <a
-                            href='/auth/register'
+                          Do not have an account?
+                          <Link
+                            className="sign"
+                            to='/auth/register'
                             onClick={this.handleSigninClick}
                           >
                             {" "}
-                            Join Now.
-                          </a>
+                            Sign Up
+                          </Link>
                         </div>
                       </form>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div className='col-md-5 fp-login-auth-page-sidebar'>
-                <div className='fp-login-auth-page-sidebar-wrapper'>
-                  <div className='fp-login-auth-page-img-wrapper'>
-                    {/* <figure>
-                      <img src={LoginDoorIcon} alt='/' className='img-fluid' />
-                    </figure> */}
-                    <h2>Welcome Back :)</h2>
-                    <p>
-                      To keep connected with us, please login with your
-                      registered email address and password.
-                    </p>
-                  </div>
-                  <div className='fp-login-page-sidebar-copyright'>
-                    &copy; 2019 Newhomes Nigeria.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </section>
-      </div>
-    );
-  }
-}
+      </div>)
+    };
+  };
 
 const mapStateToProps = ({ root: state }, ownProps) => {
   return {
-    isAuthenticated: state.isAuthenticated,
-    isLoading: state.isLoading,
-    errors: state.errors,
+    // isAuthenticated: state.isAuthenticated,
+    // isLoading: state.isLoading,
+    // errors: state.errors,
     ...ownProps
   };
 };
