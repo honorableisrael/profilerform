@@ -1,16 +1,17 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import PreFooter from './PreFooter';
-import NewFooter from '../NewFooter';
-import NewHeader from '../NewHeader';
-import FaqSection from './FaqSection';
+// import PreFooter from './PreFooter';
+import Footer from '../../commons/Footer';
+import Header from '../../commons/Header';
+// import FaqSection from './FaqSection';
 import HeroSection from './HeroSection';
-import StepsSection from './StepsSection';
-import WhyUsSection from './WhyUsSection';
+import StepsSection1 from './StepsSection1';
+// import WhyUsSection from './WhyUsSection';
 import PartnersSection from './PartnersSection';
 import withNewStyles from '../../hocs/withNewStyles';
-import TestimonialSection from './TestimonialSection';
+// import TestimonialSection from './TestimonialSection';
+import VideoSection from "./VideoSection";
 
 
 const Wrapper = styled.div`
@@ -19,19 +20,20 @@ const Wrapper = styled.div`
 const NewHomepage = () => {
   return (
     <Wrapper>
-      <NewHeader />
+      <Header />
       <main>
-        <div>
+        <div className="NewHomepage">
           <HeroSection />
           <PartnersSection />
-          <StepsSection />
-          <WhyUsSection />
+          <StepsSection1 />
+          {/* <WhyUsSection />
           <TestimonialSection />
-          <FaqSection />
-          <PreFooter />
+          <FaqSection /> */}
+          <VideoSection />
+          {/* <PreFooter /> */}
         </div>
       </main>
-      <NewFooter />
+      <Footer />
     </Wrapper>
   );
 }

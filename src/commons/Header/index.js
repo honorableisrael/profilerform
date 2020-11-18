@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from "react-router-dom";
 import "./Header.css";
 
-import financeplusLogo from '../Resource/finance-plus-logo-light-bottom.png';
+import financeplusLogo from '../../containers/Resource/finance-plus-logo-light-bottom.png';
 
 
 function Header() {

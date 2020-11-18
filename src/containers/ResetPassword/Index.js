@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import { Link } from "react-router-dom";
-import TextFieldGroup from "./../../commons/TextFieldGroup";
-import InputPassword from "./../../commons/InputPassword";
-import Header from "./../Header";
+import TextFieldGroup from "../../commons/TextFieldGroup";
+import InputPassword from "../../commons/InputPassword";
+import Header from "../../commons/Header";
 
 import { handleChange, validateForm } from "../../utils/authFormUtils";
 

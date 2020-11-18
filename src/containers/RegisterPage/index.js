@@ -5,9 +5,10 @@ import { handleChange, validateForm } from "../../utils/authFormUtils";
 import signup from "../../store/middlewares/signup";
 import setIsAuthenticated from "../../store/actions/setIsAuthenticated";
 import setErrors from "../../store/actions/setErrors";
-import Header from "./../Header";
+import Header from "../../commons/Header";
 import InputPassword from "./../../commons/InputPassword";
 import TextFieldGroup from "./../../commons/TextFieldGroup";
+import "./RegisterPage.css";
 
 class RegisterPage extends Component {
   state = {
@@ -77,6 +78,7 @@ class RegisterPage extends Component {
                         noValidate
                         onSubmit={this.handleSubmit}
                       > 
+                      <div className="fp-register-name">
                         <TextFieldGroup 
                             type='text'
                             // className='form-control'
@@ -101,6 +103,7 @@ class RegisterPage extends Component {
                             // error="Last name must be a sequence of letters (separated
                             // by hyphens or not)"
                         />
+                        </div>
                         
                         <TextFieldGroup 
                             type='email'

@@ -13,7 +13,7 @@ import login from "../../store/middlewares/login";
 import setIsAuthenticated from "../../store/actions/setIsAuthenticated";
 import InputPassword from "./../../commons/InputPassword";
 import TextFieldGroup from "./../../commons/TextFieldGroup";
-import Header from "./../Header";
+import Header from "../../commons/Header";
 
 // import LoginDoorIcon from "../Resource/fp-login-page-door-access.svg";
 

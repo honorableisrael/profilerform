@@ -16,7 +16,7 @@ import NewHomepage from "./containers/NewHomepage";
 import GetStartedPage from "./containers/GetStartedPage";
 import NewApplicationPage from "./containers/NewApplicationPage";
 import ProfilePage from "./containers/ProfilePage";
-import ResetPassword from "./containers/ResetPassword/Index";
+import ResetPassword from "./containers/ResetPassword";
 
 class Routes extends Component {
   componentDidMount() {
