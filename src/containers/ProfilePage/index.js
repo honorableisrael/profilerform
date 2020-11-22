@@ -2,9 +2,10 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import withNewStyles from '../../hocs/withNewStyles';
 // import NewApplicationPage from '../NewApplicationPage';
-import NewHeader from '../NewHeader';
-// import NewFooter from '../NewFooter';
 import ProfileForm from '../ProfileForm';
+import ProfileMenu from "./../../commons/ProfileMenu";
+// import PropertySuggestionList from "./../PropertySuggestionList";
+import "./ProfilePage.css";
 
 
 const Wrapper = styled.div`
@@ -312,10 +313,10 @@ const Wrapper = styled.div`
 
 const ProfilePage = () => {
   return (
-    <Wrapper>
-      <NewHeader />
+    <Wrapper className="profilePage">
+      <ProfileMenu  />
       <ProfileForm />
-      {/* <NewFooter /> */}
+      {/* <PropertySuggestionList /> */}
     </Wrapper>
   )
 };

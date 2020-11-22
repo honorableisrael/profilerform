@@ -35,3 +35,7 @@
   font-size: 14px;
   transition: all 0.12s;
 }
+
+.auth-color {
+  background: #ffffff !important;
+}

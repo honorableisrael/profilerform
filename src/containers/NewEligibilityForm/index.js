@@ -104,6 +104,7 @@ const NewEligibilityForm = ({
       city_id: validations.requiredString,
       property_value: validations.requiredCurrencyField,
       property_bedroom: validations.requiredInteger.min(1, 'Minimum of one'),
+      property_bathroom: validations.requiredInteger.min(1, 'Minimum of one'),
     });
   })();
 
@@ -131,6 +132,7 @@ const NewEligibilityForm = ({
                 property_value: request.property_value,
                 property_type_id: request.property_type_id,
                 property_bedroom: request.property_bedroom,
+                property_bathroom: request.property_bathroom,
               }}
               onSubmit={handleSubmit}
               validationSchema={validationSchema}
@@ -140,7 +142,7 @@ const NewEligibilityForm = ({
                   <Form>
                     <div className='form-group row'>
                       <div className="col-12 col-sm-6">
-                        <label>Home type<sup>*</sup></label>
+                        
                         <WrappedSelectWithError
                           textKey='name'
                           name='property_type_id'
@@ -150,37 +152,58 @@ const NewEligibilityForm = ({
                           {...{ errors, touched }}
                           onBlur={handleBlur}
                           onChange={handleChange}
+                          className="form-control form-control-lg form-area"
                         />
+                        <label className="form-label">Home type<sup>*</sup></label>
                       </div>
                       <div className="col-12 col-sm-6">
-                        <label>Home value <sup>*</sup></label>
+                        
                         <WrappedInputWithError
-                          prepend="₦"
+                          // prepend="₦"
                           name='property_value'
                           value={formatCurrencyInput(values.property_value)}
                           {...{ errors, touched }}
                           onBlur={handleBlur}
                           onChange={handleChange}
+                          className="form-control form-control-lg form-area"
                         />
+                        <label className="form-label">Home value <sup>*</sup></label>
                       </div>
                       <div className="col-12">
                         <div className="row">
-                          <div className="col-12 col-sm-6">
-                            <label>Number of bedrooms <sup>*</sup></label>
+                          <div className="col-md-6 col-sm-6">
+                            
                             <WrappedInputWithError
                               type='number'
-                              append="bedrooms"
+                              // append="bedrooms"
                               name='property_bedroom'
                               value={values.property_bedroom}
                               {...{ errors, touched }}
                               onBlur={handleBlur}
                               onChange={handleChange}
+                              className="form-control form-control-lg form-area"
                             />
+                            <label className="form-label">Number of Bedrooms <sup>*</sup></label>
                           </div>
+                          <div className="col-md-6 col-sm-6">
+                            
+                            <WrappedInputWithError
+                              type='number'
+                              // append="bedrooms"
+                              name='property_bathroom'
+                              value={values.property_bathroom}
+                              {...{ errors, touched }}
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              className="form-control form-control-lg form-area"
+                            />
+                            <label className="form-label">Number of Bathrooms <sup>*</sup></label>
+                          </div>
+                          
                         </div>
                       </div>
                       <div className="col-12 col-sm-6">
-                        <label>Desired state <sup>*</sup></label>
+                        
                         <WrappedSelectWithError
                           textKey='name'
                           name='state_id'
@@ -192,20 +215,14 @@ const NewEligibilityForm = ({
                           onChange={({ target }) => {
                             setStateId(target.value);
                             handleChange({ target });
+                            
                           }}
+                          className="form-control form-control-lg form-area"
                         />
+                        <label className="form-label">Desired state <sup>*</sup></label>
                       </div>
                       <div className="col-12 col-sm-6">
-                        <label>Desired city <sup>*</sup>
-                          <CircularLoader
-                            size='24px'
-                            isLoading={loadingCities}
-                            otherStyles={{
-                              top: '0px',
-                              right: '-60px'
-                            }}
-                          />
-                        </label>
+                        
                         <WrappedSelectWithError
                           textKey='name'
                           name='city_id'
@@ -215,7 +232,18 @@ const NewEligibilityForm = ({
                           {...{ errors, touched }}
                           onBlur={handleBlur}
                           onChange={handleChange}
+                          className="form-control form-control-lg form-area"
                         />
+                        <label className="form-label">Desired city <sup>*</sup>
+                          <CircularLoader
+                            size='24px'
+                            isLoading={loadingCities}
+                            otherStyles={{
+                              top: '0px',
+                              right: '-60px'
+                            }}
+                          />
+                        </label>
                       </div>
                     </div>
 

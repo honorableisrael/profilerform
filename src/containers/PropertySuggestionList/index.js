@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./PropertySuggestionList.css";
-import PropertyAdItem from "../AffordabilityTestPage/PropertyAdItem";
+import PropertyAdItem from "../NewApplicationPage/PropertyAdItem";
 
 const PropertySuggestionList = ({
   properties,

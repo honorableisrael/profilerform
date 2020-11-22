@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp, faExclamationTriangle, faExpand } from '@fortawesome/free-solid-svg-icons';
 
-import NewHeader from '../NewHeader';
 import SummarySection from './SummarySection';
 import withNewStyles from '../../hocs/withNewStyles';
 import NewEligibilityForm from '../NewEligibilityForm';
@@ -21,6 +20,7 @@ import requestActions from '../../store/actions/requestActions';
 import ProfileFormWrapper from '../ProfileForm';
 import fetchProperties from '../../utils/fetchProperties';
 import { clearCommas } from '../../utils/currencyUtils';
+import ProfileMenu from "../../commons/ProfileMenu";
 
 
 const Wrapper = styled.div`
@@ -43,12 +43,20 @@ const Wrapper = styled.div`
   .error-message {
     color: red !important;
   }
+  .top-headers{
+    margin-left: 30px;
+    margin-top: 8px;
+    margin-bottom: 10px;
+  }
 
   [type='submit'] {
     color: white;
     background: teal;
     border-color: #009688;
     background-color: #009688;
+  }
+  .profile-form-section{
+    background: #E5E5E5 !important; 
   }
 
   button {
@@ -74,6 +82,8 @@ const Wrapper = styled.div`
 
   .application-flow {
     /* margin-bottom: 250px !important; */
+    padding: 0;
+    grid-template-rows: 0px 1fr;
   }
 
   .application-flow form button::not(.item-btn) {
@@ -90,12 +100,37 @@ const Wrapper = styled.div`
   .mortgage-page-content {
     height: 100% !important;
   }
+  .section-heading{
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29.21px;
+    margin-top: 30px;
+    margin-left: 30px;
+    color: black;
+  }
+  .section-text{
+    font-weight: 325;
+    font-size: 12px;
+    line-height: 14.4px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    margin-left: 30px;
+    padding-bottom: 15px;
+    color: black !important;
+    border-bottom: 0.5px solid #BBBBBB;
+  }
 
   .affordability-page-content > div,
   .eligibility-page-content > div,
   .mortgage-page-content > div {
     height: 100%;
     overflow-y: auto;
+  }
+  .affordability-page-content > *{
+    padding: 0px;
+  }
+  .affordability-form-section, .eligibility-form-section{
+    background: #e5e5e5 !important;
   }
 
   label {
@@ -504,11 +539,11 @@ const NewApplicationPage = ({ properties, dispatch }) => {
 
   return (
     <Wrapper>
-      <NewHeader />
       <main>
         <div className="application-flow">
           {/* <!--Affordability Tab--> */}
-          <div
+          
+           <div
             className='summary-sticker'
             onClick={() => setSummaryStickerOpen(!summaryStickerOpen)}
           >
@@ -524,7 +559,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
             onChange={handleTabChange}
             className="mortgage-flow-toggle"
             id="affordabilty-test"
-          />
+          /> 
           <div className="mortgage-flow-page">
             {/* <!-- <label for="mobile-toggle" className="mobile-toggle-trigger">Form Submit Sample</label>
             <input type="checkbox" className="mobile-toggle" name="mobile-toggle" id="mobile-toggle" /> --> */}
@@ -545,14 +580,16 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                 ) : ''
               }
 
-              <SummarySection
-                closed={!summaryStickerOpen}
-                sectionHeading="Affordability test"
-              />
+              
+              <ProfileMenu />
 
               <div className="profile-form-section">
                 <div className="form-content-wrapper">
-                  <h2 className="section-heading">Tell us about yourself</h2>
+                  <h2 className="section-heading">Profile</h2>
+                  <SummarySection
+                    closed={!summaryStickerOpen}
+                    sectionHeading="Affordability test"
+                  />
                   <ProfileFormWrapper
                     {...{ setActiveTab, setFoundProperty }}
                   />
@@ -567,7 +604,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
               />
             </div>
           </div>
-          <label className="mortgage-flow-nav" htmlFor="affordabilty-test">Profile</label>
+          {/* <label className="mortgage-flow-nav" htmlFor="affordabilty-test">Profile</label> */}
           {/* <!--Eligibity Tab--> */}
           <input
             name="mortgage-flow-nav"
@@ -596,14 +633,16 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                   </>
                 ) : ''
               }
-              <SummarySection
-                closed={!summaryStickerOpen}
-                sectionHeading="Affordability test"
-              />
-
+              
+              <ProfileMenu />
               <div className="affordability-form-section">
                 <div className="form-content-wrapper">
-                  <h2 className="section-heading">How much can I afford to borrow?</h2>
+                  <h2 className="section-heading">Affordability Test</h2>
+                    <SummarySection
+                    closed={!summaryStickerOpen}
+                    sectionHeading="Affordability test"
+                    />
+                  <p className="section-text">Check how much you can afford to borrow</p>
                   {
                     activeTab === 1 ? (
                       <NewAffordabilityForm
@@ -626,7 +665,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
               />
             </div>
           </div>
-          <label className="mortgage-flow-nav" htmlFor="eligibility-test">Affordability Test</label>
+          {/* <label className="mortgage-flow-nav" htmlFor="eligibility-test">Affordability Test</label> */}
           {/* <!--Application Tab--> */}
           <input
             name="mortgage-flow-nav"
@@ -655,12 +694,14 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                   </>
                 ) : ''
               }
-              <SummarySection
+              <ProfileMenu />
+              <div className="eligibility-form-section">
+                <h2 className="section-heading">Property Request</h2>
+                {/* <SummarySection
                 closed={!summaryStickerOpen}
                 sectionHeading="Eligibility test"
-              />
-              <div className="eligibility-form-section">
-                <h2 className="section-heading">Request a property</h2>
+              /> */}
+                <p className="section-text">Please provide  your preference for the type of property you would prefer</p>
                 {
                   activeTab === 2 ? (
                     <NewEligibilityForm
@@ -675,7 +716,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
               {/* <!-- <div className="application-highlight-section"></div> --> */}
             </div>
           </div>
-          <label className="mortgage-flow-nav" htmlFor="mortgage-application">Property Request</label>
+          {/* <label className="mortgage-flow-nav" htmlFor="mortgage-application">Property Request</label> */}
           {
             thereAreProperties ? (
               <div

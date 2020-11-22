@@ -14,7 +14,7 @@ import { Formik, Form  } from 'formik';
 import statesList from '../../utils/statesMapped';
 import cookies from '../../utils/cookies';
 import userActions from '../../store/actions/userActions';
-
+import "./../../commons/TextFieldGroup/ProfileTextField.css";
 
 const Wrapper = styled.div`
 
@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
   employment_id: validations.requiredString,
   employment_present_position: validations.requiredString,
   // command: validations.requiredString,
-  // nhf_number: validations.requiredString,
+  nhf_number: validations.requiredString,
   employment_state: validations.requiredString,
   employer_address: validations.requiredString,
   work_experience: validations.requiredInteger.min(1, minOneError),
@@ -47,7 +47,7 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
         initialValues={{
           employment_id: currentUser.employment_id,
           employment_present_position: currentUser.employment_present_position,
-          //command: currentUser.command,
+          // command: currentUser.command,
           nhf_number: currentUser.nhf_number,
           work_experience: currentUser.work_experience,
           employment_state: currentUser.employment_state,
@@ -69,63 +69,76 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                       </h2> */}
                       <div className="form-group row">
                         <div className="col-md-6 col-sm-12">
-                          <label>
-                            F/AP Number
-                            <sup>*</sup>
-                          </label>
                           <WrappedInputWithError
                             type="text"
                             onBlur={handleBlur}
                             name='employment_id'
-                            placeholder="F/AP number"
+                            placeholder=""
                             onChange={handleChange}
                             value={values.employment_id}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
-                        </div>
-                        <div className="col-md-6 col-sm-12">
-                          <label>
-                            Command
+                          <label className="form-label">
+                            F/AP Number
                             <sup>*</sup>
                           </label>
+                          
+                        </div>
+                        <div className="col-md-6 col-sm-12">
+                          
                           <WrappedInputWithError
                             type="text"
                             name='employer_address'
-                            placeholder="Command"
+                            placeholder=""
                             value={values.employer_address}
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">
+                            Command
+                            <sup>*</sup>
+                          </label>
                         </div>
 
-                        <div className="col-md-6 col-sm-12">
-                          <label>Rank</label>
+                        <div className="col-md-6 col-sm-12 form-group">
+                          
                           <WrappedSelectWithError
                             name='employment_present_position'
                             textKey='name'
                             value={values.employment_present_position}
                             extractValue={({ name }) => name}
                             options={[{ name: 'Select a choice' }, ...ranks]}
+                            // options={[
+                            //   'Officer',
+                            //   'Inspector',
+                            //   'DPO'
+                            // ]}
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">Rank</label>
                         </div>
-                        <div className="col-md-6 col-sm-12">
-                          <label>NHF Number</label>
+                        <div className="col-md-6 col-sm-12 form-group">
+                          
                           <WrappedInputWithError
                             type="text"
                             name='nhf_number'
-                            placeholder="NHF number"
+                            placeholder=""
                             value={values.nhf_number}
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">NHF Number</label>
                         </div>
                       </div>
-                      <div className='row'>                      
+                      <div className='row form-group'>                      
                         {/* <div className='col-12'>
                           <label>
                             Employment Address
@@ -142,53 +155,59 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                           />
                         </div> */}
                         <div className='col-md-6 col-sm-12'>
-                          <label>
-                            State of Deployment
-                            <sup>*</sup>
-                          </label>
+                          
                           <WrappedSelectWithError
                             textKey='name'
                             options={states}
                             name='employment_state'
                             value={values.employment_state}
                             extractValue={({ name }) => name}
-                            placeholder='Please choose a state'
+                            placeholder=''
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">
+                            State of Deployment
+                            <sup>*</sup>
+                          </label>
                         </div>
                         <div className='col-md-6 col-sm-12'>
-                          <label>
+                          
+                          <WrappedInputWithError
+                            type="number"
+                            // append='years'
+                            name='work_experience'
+                            value={values.work_experience}
+                            placeholder="years"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
+                          />
+                          <label className="form-label">
                             Length of Service
                             <sup>*</sup>
                           </label>
+                        </div>
+                        <div className='col-md-6 col-sm-12 form-group'>
+                          
                           <WrappedInputWithError
                             type="number"
-                            append='years'
-                            name='work_experience'
-                            value={values.work_experience}
-                            placeholder="Length of service"
+                            // append='years'
+                            name='year_to_retirement'
+                            value={values.year_to_retirement}
+                            placeholder="years"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
-                        </div>
-                        <div className='col-md-6 col-sm-12'>
-                          <label>
+                          <label className="form-label">
                             Years to Retirement
                             <sup>*</sup>
                           </label>
-                          <WrappedInputWithError
-                            type="number"
-                            append='years'
-                            name='year_to_retirement'
-                            value={values.year_to_retirement}
-                            placeholder="Years to retirement"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            {...{ errors, touched }}
-                          />
                         </div>
                       </div>
                     </div>

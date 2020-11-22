@@ -24,9 +24,12 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
   }
+  .property-suggestions-section{
+    background: #e9f2e9 !important;
+  }
 
   .fp-nh-affordability-regular-affordability-property-suggestion-list {
-    background: #fff;
+    background: #E9F2E9;
     /* padding: 10px 20px 0; */
     border-radius: 5px;
     width: 252px;

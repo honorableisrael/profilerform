@@ -1,0 +1,10 @@
+.profilePage {
+  display: flex;
+  background-color: aquamarine;
+  padding-bottom: 0 !important;
+}
+@media only screen and (max-width: 991px) {
+  .profilePage {
+    flex-direction: column;
+  }
+}

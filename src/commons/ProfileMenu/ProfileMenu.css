@@ -1,0 +1,219 @@
+.profileMenu {
+  /* display: flex; */
+  flex-direction: column !important;
+  color: black;
+  width: auto !important;
+  padding: 0.5rem 0 !important;
+  /* justify-content: space-between !important; */
+  /* height: 800px; */
+}
+
+.profileMenu__top {
+  width: 100% !important;
+  text-align: center;
+  margin-top: 20px !important;
+}
+/* .profileMenu__brand {
+   margin-bottom: 50px !important; 
+} */
+.profileMenu__logo {
+  height: 30px;
+  filter: invert(100%);
+}
+.collapse {
+  margin-top: 60px;
+}
+
+.profileMenu__top--menu {
+  width: 100%;
+}
+.profileMenu__top--item {
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+.profileMenu__top--item:first-child {
+  background-color: #e9f2e9 !important;
+  border-left: 4px solid #5fb49c;
+}
+.profileMenu__top--item > .circle {
+  border-color: #bbbbbb;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  padding: 3px;
+  text-align: center;
+  margin-right: 12px;
+}
+.profileMenu__top--item > .green {
+  border-color: #0fbc49 !important;
+}
+.circle > .green {
+  background-color: #0fbc49 !important;
+  border-radius: 50%;
+  width: 7px !important;
+  height: 7px;
+}
+.profileMenu__top--bar {
+  display: block;
+  background-color: #bbbbbb;
+  height: 60px;
+  width: 2px;
+  margin: 10px 0;
+  margin-left: 30px;
+}
+.profileMenu__top--item > div {
+  border: 0.5px solid #bbbbbb;
+  /* border-radius: ; */
+}
+.profileMenu__top--link {
+  font-weight: 700;
+  font-size: 14px;
+}
+.profileMenu__top--link:link {
+  color: #bbbbbb;
+}
+.profileMenu__top--link {
+  color: #bbbbbb;
+}
+.marked {
+  color: black;
+}
+
+.profileMenu__bottom {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 40px;
+}
+.profileMenu__bottom-item {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.profileMenu__bottom-link {
+  font-size: 14px;
+  font-weight: 700;
+  color: #666666;
+  padding-left: 20px;
+}
+/* .profileMenu__bottom-icon {
+} */
+.profileMenu__bottom-item .btn {
+  border: none;
+  color: #666666;
+  text-align: left;
+}
+.profileMenu__bottom-item .btn-info {
+  color: #666666 !important;
+  background-color: #ffffff !important;
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 991px) {
+  .profileMenu {
+    /* flex-direction: row !important;
+    justify-content: space-between; */
+
+    /* width: auto !important; */
+    padding: 0rem 0 !important;
+  }
+  .profileMenu__top {
+    margin-top: 0 !important;
+    text-align: initial;
+    /* justify-content: space-between;
+    display: flex; */
+  }
+  .navbar-toggler {
+    margin: 25px 15px !important;
+    margin-left: 70vw !important;
+    filter: invert(50%);
+  }
+  .profileMenu__top--item:first-child {
+    background-color: initial !important;
+    border-left: initial !important;
+  }
+  .profileMenu__top--link {
+    color: #666666;
+  }
+  .profileMenu__top--link:link {
+    color: #666666;
+  }
+  .marked {
+    color: #666666;
+  }
+  .profileMenu__bottom {
+    /* display: flex;
+    flex-direction: column; */
+    position: initial !important;
+    margin: 0 !important;
+    /* text-align: center; */
+    border-top: 1px solid #dddddd;
+  }
+  .collapse {
+    margin-top: 10px !important;
+  }
+  .profileMenu__top--menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    margin-top: 0;
+  }
+  .profileMenu__top--bar {
+    display: none;
+  }
+  .profileMenu__bottom-link {
+    color: #999999;
+  }
+
+  .profileMenu__bottom-item {
+    margin-top: 10px !important;
+  }
+  .profileMenu__bottom-item:first-child {
+    color: #999999 !important;
+    padding-left: 40px;
+  }
+  .profileMenu__bottom-item .btn {
+    border: initial;
+    /* width: initial !important; */
+    padding-left: 45px;
+    /* text-align: center !important; */
+  }
+  .profileMenu__bottom-item .btn-info {
+    color: #ffffff !important;
+    background-color: #5fb49c !important;
+    font-weight: 700;
+  }
+  .profileMenu__bottom-icon {
+    display: none;
+  }
+  .profileMenu__top--item > .circle {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .navbar-toggler {
+    margin-left: 60vw !important;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .navbar-toggler {
+    margin-left: 50vw !important;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .navbar-toggler {
+    margin-left: 40vw !important;
+  }
+}
+@media only screen and (max-width: 430px) {
+  .navbar-toggler {
+    margin-left: 30vw !important;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .navbar-toggler {
+    margin-left: 15vw !important;
+  }
+}

@@ -16,6 +16,7 @@ import { Formik, Form  } from 'formik';
 import statesList from '../../utils/statesMapped';
 import cookies from '../../utils/cookies';
 import userActions from '../../store/actions/userActions';
+import "./../../commons/TextFieldGroup/ProfileTextField.css";
 
 
 const Wrapper = styled.div`
@@ -27,10 +28,10 @@ const maritalStatuses = ['married', 'single', 'divorce'];
 const sexes = ['male', 'female'];
 
 const validationSchema = Yup.object().shape({
-  sex: validations.requiredString,
+  // sex: validations.requiredString,
   phone: validations.phone,
   address: validations.requiredString,
-  middlename: validations.isSingleName,
+  // middlename: validations.isSingleName,
   lastname: validations.isRequiredSingleName,
   state_of_origin: validations.requiredString,
   firstname: validations.isRequiredSingleName,
@@ -39,8 +40,8 @@ const validationSchema = Yup.object().shape({
   mode_of_contact: validations.requiredString,
   no_of_dependents: validations
     .requiredInteger.min(0, 'Minimum of zero'),
-  password: validations.password,
-  whatapp: validations.phone.notRequired(),
+  // password: validations.password,
+  // whatapp: validations.phone.notRequired(),
   marital_status: validations.requiredString,
   current_apartment_status: validations.requiredString,
 })
@@ -75,47 +76,51 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
           const { current_apartment_status } = values;
           const isNotOtherHometype = homeTypes.slice(0, 2).includes(current_apartment_status);
           return (
-            <Form>
+            <Form className="form__main">
               <div className='container'>
                 <div className="fp-personal-info-form">
                   <div>
                     <div>
-                      {/* <h2 className="mt-3">
-                        Please tell us about yourself
-                      </h2> */}
-                      <div className="form-group row">
-                        <div className="col-md-6 col-sm-12">
-                          <label>
-                            First Name
-                            <sup>*</sup>
-                          </label>
+                      <p className="mt-2">
+                        Tell us about yourself
+                      </p>
+                      <div className=" row">
+                        <div className="col-md-6 col-sm-12 form-group">
+                          
                           <WrappedInputWithError
                             type="text"
                             name='firstname'
                             value={values.firstname}
-                            placeholder="First name..."
+                            placeholder=""
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
-                        </div>
-                        <div className="col-md-6 col-sm-12">
-                          <label>
-                            Last Name
+                          <label className="form-label">
+                            First Name
                             <sup>*</sup>
                           </label>
+                        </div>
+                        <div className="col-md-6 col-sm-12 form-group">
+                          
                           <WrappedInputWithError
                             type="text"
                             name='lastname'
-                            placeholder="Last name..."
+                            placeholder=""
                             value={values.lastname}
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">
+                            Last Name
+                            <sup>*</sup>
+                          </label>
                         </div>
 
-                        <div className="col-md-6 col-sm-12">
+                        {/* <div className="col-md-6 col-sm-12">
                           <label>Middle Name</label>
                           <WrappedInputWithError
                             type="text"
@@ -126,79 +131,69 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                             onChange={handleChange}
                             {...{ errors, touched }}
                           />
-                        </div>
+                        </div> */}
                       </div>
 
                       <div className='row'>
-                        <div className='col-md-12'>
-                          <label>
-                            Address
-                            <sup>*</sup>
-                          </label>
+                        <div className='col-md-12 form-group'>
+                          
                           <WrappedInputWithError
                             type="text"
-                            placeholder="Address..."
+                            placeholder=""
                             name="address"
                             value={values.address}
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">
+                            Address
+                            <sup>*</sup>
+                          </label>
                         </div>
                       </div>
 
                       <div className='row'>
-                        <div className='col-md-6 col-sm-12'>
-                          <label>
-                            Email
-                            <sup>*</sup>
-                          </label>
+                        <div className='col-md-6 col-sm-12 form-group'>
+                          
                           <WrappedInputWithError
                             type="email"
                             name="email"
                             value={values.email}
-                            placeholder="user@example.com"
+                            placeholder=""
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
-                        </div>
-
-                        <div className='col-md-6 col-sm-12'>
-                          <label>
-                            Phone
+                          <label className="form-label">
+                            Email
                             <sup>*</sup>
                           </label>
+                        </div>
+
+                        <div className='col-md-6 col-sm-12 form-group'>
+                          
                           <WrappedInputWithError
                             type="text"
                             name='phone'
                             value={values.phone}
-                            placeholder="Phone..."
+                            placeholder=""
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
-                        </div>
-
-                        <div className='col-md-6 col-sm-12'>
-                        <label>
-                            Date of birth
+                          <label className="form-label">
+                            Phone Number
                             <sup>*</sup>
                           </label>
-                          <WrappedInputWithError
-                            name='dob'
-                            placeholder="DD/MM/YYYY"
-                            value={values.dob}
-                            append={<FontAwesomeIcon color='gray' icon={faCalendarAlt} />}
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            {...{ errors, touched }}
-                          />
                         </div>
                       </div>
 
                       <div className='row'>                      
-                        <div className='col-md-6 col-sm-12'>
+                        {/* <div className='col-md-6 col-sm-12'>
                           <label>
                             Sex
                             <sup>*</sup>
@@ -212,25 +207,44 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                             onChange={handleChange}
                             {...{ errors, touched }}
                           />
-                        </div>
-                        <div className='col-md-6 col-sm-12'>
-                          <label>
-                            State of Origin
+                        </div> */}
+                        <div className='col-md-6 col-sm-12 form-group'>
+                        
+                          <WrappedInputWithError
+                            name='dob'
+                            placeholder="DD/MM/YYYY"
+                            value={values.dob}
+                            // append={<FontAwesomeIcon color='gray' icon={faCalendarAlt} />}
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
+                          />
+                          <label className="form-label">
+                            Date of birth
                             <sup>*</sup>
                           </label>
+                        </div>
+                        <div className='col-md-6 col-sm-12 form-group'>
+                          
                           <WrappedSelectWithError
                             textKey='name'
                             options={states}
                             name='state_of_origin'
                             value={values.state_of_origin}
                             extractValue={({ name }) => name}
-                            placeholder='Please choose a state'
+                            placeholder=''
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">
+                            State of Origin
+                            <sup>*</sup>
+                          </label>
                         </div>
-                        <div className='col-md-6 col-sm-12'>
+                        {/* <div className='col-md-6 col-sm-12'>
                           <label>
                             Whatsapp Number
                             <sup>*</sup>
@@ -244,9 +258,9 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                             onChange={handleChange}
                             {...{ errors, touched }}
                           />
-                        </div>
+                        </div> */}
                       </div>
-                      <div className='row'>
+                      {/* <div className='row'>
                         <div className='col-md-12'>
                           <label>Marital Status</label>
                           <div className="row">
@@ -321,13 +335,54 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
 
                           ) : ''
                         }
-                      </div>
+                      </div> */}
                       <div className='row'>                      
-                        <div className='col-md-6 col-sm-12'>
-                          <label>
-                            Preferred Mode of Contact
+                        <div className='col-md-6 col-sm-12 form-group'>
+                          
+                          <WrappedSelectWithError
+                            name='marital_status'
+                            options={[
+                              'Married',
+                              'Single',
+                              'Divorce'
+                            ]}
+                            value={values.marital_status}
+                            placeholder=''
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
+                          />
+                          <label className="form-label">
+                            Marital Status
                             <sup>*</sup>
                           </label>
+                        </div>
+                        <div className='col-md-6 col-sm-12 form-group'>
+                          
+                          <WrappedSelectWithError
+                            name='current_home_type'
+                            options={[
+                              'Owned',
+                              'Rented',
+                              'Others'
+                            ]}
+                            value={values.current_home_type}
+                            placeholder=''
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
+                          />
+                          <label className="form-label">
+                            Current Home Type
+                            <sup>*</sup>
+                          </label>
+                        </div>
+                      </div>
+                      <div className='row'>                      
+                        <div className='col-md-6 col-sm-12 form-group'>
+                          
                           <WrappedSelectWithError
                             name='mode_of_contact'
                             options={[
@@ -337,17 +392,19 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                               'Whatsapp'
                             ]}
                             value={values.mode_of_contact}
-                            placeholder='Preferred mode of contact'
+                            placeholder=''
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
-                        </div>
-                        <div className='col-md-6 col-sm-12'>
-                          <label>
-                            Number of Dependents
+                          <label className="form-label">
+                            Preferred Mode of Contact
                             <sup>*</sup>
                           </label>
+                        </div>
+                        <div className='col-md-6 col-sm-12 form-group'>
+                          
                           <WrappedInputWithError
                             type='number'
                             name='no_of_dependents'
@@ -356,9 +413,14 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">
+                            Number of Dependents
+                            <sup>*</sup>
+                          </label>
                         </div>
-                        <div className='col-md-6 col-sm-12'>
+                        {/* <div className='col-md-6 col-sm-12'>
                           <label>
                             Password
                           </label>
@@ -371,7 +433,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                             onChange={handleChange}
                             {...{ errors, touched }}
                           />
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

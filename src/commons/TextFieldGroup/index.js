@@ -7,19 +7,17 @@ function TextFieldGroup({
   name, 
   placeholder,
   value,
-//   error,
-//   info,
   type,
   onChange,
   pattern,
   error
 }) {
   return (
-    <div className="form-group">
+    <div className="form-group auth-color">
               <input 
                   type={type} 
                   id="form-field"
-                  className={classnames("form-control form-control-lg form-area",{
+                  className={classnames("form-control auth-color form-control-lg form-area",{
                     "is-invalid": error
                   })} 
                   placeholder="" 
@@ -28,7 +26,7 @@ function TextFieldGroup({
                   data-state-name={name} 
                   pattern={pattern}
               />
-              <label htmlFor="form-field" className="form-label">{placeholder}</label>
+              <label htmlFor="form-field" className="form-label auth-color">{placeholder}</label>
               <div className='invalid-feedback'>
                 {error}
                 </div>

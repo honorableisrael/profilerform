@@ -10,60 +10,77 @@ import { clearCommas, formatCurrencyInput } from '../../utils/currencyUtils';
 
 
 const Wrapper = styled.div`
-  /* & {
+   & {
     padding: 3% 20px;
   }
 
   .application-summary-wrapper {
     display: flex;
-    margin: 20% -20px;
+    margin: 2% -20px;
+    margin-top: 13%;
     position: relative;
-    flex-flow: column nowrap;
-    padding-left: 2rem;
+    padding-left: 30px;
+    flex-flow: row nowrap;
+    width: 100%;
   }
 
   .application-summary-wrapper > * {
-    color: #DBFFF5;
-    padding: 30px;
+    color: black ;
+    padding: 50px ;
+    min-width: 240px;
   }
 
   .application-summary-wrapper > :nth-child(1) {
-    background: #3B937A;
+    background: #E9F2E9;
     z-index: 3;
-    box-shadow: 0px 16px 58px rgba(39, 98, 81, 0.44);
+    box-shadow: 0px 0px 0px rgba(39, 98, 81, 0.44);
     position: relative;
     padding-top: 40px;
-  } */
+  } 
 
-  /* .application-summary-wrapper .summary-value-wrapper h3 {
-    font-size: 22px;
+  .summary-value-wrapper{
+    color: black;
+  }
+
+   .application-summary-wrapper .summary-value-wrapper h3 {
+    font-size: 18px;
     line-height: 28px;
     z-index: 10;
-  } */
+  }
+  .application-summary-wrapper .summary-value-wrapper  {
+    width: 200px;
+    margin-right: 50px;
+  } 
 
-  /* .application-summary-wrapper .summary-value-wrapper .monetary-value::before {
+  
+
+  .application-summary-wrapper .summary-value-wrapper .monetary-value::before {
     content: '₦';
     line-height: 28px;
     z-index: 10;
   }
 
   .application-summary-wrapper > :nth-child(1) > :nth-child(1) {
-    position: absolute;
-    top: -19%;
-    background: var(--primary-color);
-    padding: 10px 10%;
-    color: var(--white-color);
+    position: relative;
+    // top: -19%;
+    background: initial !important;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 5px 5%;
+    color: black;
   }
 
   .application-summary-wrapper > :nth-child(2) {
-    background: #91D1BF;
+    background:  #E9F2E9;
     z-index: 2;
-    box-shadow: 0px 16px 58px rgba(39, 98, 81, 0.22);
+    box-shadow: 0px 0px 0px rgba(39, 98, 81, 0.22);
+    padding-top: 86px;
   }
 
   .application-summary-wrapper > :nth-child(3) {
-    background: var(--accent-color);
+    background:  #E9F2E9;;
     z-index: 1;
+    padding-top: 86px;
   }
 
   .application-summary-wrapper > :nth-child(3) > * {
@@ -76,7 +93,7 @@ const Wrapper = styled.div`
     font-size: 12px;
     line-height: 16px;
     z-index: 10;
-  } */
+  } 
 
   & {
     min-width: 180px;
@@ -95,6 +112,12 @@ const Wrapper = styled.div`
     font-size: 1.325rem !important;
   }
 
+  @media screen and (max-width: 1200px) {
+    .application-summary-wrapper > * {
+      min-width: 150px;
+    }
+  }
+
   @media screen and (max-width: 768px) {
     & {
       z-index: 2;
@@ -103,6 +126,7 @@ const Wrapper = styled.div`
       padding-right: 32px;
       background: #ffffff;
     }
+    
 
     &,
     & > * {
@@ -167,29 +191,29 @@ const SummarySection = ({ heading, closed, ...rest }) => {
   });
 
   return (
-    <Wrapper className={`affordability-summary-section ${closed ? 'closed' : ''}`}>
+    <Wrapper className={`affordability-summary-section  ${closed ? 'closed' : ''}`}>
       {/* <h2 className="section-heading">Home Loans.</h2>
       <h3 className="application-stage"><span></span> { heading }</h3>
       <p className="application-stage-description">
         Calculate the home loan you qualify for, and how much you can expect to
         pay monthly on your home loan repayments.
       </p> */}
-      <div className="application-summary-wrapper">
-        <div>
-          <h3>Summary</h3>
+      <div className="application-summary-wrapper row">
+        <div className= "col-md-4 col-sm-4">
+        <h3>Summary</h3>
           <div className="summary-value-wrapper">
             <p>Maximum Loanable</p>
             <h3 className="monetary-value">{formatCurrencyInput(max_loanable_amount || '') || '\t***,***'}</h3>
           </div>
         </div>
-        <div>
-          <div className="summary-value-wrapper">
+        <div className= "col-md-4 col-sm-4">
+          <div className="  summary-value-wrapper">
             <p>Est. Monthly Repayment</p>
             <h3 className="monetary-value">{formatCurrencyInput(monthly_repayment || '') || '\t***,***'}</h3>
           </div>
         </div>
-        <div>
-          <div className="summary-value-wrapper">
+        <div className= "col-md-4 col-sm-4">
+          <div className="  summary-value-wrapper">
             <p>Maximum Tenure</p>
             <h3>{maxTenure || '**'} years</h3>
           </div>

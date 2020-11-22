@@ -17,6 +17,7 @@ import { DEFAULT_RADIO_VALUES } from '../../constants';
 import ButtonSpinner from '../ButtonSpinner';
 import http from '../../config/axios.config';
 import cookies from '../../utils/cookies';
+import "./../../commons/TextFieldGroup/ProfileTextField.css";
 
 
 const Wrapper = styled.div`
@@ -124,7 +125,7 @@ const NewAffordabilityForm = ({
   };
 
   return (
-    <Wrapper className="container affordability-forms-wrapper">
+    <Wrapper className="container affordability-forms-wrapper ">
       <Formik
         initialValues={{
           budget: rest.budget,
@@ -145,14 +146,14 @@ const NewAffordabilityForm = ({
             total_annual_salary, equity_contribution, monthly_expenses, payment_option
           } = values;
           return (
-            <Form>
+            <Form className="form-main">
               <div className="form-group row">
                 <div className="col-md-6 col-12 column">
-                  <label>What is your total annual salary? <sup>*</sup></label>
+                 
                   <WrappedInputWithError
-                    prepend='₦'
+                    // prepend='₦'
                     type="text"
-                    append='annually'
+                    // append='annually'
                     placeholder="30,000,000"
                     onBlur={handleBlur}
                     name='total_annual_salary'
@@ -160,14 +161,16 @@ const NewAffordabilityForm = ({
                     value={formatCurrencyInput(total_annual_salary)}
                     onChange={getHandleChange(handleChange, earningsTypes.SET_TOTAL_ANNUAL_SALARY, true)}
                     {...{ errors, touched }}
+                    className="form-control form-control-lg form-area"
                   />
+                   <label className="form-label">What is your total annual salary? <sup>*</sup></label>
                 </div>
                 <div className="col-md-6 col-12 column">
-                  <label>What is your monthly gross salary? <sup>*</sup></label>
+                  
                   <WrappedInputWithError
-                    prepend='₦'
+                    // prepend='₦'
                     type="text"
-                    append='monthly'
+                    // append='monthly'
                     placeholder="300,000"
                     onBlur={handleBlur}
                     name='monthly_gross_pay'
@@ -175,7 +178,9 @@ const NewAffordabilityForm = ({
                     value={formatCurrencyInput(monthly_gross_pay)}
                     onChange={getHandleChange(handleChange, earningsTypes.SET_MONTHLY_GROSS_PAY, true)}
                     {...{ errors, touched }}
+                    className="form-control form-control-lg form-area"
                   />
+                  <label className="form-label">What is your monthly gross salary? <sup>*</sup></label>
                 </div>
               </div>
               <div className="form-group row">
@@ -219,11 +224,11 @@ const NewAffordabilityForm = ({
                 have_equity === DEFAULT_RADIO_VALUES[0] ? (
                   <div className='form-group row'>
                     <div className="col-md-6 col-12 column">
-                      <label>How much equity do you have? <sup>*</sup></label>
+                      
                       <WrappedInputWithError
-                        prepend='₦'
+                        // prepend='₦'
                         type="text"
-                        append='monthly'
+                        // append='monthly'
                         placeholder="300,000"
                         onBlur={handleBlur}
                         name='equity_contribution'
@@ -231,7 +236,9 @@ const NewAffordabilityForm = ({
                         value={formatCurrencyInput(equity_contribution)}
                         onChange={getHandleChange(handleChange, affordabilityTypes.SET_EQUITY_CONTRIBUTION, true)}
                         {...{ errors, touched }}
+                        className="form-control form-control-lg form-area"
                       />
+                      <label className="form-label">How much equity do you have? <sup>*</sup></label>
                     </div>
                   </div>
                 ) : ''
@@ -239,9 +246,7 @@ const NewAffordabilityForm = ({
 
               <div className="form-group row">
                 <div className="col-md-6 col-12">
-                  <label>
-                    Payment Option <sup>*</sup>
-                  </label>
+                  
                   <WrappedSelectWithError
                     textKey='option'
                     name='payment_option'
@@ -258,27 +263,33 @@ const NewAffordabilityForm = ({
                       getHandleChange(handleChange, affordabilityTypes.SET_PAYMENT_OPTION)({ target });
                     }}
                     {...{ errors, touched }}
+                    className="form-control form-control-lg form-area"
                   />
+                  <label className="form-label">
+                    Payment Option <sup>*</sup>
+                  </label>
                 </div>
                 {
                   paymentOptionsWithBudget.includes(payment_option) ? (() => {
                     const isInstallment = payment_option === paymentOptionsWithBudget[0];
                       return (
                       <div className="col-md-6 col-12">
-                        <label>
-                          {isInstallment ? 'Annual' : 'Monthly'} Budget
-                        </label>
+                        
                         <WrappedInputWithError
-                          prepend='₦'
+                          // prepend='₦'
                           type="text"
                           name='budget'
-                          append={isInstallment ? 'annual' : 'monthly'}
+                          // append={isInstallment ? 'annual' : 'monthly'}
                           onBlur={handleBlur}
                           placeholder="300,000"
                           value={formatCurrencyInput(budget)}
                           onChange={getHandleChange(handleChange, affordabilityTypes.SET_BUDGET, true)}
                           {...{ errors, touched }}
+                          className="form-control form-control-lg form-area"
                         />
+                        <label className="form-label">
+                          {isInstallment ? 'Annual' : 'Monthly'} Budget
+                        </label>
                       </div>
                     );
                   })() : ''
@@ -287,36 +298,40 @@ const NewAffordabilityForm = ({
 
               <div className="form-group row">
                 <div className="col-md-6 col-12">
-                  <label>
-                    Monthly Expenses
-                  </label>
+                  
                   <WrappedInputWithError
-                    prepend='₦'
+                    // prepend='₦'
                     type="text"
-                    append='monthly'
+                    // append='monthly'
                     onBlur={handleBlur}
                     placeholder="300,000"
                     name='monthly_expenses'
                     value={formatCurrencyInput(monthly_expenses)}
                     onChange={getHandleChange(handleChange, affordabilityTypes.SET_MONTHLY_EXPENSES, true)}
                     {...{ errors, touched }}
+                    className="form-control form-control-lg form-area"
                   />
+                  <label className="form-label">
+                    Monthly Expenses
+                  </label>
                 </div>
                 <div className="col-md-6 col-12">
-                  <label>
-                    Existing Loan Repayments
-                  </label>
+                  
                   <WrappedInputWithError
-                    prepend='₦'
+                    // prepend='₦'
                     type="text"
-                    append='monthly'
+                    // append='monthly'
                     onBlur={handleBlur}
                     placeholder="300,000"
                     name='outstanding_loans'
                     value={formatCurrencyInput(outstanding_loans)}
                     onChange={getHandleChange(handleChange, affordabilityTypes.SET_OUTSTANDING_LOANS, true)}
                     {...{ errors, touched }}
+                    className="form-control form-control-lg form-area"
                   />
+                  <label className="form-label">
+                    Existing Loan Repayments
+                  </label>
                 </div>
               </div>
               {/* <div className='row form-group'>
@@ -334,6 +349,7 @@ const NewAffordabilityForm = ({
               </div> */}
 
               <div className='row mt-5'>
+                
                 {
                   (submittedAtLeastOnce || submittedAffordability) ? (
                     <div className='col-md-8 col-sm-12'>
@@ -346,7 +362,7 @@ const NewAffordabilityForm = ({
                           {/* setsubmittedAtLeastOnce(false); */}
                           {/* resetForm(); */}
                         }}
-                        className='btn fp-save-result-button m-0 d-flex align-items-center justify-content-center btn-block mb-3'
+                        className='btn w-100 fp-save-result-button m-0 d-flex align-items-center justify-content-center btn-block mb-3'
                       >
                         {/* <RefreshCw size='22px' color='#00b1ab' /> */}
                         proceed to property request

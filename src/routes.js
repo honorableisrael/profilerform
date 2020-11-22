@@ -17,6 +17,7 @@ import GetStartedPage from "./containers/GetStartedPage";
 import NewApplicationPage from "./containers/NewApplicationPage";
 import ProfilePage from "./containers/ProfilePage";
 import ResetPassword from "./containers/ResetPassword";
+import NewAffordabilityForm from "./containers/NewAffordabilityForm";
 
 class Routes extends Component {
   componentDidMount() {
@@ -62,11 +63,16 @@ class Routes extends Component {
               path='/application'
               component={NewApplicationPage}
             />            
-{/*             
-            <Route
+            
+            {/* <Route
               exact
               path='/application/profile'
               component={ProfilePage}
+            /> */}
+            {/* <Route
+              exact
+              path='/application/affordability'
+              component={NewAffordabilityForm}
             />             */}
             <Route component={Error404Page} />
           </Switch>
