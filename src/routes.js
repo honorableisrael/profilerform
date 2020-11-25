@@ -19,6 +19,9 @@ import ProfilePage from "./containers/ProfilePage";
 import ResetPassword from "./containers/ResetPassword";
 import NewAffordabilityForm from "./containers/NewAffordabilityForm";
 
+//importing private Route
+import PrivateRoute from "./commons/PrivateRoute";
+
 class Routes extends Component {
   componentDidMount() {
     store.dispatch(setLoading(false));
@@ -58,11 +61,14 @@ class Routes extends Component {
               component={NewApplicationPage}
             /> */}
 
-            <Route
+            {/* <Route
               exact
               path='/application'
               component={NewApplicationPage}
-            />            
+            />  */}
+            <Switch>
+                <PrivateRoute exact path="/application" component={NewApplicationPage} />
+            </Switch>           
             
             {/* <Route
               exact

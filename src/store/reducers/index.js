@@ -5,6 +5,8 @@ import userReducer from './userReducer';
 import affordabilityReducer from './affordabilityReducer';
 import propertyReducer from './propertyReducer';
 import requestReducer from './requestReducer';
+import authReducer from './authReducer';
+import errorReducer from './errorReducer';
 
 
 export default combineReducers({
@@ -13,4 +15,6 @@ export default combineReducers({
   properties: propertyReducer,
   currentUser: userReducer,
   affordability: affordabilityReducer,
+  auth: authReducer,
+  error: errorReducer
 });

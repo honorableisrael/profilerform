@@ -7,6 +7,7 @@ export const USER_TOKEN = "token";
 export const PENDING_DESTINATION = "PENDING_DESTINATION";
 export const IS_LOADING = "IS_LOADING";
 export const USER_DATA = "USER_DATA";
+export const APPLICATION_URL = "/application";
 export const DASHBOARD_URL = "/user/dashboard";
 export const LENDER_DASHBOARD_URL = "/lender/dashboard";
 export const ADMIN_DASHBOARD_URL = "/admin/dashboard";

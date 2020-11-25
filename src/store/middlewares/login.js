@@ -11,7 +11,7 @@ import http from "../../config/axios.config";
  */
 export default (data, submitButton, historyObject) => async (dispatch) => {
   try {
-    const { data: result } = await http.post('/login', data);
+    const { data: result } = await http.post('/auth/login', data);
     if (result.success) {
       handleAuthSuccessServerCall(dispatch, result, historyObject);
       closeAuthFormModal(submitButton);

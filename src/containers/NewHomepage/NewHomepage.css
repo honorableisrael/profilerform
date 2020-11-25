@@ -1,12 +1,12 @@
 .NewHomepage {
-  background-color: #f7f7f7;
+  background-color: var(--secondary-background-color);
 }
 .partner-carousel::-webkit-scrollbar {
   width: 0;
-  background-color: #f7f7f7;
+  background-color: var(--secondary-background-color);
 }
 .heroSection {
-  background-color: #e5e5e5;
+  background-color: var(--primary-background-color);
   padding: 70px 8vw;
   display: flex;
   position: relative;
@@ -28,7 +28,7 @@
   z-index: 100;
 }
 .heroSection__headline--main > span {
-  color: #5fb49c;
+  color: var(--accent-color);
 }
 .heroSection__headline > p {
   z-index: 100;
@@ -280,7 +280,7 @@
   text-align: center;
   margin: 60px 0;
   width: 25vw;
-  border-top: 0.5px solid #5fb49c;
+  border-top: 0.5px solid var(--accent-color);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -292,9 +292,9 @@
   padding: 10px 20px;
   font-size: 24px;
   font-weight: 700;
-  color: white;
+  color: var(--white-color);
   border-radius: 50%;
-  background-color: #5fb49c;
+  background-color: var(--accent-color);
   position: absolute;
   top: -28px;
 }
@@ -305,7 +305,7 @@
   margin-top: 85px;
 }
 .stepSession1__steps--item > div {
-  background-color: #5fb49c;
+  background-color: var(--accent-color);
   height: 4px;
   width: 45px;
   margin: 30px auto;
@@ -352,16 +352,16 @@
   .stepSession1__steps--item {
     margin: 0 0;
     width: 80vw;
-    border-top: 1px dashed #5fb49c;
+    border-top: 1px dashed var(--accent-color);
     padding-bottom: 40px;
   }
   .step1 {
-    border-right: 1px dashed #5fb49c;
+    border-right: 1px dashed var(--accent-color);
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
   }
   .step2 {
-    border-left: 1px dashed #5fb49c;
+    border-left: 1px dashed var(--accent-color);
     border-bottom-left-radius: 40px;
     border-top-left-radius: 40px;
     /* border-top-right-radius: -40%; */
@@ -387,7 +387,7 @@
   font-size: 32px;
   font-weight: 700;
   line-height: 40px;
-  color: #ffffff;
+  color: var(--white-color);
   z-index: 10;
   top: 10vh;
 }

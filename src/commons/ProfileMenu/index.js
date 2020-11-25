@@ -5,8 +5,17 @@ import "./ProfileMenu.css";
 import financeplusLogo from '../../containers/Resource/finance-plus-logo-light-bottom.png';
 import Settings from '../../containers/Resource/settings.png';
 import Exit from '../../containers/Resource/exit.png';
+import { logoutUser } from "./../../store/actions/authActions";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
-function ProfileMenu() {
+function ProfileMenu(props) {
+
+    const onLogoutClick =(e)=>{
+        e.preventDefault()
+        props.logoutUser()
+      }
+
     return (
         <div className="profileMenu navbar navbar-expand-lg">
             <div className="profileMenu__top">
@@ -57,7 +66,7 @@ function ProfileMenu() {
                     </li>
                     <li className="profileMenu__bottom-item">
                         <img className="profileMenu__bottom-icon" src={Exit} alt="exit"  />
-                        <Link className="btn btn-info profileMenu__bottom-link" to="/auth/register" id="navbarDropdownMenuLink" aria-haspopup="true" aria-expanded="false">
+                        <Link className="btn btn-info profileMenu__bottom-link" to="/auth/login" onClick={onLogoutClick} id="navbarDropdownMenuLink" aria-haspopup="true" aria-expanded="false">
                                 Logout
                         </Link>
                     </li>
@@ -67,4 +76,8 @@ function ProfileMenu() {
     )
 }
 
-export default ProfileMenu
+ProfileMenu.propTypes ={
+    logoutUser: PropTypes.func.isRequired,
+  }
+
+export default connect(null, {logoutUser})(ProfileMenu);

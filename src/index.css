@@ -2,6 +2,8 @@
   /* ///// 1a. Colors /////// */
   /* Main Colors */
   --primary-color: #03339a;
+  --primary-background-color: #e5e5e5;
+  --secondary-background-color: #f7f7f7;
   --accent-color: #5fb49c;
   /* Base Colors */
   --white-color: #fff;
@@ -35,7 +37,6 @@ body {
   margin: 0 auto !important;
   max-width: 1800px;
 }
-
 
 /* body {
   margin: 0;

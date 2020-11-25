@@ -58,7 +58,7 @@ class RegisterPage extends Component {
 
         <div className='container-fluid fp-login-auth-page-landing'>
                   <div className='row'>
-                    <div className='col-md-8 offset-md-2 mt-5 fp-login-auth-page-landing-form'>
+                    <div className='col-md-12 fp-login-auth-page-landing-form'>
                       <p className='fp-login-auth-page-landing-subtitle'>
                         Sign Up
                       </p>
@@ -78,10 +78,11 @@ class RegisterPage extends Component {
                         noValidate
                         onSubmit={this.handleSubmit}
                       > 
-                      <div className="fp-register-name">
+                      <div className=" row">
+                        <div  className='col-md-6 col-sm-12'>
                         <TextFieldGroup 
                             type='text'
-                            // className='form-control'
+                           
                             placeholder='First Name'
                             name='firstname'
                             value={this.state.firstname}
@@ -91,9 +92,10 @@ class RegisterPage extends Component {
                             // error="First name must be a sequence of letters (separated
                             // by hyphens or not)"
                         />
+                        </div>
+                        <div  className='col-md-6 col-sm-12'>
                         <TextFieldGroup 
                             type='text'
-                            // className='form-control'
                             placeholder='Last Name'
                             name='lastname'
                             value={this.state.lastname}
@@ -103,6 +105,7 @@ class RegisterPage extends Component {
                             // error="Last name must be a sequence of letters (separated
                             // by hyphens or not)"
                         />
+                        </div>
                         </div>
                         
                         <TextFieldGroup 

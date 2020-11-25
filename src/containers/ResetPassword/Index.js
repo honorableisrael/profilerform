@@ -30,7 +30,7 @@ function ResetPassword() {
              <Header />
              <div className='container-fluid fp-login-auth-page-landing'>
                   <div className='row'>
-                    <div className='col-md-8 offset-md-2 mt-5 fp-login-auth-page-landing-form'>
+                    <div className='col-md-12 fp-login-auth-page-landing-form'>
                       <p className='fp-login-auth-page-landing-subtitle'>
                         Reset Password
                       </p>

@@ -24,7 +24,7 @@
 
 .fp-register-name {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   /* min-width: 200px; */
 }
 

@@ -48,6 +48,7 @@ export const handleAuthSuccessServerCall = (dispatch, result, historyObject, avo
   BrowserStorage.setUserToken(token);
   BrowserStorage.setUserData(user);
   http.defaults.headers.Authorization = `Bearer ${token}`;
+  console.log( http.defaults.headers.Authorization)
   const pendingDestination = BrowserStorage.getItem(PENDING_DESTINATION);
   dispatch(setIsAuthenticated(true));
   clearErrorStore();

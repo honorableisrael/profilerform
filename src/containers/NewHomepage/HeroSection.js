@@ -67,8 +67,10 @@ const HeroSection = () => {
           className="hero__video homeImage"
         >
           <iframe 
-                src="https://www.youtube.com/embed/LQ_41yuGttA">
-            </iframe>
+                src="https://www.youtube.com/embed/LQ_41yuGttA"
+                title="home_Video"
+          >
+          </iframe>
         </div>
         <div
           className="hero__oval homeImage"
