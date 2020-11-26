@@ -19,8 +19,32 @@ import ProfilePage from "./containers/ProfilePage";
 import ResetPassword from "./containers/ResetPassword";
 import NewAffordabilityForm from "./containers/NewAffordabilityForm";
 
+import setAuthToken from "./utils/setAuthToken";
+import {logoutUser, setCurrentUser} from "./store/actions/authActions";
+
 //importing private Route
 import PrivateRoute from "./commons/PrivateRoute";
+
+
+
+//check for token
+if(localStorage.jwtToken){
+  //set auth token header auth
+  setAuthToken(localStorage.jwtToken);
+  //set current user and isAuthenticated
+  store.dispatch(setCurrentUser(localStorage.jwtToken));
+
+  //Check for expired token
+  const currentTime = Date.now() / 1000;
+  if(localStorage.exp < currentTime){
+    //Logout user
+    store.dispatch(logoutUser());
+    //TODO: Clear current Profile
+    
+    // Redirect to login
+    window.location.href = "/auth/login";
+  }
+}
 
 class Routes extends Component {
   componentDidMount() {

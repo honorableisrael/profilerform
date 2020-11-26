@@ -7,11 +7,24 @@ import errorTypes from "../types/errorTypes";
 import authTypes from "../types/authTypes";
 
 
+// Register User
+export const registerUser = (userData, history) => (dispatch) => {
+    axios
+      .post("https://admin.newhomes.ng/api/auth/register", userData)
+      .then((res) => history.push("/auth/login"))
+      .catch((err) =>
+        dispatch({
+          type: errorTypes.SET_ERRORS,
+          payload: err.response.data,
+        })
+      );
+  };
+
 //Login User
 export const loginUser = (userData) => dispatch => {
  
   axios
-    .post("https://staging.newhomes.ng/api/auth/login", userData)
+    .post("https://admin.newhomes.ng/api/auth/login", userData)
     .then(res => {
         //Save to local storage
         console.log(res.data)

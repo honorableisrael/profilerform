@@ -1,51 +1,91 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { handleChange, validateForm } from "../../utils/authFormUtils";
-import signup from "../../store/middlewares/signup";
-import setIsAuthenticated from "../../store/actions/setIsAuthenticated";
-import setErrors from "../../store/actions/setErrors";
+import PropTypes from "prop-types";
+import { Link, withRouter } from 'react-router-dom';
+import { registerUser } from './../../store/actions/authActions';
+// import { handleChange, validateForm } from "../../utils/authFormUtils";
+// import signup from "../../store/middlewares/signup";
+// import setIsAuthenticated from "../../store/actions/setIsAuthenticated";
+// import setErrors from "../../store/actions/setErrors";
 import Header from "../../commons/Header";
 import InputPassword from "./../../commons/InputPassword";
 import TextFieldGroup from "./../../commons/TextFieldGroup";
 import "./RegisterPage.css";
 
-class RegisterPage extends Component {
-  state = {
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    phone: "",
-    keepMeLoggedIn: true
-  };
+function RegisterPage(props) {
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+
+  useEffect(()=>{
+    if(props.auth.isAuthenticated){
+      props.history.push("/auth/login")
+    }
+  }, [props.history, props.auth.isAuthenticated]);
+
+  useEffect(()=>{
+    if(props.errors.errors){
+      if(props.errors.errors.message === "register failed"){
+          console.log(props.errors.errors)
+          setErrors(props.errors.errors)
+      }else if(props.errors.errors.message === "Validation Error"){
+          props.errors.errors.data.map(data => (
+            setErrors(data)
+          )) 
+      }
+    }
+  }, [props.errors]);
+  // state = {
+  //   firstname: "",
+  //   lastname: "",
+  //   email: "",
+  //   password: "",
+  //   phone: "",
+  //   keepMeLoggedIn: true
+  // };
 
   /**
    * Handles change event on an input element
    * @param {DOMEvent} event
    */
-  handleChange = event => handleChange(event, this);
+  // handleChange = event => handleChange(event, this);
 
   /**
    * Handles blur event on the component
    */
-  handleBlur = () => this.props.setErrors([]);
+  // handleBlur = () => this.props.setErrors([]);
 
   /**
    * Handles change event on an input element
    * @param {DOMEvent} event
    */
-  handleSubmit = event => {
-    const invalidInput = validateForm(event);
-    if (invalidInput) return invalidInput.focus();
-    const submitButton = event.target.querySelector('[type="submit"]');
-    const data = { ...this.state };
-    delete data.keepMeLoggedIn
-    this.props.signup(data, submitButton, this.props.history);      
+  // handleSubmit = event => {
+  //   const invalidInput = validateForm(event);
+  //   if (invalidInput) return invalidInput.focus();
+  //   const submitButton = event.target.querySelector('[type="submit"]');
+  //   const data = { ...this.state };
+  //   delete data.keepMeLoggedIn
+  //   this.props.signup(data, submitButton, this.props.history);      
+  // }
+
+  const handleSubmit=(e)=> {
+    e.preventDefault();
+
+    const newUser = {
+      firstname,
+      lastname,
+      email,
+      password,
+      // password2,
+    };
+
+    props.registerUser(newUser, props.history);
   }
 
-  render() {
-    const { errors, isLoading } = this.props;
+  // render() {
+    // const {loading} = props.errors
     return (
       <div className='container-fluid px-0'>
         <section id='fp-login-auth-page'>
@@ -76,7 +116,7 @@ class RegisterPage extends Component {
                       <form
                         className='fp-login-form-wrapper needs-validation'
                         noValidate
-                        onSubmit={this.handleSubmit}
+                        onSubmit={handleSubmit}
                       > 
                       <div className=" row">
                         <div  className='col-md-6 col-sm-12'>
@@ -85,10 +125,11 @@ class RegisterPage extends Component {
                            
                             placeholder='First Name'
                             name='firstname'
-                            value={this.state.firstname}
-                            onChange={this.handleChange}
+                            value={firstname}
+                            onChange={(e)=> setFirstname(e.target.value)} 
                             pattern='[a-zA-Z]+(?:-?[a-zA-Z])*'
                             required
+                            error={errors.message === "register failed" ? errors.data : errors.firstname } 
                             // error="First name must be a sequence of letters (separated
                             // by hyphens or not)"
                         />
@@ -98,10 +139,11 @@ class RegisterPage extends Component {
                             type='text'
                             placeholder='Last Name'
                             name='lastname'
-                            value={this.state.lastname}
-                            onChange={this.handleChange}
+                            value={lastname}
+                            onChange={(e)=> setLastname(e.target.value)}
                             pattern='[a-zA-Z]+(?:-?[a-zA-Z])*'
                             required
+                            error={errors.message === "register failed" ? errors.data : errors.lastname }
                             // error="Last name must be a sequence of letters (separated
                             // by hyphens or not)"
                         />
@@ -113,10 +155,11 @@ class RegisterPage extends Component {
                             // className='form-control'
                             placeholder='Email'
                             name='email'
-                            value={this.state.email}
-                            onChange={this.handleChange}
+                            value={email}
+                            onChange={(e)=> setEmail(e.target.value)}
                             pattern='^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$'
                             required
+                            error={errors.message === "register failed" ? errors.data : errors.email }
                             // error="Invalid email address"
                         />
 
@@ -124,12 +167,13 @@ class RegisterPage extends Component {
                             type="password" 
                             placeholder="Password"
                             name='password'
-                            value={this.state.password}
-                            onChange={this.handleChange}
+                            value={password}
+                            onChange={(e)=> setPassword(e.target.value)}
                             minLength='6'
+                            error={errors.message === "register failed" ? errors.data : errors.password }
                           /> 
 
-                        <input type="submit" className="btn-lg btn-info btn-block mt-4 mb-4" value="Sign Up" disabled={isLoading} />
+                        <input type="submit" className="btn-lg btn-info btn-block mt-4 mb-4" value="Sign Up" />
                         <div className='fp-create-account-wrapper'>
                           Already have an Account?
                           <Link to='/auth/login' >
@@ -144,30 +188,41 @@ class RegisterPage extends Component {
         </section>
       </div>
     );
-  }
+  // }
 }
 
-const mapStateToProps = ({ root: state }, ownProps) => {
-  return {
-    // isAuthenticated: state.isAuthenticated,
-    // isLoading: state.isLoading,
-    // errors: state.errors,
-    ...ownProps
-  };
+// const mapStateToProps = ({ root: state }, ownProps) => {
+//   return {
+//     // isAuthenticated: state.isAuthenticated,
+//     // isLoading: state.isLoading,
+//     // errors: state.errors,
+//     ...ownProps
+//   };
+// };
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     signup(data, submitButton, historyObject) {
+//       dispatch(signup(data, submitButton, historyObject));
+//     },
+//     setIsAuthenticated(isAuthenticated) {
+//       dispatch(setIsAuthenticated(isAuthenticated));
+//     },
+//     setErrors(errors) {
+//       dispatch(setErrors(errors));
+//     }
+//   };
+// };
+
+RegisterPage.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    signup(data, submitButton, historyObject) {
-      dispatch(signup(data, submitButton, historyObject));
-    },
-    setIsAuthenticated(isAuthenticated) {
-      dispatch(setIsAuthenticated(isAuthenticated));
-    },
-    setErrors(errors) {
-      dispatch(setErrors(errors));
-    }
-  };
-};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
+export default connect(mapStateToProps, { registerUser })(withRouter(RegisterPage));

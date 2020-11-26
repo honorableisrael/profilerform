@@ -1,6 +1,6 @@
 import React from 'react'
 import "./InputPassword.css";
-// import classnames from "classnames";
+import classnames from "classnames";
 // import PropTypes from "prop-types";
 
 function TextFieldGroup({ info, error, type, placeholder, onChange, value, minLength, name}) {
@@ -26,7 +26,9 @@ function TextFieldGroup({ info, error, type, placeholder, onChange, value, minLe
   return (
     <div className="input-group">
               <input  
-                  className="input-area" 
+                  className={classnames("input-area",{
+                    "is-invalid": error
+                  })}  
                   id="inputField"
                   placeholder={""} 
                   type={type}
@@ -41,11 +43,11 @@ function TextFieldGroup({ info, error, type, placeholder, onChange, value, minLe
                     {type === "password" ? <i id="hide1" className="fa fa-eye"></i>: null}
                     {type === "password" ? <i id="hide2" className="fa fa-eye-slash"></i>: null}
               </span>
-              {/* {info && <small className= "form-text text-muted">{info}</small>}
-              {error && (<div className="invalid-feedback">{error}</div>)} */}
-              <div className='invalid-feedback'>
+              {info && <small className= "form-text text-muted">{info}</small>}
+              {error && (<div className="invalid-feedback">{error}</div>)}
+              {/* <div className='invalid-feedback'>
                             Password must be at least 6 characters long
-              </div>
+              </div> */}
     </div>
   )
 }
