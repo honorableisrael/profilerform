@@ -15,15 +15,17 @@ import setLoading from "./store/actions/setLoading";
 import NewHomepage from "./containers/NewHomepage";
 import GetStartedPage from "./containers/GetStartedPage";
 import NewApplicationPage from "./containers/NewApplicationPage";
-import ProfilePage from "./containers/ProfilePage";
+// import ProfilePage from "./containers/ProfilePage";
 import ResetPassword from "./containers/ResetPassword";
-import NewAffordabilityForm from "./containers/NewAffordabilityForm";
+// import NewAffordabilityForm from "./containers/NewAffordabilityForm";
+import ForgotPassword from "./containers/ForgotPassword";
 
 import setAuthToken from "./utils/setAuthToken";
 import {logoutUser, setCurrentUser} from "./store/actions/authActions";
 
 //importing private Route
 import PrivateRoute from "./commons/PrivateRoute";
+import NewMortgageForm from "./containers/NewMortgageForm";
 
 
 
@@ -67,9 +69,14 @@ class Routes extends Component {
               path='/get-started'
               component={GetStartedPage}
             />
+             <Route
+              exact
+              path='/mortgage-application'
+              component={NewMortgageForm}
+            />
             <Route
               exact
-              path='/auth/password/reset'
+              path='/auth/resetPassword'
               component={ResetPassword}
             />
 

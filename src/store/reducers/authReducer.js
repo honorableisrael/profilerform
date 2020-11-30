@@ -14,6 +14,16 @@ const authReducer = (state = initialState, action) => {
                 isAuthenticated: !isEmpty(action.payload), 
                 user: action.payload,
             };
+        case authTypes.FORGOT_PASSWORD:
+             return{
+                 ...state, 
+                user: action.payload,
+            };
+        case authTypes.RESET_PASSWORD:
+                return{
+                    ...state, 
+                   user: action.payload,
+               };
         default: 
             return state;
     }

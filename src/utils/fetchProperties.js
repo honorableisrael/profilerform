@@ -1,11 +1,12 @@
-import Axios from "axios";
-import http from "../config/axios.config";
+import axios from "axios";
+// import http from "../config/axios.config";
 
 import propertyActions from '../store/actions/propertyActions';
 
 
 const fetchProperties = async (dispatch) => {
-  const res = await http.get('police/all-properties');
+  const res = await axios.get('https://staging.newhomes.ng/api/police/all-properties');
+  // console.log(res)
   if (dispatch) dispatch(propertyActions.setProperties(res.data.data))
   return res;
 };

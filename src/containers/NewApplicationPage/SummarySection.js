@@ -14,103 +14,94 @@ const Wrapper = styled.div`
     padding: 3% 20px;
   }
 
-  .application-summary-wrapper {
-    display: flex;
-    margin: 2% -20px;
-    margin-top: 13%;
-    position: relative;
-    padding-left: 30px;
-    flex-flow: row nowrap;
-    width: 100%;
+    .application-summary-wrapper {
+      background-color: #E9F2E9;
+      margin: 20px 10px;
+      // position: relative;
+      // padding-left: 30px;  
+      // flex-flow: row nowrap;
+      width: 100%;
+    }
+
+   .application-summary-wrapper > * {
+       color: black ;
+      padding: 10px ;
   }
 
-  .application-summary-wrapper > * {
-    color: black ;
-    padding: 50px ;
-    min-width: 240px;
-  }
+    .application-summary-wrapper > :nth-child(1) {
+      background: #E9F2E9;
+      z-index: 3;
+      box-shadow: 0px 0px 0px rgba(39, 98, 81, 0.44);
+      position: relative;
+      padding-top: 0px;
+    } 
 
-  .application-summary-wrapper > :nth-child(1) {
-    background: #E9F2E9;
-    z-index: 3;
-    box-shadow: 0px 0px 0px rgba(39, 98, 81, 0.44);
-    position: relative;
-    padding-top: 40px;
-  } 
+    .summary-value-wrapper{
+      color: black !important;
+      padding: 10px 5%;
+    }
 
-  .summary-value-wrapper{
-    color: black;
-  }
+    .application-summary-wrapper .summary-value-wrapper h3 {
+      font-size: 18px;
+      line-height: 28px;
+      z-index: 10;
+    }
+    .application-summary-wrapper .summary-value-wrapper  {
+      width: 200px;
+      margin-right: 50px;
+    } 
 
-   .application-summary-wrapper .summary-value-wrapper h3 {
-    font-size: 18px;
-    line-height: 28px;
-    z-index: 10;
-  }
-  .application-summary-wrapper .summary-value-wrapper  {
-    width: 200px;
-    margin-right: 50px;
-  } 
+    
 
-  
+    .application-summary-wrapper .summary-value-wrapper .monetary-value::before {
+      content: '₦';
+      line-height: 28px;
+      z-index: 10;
+    }
 
-  .application-summary-wrapper .summary-value-wrapper .monetary-value::before {
-    content: '₦';
-    line-height: 28px;
-    z-index: 10;
-  }
+    .application-summary-wrapper > :nth-child(1) {
+      position: relative;
+      background: initial !important;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 10px 5%;
+      color: black;
+    }
 
-  .application-summary-wrapper > :nth-child(1) > :nth-child(1) {
-    position: relative;
-    // top: -19%;
-    background: initial !important;
-    font-size: 20px;
-    font-weight: 700;
-    padding: 5px 5%;
-    color: black;
-  }
+    .application-summary-wrapper > :nth-child(2) {
+      background:  #E9F2E9;
+      // z-index: 2;
+      box-shadow: 0px 0px 0px rgba(39, 98, 81, 0.22);
+      // padding-top: 86px;
+      margin-left: 0px;
+      margin-right: 0px;
+    }
 
-  .application-summary-wrapper > :nth-child(2) {
-    background:  #E9F2E9;
-    z-index: 2;
-    box-shadow: 0px 0px 0px rgba(39, 98, 81, 0.22);
-    padding-top: 86px;
-  }
+    .summary-value-wrapper > h3{
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 35.57px;
+    }
 
-  .application-summary-wrapper > :nth-child(3) {
-    background:  #E9F2E9;;
-    z-index: 1;
-    padding-top: 86px;
-  }
+    .application-summary-wrapper p {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 16px;
+      z-index: 10;
+    } 
 
-  .application-summary-wrapper > :nth-child(3) > * {
-    z-index: 10;
-  }
+    h3 {
+      font-size: 1.125rem;
+    }
 
-  .application-summary-wrapper p {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 16px;
-    z-index: 10;
-  } 
-
-  & {
-    min-width: 180px;
-    max-width: 250px;
-  }
-
-  h3 {
-    font-size: 1.125rem;
-  }
-
-  & h3,
-  .application-summary-wrapper .summary-value-wrapper h3 {
-    font-weight: bold;
-    z-index: 10 !important;
-    line-height: 28px !important;
-    font-size: 1.325rem !important;
-  }
+    & h3,
+    .application-summary-wrapper .summary-value-wrapper h3 {
+      font-weight: bold;
+      z-index: 10 !important;
+      line-height: 28px !important;
+      font-size: 1.325rem !important;
+    }
 
   @media screen and (max-width: 1200px) {
     .application-summary-wrapper > * {
@@ -198,24 +189,26 @@ const SummarySection = ({ heading, closed, ...rest }) => {
         Calculate the home loan you qualify for, and how much you can expect to
         pay monthly on your home loan repayments.
       </p> */}
-      <div className="application-summary-wrapper row">
-        <div className= "col-md-4 col-sm-4">
-        <h3>Summary</h3>
-          <div className="summary-value-wrapper">
-            <p>Maximum Loanable</p>
-            <h3 className="monetary-value">{formatCurrencyInput(max_loanable_amount || '') || '\t***,***'}</h3>
+      <div className="application-summary-wrapper">
+       <h3>Summary</h3>
+        <div className="row">
+          <div className= "col-md-4 col-sm-4">
+            <div className="summary-value-wrapper">
+              <p>Maximum Loanable</p>
+              <h3 className="monetary-value">{formatCurrencyInput(max_loanable_amount || '') || '\t***,***'}</h3>
+            </div>
           </div>
-        </div>
-        <div className= "col-md-4 col-sm-4">
-          <div className="  summary-value-wrapper">
-            <p>Est. Monthly Repayment</p>
-            <h3 className="monetary-value">{formatCurrencyInput(monthly_repayment || '') || '\t***,***'}</h3>
+          <div className= "col-md-4 col-sm-4">
+            <div className="  summary-value-wrapper">
+              <p>Est. Monthly Repayment</p>
+              <h3 className="monetary-value">{formatCurrencyInput(monthly_repayment || '') || '\t***,***'}</h3>
+            </div>
           </div>
-        </div>
-        <div className= "col-md-4 col-sm-4">
-          <div className="  summary-value-wrapper">
-            <p>Maximum Tenure</p>
-            <h3>{maxTenure || '**'} years</h3>
+          <div className= "col-md-4 col-sm-4">
+            <div className="  summary-value-wrapper">
+              <p>Maximum Tenure</p>
+              <h3>{maxTenure || '**'} years</h3>
+            </div>
           </div>
         </div>
       </div>

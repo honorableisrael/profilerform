@@ -19,6 +19,7 @@
   font-size: 14px !important;
   font-weight: 700 !important;
   color: var(--white-color);
+  width: auto;
   /* line-height: 19.47; */
 }
 .form-group {
@@ -55,7 +56,7 @@
   top: -18px;
   left: 30px;
   background: var(--primary-background-color);
-  padding: 0 18px;
+  padding: 0 18px !important;
   font-size: 14px;
   transition: all 0.12s;
 }

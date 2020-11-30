@@ -56,7 +56,7 @@ const Wrapper = styled.div`
     background-color: #009688;
   }
   .profile-form-section{
-    background: #E5E5E5 !important; 
+    background: #f9f9f9 !important; 
   }
 
   button {
@@ -130,7 +130,7 @@ const Wrapper = styled.div`
     padding: 0px;
   }
   .affordability-form-section, .eligibility-form-section{
-    background: #e5e5e5 !important;
+    background: #f9f9f9 !important;
   }
 
   label {
@@ -301,6 +301,13 @@ const Wrapper = styled.div`
     opacity: 0.5;
   }
 
+  @media screen and (max-width: 770px){
+    .affordability-page-content, .eligibility-page-content, .mortgage-page-content{
+      display: flex;
+      flex-direction: column !important;
+    }
+  }
+
   @media screen and (max-width: 768px) {
     .application-flow {
       margin-bottom: unset !important;
@@ -357,6 +364,8 @@ const Wrapper = styled.div`
       z-index: 100;
       display: none;
     }
+
+    
   }
 
   /* @media screen and (min-width: 768px) { */
@@ -581,7 +590,10 @@ const NewApplicationPage = ({ properties, dispatch }) => {
               }
 
               
-              <ProfileMenu />
+              <ProfileMenu 
+                profileGreen="green" profileMark='passed' 
+                profileCurrent="current" 
+              />
 
               <div className="profile-form-section">
                 <div className="form-content-wrapper">
@@ -634,7 +646,12 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                 ) : ''
               }
               
-              <ProfileMenu />
+              <ProfileMenu 
+                profileGreen="green" profileMark='passed' 
+                affordabilityGreenBar="greenBar" affordabilityGreen="green" affordabilityMark='marked' 
+                affordabilityCurrent="current" 
+              
+              />
               <div className="affordability-form-section">
                 <div className="form-content-wrapper">
                   <h2 className="section-heading">Affordability Test</h2>
@@ -694,7 +711,12 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                   </>
                 ) : ''
               }
-              <ProfileMenu />
+              <ProfileMenu 
+                  profileGreen="green" profileMark='passed' 
+                  affordabilityGreenBar="greenBar" affordabilityGreen="green" affordabilityMark='passed' 
+                  propertyGreenBar="greenBar" propertyGreen="green" propertyMark='marked'
+                  propertyCurrent="current" 
+              />
               <div className="eligibility-form-section">
                 <h2 className="section-heading">Property Request</h2>
                 {/* <SummarySection

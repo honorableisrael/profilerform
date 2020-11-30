@@ -130,7 +130,7 @@ function LoginPage(props) {
     return (
 
       <div className='container-fluid px-0'>
-        <ProgressBar isLoading={loading} />
+        {/* <ProgressBar isLoading={loading} /> */}
         <section id='fp-login-auth-page'>
         <Header />
         
@@ -206,7 +206,7 @@ function LoginPage(props) {
 
                         <div className='fp-login-options'>
                           <div className='fp-forgotPassword'>
-                            <Link className="fp-forgotPassword-link" to='/auth/password/reset'>
+                            <Link className="fp-forgotPassword-link" to='/auth/resetPassword'>
                               Forgot your password? Recover it
                             </Link>
                           </div>

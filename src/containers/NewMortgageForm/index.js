@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import Axios from 'axios';
+import axios from 'axios';
 import { BASE_URL } from '../../constants';
 import PersonalInfoFormStepOne from './PersonalInfoFormStepOne';
 import EmploymentForm from './EmploymentForm';
@@ -9,9 +9,14 @@ import LoanInfoStepForm from './LoanInfoStepForm';
 import FinancialInfoStepFormOne from './FinancialInfoStepFormOne';
 import ApplicationDetails from './ApplicationDetails';
 import cookies from '../../utils/cookies';
+import ProfileMenu from '../../commons/ProfileMenu';
+import "./../../commons/ProfileMenu/ProfileMenu.css";
 
 
 const Wrapper = styled.div`
+  
+  display: flex;
+
   label {
     display: block;
   }
@@ -39,8 +44,8 @@ const NewMortgageForm = ({ setActiveTab }) => {
     (async () => {
       try {
         const res = await Promise.all([
-          Axios.get(`${BASE_URL}/all-banks`), Axios.get(`${BASE_URL}/all-idcards`),
-          Axios.get(`${BASE_URL}/all-companies`)
+          axios.get(`${BASE_URL}/all-banks`), axios.get("https://staging.newhomes.ng/api/all-idcards"),
+          axios.get(`${BASE_URL}/all-companies`)
         ]);
         const [
           { data: { data: bankList } }, { data: { data: idCardsList } }, { data: { data: companiesList } }
@@ -61,7 +66,7 @@ const NewMortgageForm = ({ setActiveTab }) => {
     {
       component: PersonalInfoFormStepOne,
       props: {
-        idCards,
+        // idCards,
         //nhf_registration_number
       }
     },
@@ -111,7 +116,14 @@ const NewMortgageForm = ({ setActiveTab }) => {
 
 
   return (
-    <Wrapper>
+    <Wrapper className="mortgage">
+      <ProfileMenu
+                  profileGreen="green" profileMark='passed' 
+                  affordabilityGreenBar="greenBar" affordabilityGreen="green" affordabilityMark='passed' 
+                  propertyGreenBar="greenBar" propertyGreen="green" propertyMark='passed'
+                  mortgageGreenBar="greenBar" mortgageGreen="green" mortgageMark='marked'
+                  mortgageCurrent="current" 
+      />
       <ActiveComponent
         {...props}
       />

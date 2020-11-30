@@ -20,9 +20,12 @@ import ButtonSpinner from '../ButtonSpinner';
 import postApplication from './postApplication';
 import applicationTypes from '../../store/types/applicationTypes';
 // import NewDatePicker from '../NewDatePicker';
+import "./../../commons/TextFieldGroup/ProfileTextField.css";
 
 
 const Wrapper = styled.div`
+background: #f9f9f9 !important; 
+width: auto !important;
 `;
 
 const validationSchema = Yup.object().shape({
@@ -98,79 +101,82 @@ const PersonalInfoFormStepOne = ({
                 <div className="fp-personal-info-form">
                   <div>
                     <div>
-                      <span>Ordinary Mortgage | Personal Info</span>
-                      <h2 className="mt-3">
-                        Alright then! I would like to know you better, please tell me
-                        a little about yourself.
-                      </h2>
+                      <span>Hi Olumide Olorundare</span>
+                      <p className="mt-2">
+                        Ordinary Mortgage | Personal Info
+                      </p>
                       <div className="form-group row">
-                        <div className="col-md-6 col-sm-12">
-                          <label>
-                            First Name
-                            <sup>*</sup>
-                          </label>
+                        <div className="col-md-6 col-sm-12 form-group">
                           <WrappedInputWithError
                             type="text"
                             name='firstname'
                             value={values.firstname}
-                            placeholder="First name..."
+                            placeholder=""
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
-                        </div>
-                        <div className="col-md-6 col-sm-12">
-                          <label>
-                            Last Name
+                          <label className="form-label">
+                            First Name
                             <sup>*</sup>
                           </label>
+                        </div>
+                        <div className="col-md-6 col-sm-12 form-group">
+                          
                           <WrappedInputWithError
                             type="text"
                             name='lastname'
-                            placeholder="Last name..."
+                            placeholder=""
                             value={values.lastname}
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">
+                            Last Name
+                            <sup>*</sup>
+                          </label>
                         </div>
 
-                        <div className="col-md-6 col-sm-12">
-                          <label>Middle Name</label>
+                        <div className="col-md-6 col-sm-12 form-group">
+                          
                           <WrappedInputWithError
                             type="text"
                             name='middlename'
-                            placeholder="Middle name..."
+                            placeholder=""
                             value={values.middlename}
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">Middle Name</label>
                         </div>
 
-                        <div className="col-md-6 col-sm-12">
-                          <label>
-                            Mother's Maiden Name
-                            <sup>*</sup>
-                          </label>
+                        <div className="col-md-6 col-sm-12 form-group">
+                          
                           <WrappedInputWithError
                             type="text"
                             name='mother_middle_name'
-                            placeholder="Mother's maiden name"
+                            placeholder=""
                             value={values.mother_middle_name}
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">
+                            Mother's Maiden Name
+                            <sup>*</sup>
+                          </label>
                         </div>
                       </div>
 
                       <div className='row'>
-                        <div className='col-md-12'>
-                          <label>
-                            Address
-                            <sup>*</sup>
-                          </label>
+                        <div className='col-md-12 form-group'>
+                         
                           <WrappedInputWithError
                             type="text"
                             placeholder="Address..."
@@ -179,30 +185,34 @@ const PersonalInfoFormStepOne = ({
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                           <label className="form-label">
+                            Address
+                            <sup>*</sup>
+                          </label>
                         </div>
                       </div>
 
                       <div className='row'>
-                        <div className='col-md-4 col-sm-12'>
-                          <label>
-                            Email
-                            <sup>*</sup>
-                          </label>
+                        <div className='col-md-4 col-sm-12 form-group'>
+                          
                           <WrappedInput
                             type="email"
                             name="email"
                             value={values.email}
-                            placeholder="user@example.com"
-                            disabled
+                            placeholder=""
+                            // disabled
+                            className="form-control form-control-lg form-area"
                           />
-                        </div>
-
-                        <div className='col-md-4 col-sm-12'>
-                          <label>
-                            Phone
+                          <label className="form-label">
+                            Email
                             <sup>*</sup>
                           </label>
+                        </div>
+
+                        <div className='col-md-4 col-sm-12 form-group'>
+                         
                           <WrappedInputWithError
                             type="text"
                             name='phone'
@@ -211,30 +221,33 @@ const PersonalInfoFormStepOne = ({
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
-                        </div>
-
-                        <div className='col-md-4 col-sm-12'>
-                          <label>
-                            Age
+                           <label className="form-label">
+                            Phone
                             <sup>*</sup>
                           </label>
+                        </div>
+
+                        <div className='col-md-4 col-sm-12 form-group'>
+                          
                           <WrappedInput
                             name='age'
                             type="number"
                             value={values.age}
-                            disabled
-                            //:value="age"
+                            // disabled
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">
+                            Age
+                            <sup>*</sup>
+                          </label>
                         </div>
                       </div>
 
                       <div className='row'>
-                        <div className='col-md-4 col-sm-12'>
-                          <label>
-                            Sex
-                            <sup>*</sup>
-                          </label>
+                        <div className='col-md-4 col-sm-12 form-group'>
+                          
                           <WrappedSelectWithError
                             name='sex'
                             options={sexes}
@@ -243,13 +256,15 @@ const PersonalInfoFormStepOne = ({
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
-                        </div>
-                        <div className='col-md-4 col-sm-12'>
-                          <label>
-                            Place of Birth
+                          <label className="form-label">
+                            Sex
                             <sup>*</sup>
                           </label>
+                        </div>
+                        <div className='col-md-4 col-sm-12 form-group'>
+                          
                           <WrappedInputWithError
                             type="text"
                             name='place_of_birth'
@@ -258,54 +273,60 @@ const PersonalInfoFormStepOne = ({
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
-                        </div>
-                        <div className='col-md-4 col-sm-12'>
-                          <label>
-                            Nationality
+                          <label className="form-label">
+                            Place of Birth
                             <sup>*</sup>
                           </label>
+                        </div>
+                        <div className='col-md-4 col-sm-12 form-group'>
+                          
                           <WrappedSelectWithError
                             textKey='name'
                             name='nationality'
                             options={countries}
                             value={values.nationality}
-                            placeholder="Please choose a country"
+                            placeholder=""
                             extractValue={({ id, name }) => JSON.stringify({ id, name })}
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">
+                            Nationality
+                            <sup>*</sup>
+                          </label>
                         </div>
                       </div>
 
                       <div className='row'>
-                        <div className='col-md-4 col-sm-12'>
-                          <label>
-                            State of Origin
-                            <sup>*</sup>
-                          </label>
+                        <div className='col-md-4 col-sm-12 form-group'>
+                          
                           <WrappedSelectWithError
                             textKey='name'
                             options={states}
                             name='state_of_origin'
                             value={values.state_of_origin}
                             extractValue={({ name }) => name}
-                            placeholder='Please choose a state'
+                            placeholder=''
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           /> 
-                        </div>
-                        <div className='col-md-4 col-sm-12'>
-                          <label>
-                            Highest Education
+                          <label className="form-label">
+                            State of Origin
                             <sup>*</sup>
                           </label>
+                        </div>
+                        <div className='col-md-4 col-sm-12 form-group'>
+                          
                           <WrappedSelectWithError
                             name='highest_education'
                             value={values.highest_education}
-                            placeholder="Please choose a qualification"
+                            placeholder=""
                             onBlur={handleBlur}
                             onChange={handleChange}
                             options={[
@@ -321,49 +342,62 @@ const PersonalInfoFormStepOne = ({
                                 'Higher National Certificate'
                               ]}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
-                        </div>
-                        <div className='col-md-4 col-sm-12'>
-                          <label>
-                            Profession
+                          <label className="form-label">
+                            Highest Education
                             <sup>*</sup>
                           </label>
+                        </div>
+                        <div className='col-md-4 col-sm-12 form-group'>
+                          
                           <WrappedInputWithError
                             type="text"
                             name="profession"
                             value={values.profession}
-                            placeholder="Profession..."
+                            placeholder=""
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">
+                            Profession
+                            <sup>*</sup>
+                          </label>
                         </div>
                       </div>
 
                       <div className='row'>
-                        <div className='col-md-3 col-sm-12'>
-                          <label>
-                            Identification
-                            <sup>*</sup>
-                          </label>
+                        <div className='col-md-3 col-sm-12 form-group'>
+                          
                           <WrappedSelectWithError
-                            textKey='name'
-                            options={idCards}
-                            extractValue={({ id }) => id}
+                            // textKey='name'
+                            // options={idCards}
+                            options={[
+                              'International passport',
+                              'National ID',
+                              'Permanent Voters card',
+                              'Drivers liscense',
+                              'INEC Registration Card'
+                            ]}
+                            // extractValue={({ id }) => id}
                             name='means_of_identification'
                             value={values.means_of_identification}
                             placeholder="Please choose a qualification"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
-                        </div>
-
-                        <div className='col-md-3 col-sm-12'>
-                          <label>
-                            ID Number
+                          <label className="form-label">
+                            Identification
                             <sup>*</sup>
                           </label>
+                        </div>
+
+                        <div className='col-md-3 col-sm-12 form-group'>
+                          
                           <WrappedInputWithError
                             type="text"
                             name='id_number'
@@ -372,23 +406,30 @@ const PersonalInfoFormStepOne = ({
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
-                        </div>
-
-                        <div className='col-md-3 col-sm-12'>
-                          <label>
-                            ID Issue Date
+                          <label className="form-label">
+                            ID Number
                             <sup>*</sup>
                           </label>
+                        </div>
+
+                        <div className='col-md-3 col-sm-12 form-group'>
+                          
                           <WrappedInputWithError
                             name='id_issue_date'
                             placeholder="DD/MM/YYYY"
                             value={values.id_issue_date}
-                            append={<FontAwesomeIcon color='gray' icon={faCalendarAlt} />}
+                            // append={<FontAwesomeIcon color='gray' icon={faCalendarAlt} />}
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">
+                            ID Issue Date
+                            <sup>*</sup>
+                          </label>
                           {/* <v-menu
                             v-model="idIssueMenu"
                             //:close-on-content-click="false"
@@ -419,20 +460,22 @@ const PersonalInfoFormStepOne = ({
                           </v-menu> */}
                         </div>
 
-                        <div className='col-md-3 col-sm-12'>
-                          <label>
-                            ID Expiry Date
-                            <sup>*</sup>
-                          </label>
+                        <div className='col-md-3 col-sm-12 form-group'>
+                          
                           <WrappedInputWithError
                             name='id_expire_date'
                             placeholder="DD/MM/YYYY"
                             value={values.id_expire_date}
-                            append={<FontAwesomeIcon color='gray' icon={faCalendarAlt} />}
+                            // append={<FontAwesomeIcon color='gray' icon={faCalendarAlt} />}
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
+                            className="form-control form-control-lg form-area"
                           />
+                          <label className="form-label">
+                            ID Expiry Date
+                            <sup>*</sup>
+                          </label>
                           {/* <v-menu
                             v-model="idExpiryMenu"
                             :close-on-content-click="false"

@@ -27,7 +27,7 @@ export const loginUser = (userData) => dispatch => {
     .post("https://admin.newhomes.ng/api/auth/login", userData)
     .then(res => {
         //Save to local storage
-        console.log(res.data)
+        // console.log(res.data)
         const {user} = res.data.data;
         const {token} = res.data.data;
         // Set token to local storage
@@ -46,6 +46,46 @@ export const loginUser = (userData) => dispatch => {
         payload: err.response.data
       })
     })
+}
+
+//send password reset email
+export const forgotPassword = (userData) => dispatch =>{
+    axios
+    .post("https://admin.newhomes.ng/api/auth/forgot-password", userData)
+    .then(res => {
+        // console.log(res.data)
+        dispatch({
+            type: authTypes.FORGOT_PASSWORD,
+            payload: res.data
+          })
+    })
+    .catch(err => {
+        dispatch(setErrorLoading());
+        dispatch({
+          type: errorTypes.SET_ERRORS,
+          payload: err.response
+        })
+      })
+}
+
+//Set new password
+export const resetPassword = (userData) => dispatch =>{
+    return axios
+        .post("https://admin.newhomes.ng/api/auth/change-password-code", userData)
+        .then(res => {
+            // console.log(res.data)
+            dispatch({
+                type: authTypes.RESET_PASSWORD,
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            dispatch(setErrorLoading());
+            dispatch({
+              type: errorTypes.SET_ERRORS,
+              payload: err.response
+            })
+          })
 }
 
 ///Error loading

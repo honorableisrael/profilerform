@@ -4,6 +4,7 @@ import { Form, Formik } from 'formik';
 import styled from '@emotion/styled';
 import { useLocation } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
+import axios from "axios";
 
 import { toTitleCase } from '../../utils/dashboardUtils';
 import earningsTypes from '../../store/types/earningsTypes';
@@ -111,8 +112,9 @@ const NewAffordabilityForm = ({
         // setActiveTab(2);
       }
       
-      const { data: { data: { token } }} = await http.post(
-        '/police/profile',
+      const { data: { data: { token } }} = await axios.post(
+        // '/save-profile', 
+        'https://staging.newhomes.ng/api/police/profile',
         {...currentUser, ...valuesCloned, loanable_amount: rest.max_loanable_amount}
       );
       if (token) {
@@ -362,7 +364,7 @@ const NewAffordabilityForm = ({
                           {/* setsubmittedAtLeastOnce(false); */}
                           {/* resetForm(); */}
                         }}
-                        className='btn w-100 fp-save-result-button m-0 d-flex align-items-center justify-content-center btn-block mb-3'
+                        className=' w-100 fp-save-result-button m-0 d-flex align-items-center justify-content-center btn-block mb-3'
                       >
                         {/* <RefreshCw size='22px' color='#00b1ab' /> */}
                         proceed to property request

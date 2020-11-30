@@ -139,9 +139,15 @@ span.approved {
 }
 
 @keyframes showDots {
-  33% { content: '.'; }
-  66% { content: '..'; }
-  100% { content: '...'; }
+  33% {
+    content: ".";
+  }
+  66% {
+    content: "..";
+  }
+  100% {
+    content: "...";
+  }
 }
 
 span.uploading-indicator {
@@ -150,6 +156,6 @@ span.uploading-indicator {
 
 span.uploading-indicator i::after {
   font-size: 1em;
-  content: '';
+  content: "";
   animation: showDots 1.5s linear infinite forwards;
 }

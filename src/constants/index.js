@@ -15,7 +15,9 @@ export const LOGIN_PAGE_URL = "/auth/login";
 export const REGISTER_URL = "/auth/register";
 export const WELCOME_PAGE_URL = "/";
 // export const BASE_URL = "https://app.financeplus.ng/api";
-export const BASE_URL = "https://staging.newhomes.ng/api";
+// export const BASE_URL = "https://staging.newhomes.ng/api";
+export const BASE_URL = "https://admin.newhomes.ng/api";
+
 export const MIN_EQUITY_PERCENTAGE = 0.2;
 export const SELF_EMPLOYED_MIN_EQUITY_PERCENTAGE = 0.35;
 export const SET_NHF_REG_NUMBER = "SET_NHF_REG_NUMBER";
