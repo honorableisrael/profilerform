@@ -25,7 +25,7 @@ const Wrapper = styled.div`
     align-items: center;
   }
   .property-suggestions-section{
-    background: #e9f2e9 !important;
+    background: #E9F2E9 !important;
   }
 
   .fp-nh-affordability-regular-affordability-property-suggestion-list {
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
     border-radius: 5px;
     width: 252px;
     margin: 0 10px 0 0;
-    height: 362px;
+    height: 340px;
     margin-right: 20px;
     /* border: 1px solid #e8e9ea; */
     transition: box-shadow 0.3s ease;
@@ -53,7 +53,7 @@ const Wrapper = styled.div`
   }
 
   .fp-nh-affordability-regular-affordability-property-suggestion-list .fp-nh-affordability-regular-affordability-property-suggestion-img {
-    height: 116px;
+    height: 126px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     background-position: 50%;
@@ -107,12 +107,12 @@ const Wrapper = styled.div`
   }
 
   .fp-nh-affordability-regular-affordability-property-property-info .fp-property-finance-options {
-    display: flex;
-    justify-content: space-between;
+    
     font-size: 9px;
     font-weight: 600;
-    border-top: 1px solid #f2f6f9;
-    padding: 6px 0;
+    border: 0.5px solid #bbbbbb;
+    border-radius: 8px;
+    padding: 6px 10px;
     margin-top: 10px;
   }
 
@@ -121,7 +121,7 @@ const Wrapper = styled.div`
     justify-content: space-between;
     font-size: 9px;
     font-weight: 600;
-    border-top: 1px solid #f2f6f9;
+    // border-top: 1px solid #f2f6f9;
     margin-top: -10px;
     padding: 10px 0;
   }
@@ -147,26 +147,28 @@ const Wrapper = styled.div`
   }
 
   .fp-property-suggestion-button .fp-property-suggestion-button-make-target {
-    background-color: #00b1ab;
-    border: 1px solid #00b1ab;
+    background-color: #bbbbbb;
+    // border: 1px solid #00b1ab;
     padding: 6px 12px !important;
     line-height: 1.5;
     border-radius: 0.25rem;
     color: #fff !important;
     font-weight: 600;
     font-size: 10px;
-    box-shadow: 0px 10px 14px rgba(0, 177, 171, 0.28);
+    width: 100%;
+    // box-shadow: 0px 10px 14px rgba(0, 177, 171, 0.28);
   }
 
-  .fp-property-suggestion-button .fp-property-suggestion-button-view-more {
-    background-color: transparent;
-    border: 1px solid #00b1ab;
+ .fp-property-suggestion-button-view-more {
+    background-color: #ffffff !important;
+    border: 1px solid #0fbc49 !important;
+    width: 48px;
+    height: 44px;
+    border-radius: 8px;
     padding: 6px 12px !important;
-    line-height: 1.5;
-    border-radius: 0.25rem;
-    color: #00b1ab !important;
-    font-weight: 600;
-    font-size: 10px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
   }
 
   @media screen and (max-width: 768px) {
