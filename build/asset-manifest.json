@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "/static/css/main.918ff366.chunk.css",
+    "main.js": "/static/js/main.05062c17.chunk.js",
+    "main.js.map": "/static/js/main.05062c17.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.20d4db70.js",
+    "runtime-main.js.map": "/static/js/runtime-main.20d4db70.js.map",
+    "static/css/2.b0bb7f2c.chunk.css": "/static/css/2.b0bb7f2c.chunk.css",
+    "static/js/2.3045c5ca.chunk.js": "/static/js/2.3045c5ca.chunk.js",
+    "static/js/2.3045c5ca.chunk.js.map": "/static/js/2.3045c5ca.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.b3f1f2e8f724dfb51181a46c726f9658.js": "/precache-manifest.b3f1f2e8f724dfb51181a46c726f9658.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.b0bb7f2c.chunk.css.map": "/static/css/2.b0bb7f2c.chunk.css.map",
+    "static/css/main.918ff366.chunk.css.map": "/static/css/main.918ff366.chunk.css.map",
+    "static/js/2.3045c5ca.chunk.js.LICENSE": "/static/js/2.3045c5ca.chunk.js.LICENSE",
+    "static/media/Oval.svg": "/static/media/Oval.8dd90ab9.svg",
+    "static/media/Rectangle Copy 3.svg": "/static/media/Rectangle Copy 3.d8ffeeba.svg",
+    "static/media/Rectangle.svg": "/static/media/Rectangle.946d010c.svg",
+    "static/media/access-bank-light.svg": "/static/media/access-bank-light.cf7fd2c8.svg",
+    "static/media/finance-plus-logo-light-bottom.png": "/static/media/finance-plus-logo-light-bottom.2ba1db8a.png",
+    "static/media/first-trust-mortgage-bank-light.svg": "/static/media/first-trust-mortgage-bank-light.675dcffe.svg",
+    "static/media/gian-paolo-aliatis-EJSNrTzz6xk-unsplash 1.png": "/static/media/gian-paolo-aliatis-EJSNrTzz6xk-unsplash 1.1b40ca38.png",
+    "static/media/new-access-bank.png": "/static/media/new-access-bank.380c5ba1.png",
+    "static/media/new-stanbic-bank.png": "/static/media/new-stanbic-bank.07a80e7b.png",
+    "static/media/new-standard-bank.png": "/static/media/new-standard-bank.c9824644.png",
+    "static/media/stanbic-bank-light.svg": "/static/media/stanbic-bank-light.718cf1c0.svg",
+    "static/media/standard-chartered-bank-light.svg": "/static/media/standard-chartered-bank-light.9e0a3b73.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.20d4db70.js",
+    "static/css/2.b0bb7f2c.chunk.css",
+    "static/js/2.3045c5ca.chunk.js",
+    "static/css/main.918ff366.chunk.css",
+    "static/js/main.05062c17.chunk.js"
+  ]
+}

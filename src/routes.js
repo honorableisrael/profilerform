@@ -16,7 +16,7 @@ import NewHomepage from "./containers/NewHomepage";
 import GetStartedPage from "./containers/GetStartedPage";
 import NewApplicationPage from "./containers/NewApplicationPage";
 // import ProfilePage from "./containers/ProfilePage";
-import ResetPassword from "./containers/ResetPassword";
+// import ResetPassword from "./containers/ResetPassword";
 // import NewAffordabilityForm from "./containers/NewAffordabilityForm";
 import ForgotPassword from "./containers/ForgotPassword";
 
@@ -74,11 +74,11 @@ class Routes extends Component {
               path='/mortgage-application'
               component={NewMortgageForm}
             />
-            <Route
+            {/* <Route
               exact
               path='/auth/resetPassword'
               component={ResetPassword}
-            />
+            /> */}
 
             {/* <Route
               exact
