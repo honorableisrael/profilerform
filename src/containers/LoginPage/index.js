@@ -17,13 +17,18 @@ import ProgressBar from "../NProgress";
 import InputPassword from "./../../commons/InputPassword";
 import TextFieldGroup from "./../../commons/TextFieldGroup";
 import Header from "../../commons/Header";
+import ButtonSpinner from '../ButtonSpinner';
+import * as Yup from 'yup';
+import { Form, Formik } from 'formik';
+import { validations } from '../../utils/yupUtils';
+
 
 // import LoginDoorIcon from "../Resource/fp-login-page-door-access.svg";
 
 function LoginPage(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  const [backErrors, setBackErrors] = useState({});
 
   useEffect(()=>{
     if(props.auth.isAuthenticated){
@@ -35,10 +40,10 @@ function LoginPage(props) {
     if(props.errors.errors){
       if(props.errors.errors.message === "login failed"){
           console.log(props.errors.errors)
-          setErrors(props.errors.errors)
+          setBackErrors(props.errors.errors)
       }else if(props.errors.errors.message === "Validation Error"){
           props.errors.errors.data.map(data => (
-            setErrors(data)
+            setBackErrors(data)
           )) 
       }
     }
@@ -109,28 +114,33 @@ function LoginPage(props) {
   //   this.setState({ [e.target.name] : e.target.value });
   //   console.log("value changing")
   // }
-  const handleSubmit = (e)=> {
-    e.preventDefault(); 
+  // const handleLogin = (e)=> {
+  //   e.preventDefault(); 
 
-    const userData = {
-      email,
-      password,
-      // usertype:"Agent"
-    };
+  //   const userData = {
+  //     email : values.email,
+  //     password : values.password,
+  //   };
 
-    console.log("Log in successful");
-    props.loginUser(userData);
-  }
+  //   console.log("Log in successful");
+  //   props.loginUser(userData);
+  // }
 
 
   // render() {
     // const {isLoading} = this.state;
-    const {loading} = props.errors
+    // const {loading} = props.errors
+
+    const validationSchema = (() => {
+      return Yup.object().shape({
+        email: validations.email,
+        password: validations.password,    
+      });
+    })();
 
     return (
 
       <div className='container-fluid px-0'>
-        {/* <ProgressBar isLoading={loading} /> */}
         <section id='fp-login-auth-page'>
         <Header />
         
@@ -154,9 +164,9 @@ function LoginPage(props) {
                           </div>
                         </div>
                       </div> */}
-                      {errors && errors.length ? (
+                      {backErrors && backErrors.length ? (
                         <ul className='error-list fp-errors-display-list'>
-                          {errors.map((msg, index) => {
+                          {backErrors.map((msg, index) => {
                             return (
                               <li className='error-item' key={index}>
                                 <Icon.AlertCircle
@@ -173,23 +183,39 @@ function LoginPage(props) {
                         ""
                       )}
 
-                      <form
-                        className='fp-login-form-wrapper'
-                        noValidate
-                        // onBlur={this.handleBlur}
-                        onSubmit={handleSubmit}
-                      > 
+              <Formik
+                      initialValues={{
+                        email: "",
+                        password: "",
+                      }}
+                      onSubmit={(data) => props.loginUser(data)}
+                      validationSchema={validationSchema}
+                    >
+                      {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => {
+                        const { 
+                          email, password
+                        } = values;
+                        if(backErrors.success === false){
+                          isSubmitting = false;
+                          // backErrors.data = {}
+                        }
+                return (
+                  <Form className="fp-login-form-wrapper" > 
+                        
                         <TextFieldGroup 
                             type='email'
-                            // className='form-control'
                             placeholder='Email'
                             name='email'
                             value={email}
-                            // onChange={handleChange}
-                            onChange={(e)=> setEmail(e.target.value)} 
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            // onChange={(e)=> setEmail(e.target.value)} 
                             pattern='^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$'
                             required
-                            error={errors.message === "login failed" ? errors.data : errors.email }  
+                            error={errors ? errors.email : (backErrors.message === "login failed"  && backErrors.data)}
+                            // error={errors ? errors.email :  backErrors.data }
+                            // error= {(backErrors.message === "login failed" ? backErrors.data : errors.email )}  
+                            // {...{ errors, touched }}
                             // error="Invalid email address"
                         />
                         <InputPassword 
@@ -197,10 +223,14 @@ function LoginPage(props) {
                             placeholder="Password"
                             name='password'
                             value={password}
-                            // onChange={handleChange}
-                            onChange={(e)=> setPassword(e.target.value)}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            // onChange={(e)=> setPassword(e.target.value)}
                             minLength='6'
-                            error={errors.message === "login failed" ? errors.data : errors.password } 
+                            // error={errors ? errors.password : (backErrors.message === "login failed"  && backErrors.data)}
+                            // error={errors ? errors.password : backErrors.data}
+                            error = {(backErrors.message === "login failed" ? backErrors.data : errors.password )} 
+                            // {...{ errors, touched }}
                           /> 
 
 
@@ -211,7 +241,18 @@ function LoginPage(props) {
                             </Link>
                           </div>
                         </div>
-                        <input type="submit" className="btn-lg btn-info btn-block mt-4 mb-4" value="Sign In"  />
+                        {/* <input type="submit" className="btn-lg btn-info btn-block mt-4 mb-4" value="Sign In"  /> */}
+                        <button
+                          type='submit'
+                          className='btn-lg btn-info btn-block mt-4 mb-4'
+                          disabled={isSubmitting}
+                        >
+                          {
+                            isSubmitting ? (
+                              <ButtonSpinner />
+                            ) : 'Sign In'
+                          }
+                        </button>
                         <div className='fp-create-account-wrapper'>
                           Do not have an account?
                           <Link
@@ -223,7 +264,10 @@ function LoginPage(props) {
                             Sign Up
                           </Link>
                         </div>
-                      </form>
+                      </Form>
+              );
+            }}
+          </Formik>
                     </div>
                   </div>
                 </div>

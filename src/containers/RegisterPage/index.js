@@ -12,12 +12,17 @@ import InputPassword from "./../../commons/InputPassword";
 import TextFieldGroup from "./../../commons/TextFieldGroup";
 import "./RegisterPage.css";
 
+import ButtonSpinner from '../ButtonSpinner';
+import * as Yup from 'yup';
+import { Form, Formik } from 'formik';
+import { validations } from '../../utils/yupUtils';
+
 function RegisterPage(props) {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  // const [firstname, setFirstname] = useState("");
+  // const [lastname, setLastname] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  const [backErrors, setBackErrors] = useState({});
 
   useEffect(()=>{
     if(props.auth.isAuthenticated){
@@ -29,10 +34,10 @@ function RegisterPage(props) {
     if(props.errors.errors){
       if(props.errors.errors.message === "register failed"){
           console.log(props.errors.errors)
-          setErrors(props.errors.errors)
+          setBackErrors(props.errors.errors)
       }else if(props.errors.errors.message === "Validation Error"){
           props.errors.errors.data.map(data => (
-            setErrors(data)
+            setBackErrors(data)
           )) 
       }
     }
@@ -70,22 +75,32 @@ function RegisterPage(props) {
   //   this.props.signup(data, submitButton, this.props.history);      
   // }
 
-  const handleSubmit=(e)=> {
-    e.preventDefault();
+  // const handleSubmit=(e)=> {
+  //   e.preventDefault();
 
-    const newUser = {
-      firstname,
-      lastname,
-      email,
-      password,
-      // password2,
-    };
+  //   const newUser = {
+  //     firstname,
+  //     lastname,
+  //     email,
+  //     password,
+  //     // password2,
+  //   };
 
-    props.registerUser(newUser, props.history);
-  }
+  //   props.registerUser(newUser, props.history);
+  // }
 
   // render() {
     // const {loading} = props.errors
+
+    const validationSchema = (() => {
+      return Yup.object().shape({
+        email: validations.email,
+        password: validations.password, 
+        firstname: validations.isRequiredSingleName,
+        lastname: validations.isRequiredSingleName,
+      });
+    })();
+
     return (
       <div className='container-fluid px-0'>
         <section id='fp-login-auth-page'>
@@ -95,7 +110,6 @@ function RegisterPage(props) {
                         <span className='fp-create-account-wrapper'><Link to='/terms' > {" "}Terms of use</Link></span> and our 
                         <span className='fp-create-account-wrapper'><Link to='/privacy' > {" "}Privacy Policy</Link></span>
         </p>
-
         <div className='container-fluid fp-login-auth-page-landing'>
                   <div className='row'>
                     <div className='col-md-12 fp-login-auth-page-landing-form'>
@@ -103,21 +117,37 @@ function RegisterPage(props) {
                         Sign Up
                       </p>
                         {
-                          errors && errors.length ? (
+                          backErrors && backErrors.length ? (
                             <ul className="error-list">
                               {
-                                errors.map((msg, index) => {
+                                backErrors.map((msg, index) => {
                                   return <li className="error-item" key={ index }>{ msg }</li>
                                 })
                               }                    
                             </ul>
                           ) : ''
                         }
-                      <form
-                        className='fp-login-form-wrapper needs-validation'
-                        noValidate
-                        onSubmit={handleSubmit}
-                      > 
+
+              <Formik
+                      initialValues={{
+                        email: "",
+                        password: "",
+                        firstname: "",
+                        lastname: "",
+                      }}
+                      onSubmit={(data) => props.registerUser(data)}
+                      validationSchema={validationSchema}
+                    >
+                      {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => {
+                        const { 
+                          email, password, firstname, lastname
+                        } = values;
+                        if(backErrors.success === false){
+                          isSubmitting = false;
+                          // backErrors.data = {}
+                        }
+                return (
+                  <Form className="fp-login-form-wrapper needs-validation" > 
                       <div className=" row">
                         <div  className='col-md-6 col-sm-12'>
                         <TextFieldGroup 
@@ -126,10 +156,13 @@ function RegisterPage(props) {
                             placeholder='First Name'
                             name='firstname'
                             value={firstname}
-                            onChange={(e)=> setFirstname(e.target.value)} 
+                            // onChange={(e)=> setFirstname(e.target.value)}
+                            onBlur={handleBlur}
+                            onChange={handleChange} 
                             pattern='[a-zA-Z]+(?:-?[a-zA-Z])*'
                             required
-                            error={errors.message === "register failed" ? errors.data : errors.firstname } 
+                            error={errors ? errors.firstname : (backErrors.message === "register failed"  && backErrors.data)}
+                            // error={errors.message === "register failed" ? errors.data : errors.firstname } 
                             // error="First name must be a sequence of letters (separated
                             // by hyphens or not)"
                         />
@@ -140,10 +173,13 @@ function RegisterPage(props) {
                             placeholder='Last Name'
                             name='lastname'
                             value={lastname}
-                            onChange={(e)=> setLastname(e.target.value)}
+                            // onChange={(e)=> setLastname(e.target.value)}
+                            onBlur={handleBlur}
+                            onChange={handleChange}
                             pattern='[a-zA-Z]+(?:-?[a-zA-Z])*'
                             required
-                            error={errors.message === "register failed" ? errors.data : errors.lastname }
+                            error={errors ? errors.lastname : (backErrors.message === "register failed"  && backErrors.data)}
+                            // error={errors.message === "register failed" ? errors.data : errors.lastname }
                             // error="Last name must be a sequence of letters (separated
                             // by hyphens or not)"
                         />
@@ -156,10 +192,14 @@ function RegisterPage(props) {
                             placeholder='Email'
                             name='email'
                             value={email}
-                            onChange={(e)=> setEmail(e.target.value)}
+                            // onChange={(e)=> setEmail(e.target.value)}
+                            onBlur={handleBlur}
+                            onChange={handleChange}
                             pattern='^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$'
                             required
-                            error={errors.message === "register failed" ? errors.data : errors.email }
+                            // error={errors ? errors.email : (backErrors.message === "register failed"  && backErrors.data)}
+                            error = {(backErrors.message === "login failed" ? backErrors.data : errors.password )} 
+                            // error={errors.message === "register failed" ? errors.data : errors.email }
                             // error="Invalid email address"
                         />
 
@@ -168,12 +208,26 @@ function RegisterPage(props) {
                             placeholder="Password"
                             name='password'
                             value={password}
-                            onChange={(e)=> setPassword(e.target.value)}
+                            // onChange={(e)=> setPassword(e.target.value)}
+                            onBlur={handleBlur}
+                            onChange={handleChange}
                             minLength='6'
-                            error={errors.message === "register failed" ? errors.data : errors.password }
+                            error={errors ? errors.password : (backErrors.message === "register failed"  && backErrors.data)}
+                            // error={errors.message === "register failed" ? errors.data : errors.password }
                           /> 
 
-                        <input type="submit" className="btn-lg btn-info btn-block mt-4 mb-4" value="Sign Up" />
+                        {/* <input type="submit" className="btn-lg btn-info btn-block mt-4 mb-4" value="Sign Up" /> */}
+                        <button
+                          type='submit'
+                          className='btn-lg btn-info btn-block mt-4 mb-4'
+                          disabled={isSubmitting}
+                        >
+                          {
+                            isSubmitting ? (
+                              <ButtonSpinner />
+                            ) : 'Sign Up'
+                          }
+                        </button>
                         <div className='fp-create-account-wrapper'>
                           Already have an Account?
                           <Link to='/auth/login' >
@@ -181,10 +235,15 @@ function RegisterPage(props) {
                             Sign In.
                           </Link>
                         </div>
-                      </form>
+                        </Form>
+              );
+            }}
+          </Formik>
                     </div>
                   </div>
                 </div>
+
+             
         </section>
       </div>
     );

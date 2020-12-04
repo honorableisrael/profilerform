@@ -23,7 +23,7 @@ function TextFieldGroup({
                   placeholder="" 
                   value={value} 
                   onChange={onChange} 
-                  data-state-name={name} 
+                  name={name} 
                   pattern={pattern}
               />
               <label htmlFor="form-field" className="form-label auth-color">{placeholder}</label>

@@ -229,7 +229,8 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                           
                           <WrappedSelectWithError
                             textKey='name'
-                            options={states}
+                            // options={states}
+                            options={[{ option: 'Select a State' }, ...states]}
                             name='state_of_origin'
                             value={values.state_of_origin}
                             extractValue={({ name }) => name}
@@ -342,6 +343,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                           <WrappedSelectWithError
                             name='marital_status'
                             options={[
+                              'select',
                               'Married',
                               'Single',
                               'Divorce'
@@ -363,6 +365,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                           <WrappedSelectWithError
                             name='current_home_type'
                             options={[
+                              'select',
                               'Owned',
                               'Rented',
                               'Others'
@@ -386,6 +389,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                           <WrappedSelectWithError
                             name='mode_of_contact'
                             options={[
+                              'select',
                               'SMS',
                               'Email',
                               'Phone call',

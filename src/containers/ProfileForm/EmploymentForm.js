@@ -158,7 +158,8 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                           
                           <WrappedSelectWithError
                             textKey='name'
-                            options={states}
+                            // options={states}
+                            options={[{ option: 'Select a State' }, ...states]}
                             name='employment_state'
                             value={values.employment_state}
                             extractValue={({ name }) => name}
