@@ -56,7 +56,7 @@ const Wrapper = styled.div`
     background-color: #009688;
   }
   .profile-form-section{
-    background: #f9f9f9 !important; 
+    background:var(--primary-background-color) !important; 
   }
 
   button {
@@ -130,7 +130,7 @@ const Wrapper = styled.div`
     padding: 0px;
   }
   .affordability-form-section, .eligibility-form-section{
-    background: #f9f9f9 !important;
+    background:var(--primary-background-color) !important;
   }
 
   label {
@@ -173,7 +173,7 @@ const Wrapper = styled.div`
   }
 
   .form-radio:hover {
-    background-color: #f7f7f7;
+    background-color: var(--secondary-background-color);
   }
 
   .form-radio:checked {

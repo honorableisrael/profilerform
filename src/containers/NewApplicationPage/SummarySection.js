@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   }
 
     .application-summary-wrapper {
-      background-color: #E9F2E9;
+      background-color: var(--cool-green);
       margin: 20px 10px;
       // position: relative;
       // padding-left: 30px;  
@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   }
 
     .application-summary-wrapper > :nth-child(1) {
-      background: #E9F2E9;
+      background: var(--cool-green);
       z-index: 3;
       box-shadow: 0px 0px 0px rgba(39, 98, 81, 0.44);
       position: relative;
@@ -69,7 +69,7 @@ const Wrapper = styled.div`
     }
 
     .application-summary-wrapper > :nth-child(2) {
-      background:  #E9F2E9;
+      background:  var(--cool-green);
       // z-index: 2;
       box-shadow: 0px 0px 0px rgba(39, 98, 81, 0.22);
       // padding-top: 86px;
@@ -136,7 +136,7 @@ const SummarySection = ({ heading, closed, ...rest }) => {
     monthly_gross_pay, outstanding_loans, rate, tenure,
     maxTenure, max_loanable_amount, monthly_repayment
   } = rest;
-  
+ 
 
   return (
     <Wrapper className={`affordability-summary-section  ${closed ? 'closed' : ''}`}>

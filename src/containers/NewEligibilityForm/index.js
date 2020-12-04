@@ -36,7 +36,7 @@ const Wrapper = styled.div`
     padding: 16px;
     border-radius: 50%;
     margin-bottom: 24px;
-    border: 6px solid #5fb49c;
+    border: 6px solid var(--accent-color);
   }
 
   .success-component h3 {
@@ -119,7 +119,7 @@ const NewEligibilityForm = ({
             <div className='success-component'>
               <div className="icon-wrapper">
                 <FontAwesomeIcon
-                  color='#5fb49c'
+                  color='var(--accent-color)'
                   size='5x'
                   icon={faCheck}
                 />

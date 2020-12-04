@@ -27,13 +27,16 @@ const Wrapper = styled.div`
   .fp-finance > p, .fp-finance > h4, .fp-property-status > p, .fp-property-status > h4{
     margin-bottom: 5px !important;
   }
+  .fp-property-address{
+    margin-bottom: 10px !important;
+  }
   .fp-finance > p{
     padding-left: 10px;
-    color: #FF523D;
+    color:var(--red-color);
   }
   .fp-property-status > p{
     padding-left: 10px;
-    color: #0FBC49;
+    color:var(--green-color);
   }
 
   button:disabled {

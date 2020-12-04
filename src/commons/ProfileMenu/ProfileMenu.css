@@ -34,12 +34,12 @@
   /* justify-content: space-between; */
 }
 /* .profileMenu__top--item:first-child {
-  background-color: #e9f2e9 !important;
-  border-left: 4px solid #5fb49c;
+  background-color: var(--cool-green) !important;
+  border-left: 4px solid var(--accent-color);
 } */
 .current {
-  background-color: #e9f2e9 !important;
-  border-left: 4px solid #5fb49c;
+  background-color: var(--cool-green) !important;
+  border-left: 4px solid var(--accent-color);
 }
 .profileMenu__top--item > .circle {
   border-color: #bbbbbb;
@@ -51,10 +51,10 @@
   margin-right: 12px;
 }
 .profileMenu__top--item > .green {
-  border-color: #0fbc49 !important;
+  border-color: var(--green-color) !important;
 }
 .circle > .green {
-  background-color: #0fbc49 !important;
+  background-color: var(--green-color) !important;
   border-radius: 50%;
   width: 7px !important;
   height: 7px;
@@ -68,7 +68,7 @@
   margin-left: 30px;
 }
 .greenBar {
-  background-color: #0fbc49 !important;
+  background-color: var(--green-color) !important;
 }
 .profileMenu__top--item > div {
   border: 0.5px solid #bbbbbb;
@@ -88,7 +88,7 @@
   color: black !important;
 }
 .passed {
-  color: #0fbc49 !important;
+  color: var(--green-color) !important;
 }
 
 .profileMenu__bottom {
@@ -191,7 +191,7 @@
   }
   .profileMenu__bottom-item .btn-info {
     color: #ffffff !important;
-    background-color: #5fb49c !important;
+    background-color: var(--accent-color) !important;
     font-weight: 700;
   }
   .profileMenu__bottom-icon {

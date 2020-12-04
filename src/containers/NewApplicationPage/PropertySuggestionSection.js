@@ -16,25 +16,32 @@ const Wrapper = styled.div`
     margin-right: 0px !important;
   }
 
-  /* & {
-    max-width: 320px;
-  } */
+   & {
+    // max-width: 320px;
+    background: var(--cool-green) !important;
+  } 
 
   .fp-property-suggestion-button-view-more {
     display: flex;
     align-items: center;
   }
-  .property-suggestions-section{
-    background: #E9F2E9 !important;
+  & > h3{
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24.34px;
+    margin-top: 30px;
+  }
+  .closed{
+    background: var(--cool-green) !important;
   }
 
   .fp-nh-affordability-regular-affordability-property-suggestion-list {
-    background: #E9F2E9;
+    background: var(--cool-green);
     /* padding: 10px 20px 0; */
     border-radius: 5px;
     width: 252px;
     margin: 0 10px 0 0;
-    height: 340px;
+    height: 360px;
     margin-right: 20px;
     /* border: 1px solid #e8e9ea; */
     transition: box-shadow 0.3s ease;
@@ -113,7 +120,8 @@ const Wrapper = styled.div`
     border: 0.5px solid #bbbbbb;
     border-radius: 8px;
     padding: 6px 10px;
-    margin-top: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
 
   .fp-nh-affordability-regular-affordability-property-property-info .fp-property-property-verification {
@@ -161,7 +169,7 @@ const Wrapper = styled.div`
 
  .fp-property-suggestion-button-view-more {
     background-color: #ffffff !important;
-    border: 1px solid #0fbc49 !important;
+    border: 1px solidvar(--green-color) !important;
     width: 48px;
     height: 44px;
     border-radius: 8px;

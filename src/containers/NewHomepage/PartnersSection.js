@@ -13,7 +13,7 @@ import FederalMortgage from '../Resource/federal.png';
 const PatnersSection = () => {
 
   return (
-    <section className='partner-carousel' style={{backgroundColor: "#f7f7f7", overflowY: "hidden", padding: "0 0", margin: "0 8%",
+    <section className='partner-carousel' style={{backgroundColor: "var(--secondary-background-color)", overflowY: "hidden", padding: "0 0", margin: "0 8%",
     overflowX: "auto"}}>
       {
         [

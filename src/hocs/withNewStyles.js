@@ -44,7 +44,7 @@ const Wrapper = styled.div`
     /* ///// 1a. Colors /////// */
     /* Main Colors */
     --primary-color: #03339a;
-    --accent-color: #5fb49c;
+    --accent-color: var(--accent-color);
     /* Base Colors */
     --white-color: #fff;
     --black-color: #4e4e4e;

@@ -120,7 +120,7 @@ const Wrapper = styled.div`
   }
 
   .form-radio:hover {
-    background-color: #f7f7f7;
+    background-color: var(--secondary-background-color);
   }
 
   .form-radio:checked {

@@ -24,7 +24,7 @@ import "./../../commons/TextFieldGroup/ProfileTextField.css";
 
 
 const Wrapper = styled.div`
-background: #f9f9f9 !important; 
+background:var(--primary-background-color) !important; 
 width: auto !important;
 `;
 
