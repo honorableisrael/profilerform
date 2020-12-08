@@ -8,13 +8,41 @@ import NMRC from '../Resource/nmrc.png';
 import HomeBase from '../Resource/homebase.png';
 import FamilyHomes from '../Resource/familyhomes.png';
 import FederalMortgage from '../Resource/federal.png';
+// import Slider from 'infinite-react-carousel';
+// import styled from '@emotion/styled';
+// import { Carousel } from 'react-responsive-carousel';
+// import "react-responsive-carousel/lib/styles/carousel.min.css";
 
+// const Wrapper = styled.div`
+// .carousel-initialized{
+//   width: 100%
+// }
+// .carousel-track{
+//   display: flex;
+// }
+// `;
 
 const PatnersSection = () => {
+  // const settings =  {
+  //   arrows: false,
+  //   arrowsBlock: false,
+  //   autoplay: true,
+  //   autoplaySpeed: 3000,
+  //   duration: 500,
+  //   slidesToShow: 6,
+  // };
+
+  // <Wrapper>
+     
+    //  <Slider {...settings}>
+      
 
   return (
-    <section className='partner-carousel' style={{backgroundColor: "var(--secondary-background-color)", overflowY: "hidden", padding: "0 0", margin: "0 8%",
-    overflowX: "auto"}}>
+    
+    // <div className="carousel-wrapper">
+    //     <Carousel infiniteLoop useKeyboardArrows autoPlay>
+    <section className='partner-carousel owl-carousel' style={{backgroundColor: "var(--secondary-background-color)", overflowY: "hidden", padding: "0 0", margin: "0 8%",
+    overflowX: "auto", }}>
       {
         [
           { title: 'access bank', img: AccessBank, id: 1 },
@@ -26,15 +54,22 @@ const PatnersSection = () => {
           { title: 'nmrc', img: NMRC , id: 7},
           { title: 'homebase', img: HomeBase , id: 8},
         ].map(({ title, img, id }) => (
+          <div>
           <img
             key={id}
             src={img}
             alt={title}
             className='partner-logo'
           />
+          </div>
         ))
       }
-    </section>
+       {/* </Carousel> */}
+      {/* </div>  */}
+     </section>
+    // </Slider>
+    // </Wrapper> 
+        
   );
 }
  

@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 
    & {
     // max-width: 320px;
-    background: var(--cool-green) !important;
+    // background: var(--cool-green) !important;
   } 
 
   .fp-property-suggestion-button-view-more {

@@ -13,7 +13,7 @@ function TextFieldGroup({
   error
 }) {
   return (
-    <div className="form-group auth-color">
+    <div className="form-group1 auth-color">
               <input 
                   type={type} 
                   id="form-field"

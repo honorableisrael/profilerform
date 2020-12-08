@@ -23,8 +23,8 @@ const Wrapper = styled.div`
 
 `;
 
-const homeTypes = ['owned', 'rented', 'others'];
-const maritalStatuses = ['married', 'single', 'divorce'];
+const homeTypes = ['choose', 'owned', 'rented', 'others'];
+const maritalStatuses = ['choose', 'married', 'single', 'divorce'];
 const sexes = ['male', 'female'];
 
 const validationSchema = Yup.object().shape({
@@ -370,7 +370,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                               'Rented',
                               'Others'
                             ]}
-                            value={values.current_home_type}
+                            value={values.current_apartment_status}
                             placeholder=''
                             onBlur={handleBlur}
                             onChange={handleChange}

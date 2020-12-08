@@ -17,12 +17,12 @@ import { CookiesProvider } from "react-cookie";
 ReactDOM.render(
   <CookiesProvider>
     <Provider store={store}>
-      {/* <PersistGate
+      <PersistGate
         loading={<CircularLoader isLoading={true} />}
         persistor={persistedStore}
-      > */}
+      >
         <Routes />
-      {/* </PersistGate> */}
+      </PersistGate>
     </Provider>
   </CookiesProvider>,
   document.getElementById("root")

@@ -608,7 +608,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                 </div>
               </div>
               <PropertySuggestionSection
-                closed={!suggestionsStickerOpen}
+                closed={!suggestionsStickerOpen}  
                 {...{
                   goToEligibility, setPropertyStoreData, submittedAffordability,
                   activeTab, alertUser, selectedProperty, setSelectedProperty
@@ -759,6 +759,69 @@ const NewApplicationPage = ({ properties, dispatch }) => {
               </div>
             ) : ''
           }
+        </div>
+        <div id="myModal" class="modal fade" role="dialog" aria-labelledby="..." aria-hidden="true">
+
+                {/* <!-- Modal content--> */}
+              <div class="modal-dialog" role="document">
+                <div class="modal-content" z-index="20000">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                  </div>
+                  <div class="modal-body">
+                    <h2>Some text in the modal. Amazing and beautiful thing</h2>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div id="myModal2" class="modal fade" role="dialog" aria-labelledby="..." aria-hidden="true">
+
+                {/* <!-- Modal content--> */}
+              <div class="modal-dialog" role="document">
+                <div class="modal-content" z-index="20000">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                  </div>
+                  <div class="modal-body">
+                    <h2>I am the properties Modal</h2>
+                    
+                  </div>
+                  <div class="modal-footer">
+                        <div className='row'>
+                            <div className='col-md-6 col-sm-12'>
+                                  <button
+                                      type='button'
+                                      data-dismiss="modal"
+                                      className='w-150 mb-3'
+                                  >
+                                      Choose a Property
+                                  </button>
+                            </div>
+                            <div className='col-md-6 col-sm-12'>
+                                <button
+                                    type='button'
+                                    // disabled={isSubmitting}
+                                    onClick={() => {
+                                      setSelectedProperty(null);
+                                      setActiveTab(2);
+                                      {/* setsubmittedAtLeastOnce(false); */}
+                                      {/* resetForm(); */}
+                                    }}
+                                    data-dismiss="modal"
+                                    className=' w-100 fp-save-result-button m-0 d-flex align-items-center justify-content-center btn-block mb-3'
+                                >
+                                    Request a Property
+                                </button>
+                            </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
         </div>
       </main>
     </Wrapper>

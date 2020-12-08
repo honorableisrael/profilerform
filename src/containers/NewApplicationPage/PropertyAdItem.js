@@ -177,25 +177,7 @@ const PropertyAdItem = ({
             
       {/* <!-- Modal --> */}
       {/* { modalStatus && (<Modal closeModal={() => setModalStatus(false)}> <p>The content of the modal</p></Modal>)} */}
-        <div id="myModal" class="modal fade" role="dialog">
-              <div class="modal-dialog">
-
-                {/* <!-- Modal content--> */}
-                <div class="modal-content" z-index="20000">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                  </div>
-                  <div class="modal-body">
-                    <h2>Some text in the modal. Amazing and beautiful thing</h2>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-
-              </div>
-        </div>
+        
     </Wrapper>
   );
 };

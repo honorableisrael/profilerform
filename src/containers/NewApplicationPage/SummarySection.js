@@ -16,15 +16,22 @@ const Wrapper = styled.div`
 
     .application-summary-wrapper {
       background-color: var(--cool-green);
-      margin: 20px 10px;
-      // position: relative;
+      margin: 30px 10px;
+      margin-bottom: 2px;
+      padding-top: 10px;
+      border-radius: 6px;
+      position: relative;
       // padding-left: 30px;  
       // flex-flow: row nowrap;
       width: 100%;
     }
 
+    .affordability-summary-section{
+      color: white;
+    }
+
    .application-summary-wrapper > * {
-       color: black ;
+       color: white ;
       padding: 10px ;
   }
 
@@ -37,7 +44,7 @@ const Wrapper = styled.div`
     } 
 
     .summary-value-wrapper{
-      color: black !important;
+      color: white !important;
       padding: 10px 5%;
     }
 
@@ -60,12 +67,17 @@ const Wrapper = styled.div`
     }
 
     .application-summary-wrapper > :nth-child(1) {
-      position: relative;
-      background: initial !important;
+      position: absolute;
+      background: var(--primary-color) !important;
       font-size: 20px;
       font-weight: 700;
-      padding: 10px 5%;
-      color: black;
+      padding: 10px ;
+      margin-bottom: 40px;
+      width: 125px;
+      top: -25px;
+      left: 10px;
+      color: white;
+      border-radius: 5px;
     }
 
     .application-summary-wrapper > :nth-child(2) {
@@ -103,6 +115,12 @@ const Wrapper = styled.div`
       font-size: 1.325rem !important;
     }
 
+    // .application-summary-wrapper > h3{
+    //   // position: absolute !important;
+    //   // top: 0 !important;
+    //   background-color: var(--primary-color) !important;
+    // }
+
   @media screen and (max-width: 1200px) {
     .application-summary-wrapper > * {
       min-width: 150px;
@@ -136,6 +154,9 @@ const SummarySection = ({ heading, closed, ...rest }) => {
     monthly_gross_pay, outstanding_loans, rate, tenure,
     maxTenure, max_loanable_amount, monthly_repayment
   } = rest;
+
+ 
+
  
 
   return (
@@ -152,24 +173,25 @@ const SummarySection = ({ heading, closed, ...rest }) => {
           <div className= "col-md-4 col-sm-4">
             <div className="summary-value-wrapper">
               <p>Maximum Loanable</p>
-              <h3 className="monetary-value">{formatCurrencyInput(max_loanable_amount || '') || '\t***,***'}</h3>
+              <h3 className="monetary-value">{formatCurrencyInput(max_loanable_amount || '') || '\t0,000,000'}</h3>
             </div>
           </div>
           <div className= "col-md-4 col-sm-4">
             <div className="  summary-value-wrapper">
               <p>Est. Monthly Repayment</p>
-              <h3 className="monetary-value">{formatCurrencyInput(monthly_repayment || '') || '\t***,***'}</h3>
+              <h3 className="monetary-value">{formatCurrencyInput(monthly_repayment || '') || '\t0,000,000'}</h3>
             </div>
           </div>
           <div className= "col-md-4 col-sm-4">
             <div className="  summary-value-wrapper">
               <p>Maximum Tenure</p>
-              <h3>{maxTenure || '**'} years</h3>
+              <h3>{maxTenure || '0'} {maxTenure > 1 ? "Years" : "Year"} </h3>
             </div>
           </div>
         </div>
       </div>
-    </Wrapper>
+      
+  </Wrapper>
   );
 };
 

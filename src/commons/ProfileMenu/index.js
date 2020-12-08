@@ -40,27 +40,27 @@ function ProfileMenu(props) {
                             Profile
                             </Link>
                         </li>
-                        <div className={`profileMenu__top--bar ${props.affordabilityGreenBar}`}></div>
+                        {/* <div className={`profileMenu__top--bar ${props.affordabilityGreenBar}`}></div> */}
                         <li className={`nav-item profileMenu__top--item dropdown ${props.affordabilityCurrent}`}>
                         <div className={`circle ${props.affordabilityGreen}`}><div className={`${props.affordabilityGreen}`}></div></div>
                             <Link className={`profileMenu__top--link ${props.affordabilityMark}`} to="/application/afforability"  id="navbarDropdownMenuLink" aria-haspopup="true" aria-expanded="false">
                                 Affordability Test
                             </Link>
                         </li> 
-                        <div className={`profileMenu__top--bar ${props.propertyGreenBar}`}></div>
+                        {/* <div className={`profileMenu__top--bar ${props.propertyGreenBar}`}></div> */}
                         <li className={`nav-item profileMenu__top--item dropdown ${props.propertyCurrent}`}>
                             <div className={`circle ${props.propertyGreen}`}><div className={`${props.propertyGreen}`}></div></div>
                             <Link className={`profileMenu__top--link ${props.propertyMark}`} to="/application/propertyReq" id="navbarDropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
                                 Property Request
                             </Link>
                         </li> 
-                        <div className={`profileMenu__top--bar ${props.mortgageGreenBar}`}></div>
-                        <li className={`nav-item profileMenu__top--item dropdown ${props.mortgageCurrent}`}>
+                        {/* <div className={`profileMenu__top--bar ${props.mortgageGreenBar}`}></div> */}
+                        {/* <li className={`nav-item profileMenu__top--item dropdown ${props.mortgageCurrent}`}>
                             <div className={`circle ${props.mortgageGreen}`}><div className={`${props.mortgageGreen}`}></div></div>
                             <Link className={`profileMenu__top--link ${props.mortgageMark}`} to="/mortgage-application" id="navbarDropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
                                 Mortgage Application
                             </Link>
-                        </li>   
+                        </li>    */}
                     </ul>
                 </div>
              </div>

@@ -143,8 +143,8 @@ const NewEligibilityForm = ({
               {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => {
                 return (
                   <Form>
-                    <div className='form-group row'>
-                      <div className="col-12 col-sm-6">
+                    <div className='row'>
+                      <div className="col-12 col-sm-6 form-group">
                         
                         <WrappedSelectWithError
                           textKey='name'
@@ -159,7 +159,7 @@ const NewEligibilityForm = ({
                         />
                         <label className="form-label">Home type<sup>*</sup></label>
                       </div>
-                      <div className="col-12 col-sm-6">
+                      <div className="col-12 col-sm-6 form-group">
                         
                         <WrappedInputWithError
                           // prepend="₦"
@@ -172,9 +172,10 @@ const NewEligibilityForm = ({
                         />
                         <label className="form-label">Home value <sup>*</sup></label>
                       </div>
-                      <div className="col-12">
+                    </div>
+                    
                         <div className="row">
-                          <div className="col-md-6 col-sm-6">
+                          <div className="col-md-6 col-sm-6 form-group">
                             
                             <WrappedInputWithError
                               type='number'
@@ -188,7 +189,7 @@ const NewEligibilityForm = ({
                             />
                             <label className="form-label">Number of Bedrooms <sup>*</sup></label>
                           </div>
-                          <div className="col-md-6 col-sm-6">
+                          <div className="col-md-6 col-sm-6 form-group">
                             
                             <WrappedInputWithError
                               type='number'
@@ -204,8 +205,8 @@ const NewEligibilityForm = ({
                           </div>
                           
                         </div>
-                      </div>
-                      <div className="col-12 col-sm-6">
+                      <div className="row">
+                      <div className="col-12 col-sm-6 form-group">
                         
                         <WrappedSelectWithError
                           textKey='name'
@@ -224,7 +225,7 @@ const NewEligibilityForm = ({
                         />
                         <label className="form-label">Desired state <sup>*</sup></label>
                       </div>
-                      <div className="col-12 col-sm-6">
+                      <div className="col-12 col-sm-6 form-group">
                         
                         <WrappedSelectWithError
                           textKey='name'

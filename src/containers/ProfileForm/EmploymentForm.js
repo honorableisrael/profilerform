@@ -36,6 +36,7 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
   // const email = cookies.get('email');
   const handleSubmit = async (values) => {
     batchDispatcher(values, userActions, dispatch);
+    // goToNextComponent();
     goToRequest();
   };
 
@@ -64,11 +65,12 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                 <div className="fp-personal-info-form">
                   <div>
                     <div>
-                      {/* <h2 className="mt-3">
-                        Please tell us about your employment
-                      </h2> */}
-                      <div className="form-group row">
-                        <div className="col-md-6 col-sm-12">
+                      <p className="mt-2">
+                        Provide your Employment Information
+                      </p>
+                     
+                      <div className= "row">
+                        <div className="col-md-6 col-sm-12 form-group">
                           <WrappedInputWithError
                             type="text"
                             onBlur={handleBlur}
@@ -85,7 +87,7 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                           </label>
                           
                         </div>
-                        <div className="col-md-6 col-sm-12">
+                        <div className="col-md-6 col-sm-12 form-group">
                           
                           <WrappedInputWithError
                             type="text"
@@ -102,8 +104,10 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                             <sup>*</sup>
                           </label>
                         </div>
+                        </div>
 
-                        <div className="col-md-6 col-sm-12 form-group">
+                        <div className= "row">
+                        <div className="col-md-6 col-sm-12 form-group ">
                           
                           <WrappedSelectWithError
                             name='employment_present_position'
@@ -123,7 +127,7 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                           />
                           <label className="form-label">Rank</label>
                         </div>
-                        <div className="col-md-6 col-sm-12 form-group">
+                        <div className="col-md-6 col-sm-12 form-group ">
                           
                           <WrappedInputWithError
                             type="text"
@@ -137,8 +141,9 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                           />
                           <label className="form-label">NHF Number</label>
                         </div>
-                      </div>
-                      <div className='row form-group'>                      
+                        </div>
+                      {/* </div> */}
+                      {/* <div className='row form-group'>                       */}
                         {/* <div className='col-12'>
                           <label>
                             Employment Address
@@ -154,7 +159,8 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                             {...{ errors, touched }}
                           />
                         </div> */}
-                        <div className='col-md-6 col-sm-12'>
+                        <div className= "row">
+                        <div className='col-md-6 col-sm-12 form-group'>
                           
                           <WrappedSelectWithError
                             textKey='name'
@@ -174,36 +180,38 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                             <sup>*</sup>
                           </label>
                         </div>
-                        <div className='col-md-6 col-sm-12'>
+                        <div className='col-md-6 col-sm-12 form-group'>
                           
                           <WrappedInputWithError
                             type="number"
-                            // append='years'
+                            append='years'
                             name='work_experience'
                             value={values.work_experience}
                             placeholder="years"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
-                            className="form-control form-control-lg form-area"
+                            className="form-control form-control-lg form-area2"
                           />
                           <label className="form-label">
                             Length of Service
                             <sup>*</sup>
                           </label>
                         </div>
+                        </div>
+                        <div className= "row">
                         <div className='col-md-6 col-sm-12 form-group'>
                           
                           <WrappedInputWithError
                             type="number"
-                            // append='years'
+                            append='years'
                             name='year_to_retirement'
                             value={values.year_to_retirement}
                             placeholder="years"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             {...{ errors, touched }}
-                            className="form-control form-control-lg form-area"
+                            className="form-control form-control-lg form-area2"
                           />
                           <label className="form-label">
                             Years to Retirement
@@ -219,10 +227,10 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                     <button
                       type='button'
                       disabled={isSubmitting}
-                      className='w-100 item-btn mb-3'
+                      className='w-150 mb-3'
                       onClick={goToPreviousComponent}
                     >
-                      back
+                      Previous
                     </button>
                   </div>
                   <div className="col-md-6 px-3">
@@ -232,7 +240,7 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                       disabled={isSubmitting}
                     >
                       {
-                        isSubmitting ? <ButtonSpinner /> : 'submit'
+                        isSubmitting ? <ButtonSpinner /> : 'Continue'
                       }
                     </button>
                   </div>
