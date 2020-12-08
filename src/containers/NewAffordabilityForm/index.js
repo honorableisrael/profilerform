@@ -19,6 +19,7 @@ import ButtonSpinner from '../ButtonSpinner';
 import http from '../../config/axios.config';
 import cookies from '../../utils/cookies';
 import "./../../commons/TextFieldGroup/ProfileTextField.css";
+import Modal from "./../../commons/Modal";
 
 
 const Wrapper = styled.div`
@@ -83,6 +84,7 @@ const NewAffordabilityForm = ({
   setPropertyStoreData, setSelectedProperty, submittedAffordability, ...rest
 }) => {
   const [submittedAtLeastOnce, setsubmittedAtLeastOnce] = useState(false);
+  const [modalStatus, setModalStatus] = useState(false);
 
   const getHandleChange = handleChangeRetriever(dispatch);
 
@@ -186,15 +188,15 @@ const NewAffordabilityForm = ({
                 </div>
               </div>
               <div className=" row">
-                <div className="form-group col-md-12">
-                  <div className='row'>
+                {/* <div className="form-group col-md-12">
+                  <div className='row'> */}
                     {/* {
                       yesNo.map((item, index) => {
                         const checked = item === have_equity;
                         return ( */}
                           <div
                             // key={index}
-                            className="col-6 col-md-6"
+                            className="col-6 col-md-6 form-group"
                           >
                             {/* <input
                               type="radio"
@@ -238,8 +240,8 @@ const NewAffordabilityForm = ({
                       {/* })
                     } */}
                   </div>
-                </div>
-              </div>
+                {/* </div>
+              </div> */}
               {
                 have_equity === DEFAULT_RADIO_VALUES[0] ? (
                   <div className=' row'>
@@ -435,6 +437,10 @@ const NewAffordabilityForm = ({
                     </div>)
                 }
               </div>
+
+              {/* choosing property modal */}
+              {/* <!-- Modal --> */}
+              {/* { modalStatus && (<Modal closeModal={() => setModalStatus(false)}> <p>The content of the modal</p></Modal>)} */}
             </Form>
           );
         }}

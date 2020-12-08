@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
+import http from '../../config/axios.config';
 
 import earningsTypes from '../../store/types/earningsTypes';
 import earningsActions from '../../store/actions/earningsActions';
@@ -155,7 +156,74 @@ const SummarySection = ({ heading, closed, ...rest }) => {
     maxTenure, max_loanable_amount, monthly_repayment
   } = rest;
 
- 
+  const dispatch = useDispatch();
+const [incomePercentage, setIncomePercentage] = useState(.333);
+
+const calculateMonthlyPayment = (principal, rate, months) => {
+let rate_plus_one = 1 + rate;
+let rate_raise_to_Number_of_month = Math.pow(rate_plus_one, months);
+let numerator = principal * rate * rate_raise_to_Number_of_month;
+let denominator = rate_raise_to_Number_of_month - 1;
+let monthly_payment = Math.round(numerator / denominator);
+return monthly_payment;
+};
+
+const calculateLoanableAmount = () => {
+let income = parseFloat(clearCommas(monthly_gross_pay));
+if (isNaN(income)) income = 0;
+
+    // if (have_additional_income === 'yes') {
+    //   const additionalIncome = Number(clearCommas(additional_income));
+    //   income += isNaN(additionalIncome) ? 0 : additionalIncome;
+    // }
+
+    if (outstanding_loans) {
+      const otherObligations = Number(clearCommas(outstanding_loans));
+      income -= isNaN(otherObligations) ? 0 : otherObligations;
+    }
+
+[rate, tenure] = [rate, tenure].map(el => parseInt(el, 10));
+const months = tenure * 12;
+rate = rate / 100 / 12;
+const rate_plus_one = 1 + rate;
+const rate_raise_to_Number_of_month = Math.pow(rate_plus_one, months);
+const raise_to_power_month_minus_one = rate_raise_to_Number_of_month - 1;
+const principal = Number(income) * incomePercentage;
+const numerator = principal * raise_to_power_month_minus_one;
+const denominator = rate * rate_raise_to_Number_of_month;
+const loanable_amount = numerator / denominator;
+const monthlyRepayment = Math.round(calculateMonthlyPayment(loanable_amount, rate, months));
+const maxLoanableAmount = Math.round(loanable_amount);
+
+dispatch(affordabilityActions[affordabilityTypes.SET_MONTHLY_REPAYMENT](monthlyRepayment));
+dispatch(affordabilityActions[affordabilityTypes.SET_MAX_LOANABLE_AMOUNT](maxLoanableAmount));
+}
+
+useEffect(() => {
+calculateLoanableAmount();
+});
+
+// useEffect(() => {
+  // POST request using axios inside useEffect React hook
+  // const article = { title: 'React Hooks POST Request Example' };
+  // http.post(
+  //   '/user/affordability-test',
+    // 'https://staging.newhomes.ng/api/user/affordability-test',
+  //   {
+  //     monthly_gross_pay: 'police Deve',
+  //     total_annual_pay: 'home',
+  //     monthly_expenses: 0,
+  //     payment_option: 'mortgage',
+  //     ...values,
+  //     tenure: 15,
+  //     budget: affordability.budget,
+  //     payment_option: affordability.payment_option,
+  //     have_equity: 0
+  //   }
+  // );
+
+// empty dependency array means this effect will only run once (like componentDidMount in classes)
+// }, []);
 
  
 

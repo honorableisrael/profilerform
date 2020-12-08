@@ -4,6 +4,9 @@ import { useHistory, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp, faExclamationTriangle, faExpand } from '@fortawesome/free-solid-svg-icons';
+import BathIcon from "../Resource/bathroom.png";
+import BedIcon from "../Resource/bedroom.png";
+import ButtonSpinner from '../ButtonSpinner';
 
 import SummarySection from './SummarySection';
 import withNewStyles from '../../hocs/withNewStyles';
@@ -19,8 +22,10 @@ import propertyActions from '../../store/actions/propertyActions';
 import requestActions from '../../store/actions/requestActions';
 import ProfileFormWrapper from '../ProfileForm';
 import fetchProperties from '../../utils/fetchProperties';
-import { clearCommas } from '../../utils/currencyUtils';
+import { clearCommas, formatCurrencyInput } from '../../utils/currencyUtils';
 import ProfileMenu from "../../commons/ProfileMenu";
+
+
 
 
 const Wrapper = styled.div`
@@ -301,6 +306,106 @@ const Wrapper = styled.div`
     opacity: 0.5;
   }
 
+  .modal-dialog{
+    max-width: 860px !important;
+  }
+
+  .property__image{
+    width: 100%;
+    // position: relative;
+    height: 250px;
+    background: url("/../Resource/propty.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .property__content{
+    padding-left: 50px;
+    padding-right: 50px;
+    position: relative;
+  }
+
+  .property__head{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 0.5px solid #bbbbbb;
+    margin-bottom: 20px;
+    
+  }
+  .property__title{
+    font-weight: 700;
+    font-size: 16px;
+    padding-bottom: 15px
+  }
+  .property__name, .property__address{
+    color: #666666;
+  }
+  .property__head > h2{
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 41.5px;
+    color: var(--accent-color);
+    padding-left: 50px;
+    border-left: 1px solid #bbbbbb;
+    padding-bottom: 15px
+  }
+  .property__features{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 0.5px solid #bbbbbb;
+    padding-bottom: 20px;
+    text-align: center;
+  }
+  .property__icon > img{
+    height: 24px;
+    width: 24px;
+  }
+  .property__finance, .property__status {
+    display: flex;
+    font-weight: 700;
+    font-size: 14px;
+    color: #666666;
+  }
+  .property__finance > h4, .property__status > h4{
+    font-size: 14px;
+    padding-right: 5px;
+  }
+  .property__finance > p{
+    color: var(--red-color);
+  }
+  .property__status > p{
+    color: var(--green-color)
+  }
+  .property__description > h3{
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .property__description > p{
+    font-weight: 325;
+    font-size: 14px;
+  }
+
+  .property__link{
+    padding-bottom: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    width: 100%;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .property__link > a{
+    position: absolute;
+    right: 0;
+  }
+
+  a{
+    color: var(--accent-color);
+  }
+  .property__button{
+    margin-bottom: 30px !important;
+  }
+
   @media screen and (max-width: 770px){
     .affordability-page-content, .eligibility-page-content, .mortgage-page-content{
       display: flex;
@@ -460,6 +565,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
   const [formDataJSON, setFormDataJSON] = useState(
     JSON.stringify({ states: [], propertyTypes: [], paymentOptions: [] })
   );
+
 
 
   const { states, propertyTypes, paymentOptions } = JSON.parse(formDataJSON);
@@ -760,24 +866,78 @@ const NewApplicationPage = ({ properties, dispatch }) => {
             ) : ''
           }
         </div>
-        <div id="myModal" class="modal fade" role="dialog" aria-labelledby="..." aria-hidden="true">
 
+
+        {/* Property suggestion modal */}
+        <div id="myModal" class="modal fade" role="dialog" aria-labelledby="..." aria-hidden="true">
                 {/* <!-- Modal content--> */}
-              <div class="modal-dialog" role="document">
+              <div class="modal-dialog" role="document" style={{width: "auto"}}>
                 <div class="modal-content" z-index="20000">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                  </div>
                   <div class="modal-body">
-                    <h2>Some text in the modal. Amazing and beautiful thing</h2>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div className="property__image"><img src="./../Resource/homebase.png"/></div>
+                    <div className="property__content">
+                      <div className="property__head">
+                        <div className="property__title">
+                          <div className='property__name'>{selectedProperty ? selectedProperty.property_name : "4 Bd Detached House for Rent at Osapa London"}</div>
+                          <div className='property__address'>{selectedProperty ? selectedProperty.property_city : 'Lekki'}, {selectedProperty ? selectedProperty.property_state : "Lagos"}</div>
+                        </div>
+                        <h2>
+                          {selectedProperty ? `${selectedProperty.currency_symbol} ${formatCurrencyInput(selectedProperty.property_price)}` : "#40,000,000.00" }
+                        </h2>
+                      </div>
+                      <div className='property__features'>
+                          <div className='property__icon'>
+                            <img className='mr-2' src={BedIcon} alt='Bed Icon' />
+                            {selectedProperty 
+                              ? `${selectedProperty.property_bedrooms} bed`
+                              : "N/A"}{" "}
+                          </div>
+                          <div className='property__icon'>
+                              <img className='ml-2' src={BathIcon} alt='Bath Icon' />
+                              &nbsp;
+                              {selectedProperty 
+                                ? `${selectedProperty.property_bathrooms} bath`
+                                : "N/A"}{" "}
+                          </div>
+                          <div className='property__finance'>
+                              <h4>Finance Status: </h4>
+                              <p>Not Available</p>
+                          </div>
+                          <div className='property__status'>
+                            <h4>Property Status: </h4>
+                            <p>Off plan</p>
+                          </div>
+                      </div>
+                      <div className="property__description">
+                          <h3>Description</h3>
+                          <p>
+                          The Address Homes-Femi Okunnu, 4 bed room semi-detached house.This comprises of 20(NOS) beautiful contemporary
+                          4 bedrooms luxury semi-detached and 4 fully detached homes with 1 bedroom QB on 3 floors where intelligent design that meets aesthetics to create the perfect backdrop for the modern lifestyle.Features 1 room BQ4 car parkingCommunal - gym, poolEvent hallGreen area24hr powerSwimming PoolCCTV security NetworkArmed Security PersonnelAmple
+                          parking spacePrice:4 Bedroom Semi-detached: 125,000,000
+                          </p>
+                      </div>
+                      <div className="property__link"><a href="https://newhomes.ng">View on newhomes.ng</a></div>
+                      <div className="col-md-12 col-sm-12">
+                          <button
+                            type='submit'
+                            className='w-100 property__button'
+                            // disabled={isSubmitting}
+                          >
+                             Choose this Property
+                          </button>
+                       </div>
+                    </div>
+                   
                   </div>
-                  <div class="modal-footer">
+                  {/* <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
         </div>
+
+        {/* Modal for Property Selection */}
         <div id="myModal2" class="modal fade" role="dialog" aria-labelledby="..." aria-hidden="true">
 
                 {/* <!-- Modal content--> */}
@@ -796,8 +956,11 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                             <div className='col-md-6 col-sm-12'>
                                   <button
                                       type='button'
-                                      data-dismiss="modal"
                                       className='w-150 mb-3'
+                                      rel='noopener noreferrer'
+                                      data-toggle="modal" data-target="#myModal3"
+                                      // onClick={() => setModalStatus(true)}
+                                      data-dismiss="modal"
                                   >
                                       Choose a Property
                                   </button>

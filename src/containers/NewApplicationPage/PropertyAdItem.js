@@ -7,7 +7,7 @@ import { formatCurrencyInput } from "../../utils/currencyUtils";
 import "./PropertyAdItem.css";
 import styled from "@emotion/styled";
 import ButtonSpinner from "../ButtonSpinner";
-import Modal from "./../../commons/Modal";
+
 
 
 const Wrapper = styled.div`
@@ -69,7 +69,7 @@ const PropertyAdItem = ({
   const [loading, setLoading] = useState(false);
   const { property_cover_image, id } = property;
   const isSelected = id === (selectedProperty || {}).id;
-  const [modalStatus, setModalStatus] = useState(false);
+  
   return (
     <Wrapper className={`fp-nh-affordability-regular-affordability-property-suggestion-list${isSelected ? ' selected' : ''}`}>
       {/* <input
@@ -169,14 +169,12 @@ const PropertyAdItem = ({
             rel='noopener noreferrer'
             className='fp-property-suggestion-button-view-more'
             data-toggle="modal" data-target="#myModal"
-            // onClick={() => setModalStatus(true)}
       >
             <Icon.Eye className='mr-1' size='40px' color='#0fbc49' />
             
        </a>
             
-      {/* <!-- Modal --> */}
-      {/* { modalStatus && (<Modal closeModal={() => setModalStatus(false)}> <p>The content of the modal</p></Modal>)} */}
+      
         
     </Wrapper>
   );
