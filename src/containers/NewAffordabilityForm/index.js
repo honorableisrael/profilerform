@@ -29,6 +29,7 @@ const Wrapper = styled.div`
     border-color: #009688;
     background-color: #009688;
   }
+ 
 `;
 
 const yesNo = DEFAULT_RADIO_VALUES;
@@ -188,65 +189,57 @@ const NewAffordabilityForm = ({
                 </div>
               </div>
               <div className=" row">
-                {/* <div className="form-group col-md-12">
-                  <div className='row'> */}
-                    {/* {
-                      yesNo.map((item, index) => {
-                        const checked = item === have_equity;
-                        return ( */}
-                          <div
-                            // key={index}
-                            className="col-6 col-md-6 form-group"
-                          >
-                            {/* <input
-                              type="radio"
-                              value={item}
-                              checked={checked}
-                              onBlur={handleBlur}
-                              className="form-radio"
-                              name="have_equity"
-                              onChange={({ target }) => {
+                    <div className="col-6 col-md-6 form-group">
+                          <WrappedSelectWithError
+                                name="have_equity"
+                                value={values.have_equity}
+                                options={['no', 'yes']}
+                                onBlur={handleBlur}
+                                onChange={({ target }) => {
                                 if (target.value === 'no') {
-                                  getHandleChange(
-                                    handleChange, affordabilityTypes.SET_EQUITY_CONTRIBUTION
-                                  )({ target: { name: 'equity_contribution', value: '' } });
-                                }
-                                getHandleChange(handleChange, affordabilityTypes.SET_HAVE_EQUITY)({ target });
-                              }}
-                              required
-                            /> */}
-                                  <WrappedSelectWithError
-                                      textKey='option'
-                                      name="have_equity"
-                                      value={values.have_equity}
-                                      extractValue={({ option }) => option}
-                                      options={['no', 'yes']}
-                                      onBlur={handleBlur}
-                                      onChange={({ target }) => {
-                                        if (target.value === 'no') {
-                                          getHandleChange(
-                                            handleChange, affordabilityTypes.SET_EQUITY_CONTRIBUTION
-                                          )({ target: { name: 'equity_contribution', value: '' } });
-                                        }
-                                        getHandleChange(handleChange, affordabilityTypes.SET_HAVE_EQUITY)({ target });
-                                      }}
-                                      {...{ errors, touched }}
-                                      className="form-control form-control-lg form-area"
-                                    />
-                            {/* <label className="text--capitalize form-label">Do you have Equity</label> */}
-                            <label className="form-label">Do you have equity? <sup>*</sup> </label>
-                          </div>
-                        {/* ); */}
-                      {/* })
-                    } */}
-                  </div>
-                {/* </div>
-              </div> */}
-              {
+                                    getHandleChange(
+                                        handleChange, affordabilityTypes.SET_EQUITY_CONTRIBUTION
+                                     )({ target: { name: 'equity_contribution', value: '' } });
+                                      }
+                                      getHandleChange(handleChange, affordabilityTypes.SET_HAVE_EQUITY)({ target });
+                               }}
+                              {...{ errors, touched }}
+                                className="form-control form-control-lg form-area"
+                          />
+                      <label className="form-label">Do you have equity? <sup>*</sup> </label>
+                    </div>
+                    {/* Payment Option */}
+
+                    <div className="col-md-6 col-12 form-group">
+                        <WrappedSelectWithError
+                          textKey='option'
+                          name='payment_option'
+                          value={values.payment_option}
+                          extractValue={({ option }) => option}
+                          options={[{ option: 'Select a payment option' }, ...paymentOptions]}
+                          onBlur={handleBlur}
+                          onChange={({ target }) => {
+                            if (!paymentOptionsWithBudget.includes(target.value)) {
+                              getHandleChange(
+                                handleChange, affordabilityTypes.SET_BUDGET
+                              )({ target: { name: 'budget', value: '' } });
+                            }
+                            getHandleChange(handleChange, affordabilityTypes.SET_PAYMENT_OPTION)({ target });
+                          }}
+                          {...{ errors, touched }}
+                          className="form-control form-control-lg form-area"
+                        />
+                        <label className="form-label">
+                          Payment Option <sup>*</sup>
+                        </label>
+                      </div>
+              </div>
+
+              <div className=" row">
+                {/* Equity Output */}
+                {
                 have_equity === DEFAULT_RADIO_VALUES[0] ? (
-                  <div className=' row'>
-                    <div className="col-md-6 col-12 column form-group">
-                      
+                    <div className="col-md-6 col-12 form-group">
                       <WrappedInputWithError
                         // prepend='₦'
                         type="text"
@@ -262,40 +255,14 @@ const NewAffordabilityForm = ({
                       />
                       <label className="form-label">How much equity do you have? <sup>*</sup></label>
                     </div>
-                  </div>
-                ) : ''
-              }
-
-              <div className="form-group row">
-                <div className="col-md-6 col-12 ">
-                  
-                  <WrappedSelectWithError
-                    textKey='option'
-                    name='payment_option'
-                    value={values.payment_option}
-                    extractValue={({ option }) => option}
-                    options={[{ option: 'Select a payment option' }, ...paymentOptions]}
-                    onBlur={handleBlur}
-                    onChange={({ target }) => {
-                      if (!paymentOptionsWithBudget.includes(target.value)) {
-                        getHandleChange(
-                          handleChange, affordabilityTypes.SET_BUDGET
-                        )({ target: { name: 'budget', value: '' } });
-                      }
-                      getHandleChange(handleChange, affordabilityTypes.SET_PAYMENT_OPTION)({ target });
-                    }}
-                    {...{ errors, touched }}
-                    className="form-control form-control-lg form-area"
-                  />
-                  <label className="form-label">
-                    Payment Option <sup>*</sup>
-                  </label>
-                </div>
+                  ) : ''
+                }
+                {/* Installment Payment Output */}
                 {
                   paymentOptionsWithBudget.includes(payment_option) ? (() => {
                     const isInstallment = payment_option === paymentOptionsWithBudget[0];
                       return (
-                      <div className="col-md-6 col-12">
+                      <div className="col-md-6 col-12 form-group">
                         
                         <WrappedInputWithError
                           // prepend='₦'
@@ -320,7 +287,6 @@ const NewAffordabilityForm = ({
 
               <div className="row">
                 <div className="col-md-6 col-12 form-group ">
-                  
                   <WrappedInputWithError
                     // prepend='₦'
                     type="text"

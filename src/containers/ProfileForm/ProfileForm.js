@@ -25,7 +25,7 @@ const Wrapper = styled.div`
 
 const homeTypes = ['choose', 'owned', 'rented', 'others'];
 const maritalStatuses = ['choose', 'married', 'single', 'divorce'];
-const sexes = ['male', 'female'];
+// const sexes = ['male', 'female'];
 
 const validationSchema = Yup.object().shape({
   // sex: validations.requiredString,
@@ -342,12 +342,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                           
                           <WrappedSelectWithError
                             name='marital_status'
-                            options={[
-                              'select',
-                              'Married',
-                              'Single',
-                              'Divorce'
-                            ]}
+                            options={maritalStatuses}
                             value={values.marital_status}
                             placeholder=''
                             onBlur={handleBlur}
@@ -363,14 +358,9 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                         <div className='col-md-6 col-sm-12 form-group'>
                           
                           <WrappedSelectWithError
-                            name='current_home_type'
-                            options={[
-                              'select',
-                              'Owned',
-                              'Rented',
-                              'Others'
-                            ]}
-                            value={values.current_apartment_status}
+                            name='current_apartment_status'
+                            options={homeTypes}
+                            value={current_apartment_status}
                             placeholder=''
                             onBlur={handleBlur}
                             onChange={handleChange}
@@ -382,6 +372,28 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                             <sup>*</sup>
                           </label>
                         </div>
+                      </div>
+                      <div className='row'>
+                        {
+                          !isNotOtherHometype ? (
+                            <div className='col-md-6 col-sm-12 form-group'>
+                              <WrappedInputWithError
+                                type="text"
+                                name="current_apartment_status"
+                                value={current_apartment_status}
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                {...{ errors, touched }}
+                                className="form-control form-control-lg form-area"
+                              />
+                              <label className="form-label">
+                                If others, please specify
+                                <sup>*</sup>
+                              </label>
+                            </div>
+
+                          ) : ''
+                        }
                       </div>
                       <div className='row'>                      
                         <div className='col-md-6 col-sm-12 form-group'>

@@ -2265,14 +2265,14 @@ const Wrapper = styled.div`
   }
 
   .affordability-form-section h3 {
-    margin-top: 20px;
-    color: #d4d4d4;
+    margin-top: 0px;
+    color: #ffffff;
   }
 
   .affordability-form-section p {
     font-size: 12px;
     margin-top: 5px;
-    color: #d4d4d4;
+    color: #ffffff;
   }
 
   .property-suggestions-section {

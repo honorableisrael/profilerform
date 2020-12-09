@@ -397,15 +397,48 @@ const Wrapper = styled.div`
   .property__link > a{
     position: absolute;
     right: 0;
-  }
-
-  a{
     color: var(--accent-color);
   }
+
   .property__button{
     margin-bottom: 30px !important;
   }
-
+  .selection{
+    margin-left: 60px;
+    margin-right: 60px;
+  }
+  .selection__content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+  .selection__icon{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #E9F2E9;
+    margin-bottom: 15px;
+  }
+  .selection__icon > img{
+    margin-bottom: 0;
+  }
+  .selection__header{
+    font-size: 24px;
+    font-weight: 325;
+    line-height: 28.8px;
+  }
+  .selection__header > span{
+    font-weight: 700;
+  }
+  .selection__text{
+    font-size: 14px;
+    font-weight: 325;
+    line-height: 16.8px;
+    color: #666666;
+    margin-bottom: 15px;
+  }
   @media screen and (max-width: 770px){
     .affordability-page-content, .eligibility-page-content, .mortgage-page-content{
       display: flex;
@@ -869,12 +902,12 @@ const NewApplicationPage = ({ properties, dispatch }) => {
 
 
         {/* Property suggestion modal */}
-        <div id="myModal" class="modal fade" role="dialog" aria-labelledby="..." aria-hidden="true">
+        <div id="myModal" className="modal fade" role="dialog" aria-labelledby="..." aria-hidden="true">
                 {/* <!-- Modal content--> */}
-              <div class="modal-dialog" role="document" style={{width: "auto"}}>
-                <div class="modal-content" z-index="20000">
-                  <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <div className="modal-dialog" role="document" style={{width: "auto"}}>
+                <div className="modal-content" z-index="20000">
+                  <div className="modal-body">
+                    <button type="button" className="close" data-dismiss="modal">&times;</button>
                     <div className="property__image"><img src="./../Resource/homebase.png"/></div>
                     <div className="property__content">
                       <div className="property__head">
@@ -930,42 +963,40 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                     </div>
                    
                   </div>
-                  {/* <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  </div> */}
                 </div>
               </div>
         </div>
 
         {/* Modal for Property Selection */}
-        <div id="myModal2" class="modal fade" role="dialog" aria-labelledby="..." aria-hidden="true">
+        <div id="myModal2" className="modal fade" role="dialog" aria-labelledby="..." aria-hidden="true">
 
                 {/* <!-- Modal content--> */}
-              <div class="modal-dialog" role="document">
-                <div class="modal-content" z-index="20000">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                  </div>
-                  <div class="modal-body">
-                    <h2>I am the properties Modal</h2>
-                    
-                  </div>
-                  <div class="modal-footer">
-                        <div className='row'>
-                            <div className='col-md-6 col-sm-12'>
-                                  <button
-                                      type='button'
-                                      className='w-150 mb-3'
-                                      rel='noopener noreferrer'
-                                      data-toggle="modal" data-target="#myModal3"
-                                      // onClick={() => setModalStatus(true)}
-                                      data-dismiss="modal"
-                                  >
-                                      Choose a Property
-                                  </button>
-                            </div>
-                            <div className='col-md-6 col-sm-12'>
+              <div className="modal-dialog" role="document">
+                <div className="modal-content" z-index="20000">
+                  <div className="modal-body">
+                  <button type="button" className="close" data-dismiss="modal">&times;</button>
+                  <div className="selection">
+                    <div className="selection__content">
+                        <div className="selection__icon"><img src="./../Resource/Ellipse 1.png" /></div>
+                        <h2 className="selection__header">Good job <span>Solamipe</span></h2>
+                        <p className="selection__text">we are excited you made it this far of the process, however just a few step to your dream home...
+                            You need to choose a property from the options we provided or request a property if you didnt find your preferred
+                        </p>
+                    </div>
+                    <div className='row'>
+                          <div className='col-md-6 col-sm-12'>
+                                <button
+                                    type='button'
+                                    className='w-150 mb-3'
+                                    rel='noopener noreferrer'
+                                    data-toggle="modal" data-target="#myModal3"
+                                    // onClick={() => setModalStatus(true)}
+                                    data-dismiss="modal"
+                                >
+                                    Choose a Property
+                                </button>
+                          </div>
+                          <div className='col-md-6 col-sm-12'>
                                 <button
                                     type='button'
                                     // disabled={isSubmitting}
@@ -978,10 +1009,12 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                                     data-dismiss="modal"
                                     className=' w-100 fp-save-result-button m-0 d-flex align-items-center justify-content-center btn-block mb-3'
                                 >
-                                    Request a Property
+                                  Request a Property
                                 </button>
                             </div>
+                        </div>
                       </div>
+                    
                   </div>
                 </div>
               </div>

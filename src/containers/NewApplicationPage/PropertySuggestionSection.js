@@ -155,7 +155,7 @@ const Wrapper = styled.div`
   }
 
   .fp-property-suggestion-button .fp-property-suggestion-button-make-target {
-    background-color: #bbbbbb;
+    background-color: var(--accent-color);
     // border: 1px solid #00b1ab;
     padding: 6px 12px !important;
     line-height: 1.5;
