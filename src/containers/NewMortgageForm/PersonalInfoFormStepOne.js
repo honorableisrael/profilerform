@@ -25,7 +25,7 @@ import "./../../commons/TextFieldGroup/ProfileTextField.css";
 
 const Wrapper = styled.div`
 background:var(--primary-background-color) !important; 
-width: auto !important;
+width: 84.5% !important;
 `;
 
 const validationSchema = Yup.object().shape({

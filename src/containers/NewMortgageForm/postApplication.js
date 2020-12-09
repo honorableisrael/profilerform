@@ -10,9 +10,9 @@ const postApplication = async (payload, appRef) => {
   if (appRef) payload.app_ref = appRef;
   if (!appRef && refInCookie) payload.app_ref = refInCookie;
   if (!payload.email) payload.email = cookies.get('email');
-  const url = `/mortgage/application-info`;
+  const url = `/user/apply-mortgage`;
   // const { data: { data: { application: serverResponse } } } = await http.post(url, payload);
-  const { data: { data: { application: serverResponse } } } = await axios.post(`https://staging.newhomes.ng/api${url}`, payload);
+  const { data: { data: { application: serverResponse } } } = await axios.post(`https://hq.newhomes.ng/api${url}`, payload);
   const { app_ref } = serverResponse;
   if (!appRef && app_ref && !refInCookie) cookies.set(refKey, app_ref, { path: window.location.pathname });
   return serverResponse;

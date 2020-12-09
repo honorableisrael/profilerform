@@ -24,6 +24,7 @@ import ProfileFormWrapper from '../ProfileForm';
 import fetchProperties from '../../utils/fetchProperties';
 import { clearCommas, formatCurrencyInput } from '../../utils/currencyUtils';
 import ProfileMenu from "../../commons/ProfileMenu";
+import './PropertyAdItem.css';
 
 
 
@@ -310,15 +311,13 @@ const Wrapper = styled.div`
     max-width: 860px !important;
   }
 
-  .property__image{
-    width: 100%;
-    // position: relative;
-    height: 250px;
-    background: url("/../Resource/propty.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  .modal-body{
+    padding: 0rem !important;
   }
+  .close{
+    background-color: white !important;
+  }
+  
   .property__content{
     padding-left: 50px;
     padding-right: 50px;
@@ -354,7 +353,7 @@ const Wrapper = styled.div`
     justify-content: space-between;
     border-bottom: 0.5px solid #bbbbbb;
     padding-bottom: 20px;
-    text-align: center;
+    align-items: center;
   }
   .property__icon > img{
     height: 24px;
@@ -365,6 +364,7 @@ const Wrapper = styled.div`
     font-weight: 700;
     font-size: 14px;
     color: #666666;
+    align-items: center;
   }
   .property__finance > h4, .property__status > h4{
     font-size: 14px;
@@ -372,17 +372,21 @@ const Wrapper = styled.div`
   }
   .property__finance > p{
     color: var(--red-color);
+    margin-bottom: 0.5rem;
   }
   .property__status > p{
-    color: var(--green-color)
+    color: var(--green-color);
+    margin-bottom: 0.5rem;
   }
   .property__description > h3{
     font-weight: 700;
     font-size: 16px;
+    margin-top: 10px;
   }
   .property__description > p{
     font-weight: 325;
     font-size: 14px;
+    color: #666666;
   }
 
   .property__link{
@@ -406,6 +410,7 @@ const Wrapper = styled.div`
   .selection{
     margin-left: 60px;
     margin-right: 60px;
+    margin-top: 40px;
   }
   .selection__content{
     display: flex;
@@ -599,6 +604,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
     JSON.stringify({ states: [], propertyTypes: [], paymentOptions: [] })
   );
 
+  // const [modalStatus, setModalStatus] = useState(false);
 
 
   const { states, propertyTypes, paymentOptions } = JSON.parse(formDataJSON);
@@ -908,7 +914,8 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                 <div className="modal-content" z-index="20000">
                   <div className="modal-body">
                     <button type="button" className="close" data-dismiss="modal">&times;</button>
-                    <div className="property__image"><img src="./../Resource/homebase.png"/></div>
+                    <div className="property__image"></div>
+                    {/* <img src="./../Resource/homebase.png"/> */}
                     <div className="property__content">
                       <div className="property__head">
                         <div className="property__title">
@@ -924,14 +931,14 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                             <img className='mr-2' src={BedIcon} alt='Bed Icon' />
                             {selectedProperty 
                               ? `${selectedProperty.property_bedrooms} bed`
-                              : "N/A"}{" "}
+                              : "4"}{"beds"}
                           </div>
                           <div className='property__icon'>
                               <img className='ml-2' src={BathIcon} alt='Bath Icon' />
                               &nbsp;
                               {selectedProperty 
                                 ? `${selectedProperty.property_bathrooms} bath`
-                                : "N/A"}{" "}
+                                : "3"}{"baths"}
                           </div>
                           <div className='property__finance'>
                               <h4>Finance Status: </h4>
@@ -977,7 +984,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                   <button type="button" className="close" data-dismiss="modal">&times;</button>
                   <div className="selection">
                     <div className="selection__content">
-                        <div className="selection__icon"><img src="./../Resource/Ellipse 1.png" /></div>
+                        <div className="selection__icon"><div></div></div>
                         <h2 className="selection__header">Good job <span>Solamipe</span></h2>
                         <p className="selection__text">we are excited you made it this far of the process, however just a few step to your dream home...
                             You need to choose a property from the options we provided or request a property if you didnt find your preferred
@@ -989,11 +996,11 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                                     type='button'
                                     className='w-150 mb-3'
                                     rel='noopener noreferrer'
-                                    data-toggle="modal" data-target="#myModal3"
+                                    // data-toggle="modal" data-target="#myModal3"
                                     // onClick={() => setModalStatus(true)}
                                     data-dismiss="modal"
                                 >
-                                    Choose a Property
+                                    Back to Choose a Property
                                 </button>
                           </div>
                           <div className='col-md-6 col-sm-12'>

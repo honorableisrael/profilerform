@@ -372,22 +372,39 @@ const NewAffordabilityForm = ({
                   ) : ''
                 } */}
 
-
+                {/* property submit button */}
                 {
-                  (submittedAtLeastOnce || submittedAffordability) ? (
-                    <div className='col-md-6 col-sm-12'>
-                      <button
-                        type='button'
-                        disabled={isSubmitting}
-                        rel='noopener noreferrer'
-                        data-toggle="modal" data-target="#myModal2"
-                        className=' w-100 fp-save-result-button m-0 d-flex align-items-center justify-content-center btn-block mb-3'
-                      > 
-                        {/* <RefreshCw size='22px' color='#00b1ab' /> */}
-                        Select prefered property
-                      </button>
-                    </div>
-                  ) : 
+                  (submittedAtLeastOnce || submittedAffordability) ? 
+                    (
+                      // { 
+                      // (selectedProperty) ? 
+                      // (<div className='col-md-6 col-sm-12'>
+                      //       <button
+                      //       type='submit'
+                      //       className='w-100'
+                      //       disabled={isSubmitting}
+                      //         >
+                      //         {
+                      //           isSubmitting ? (
+                      //             <ButtonSpinner />
+                      //           ) : 'submit Your property of choice'
+                      //         }
+                      //         </button> 
+                      // </div>):
+                      (<div className='col-md-6 col-sm-12'>
+                          <button
+                            type='button'
+                            disabled={isSubmitting}
+                            rel='noopener noreferrer'
+                            data-toggle="modal" data-target="#myModal2"
+                            className=' w-100 fp-save-result-button m-0 d-flex align-items-center justify-content-center btn-block mb-3'
+                          > 
+                            {/* <RefreshCw size='22px' color='#00b1ab' /> */}
+                            Select prefered property
+                          </button>
+                        </div>)
+                    // }
+                    ):
                     (<div className={`col-md-${(submittedAtLeastOnce || submittedAffordability) ? 6 : 6} col-sm-12`}>
                       <button
                         type='submit'
@@ -407,6 +424,20 @@ const NewAffordabilityForm = ({
               {/* choosing property modal */}
               {/* <!-- Modal --> */}
               {/* { modalStatus && (<Modal closeModal={() => setModalStatus(false)}> <p>The content of the modal</p></Modal>)} */}
+              {
+                  ((submittedAtLeastOnce || submittedAffordability) && selectedProperty) ? (
+              <button
+                        type='submit'
+                        className='w-100'
+                        disabled={isSubmitting}
+                      >
+                        {
+                          isSubmitting ? (
+                            <ButtonSpinner />
+                          ) : 'submit Your property of choice'
+                        }
+                </button>
+                  ) : ""}
             </Form>
           );
         }}
