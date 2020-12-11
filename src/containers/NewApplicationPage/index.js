@@ -444,6 +444,28 @@ const Wrapper = styled.div`
     color: #666666;
     margin-bottom: 15px;
   }
+  .propertyChoice__modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    width: 70%;
+    height: 100%;
+    outline: 0;
+    background-color: #666666;
+    opacity: 0.5;
+  }
+  .propertyRequest__modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1050;
+    width: 28%;
+    height: 100%;
+    outline: 0;
+    background-color: #666666;
+    opacity: 0.5
+  }
   @media screen and (max-width: 770px){
     .affordability-page-content, .eligibility-page-content, .mortgage-page-content{
       display: flex;
@@ -604,7 +626,8 @@ const NewApplicationPage = ({ properties, dispatch }) => {
     JSON.stringify({ states: [], propertyTypes: [], paymentOptions: [] })
   );
 
-  // const [modalStatus, setModalStatus] = useState(false);
+  const [propChoice, setPropChoice] = useState(false);
+  const [propRequest, setPropRequest] = useState(false);
 
 
   const { states, propertyTypes, paymentOptions } = JSON.parse(formDataJSON);
@@ -738,6 +761,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
               <ProfileMenu 
                 profileGreen="green" profileMark='passed' 
                 profileCurrent="current" 
+                {...{setActiveTab, setPropRequest}}
               />
 
               <div className="profile-form-section">
@@ -795,6 +819,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                 profileGreen="green" profileMark='passed' 
                 affordabilityGreenBar="greenBar" affordabilityGreen="green" affordabilityMark='marked' 
                 affordabilityCurrent="current" 
+                {...{setActiveTab, setPropRequest}}
               
               />
               <div className="affordability-form-section">
@@ -861,26 +886,35 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                   affordabilityGreenBar="greenBar" affordabilityGreen="green" affordabilityMark='passed' 
                   propertyGreenBar="greenBar" propertyGreen="green" propertyMark='marked'
                   propertyCurrent="current" 
+                  {...{setActiveTab, setPropRequest}}
               />
               <div className="eligibility-form-section">
                 <h2 className="section-heading">Property Request</h2>
-                {/* <SummarySection
+                <SummarySection
                 closed={!summaryStickerOpen}
                 sectionHeading="Eligibility test"
-              /> */}
+              />
                 <p className="section-text">Please provide  your preference for the type of property you would prefer</p>
                 {
                   activeTab === 2 ? (
                     <NewEligibilityForm
                       {...{
                         setActiveTab, propertyTypes, foundProperty,
-                        setSubmitted, success, setSuccess, states
+                        setSubmitted, success, setSuccess, states, setPropRequest
                       }}
                     />
                   ) : ''
                 }
               </div>
               {/* <!-- <div className="application-highlight-section"></div> --> */}
+              {/* <!-- <div className="application-highlight-section"></div> --> */}
+              <PropertySuggestionSection
+                closed={!suggestionsStickerOpen}
+                {...{
+                  goToEligibility, setPropertyStoreData, submittedAffordability,
+                  activeTab, alertUser, selectedProperty, setSelectedProperty, setPropRequest, setPropChoice
+                }}
+              />
             </div>
           </div>
           {/* <label className="mortgage-flow-nav" htmlFor="mortgage-application">Property Request</label> */}
@@ -995,28 +1029,31 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                                 <button
                                     type='button'
                                     className='w-150 mb-3'
-                                    rel='noopener noreferrer'
-                                    // data-toggle="modal" data-target="#myModal3"
-                                    // onClick={() => setModalStatus(true)}
                                     data-dismiss="modal"
+                                    onClick={() => {
+                                      setPropRequest(true);
+                                    }}
                                 >
-                                    Back to Choose a Property
+                                    Make a Property Request
                                 </button>
                           </div>
                           <div className='col-md-6 col-sm-12'>
                                 <button
                                     type='button'
                                     // disabled={isSubmitting}
+                                    // rel='noopener noreferrer'
+                                    // data-toggle="modal" data-target="#myModal3"
                                     onClick={() => {
-                                      setSelectedProperty(null);
-                                      setActiveTab(2);
+                                      setPropChoice(true)
+                                      // setSelectedProperty(null);
+                                      // setActiveTab(2);
                                       {/* setsubmittedAtLeastOnce(false); */}
                                       {/* resetForm(); */}
                                     }}
                                     data-dismiss="modal"
                                     className=' w-100 fp-save-result-button m-0 d-flex align-items-center justify-content-center btn-block mb-3'
                                 >
-                                  Request a Property
+                                  Choose from suggested Properties
                                 </button>
                             </div>
                         </div>
@@ -1026,6 +1063,9 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                 </div>
               </div>
         </div>
+        {propChoice ? 
+        <div className="propertyChoice__modal fade"></div> : ''}
+        {propRequest ? <div className="propertyRequest__modal fade"></div>: ''}
       </main>
     </Wrapper>
   );

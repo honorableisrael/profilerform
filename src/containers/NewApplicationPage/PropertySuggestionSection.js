@@ -219,7 +219,7 @@ const PropertySuggestionSection = ({
   closed, properties, goToEligibility, /* found, */
   setPropertyStoreData, submittedAffordability, activeTab,
   equity_contribution, max_loanable_amount, alertUser,
-  selectedProperty, setSelectedProperty
+  selectedProperty, setSelectedProperty, setPropRequest, setPropChoice
 }) => {
   const affords = +clearCommas(equity_contribution) + +clearCommas(max_loanable_amount);
   const filteredProperties = submittedAffordability
@@ -251,7 +251,7 @@ const PropertySuggestionSection = ({
             key={property.id}
             {...{
               property, activeTab, submittedAffordability, goToEligibility,
-              setPropertyStoreData, selectedProperty, setSelectedProperty
+              setPropertyStoreData, selectedProperty, setSelectedProperty, setPropChoice, setPropRequest
             }}
           />
         ))

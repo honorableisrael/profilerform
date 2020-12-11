@@ -64,6 +64,9 @@ const PropertyAdItem = ({
   submittedAffordability,
   mortgageApplicationData,
   setMortgageApplicationData,
+  setPropRequest,
+  setPropChoice,
+  // setActiveTab,
 }) => {
   // const baseImageUrl = "https://account.newhomes.ng";
   const [loading, setLoading] = useState(false);
@@ -72,6 +75,7 @@ const PropertyAdItem = ({
   
   return (
     <Wrapper className={`fp-nh-affordability-regular-affordability-property-suggestion-list${isSelected ? ' selected' : ''}`}>
+      {/* <form> */}
       {/* <input
         type="radio"
         checked={isSelected}
@@ -129,7 +133,7 @@ const PropertyAdItem = ({
         </div> */}
         <div className='fp-property-suggestion-button'>
           <button
-            disabled={activeTab === 0 || !submittedAffordability || loading || isSelected}
+            disabled={activeTab === 0 || activeTab === 1|| !submittedAffordability || loading || isSelected}
             onClick={async ({ target }) => {
               if (setMortgageApplicationData) {
                 const { title_docs, property_price_raw, property_full_address } = property;
@@ -144,8 +148,11 @@ const PropertyAdItem = ({
                 if (goToEligibility) goToEligibility({ target });
               } else if (setPropertyStoreData) {
                 setSelectedProperty(property);
-                {/* setLoading(true) */}
-                {/* await setPropertyStoreData(property); */}
+                // setLoading(true)
+                await setPropertyStoreData(property);
+                setPropRequest(true);
+                setPropChoice(false);
+                // setActiveTab(2);
                 {/* setLoading(false); */}
               }
             }}
@@ -175,7 +182,7 @@ const PropertyAdItem = ({
        </a>
             
       
-        
+       {/* </form>    */}
     </Wrapper>
   );
 };

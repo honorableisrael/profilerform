@@ -110,7 +110,8 @@ const NewAffordabilityForm = ({
     delete valuesCloned.equity_contribution;
     try {
       if (submittedAtLeastOnce || submittedAffordability) {
-        if (!selectedProperty) return alert();
+        // if (!selectedProperty) return alert();
+        if (!selectedProperty) setActiveTab(2);
         return await setPropertyStoreData(selectedProperty);
         // setActiveTab(2);
       }
@@ -126,6 +127,8 @@ const NewAffordabilityForm = ({
       }
       setsubmittedAtLeastOnce(true);
       setSubmittedAffordability(true);
+      setSelectedProperty(null);
+      setActiveTab(2);
     } catch (error) { console.log(error) }
   };
 
@@ -373,24 +376,9 @@ const NewAffordabilityForm = ({
                 } */}
 
                 {/* property submit button */}
-                {
+                {/* {
                   (submittedAtLeastOnce || submittedAffordability) ? 
                     (
-                      // { 
-                      // (selectedProperty) ? 
-                      // (<div className='col-md-6 col-sm-12'>
-                      //       <button
-                      //       type='submit'
-                      //       className='w-100'
-                      //       disabled={isSubmitting}
-                      //         >
-                      //         {
-                      //           isSubmitting ? (
-                      //             <ButtonSpinner />
-                      //           ) : 'submit Your property of choice'
-                      //         }
-                      //         </button> 
-                      // </div>):
                       (<div className='col-md-6 col-sm-12'>
                           <button
                             type='button'
@@ -399,32 +387,31 @@ const NewAffordabilityForm = ({
                             data-toggle="modal" data-target="#myModal2"
                             className=' w-100 fp-save-result-button m-0 d-flex align-items-center justify-content-center btn-block mb-3'
                           > 
-                            {/* <RefreshCw size='22px' color='#00b1ab' /> */}
                             Select prefered property
                           </button>
                         </div>)
-                    // }
-                    ):
-                    (<div className={`col-md-${(submittedAtLeastOnce || submittedAffordability) ? 6 : 6} col-sm-12`}>
+                    ): */}
+                    <div className={`col-md-${(submittedAtLeastOnce || submittedAffordability) ? 6 : 6} col-sm-12`}>
                       <button
                         type='submit'
+                        rel='noopener noreferrer'
                         className='w-100'
                         disabled={isSubmitting}
                       >
                         {
                           isSubmitting ? (
                             <ButtonSpinner />
-                          ) : 'submit'
+                          ) : 'Choose Property'
                         }
                       </button>
-                    </div>)
-                }
+                    </div>
+                {/* } */}
               </div>
 
               {/* choosing property modal */}
               {/* <!-- Modal --> */}
               {/* { modalStatus && (<Modal closeModal={() => setModalStatus(false)}> <p>The content of the modal</p></Modal>)} */}
-              {
+              {/* {
                   ((submittedAtLeastOnce || submittedAffordability) && selectedProperty) ? (
               <button
                         type='submit'
@@ -437,7 +424,7 @@ const NewAffordabilityForm = ({
                           ) : 'submit Your property of choice'
                         }
                 </button>
-                  ) : ""}
+                  ) : ""} */}
             </Form>
           );
         }}

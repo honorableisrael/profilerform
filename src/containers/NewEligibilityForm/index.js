@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import CircularLoader from '../CircularLoader';
 import ButtonSpinner from '../ButtonSpinner';
+import $ from 'jquery';
 
 
 const Wrapper = styled.div`
@@ -47,7 +48,7 @@ const Wrapper = styled.div`
 
 const NewEligibilityForm = ({
   setActiveTab, states, propertyTypes, success, setSuccess,
-  foundProperty, affordability, request, setSubmitted
+  foundProperty, affordability, request, setSubmitted, setPropRequest
 }) => {
   // const dispatch = useDispatch();
   const [stateId, setStateId] = useState('');
@@ -97,6 +98,12 @@ const NewEligibilityForm = ({
       console.log(error.message);
     }
   };
+  useEffect(()=> {
+    $(document).ready(function(){
+      $("#myModal2").modal('show');
+    });
+  }, [])
+  
 
 
   const validationSchema = (() => {
@@ -164,7 +171,7 @@ const NewEligibilityForm = ({
                         <WrappedInputWithError
                           // prepend="₦"
                           name='property_value'
-                          value={formatCurrencyInput(values.property_value)}
+                          value={request.property_id === '' ? formatCurrencyInput(values.property_value) : request.property_value}
                           {...{ errors, touched }}
                           onBlur={handleBlur}
                           onChange={handleChange}
@@ -181,7 +188,7 @@ const NewEligibilityForm = ({
                               type='number'
                               // append="bedrooms"
                               name='property_bedroom'
-                              value={values.property_bedroom}
+                              value={request.property_id === '' ? values.property_bedroom : request.property_bedroom}
                               {...{ errors, touched }}
                               onBlur={handleBlur}
                               onChange={handleChange}
@@ -211,7 +218,7 @@ const NewEligibilityForm = ({
                         <WrappedSelectWithError
                           textKey='name'
                           name='state_id'
-                          value={values.state_id}
+                          value={request.property_id === '' ? values.state_id : request.state_id}
                           extractValue={({ id }) => id}
                           options={[{ name: 'Select a state', id: '' }, ...states]}
                           {...{ errors, touched }}
@@ -277,7 +284,8 @@ const NewEligibilityForm = ({
                           className='w-100 item-btn mb-md-0 mb-3'
                           onClick={() => {
                             setSuccess(false);
-                            setActiveTab(1)
+                            setActiveTab(1);
+                            setPropRequest(false)
                           }}
                         >
                           back
