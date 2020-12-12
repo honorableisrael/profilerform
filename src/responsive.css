@@ -321,10 +321,10 @@
     display: none;
   }
 
-  .fp-mortgage-notification-chat-profile-wrapper > div {
-    /* margin: 0 10px; */
-    /* margin-right: 5px; */
-  }
+  /* .fp-mortgage-notification-chat-profile-wrapper > div { */
+  /* margin: 0 10px; */
+  /* margin-right: 5px; */
+  /* } */
 
   .fp-mortgage-user-profile-wrapper {
     display: flex !important;
@@ -2192,7 +2192,7 @@
     font-size: 20px;
     line-height: 25px;
   }
-<<<<<<< HEAD
+  /* <<<<<<< HEAD */
 
   .fp-mortgage-application-contact-us-features h2 {
     margin-right: 0;
@@ -2257,7 +2257,7 @@
     height: 221px;
   }
 
-=======
+  /* ======= */
 
   .fp-mortgage-application-contact-us-features h2 {
     margin-right: 0;
@@ -2322,7 +2322,7 @@
     height: 221px;
   }
 
->>>>>>> b9f31f722656112bc73eb95cb1a569bc7339edc3
+  /* >>>>>>> b9f31f722656112bc73eb95cb1a569bc7339edc3 */
   .fp-nh-affordability-regular-affordability-property-suggestion-list
     .fp-nh-affordability-regular-affordability-property-suggestion-img {
     height: 40px;

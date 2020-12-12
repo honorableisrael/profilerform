@@ -135,7 +135,7 @@
     display: flex; */
   }
   .navbar-toggler {
-    margin: 25px 15px !important;
+    /* margin: 25px 15px !important; */
     margin-left: 70vw !important;
     filter: invert(50%);
   }

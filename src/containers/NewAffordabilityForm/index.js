@@ -192,7 +192,7 @@ const NewAffordabilityForm = ({
                 </div>
               </div>
               <div className=" row">
-                    <div className="col-6 col-md-6 form-group">
+                    <div className="col-12 col-md-6 form-group">
                           <WrappedSelectWithError
                                 name="have_equity"
                                 value={values.have_equity}
@@ -339,7 +339,7 @@ const NewAffordabilityForm = ({
                 </div>
               </div> */}
 
-              <div className='row mt-5'>
+              <div className='row '>
                 <div className='col-md-6 px-3'>
                     <button
                       type='button'

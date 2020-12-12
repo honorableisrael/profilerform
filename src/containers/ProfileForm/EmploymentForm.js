@@ -41,7 +41,7 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
   };
 
   return (
-    <Wrapper>
+    <Wrapper className="container">
       {/* <NewDatePicker /> */}
       <Formik
         onSubmit={handleSubmit}
@@ -222,7 +222,7 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                     </div>
                   </div>
                 </div>
-                <div className='row mt-5'>
+                <div className='row'>
                   <div className='col-md-6 px-3'>
                     <button
                       type='button'

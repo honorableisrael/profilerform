@@ -13,7 +13,7 @@ function Header() {
       }
 
     return (
-        <nav className=" navbar navbar-expand-lg navbar-light navbar-bottom bg-light mb-4">
+        <nav className=" navbar navbar-expand-lg navbar-light navbar-bottom bg-light">
             {/* <div className="navbar-edit"> */}
                 <Link className="navbar-brand" to="/">
                     <img className="navbar-logo1" src={financeplusLogo} alt="LOGO"  />

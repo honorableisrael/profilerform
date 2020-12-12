@@ -135,6 +135,9 @@ const Wrapper = styled.div`
   .affordability-page-content > *{
     padding: 0px;
   }
+  .affordability-page-content{
+    padding: 0px;
+  }
   .affordability-form-section, .eligibility-form-section{
     background:var(--primary-background-color) !important;
   }
@@ -355,6 +358,18 @@ const Wrapper = styled.div`
     padding-bottom: 20px;
     align-items: center;
   }
+  .property__fixes, .property__stats{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+  }
+  .property__fixes{
+    width: 30%;
+  }
+  .property__stats{
+    width: 60%;
+  }
   .property__icon > img{
     height: 24px;
     width: 24px;
@@ -406,6 +421,65 @@ const Wrapper = styled.div`
 
   .property__button{
     margin-bottom: 30px !important;
+  }
+  @media screen and (max-width: 770px){
+    .property__content{
+      padding-left: 20px;
+      padding-right: 20px;
+      position: relative;
+    }
+    .property__head{
+      flex-direction: column;
+      margin-bottom: 0px;
+      border-bottom: 0px;
+    }
+    .property__title{
+      font-size: 10px;
+      padding-bottom: 5px;
+    }
+    .property__head > h2{
+      font-size: 24px;
+      padding-left: 0px;
+      border-left: 0px;
+      padding-bottom: 0px;
+    }
+    .property__features{
+      flex-direction: column;
+      padding-bottom: 5px;
+    }
+    .property__fixes, .property__stats{
+      width: 100%;
+    }
+    .property__fixes{
+      justify-content: unset;
+      
+    }
+    .property__icon{
+      font-size: 12px;
+      margin-right: 15px;
+    }
+    .property__stats{
+      flex-direction: column;
+      align-items: unset;
+      padding-top: 10px;
+      margin-top: 10px;
+      border-top: 0.1px solid gray;
+    }
+    .property__finance, .property__status{
+      font-size: 10px;
+    }
+    .property__finance > h4, .property__status > h4{
+      font-size: 10px;
+    }
+    .property__description > h3{
+      font-size: 10px;
+    }
+    .property__description > p, .property__link > a{
+      font-size: 8px;
+    }
+    .property__description > p > span{
+      display: none;
+    }
   }
   .selection{
     margin-left: 60px;
@@ -467,9 +541,27 @@ const Wrapper = styled.div`
     opacity: 0.5
   }
   @media screen and (max-width: 770px){
+    .propertyChoice__modal{
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 91%;
+    }
+    .propertyRequest__modal{
+      top: unset;
+      right: unset;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 11%;
+    }
+  }
+  @media screen and (max-width: 770px){
     .affordability-page-content, .eligibility-page-content, .mortgage-page-content{
       display: flex;
       flex-direction: column !important;
+      padding-bottom: 0px;
+      margin-bottom: 0px;
     }
   }
 
@@ -961,6 +1053,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                         </h2>
                       </div>
                       <div className='property__features'>
+                        <div className='property__fixes'>
                           <div className='property__icon'>
                             <img className='mr-2' src={BedIcon} alt='Bed Icon' />
                             {selectedProperty 
@@ -974,6 +1067,8 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                                 ? `${selectedProperty.property_bathrooms} bath`
                                 : "3"}{"baths"}
                           </div>
+                        </div>
+                        <div className="property__stats">
                           <div className='property__finance'>
                               <h4>Finance Status: </h4>
                               <p>Not Available</p>
@@ -982,13 +1077,14 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                             <h4>Property Status: </h4>
                             <p>Off plan</p>
                           </div>
+                        </div>
                       </div>
                       <div className="property__description">
                           <h3>Description</h3>
                           <p>
                           The Address Homes-Femi Okunnu, 4 bed room semi-detached house.This comprises of 20(NOS) beautiful contemporary
-                          4 bedrooms luxury semi-detached and 4 fully detached homes with 1 bedroom QB on 3 floors where intelligent design that meets aesthetics to create the perfect backdrop for the modern lifestyle.Features 1 room BQ4 car parkingCommunal - gym, poolEvent hallGreen area24hr powerSwimming PoolCCTV security NetworkArmed Security PersonnelAmple
-                          parking spacePrice:4 Bedroom Semi-detached: 125,000,000
+                          4 bedrooms luxury semi-detached and 4 fully detached homes with 1 bedroom QB on 3 floors where intelligent design <span> that meets aesthetics to create the perfect backdrop for the modern lifestyle.Features 1 room BQ4 car parkingCommunal - gym, poolEvent hallGreen area24hr powerSwimming PoolCCTV security NetworkArmed Security PersonnelAmple
+                          parking spacePrice:4 Bedroom Semi-detached: 125,000,000 </span>
                           </p>
                       </div>
                       <div className="property__link"><a href="https://newhomes.ng">View on newhomes.ng</a></div>

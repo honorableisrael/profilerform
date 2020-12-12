@@ -156,7 +156,7 @@
     width: 45%;
   }
   .heroSection__headline > p {
-    width: 400px;
+    width: 350px;
   }
 
   .heroSection__images {
@@ -177,7 +177,7 @@
 }
 @media only screen and (max-width: 800px) {
   .heroSection {
-    /* padding: 40px 2vw; */
+    padding: 0px 2vw;
     padding-left: 8vw;
     /* padding-bottom: 5px; */
     margin: 0;

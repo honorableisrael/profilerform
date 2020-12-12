@@ -21,7 +21,6 @@ const Wrapper = styled.div`
     display: block;
   }
 
-  
   input,
   select,
   textarea {

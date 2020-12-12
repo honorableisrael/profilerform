@@ -2689,6 +2689,15 @@ const Wrapper = styled.div`
     margin: 20px 10px;
   }
 
+  @media screen and (max-width: 770px){
+    .row{
+      margin-bottom: 0px;
+    }
+    .mt-5{
+      margin-top: 0rem !important;
+    }
+  }
+
   @media screen and (max-width: 480px) {
     .application-flow {
       padding: 0;

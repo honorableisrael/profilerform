@@ -64,7 +64,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
   delete userClone.employment_state;
 
   return (
-    <Wrapper>
+    <Wrapper className="container">
       {/* <NewDatePicker /> */}
       <Formik
         onSubmit={handleSubmit}
@@ -373,9 +373,10 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                           </label>
                         </div>
                       </div>
-                      <div className='row'>
+                      
                         {
                           !isNotOtherHometype ? (
+                        <div className='row'>
                             <div className='col-md-6 col-sm-12 form-group'>
                               <WrappedInputWithError
                                 type="text"
@@ -391,10 +392,10 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                                 <sup>*</sup>
                               </label>
                             </div>
-
+                        </div>
                           ) : ''
                         }
-                      </div>
+                     
                       <div className='row'>                      
                         <div className='col-md-6 col-sm-12 form-group'>
                           
@@ -454,7 +455,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                     </div>
                   </div>
                 </div>
-                <div className='row mt-5'>
+                <div className='row'>
                   <div className="col-12">
                     <button
                       type="submit"

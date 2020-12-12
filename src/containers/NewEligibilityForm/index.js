@@ -276,7 +276,7 @@ const NewEligibilityForm = ({
                       </div>
                     </div> */}
 
-                    <div className='form-group row mt-5'>
+                    <div className='form-group row'>
                       <div className="col-md-6">
                         <button
                           type='button'
