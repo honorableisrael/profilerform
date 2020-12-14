@@ -90,9 +90,11 @@
     color: #5fb49c;
     border-radius: 6px;
     font-size: 14px;
-    padding: 8px 54px;
+    padding: 8px 22px;
     font-weight: 700;
     transition: all .4s;
+    width:160px;
+    text-align:center;
 }
 .sdenavsavingsbtn:hover{
     color: #fff;
@@ -187,14 +189,7 @@
 .udshbdeye{
     margin-right: 10px;
 }
-@media(max-width:1200px){
-    .statusline-img{
-        margin-left: 2rem;
-    }
-    .sidnavoptionsna {
-        padding: 20px 20px 20px 11px;    
-    }
-}
+
 
 
 .appstatusheadings{
@@ -254,14 +249,14 @@
 }
 .sassa{
     position: relative;
-    left: 2.8rem;
+    left: 3rem;
     bottom: .4rem;
 }
 .searchImage{
     position: absolute;
 }
 .dshbdsearchbar{
-    padding-left:   2.5rem;
+    padding-left:   2.9rem;
 }
 .dshbdsearchbar::placeholder{
     color: #BBBBBB;
@@ -271,4 +266,12 @@
     border-radius: 8px;
     border: none;
     margin-top: 1rem;
+}
+@media(max-width:1200px){
+    .statusline-img{
+        margin-left: 2rem;
+    }
+    .sidnavoptionsna {
+        padding: 20px 20px 20px 11px;    
+    }
 }
