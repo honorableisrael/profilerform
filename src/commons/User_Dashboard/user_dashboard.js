@@ -11,6 +11,8 @@ import arrowhead from "../../assets/arrowhead.png";
 import eye from "../../assets/show.png";
 import statusline from "../../assets/statusline.png";
 import searchImage from "../../assets/search.png";
+import "./animate.css";
+
 
 const Userdashboard = () => {
     return (
@@ -53,7 +55,7 @@ const Userdashboard = () => {
                                         <img src={arrowhead} className="arrimg" />
                                         <img src={userimg} className="uimg" />
                                         <Dropdown.Toggle id="dropdown-basic" className="usernavdrpdwn" />
-                                        <Dropdown.Menu>
+                                        <Dropdown.Menu className="animated fadeIn">
                                             <Dropdown.Item href="#/action-1">Settings</Dropdown.Item>
                                             <Dropdown.Item href="#/action-2">Log out</Dropdown.Item>
                                         </Dropdown.Menu>
