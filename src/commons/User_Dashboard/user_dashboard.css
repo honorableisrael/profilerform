@@ -17,7 +17,8 @@
 .dashbdsidenav{
     background-color: #5fb49c;
     /* min-width: 27%; */
-    padding-right: 36px;
+    padding-right: 25px;
+    padding-left: 22px;
     padding-bottom: 120px;
 }
 .strtbtn{
@@ -42,6 +43,7 @@
     font-size: 17px;
     padding: 20px 20px 20px 57px;
     border-radius: 10px;
+    margin-bottom: .2rem;
 }
 .sidnavoptionsna{
     color:#fff;
@@ -148,6 +150,7 @@
     margin-left: 32px;
     font-size: 17px;
     color: rgba(0, 0, 0, 0.603);
+    padding-bottom: 1rem;
 }
 .userdahbdname>span{
     color: rgba(0, 0, 0, 0.63);
@@ -228,4 +231,19 @@
     padding: 7px 45px;
     font-weight: 700;
     cursor: pointer;
+}
+.dxxa{
+    display: flex;
+    align-items: center;
+}
+.sassa{
+    position: relative;
+    left: 2.8rem;
+    bottom: .4rem;
+}
+.searchImage{
+    position: absolute;
+}
+.dshbdsearchbar{
+    padding-left:   2.5rem;
 }
