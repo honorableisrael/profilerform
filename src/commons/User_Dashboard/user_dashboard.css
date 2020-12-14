@@ -1,0 +1,231 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.dshbdlogo{
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29px;
+    letter-spacing: 2px;
+    padding: 55px 0px 19px 0px;
+}
+.sdnnavrow{
+    margin-bottom: 0px;
+}
+.dashbdsidenav{
+    background-color: #5fb49c;
+    /* min-width: 27%; */
+    padding-right: 36px;
+    padding-bottom: 120px;
+}
+.strtbtn{
+    background-color: #e9f2e9;
+    color: #5fb49c;
+    font-weight: 700;
+    font-size: 17px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+.sdenavline{
+   margin: 21px 0px;
+}
+.sidenvimg{
+    margin: 0px 16px 3px 0px;
+}
+.sidnavoptions{
+    background-color: #fff;
+    color: #5fb49c;
+    font-weight: 700;
+    font-size: 17px;
+    padding: 20px 20px 20px 57px;
+    border-radius: 10px;
+}
+.sidnavoptionsna{
+    color:#fff;
+    font-weight: 700;
+    font-size: 17px;
+    padding: 20px 20px 20px 57px;
+    border-radius: 10px;
+    transition: all .1s;
+}
+.sidnavoptionsna:hover{
+    color: #5fb49c;
+    background-color: #fff;
+    cursor: pointer;
+}
+.mrginbttm{
+    margin-bottom: 244px;
+}
+.sdenavline2{
+    margin-bottom: 50px;
+}
+.sidnavsavingsdv{
+    background-color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    padding: 20px;
+}
+.savingsheader{
+    color: #5fb49c;
+    font-size: 17px;
+    font-weight: 700;
+}
+.savingspgphdiv{
+    text-align: -webkit-center;
+}
+.savingsprgrph{
+    color: #9999;
+    font-size: 13px;
+    margin-bottom: 0px;
+    width: 94%;
+}
+.sdenavsavingsbtn{
+    display: inline-block;
+    border: 1px solid #5fb49c;
+    color: #5fb49c;
+    border-radius: 6px;
+    font-size: 14px;
+    padding: 8px 54px;
+    font-weight: 700;
+    transition: all .4s;
+}
+.sdenavsavingsbtn:hover{
+    color: #fff;
+    background-color: #5fb49c;
+    cursor: pointer;
+}
+.udshboard{
+    background-color: #f9f9f9;
+    width: 100%;
+}
+.udashsearchdiv{
+    padding-top: 40px;
+}
+.dshbdsearchbar{
+    height: 66px;
+    border-radius: 6px;
+    padding: 9px;
+    border: none;
+    outline: none;
+    margin-left: 32px;
+}
+.dshbdsearchbar:focus{
+    outline: none !important;
+    border: none !important;
+}
+.userdashids{
+    margin-top: 14px;
+}
+.usernavdrpdwn{
+    width: 0% !important;
+    color: rgba(0, 0, 0, 0.63);
+    background-color: inherit !important;
+    border: none;
+    padding: 0px;
+    margin-right: 14px;
+}
+.usernavdrpdwn:focus{
+    border: none !important;
+    outline: none !important;
+}
+.usernavdrpdwn:hover{
+    color:rgba(0, 0, 0, 0.63) !important; 
+}
+.uddrpdwndiv{
+    text-align: right;
+}
+.arrimg{
+    margin-right: 40px;
+}
+.uimg{
+    margin-right: 4px;
+}
+.userdahbdname{
+    padding: 29px 0px;
+    margin-left: 32px;
+    font-size: 17px;
+    color: rgba(0, 0, 0, 0.603);
+}
+.userdahbdname>span{
+    color: rgba(0, 0, 0, 0.63);
+    font-weight: 700;
+}
+.apstatus-section{
+    background-color: #fff;
+    margin-left: 32px;
+    border-radius: 6px;
+    padding: 6px 0px 25px 0px
+}
+.applctnheader{
+    display: flex;
+    padding: 10px 56px 0px 19px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 17px;
+}
+.applctnheader>p{
+    color: #5fb49c;
+    font-weight: 700;
+    font-size: 22px;
+}
+.applctnheader>div{
+    color: #1359f2;
+    background-color: rgba(3, 50,154,0.1);
+    font-weight: 700;
+    font-size: 13px;
+    border-radius: 6px;
+    padding: 8px 17px;
+    cursor: pointer;
+}
+.udshbdeye{
+    margin-right: 10px;
+}
+.appstatusheadings{
+    display: flex;
+    justify-content: space-around;
+    color: #999;
+    font-size: 12px;
+    font-weight: 700;
+}
+.appstatusheadings>div{
+    margin-right: 77px;
+}
+.statusline-img{
+    margin-left: 54px;
+}
+.appstatus{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 9px;
+    margin-top: 12px;
+}
+.statsitem{
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.63);
+}
+.itemprice{
+    color: rgba(0, 0, 0, 0.63);
+    font-size: 22px;
+    font-weight: 700;
+}
+.statsreview-btn{
+    color: #ff523d;
+    font-size: 13px;
+    font-weight: 700;
+    background-color: rgba(255, 82, 61, 0.1);
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.statsprints-btn{
+    color: #fff;
+    background-color: #5fb49c;
+    border-radius: 6px;
+    padding: 7px 45px;
+    font-weight: 700;
+    cursor: pointer;
+}

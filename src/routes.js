@@ -22,6 +22,7 @@ import ForgotPassword from "./containers/ForgotPassword";
 
 import setAuthToken from "./utils/setAuthToken";
 import {logoutUser, setCurrentUser} from "./store/actions/authActions";
+import Userdashboard from "./commons/User_Dashboard/user_dashboard";
 
 //importing private Route
 import PrivateRoute from "./commons/PrivateRoute";
@@ -73,6 +74,11 @@ class Routes extends Component {
               exact
               path='/mortgage-application'
               component={NewMortgageForm}
+            />
+            <Route
+              exact
+              path='/userdashboard'
+              component={Userdashboard}
             />
             {/* <Route
               exact
