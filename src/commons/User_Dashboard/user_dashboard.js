@@ -75,7 +75,7 @@ const Userdashboard = () => {
                                 <div>Status</div>
                                 <div></div>
                             </div>
-                            <img src={statusline} className="statusline-img" />
+                            <div className="statusline-img" ></div>
                             <div className="appstatus">
                                 <div className="statsitem">5 Bedroom Detached<br /> Bungalow</div>
                                 <div className="itemprice">₦70, 000, 000.00</div>
