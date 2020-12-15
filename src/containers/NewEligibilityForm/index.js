@@ -11,6 +11,7 @@ import { invalidValueErrorMessage, requiredFieldErrorMessage } from '../../utils
 import { clearCommas, formatCurrencyInput, handleChangeRetriever, roundToUpperTwoDecimalPlace } from '../../utils/currencyUtils';
 import http from '../../config/axios.config';
 import axios from 'axios'
+import { BASE_URL, USER_PROPERTY_REQUEST_URL, ALL_CITIES_URL} from "../../constants";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import CircularLoader from '../CircularLoader';
@@ -66,7 +67,7 @@ const NewEligibilityForm = ({
       try {
         setLoadingCities(true);
         // console.log(stateId)
-        const { data: { data } } = await axios.get(`https://staging.newhomes.ng/api/general/all-cities/${stateId || request.state_id}`);
+        const { data: { data } } = await axios.get(`${BASE_URL}${ALL_CITIES_URL}${stateId || request.state_id}`);
         setCitiesJSON(JSON.stringify(data));
       } catch (error) {
         console.log(error.message);
@@ -80,7 +81,7 @@ const NewEligibilityForm = ({
   const handleSubmit = async (values) => {
     try {
       await http.post(
-        '/save-property-request',
+        `${USER_PROPERTY_REQUEST_URL}`,
         // 'https://staging.newhomes.ng/api/police/property-request',
         {
           directed_to: 'police Deve',

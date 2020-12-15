@@ -124,8 +124,6 @@
   .profileMenu {
     flex-direction: row !important;
     justify-content: space-between;
-
-    /* width: auto !important; */
     padding: 0rem 0 !important;
   }
   .profileMenu__top {

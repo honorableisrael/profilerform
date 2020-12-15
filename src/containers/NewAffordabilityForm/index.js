@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { useLocation } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import axios from "axios";
+import { DEFAULT_RADIO_VALUES, BASE_URL, USER_AFFORDABILITY_URL, USER_PROFILE_URL} from "../../constants";
 
 import { toTitleCase } from '../../utils/dashboardUtils';
 import earningsTypes from '../../store/types/earningsTypes';
@@ -14,7 +15,6 @@ import affordabilityTypes from '../../store/types/affordabilityTypes';
 import affordabilityActions from '../../store/actions/affordabilityActions';
 import { formatCurrencyInput, handleChangeRetriever } from '../../utils/currencyUtils';
 // import { invalidValueErrorMessage, requiredFieldErrorMessage } from '../../utils/validationMessageUtils';
-import { DEFAULT_RADIO_VALUES } from '../../constants';
 import ButtonSpinner from '../ButtonSpinner';
 import http from '../../config/axios.config';
 import cookies from '../../utils/cookies';
@@ -117,8 +117,9 @@ const NewAffordabilityForm = ({
       }
       
       const { data: { data: { token } }} = await axios.post(
-        // '/save-profile', 
-        'https://staging.newhomes.ng/api/police/profile',
+        `${BASE_URL}${USER_PROFILE_URL}`, 
+        // 'https://staging.newhomes.ng/api/police/profile',
+        // `${BASE_URL}${USER_AFFORDABILITY_URL}`,
         {...currentUser, ...valuesCloned, loanable_amount: rest.max_loanable_amount}
       );
       if (token) {
@@ -135,18 +136,31 @@ const NewAffordabilityForm = ({
   return (
     <Wrapper className="container affordability-forms-wrapper ">
       <Formik
-        initialValues={{
-          budget: rest.budget,
-          have_equity: rest.have_equity,
-          payment_option: rest.payment_option,
-          monthly_expenses: rest.monthly_expenses,
-          outstanding_loans: rest.outstanding_loans,
-          monthly_gross_pay: rest.monthly_gross_pay,
-          total_annual_salary: rest.total_annual_salary,
-          equity_contribution: rest.equity_contribution,
-        }}
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
+        // initialValues={{
+        //   budget: rest.budget,
+        //   have_equity: rest.have_equity,
+        //   payment_option: rest.payment_option,
+        //   monthly_expenses: rest.monthly_expenses,
+        //   outstanding_loans: rest.outstanding_loans,
+        //   monthly_gross_pay: rest.monthly_gross_pay,
+        //   total_annual_salary: rest.total_annual_salary,
+        //   equity_contribution: rest.equity_contribution,
+        // }}
+        initialValues={{
+          ...(() => {
+            const {
+              budget, have_equity, payment_option, monthly_expenses,
+              outstanding_loans, monthly_gross_pay, total_annual_salary,equity_contribution
+            } = rest;
+
+            return {
+              budget, have_equity, payment_option, monthly_expenses,
+              outstanding_loans, monthly_gross_pay, total_annual_salary,equity_contribution
+            };
+          })()
+        }}
       >
         {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => {
           const { 
@@ -161,7 +175,7 @@ const NewAffordabilityForm = ({
                   <WrappedInputWithError
                     // prepend='₦'
                     type="text"
-                    append='annually'
+                    append='Annually'
                     placeholder="30,000,000"
                     onBlur={handleBlur}
                     name='total_annual_salary'
@@ -178,7 +192,7 @@ const NewAffordabilityForm = ({
                   <WrappedInputWithError
                     // prepend='₦'
                     type="text"
-                    append='monthly'
+                    append='Monthly'
                     placeholder="300,000"
                     onBlur={handleBlur}
                     name='monthly_gross_pay'
@@ -246,7 +260,7 @@ const NewAffordabilityForm = ({
                       <WrappedInputWithError
                         // prepend='₦'
                         type="text"
-                        append='monthly'
+                        append='Monthly'
                         placeholder="300,000"
                         onBlur={handleBlur}
                         name='equity_contribution'
@@ -271,7 +285,7 @@ const NewAffordabilityForm = ({
                           // prepend='₦'
                           type="text"
                           name='budget'
-                          append={isInstallment ? 'annual' : 'monthly'}
+                          append={isInstallment ? 'Annual' : 'Monthly'}
                           onBlur={handleBlur}
                           placeholder="300,000"
                           value={formatCurrencyInput(budget)}
@@ -293,7 +307,7 @@ const NewAffordabilityForm = ({
                   <WrappedInputWithError
                     // prepend='₦'
                     type="text"
-                    append='monthly'
+                    append='Monthly'
                     onBlur={handleBlur}
                     placeholder="300,000"
                     name='monthly_expenses'
@@ -311,7 +325,7 @@ const NewAffordabilityForm = ({
                   <WrappedInputWithError
                     // prepend='₦'
                     type="text"
-                    append='monthly'
+                    append='Monthly'
                     onBlur={handleBlur}
                     placeholder="300,000"
                     name='outstanding_loans'
@@ -434,8 +448,9 @@ const NewAffordabilityForm = ({
 };
 
 
-const mapStateToProps = ({ affordability, earnings, currentUser }, ownProps) => {
-  return { ...affordability, currentUser, ...earnings, properties: [], ...ownProps };
+const mapStateToProps = ({ affordability, earnings, auth, currentUser}, ownProps) => {
+  return { ...affordability, currentUser: { ...currentUser, ...auth.currentUser }, ...earnings, properties: [], ...ownProps };
 }
+
  
 export default connect(mapStateToProps)(NewAffordabilityForm);

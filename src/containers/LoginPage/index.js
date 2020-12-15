@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+// import React, { Component, createRef } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -8,12 +9,12 @@ import * as Icon from "react-feather";
 
 import "./LoginPage.css";
 // import { handleChange, validateForm } from "../../utils/authFormUtils";
-// import { handleChange} from "../../utils/authFormUtils";
-import ProgressBar from "../NProgress";
+// import ProgressBar from "../NProgress";
 // import setLoading from "../../store/actions/setLoading";
 // import setErrors from "../../store/actions/setErrors";
 // import login from "../../store/middlewares/login";
 // import setIsAuthenticated from "../../store/actions/setIsAuthenticated";
+
 import InputPassword from "./../../commons/InputPassword";
 import TextFieldGroup from "./../../commons/TextFieldGroup";
 import Header from "../../commons/Header";
@@ -24,6 +25,7 @@ import { validations } from '../../utils/yupUtils';
 
 
 // import LoginDoorIcon from "../Resource/fp-login-page-door-access.svg";
+
 
 function LoginPage(props) {
   // const [email, setEmail] = useState("");
@@ -48,24 +50,26 @@ function LoginPage(props) {
       }
     }
   }, [props.errors]);
+
+  // class LoginPage extends Component {
   // constructor() {
   //   super();
-    // this.submitButtonRef = createRef(null);
-    // this.state = {
-    //   email: "",
-    //   password: "",
-    //   errors: {},
-    // };
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+  //   this.submitButtonRef = createRef(null);
+  //   // this.state = {
+  //   //   email: "",
+  //   //   password: "",
+  //   //   errors: {},
+  //   // };
+  //   // this.handleChange = this.handleChange.bind(this);
+  //   // this.handleSubmit = this.handleSubmit.bind(this);
   // }
 
-  // state = { email: "", password: "", keepMeLoggedIn: true, usertype:"Agent" };
+  // state = { email: "", password: "", keepMeLoggedIn: true };
   /**
    * Handles change event on an input element
    * @param {DOMEvent} event
    */
-  // const handleChange = event => handleChange(event, this);
+    //  handleChange = event => handleChange(event, this);
 
   // componentDidMount() {
   //   document.title = "Login Authentication | Finance Plus";
@@ -106,30 +110,15 @@ function LoginPage(props) {
    * Handles click event on "Join Now"
    * @param {DOMEvent} event
    */
-  const handleJoinNowClick = event => {
+   const handleJoinNowClick = event => {
     event.preventDefault();
   };
 
-  // handleChange(e) {
-  //   this.setState({ [e.target.name] : e.target.value });
-  //   console.log("value changing")
-  // }
-  // const handleLogin = (e)=> {
-  //   e.preventDefault(); 
-
-  //   const userData = {
-  //     email : values.email,
-  //     password : values.password,
-  //   };
-
-  //   console.log("Log in successful");
-  //   props.loginUser(userData);
-  // }
 
 
   // render() {
-    // const {isLoading} = this.state;
-    // const {loading} = props.errors
+  //   const {errors, isLoading} = this.props;
+  //   const backErrors = errors
 
     const validationSchema = (() => {
       return Yup.object().shape({
@@ -189,6 +178,7 @@ function LoginPage(props) {
                         password: "",
                       }}
                       onSubmit={(data) => props.loginUser(data)}
+                      // onSubmit={this.handleSubmit}
                       validationSchema={validationSchema}
                     >
                       {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => {
@@ -199,6 +189,11 @@ function LoginPage(props) {
                           isSubmitting = false;
                           // backErrors.data = {}
                         }
+                        // if(backErrors){
+                        //   isSubmitting = false;
+                        //   // backErrors.data = {}
+                        // }
+                        
                 return (
                   <Form className="fp-login-form-wrapper" > 
                         
@@ -227,9 +222,9 @@ function LoginPage(props) {
                             onBlur={handleBlur}
                             // onChange={(e)=> setPassword(e.target.value)}
                             minLength='6'
-                            // error={errors ? errors.password : (backErrors.message === "login failed"  && backErrors.data)}
+                            error={errors ? errors.password : (backErrors.message === "login failed"  && backErrors.data)}
                             // error={errors ? errors.password : backErrors.data}
-                            error = {(backErrors.message === "login failed" ? backErrors.data : errors.password )} 
+                            // error = {(backErrors.message === "login failed" ? backErrors.data : errors.password )} 
                             // {...{ errors, touched }}
                           /> 
 
@@ -273,21 +268,23 @@ function LoginPage(props) {
                 </div>
         </section>
       </div>)
-    // };
-  };
+    // }
+  }
 
 LoginPage.propTypes ={
     loginUser : PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
   };
-// const mapStateToProps = (state) => {
+// const mapStateToProps = (state , ownProps) => {
 //   return {
-//     auth: state.auth,
-//     errors: state.errors
-//     // ...ownProps
+//     isAuthenticated: state.isAuthenticated,
+//     // isLoading: state.isLoading,
+//     errors: state.errors,
+//     ...ownProps
 //   };
 // };
+
 const mapStateToProps = (state)=>({
   auth: state.auth,
   errors: state.errors
@@ -311,3 +308,4 @@ const mapStateToProps = (state)=>({
 // };
 
 export default connect(mapStateToProps, {loginUser})(withRouter(LoginPage));
+// export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

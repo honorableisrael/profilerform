@@ -66,6 +66,8 @@ const PropertyAdItem = ({
   setMortgageApplicationData,
   setPropRequest,
   setPropChoice,
+  setViewedProperty,
+  viewedProperty
   // setActiveTab,
 }) => {
   // const baseImageUrl = "https://account.newhomes.ng";
@@ -176,6 +178,22 @@ const PropertyAdItem = ({
             rel='noopener noreferrer'
             className='fp-property-suggestion-button-view-more'
             data-toggle="modal" data-target="#myModal"
+            onClick={async ({ target }) => {
+              if(setViewedProperty){
+              setViewedProperty({
+                name: property.property_name,
+                image: property.property_cover_image,
+                bed: property.property_bedrooms,
+                bath: property.property_bathrooms,
+                price: property.property_price,
+                city: property.property_city,
+                state: property.property_state,
+                description: property.property_description,
+                symbol: property.currency_symbol
+              })
+            }
+              
+            }}
       >
             <Icon.Eye className='mr-1' size='40px' color='#0fbc49' />
             

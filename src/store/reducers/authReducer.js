@@ -1,9 +1,10 @@
 import authTypes from "../types/authTypes";
 import isEmpty from "../../validation/is_Empty";
+import { CLEAR_CURRENT_USER, CLEAR_EARNINGS } from "../../constants";
 
 const initialState ={
     isAuthenticated: false,
-    user: {}
+    currentUser: {}
 }
 
 const authReducer = (state = initialState, action) => {
@@ -12,18 +13,20 @@ const authReducer = (state = initialState, action) => {
             return { 
                 ...state, 
                 isAuthenticated: !isEmpty(action.payload), 
-                user: action.payload,
+                currentUser: action.payload,
             };
         case authTypes.FORGOT_PASSWORD:
              return{
                  ...state, 
-                user: action.payload,
+                currentUser: action.payload,
             };
         case authTypes.RESET_PASSWORD:
                 return{
                     ...state, 
-                   user: action.payload,
+                   currentUser: action.payload,
                };
+        case CLEAR_CURRENT_USER: return initialState;
+        case CLEAR_EARNINGS: return initialState;
         default: 
             return state;
     }

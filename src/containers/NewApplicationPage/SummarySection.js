@@ -14,7 +14,7 @@ const Wrapper = styled.div`
    & {
     padding: 3% 20px;
   }
-
+  
     .application-summary-wrapper {
       background-color: var(--cool-green);
       margin: 30px 10px;
@@ -22,8 +22,6 @@ const Wrapper = styled.div`
       padding-top: 10px;
       border-radius: 6px;
       position: relative;
-      // padding-left: 30px;  
-      // flex-flow: row nowrap;
       width: 100%;
     }
 
@@ -129,14 +127,78 @@ const Wrapper = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    & {
-      z-index: 2;
-      max-width: 85vw;
-      position: absolute;
-      padding-right: 32px;
-      background: #ffffff;
+    // & {
+    //   z-index: 2;
+    //   max-width: 85vw;
+    //   position: absolute;
+    //   padding-right: 32px;
+    //   background: #ffffff;
+    // }
+
+    & h3,
+    .application-summary-wrapper .summary-value-wrapper h3 {
+      font-weight: bold;
+      z-index: 10 !important;
+      line-height: 28px !important;
+      font-size: 1.025rem !important;
+    }
+
+    .row{
+      flex-wrap: nowrap;
+    }
+
+    .application-summary-wrapper > :nth-child(1) {
+      font-size: 14px !important;
+      font-weight: 500;
+      padding: 5px ;
+      margin-bottom: 40px;
+      width: 80px !important;
+      min-width: 40px !important;
+      // top: -25px;
+      // left: 10px;
+      // color: white;
+      // border-radius: 5px;
+    }
+
+    .application-summary-wrapper {
+      background-color: var(--cool-green);
+      margin: 10px 2px;
+      margin-bottom: 2px;
+      padding: 5px;
+      width: 100%;
+      max-width: 370px;
+    }
+
+    .application-summary-wrapper * {
+      padding: 3px;
     }
     
+    .application-summary-wrapper .summary-value-wrapper h3 {
+      font-size: 12px;
+      line-height: 18px;
+      z-index: 10;
+    }
+    .application-summary-wrapper .summary-value-wrapper p {
+      margin-bottom: 0.2rem;
+    }
+    .application-summary-wrapper .summary-value-wrapper  {
+      width: 100px;
+      margin-right: 10px;
+    } 
+
+    .col-sm-3{
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+
+    .monetary-value::before{
+      font-size: 1.025rem !important;
+      padding-right: 3px;
+    }
+    .section-heading{
+      margin-top: 15px !important;
+      font-size: 20px;
+    }
 
     &,
     & > * {
@@ -145,7 +207,7 @@ const Wrapper = styled.div`
 
     &.closed,
     &.closed > * {
-      transform: translateX(-100vw) !important;
+      // transform: translateX(-100vw) !important;
     }
   }
 `;
@@ -238,19 +300,19 @@ calculateLoanableAmount();
       <div className="application-summary-wrapper">
        <h3>Summary</h3>
         <div className="row">
-          <div className= "col-md-4 col-sm-4">
+          <div className= "col-md-4 col-sm-3">
             <div className="summary-value-wrapper">
               <p>Maximum Loanable</p>
               <h3 className="monetary-value">{formatCurrencyInput(max_loanable_amount || '') || '\t0,000,000'}</h3>
             </div>
           </div>
-          <div className= "col-md-4 col-sm-4">
+          <div className= "col-md-4 col-sm-3">
             <div className="  summary-value-wrapper">
               <p>Est. Monthly Repayment</p>
               <h3 className="monetary-value">{formatCurrencyInput(monthly_repayment || '') || '\t0,000,000'}</h3>
             </div>
           </div>
-          <div className= "col-md-4 col-sm-4">
+          <div className= "col-md-4 col-sm-3">
             <div className="  summary-value-wrapper">
               <p>Maximum Tenure</p>
               <h3>{maxTenure || '0'} {maxTenure > 1 ? "Years" : "Year"} </h3>

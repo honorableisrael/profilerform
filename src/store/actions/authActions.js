@@ -2,20 +2,24 @@ import axios from "axios";
 import  setAuthToken  from "./../../utils/setAuthToken";
 // import jwt_decode from "jwt-decode";
 
-import { IS_LOADING } from "../../constants";
+import { CLEAR_CURRENT_USER, CLEAR_EARNINGS, IS_LOADING } from "../../constants";
 import errorTypes from "../types/errorTypes";
 import authTypes from "../types/authTypes";
+import userTypes from "../types/userTypes";
+import {BASE_URL, LOGIN_PAGE_URL, REGISTER_URL, FORGOT_PASSWORD_URL, CHANGE_PASSWORD_CODE_URL} from "../../constants";
+import userActions from "./userActions";
+import { batchDispatcher } from '../../utils/applicationBatchDispatchHelper';
 
 
 // Register User
 export const registerUser = (userData, history) => (dispatch) => {
     axios
-      .post("https://admin.newhomes.ng/api/auth/register", userData)
-      .then((res) => history.push("/auth/login"))
+      .post(`${BASE_URL}${REGISTER_URL}`, userData)
+      .then((res) => history.push(`${LOGIN_PAGE_URL}`))
       .catch((err) =>
         dispatch({
           type: errorTypes.SET_ERRORS,
-          payload: err.response.data,
+          payload: err.response,
         })
       );
   };
@@ -24,26 +28,29 @@ export const registerUser = (userData, history) => (dispatch) => {
 export const loginUser = (userData) => dispatch => {
  
   axios
-    .post("https://admin.newhomes.ng/api/auth/login", userData)
+    .post(`${BASE_URL}${LOGIN_PAGE_URL}`, userData)
     .then(res => {
         //Save to local storage
-        // console.log(res.data)
+        console.log(res.data)
         const {user} = res.data.data;
         const {token} = res.data.data;
         // Set token to local storage
-        localStorage.setItem("jwtToken" , token);
+        localStorage.setItem("jwtToken" , `Bearer ${token}`);
         //Set Token to  Auth Header
         setAuthToken(token);
         // //Decode token to get user data
         // const decoded = jwt_decode(token);
         //set Current User
+        console.log(user);
         dispatch(setCurrentUser(user));
+        // batchDispatcher(userActions[userTypes]=(user))
+        // batchDispatcher(userTypes, userActions, dispatch, {payload: user});
     })
     .catch(err => {
       dispatch(setErrorLoading());
       dispatch({
         type: errorTypes.SET_ERRORS,
-        payload: err.response.data
+        payload: err.response
       })
     })
 }
@@ -51,7 +58,7 @@ export const loginUser = (userData) => dispatch => {
 //send password reset email
 export const forgotPassword = (userData) => dispatch =>{
     axios
-    .post("https://admin.newhomes.ng/api/auth/forgot-password", userData)
+    .post(`${BASE_URL}${FORGOT_PASSWORD_URL}`, userData)
     .then(res => {
         // console.log(res.data)
         dispatch({
@@ -71,7 +78,7 @@ export const forgotPassword = (userData) => dispatch =>{
 //Set new password
 export const resetPassword = (userData) => dispatch =>{
     return axios
-        .post("https://admin.newhomes.ng/api/auth/change-password-code", userData)
+        .post(`${BASE_URL}${CHANGE_PASSWORD_CODE_URL}`, userData)
         .then(res => {
             // console.log(res.data)
             dispatch({
@@ -110,6 +117,6 @@ export const logoutUser = () => dispatch => {
         //Remove auth header for future requests
         setAuthToken(false);
         //set Current User to {} which will set isAuthenticated to false
-        dispatch(setCurrentUser({}));
-    
+        dispatch({type: CLEAR_CURRENT_USER});
+        dispatch({type: CLEAR_EARNINGS});
 }

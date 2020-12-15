@@ -1,8 +1,10 @@
 import { IS_LOADING } from "../../constants";
 import errorTypes from "../types/errorTypes"
-const initialState ={}
+const initialState ={
+  loading: false
+}
 
-export default function(state= initialState, action){
+const errorReducer = (state= initialState, action)=>{
   switch(action.type){
     case IS_LOADING:
         return {
@@ -20,3 +22,5 @@ export default function(state= initialState, action){
       return state;
   }
 }
+
+export default errorReducer;

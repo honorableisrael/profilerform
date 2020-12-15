@@ -1,3 +1,4 @@
+import { CLEAR_CURRENT_USER } from '../../constants';
 import userTypes from '../types/userTypes';
 // import isEmpty from '../../validation/is_Empty';
 
@@ -67,6 +68,7 @@ const userReducer = (state = initialState, action) => {
   case userTypes.SET_NHF_NUMBER: return { ...state, nhf_number: action.payload };
   case userTypes.SET_EMPLOYMENT_PRESENT_POSITION: return { ...state, employment_present_position: action.payload };
   // case userTypes.SET_IS_AUTHENTICATED: return { ...state, isAuthenticated: action.payload};
+  case CLEAR_CURRENT_USER: return initialState;
   default: return state;
   }
 };

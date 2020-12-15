@@ -17,7 +17,7 @@ const persistConfig = {
   version: 0,
   key: "root",
   migrate: createMigrate(migrations),
-  whitelist: ['auth', 'earnings', 'currentUser', 'properties']
+  whitelist: ['auth' , 'earnings', 'currentUser', 'properties']
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = createStore(

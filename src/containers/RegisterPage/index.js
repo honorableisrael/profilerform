@@ -32,11 +32,11 @@ function RegisterPage(props) {
 
   useEffect(()=>{
     if(props.errors.errors){
-      if(props.errors.errors.message === "register failed"){
+      if(props.errors.errors.data.message === "register failed"){
           console.log(props.errors.errors)
-          setBackErrors(props.errors.errors)
-      }else if(props.errors.errors.message === "Validation Error"){
-          props.errors.errors.data.map(data => (
+          setBackErrors(props.errors.errors.data)
+      }else if(props.errors.errors.data.message === "Validation Error"){
+          props.errors.errors.data.data.map(data => (
             setBackErrors(data)
           )) 
       }
@@ -83,7 +83,6 @@ function RegisterPage(props) {
   //     lastname,
   //     email,
   //     password,
-  //     // password2,
   //   };
 
   //   props.registerUser(newUser, props.history);
@@ -198,7 +197,7 @@ function RegisterPage(props) {
                             pattern='^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$'
                             required
                             // error={errors ? errors.email : (backErrors.message === "register failed"  && backErrors.data)}
-                            error = {(backErrors.message === "login failed" ? backErrors.data : errors.password )} 
+                            error = {(backErrors.message === "register failed" ? backErrors.data : errors.password )} 
                             // error={errors.message === "register failed" ? errors.data : errors.email }
                             // error="Invalid email address"
                         />

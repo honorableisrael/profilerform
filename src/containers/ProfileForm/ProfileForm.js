@@ -51,6 +51,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
   const email = cookies.get('email') || '';
   const handleSubmit = async (values) => {
     try {
+      console.log({values, userActions});
       batchDispatcher(values, userActions, dispatch);
       goToNextComponent();
     } catch (error) {
@@ -69,7 +70,22 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
       <Formik
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
-        initialValues={{...userClone, email: userClone.email || email}}
+        initialValues={{
+          ...(() => {
+            const {
+              firstname, lastname, phone, no_of_dependents,
+              mode_of_contact, dob, marital_status, address,
+              current_apartment_status, state_of_origin, 
+            } = userClone;
+
+            return {
+              firstname, lastname, phone, no_of_dependents,
+              mode_of_contact, dob, marital_status, address,
+              current_apartment_status, state_of_origin, 
+            };
+          })(),
+          email: userClone.email || email
+        }}
       >
         {({ values, errors, touched, handleBlur, handleChange, isSubmitting }) => {
           const states = statesList['160'] || [];
@@ -479,6 +495,8 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
   );
 }
 
-const mapStateToProps = ({ currentUser }, ownProps) => ({ currentUser, ...ownProps });
+const mapStateToProps = ({ auth, currentUser }, ownProps) => ({
+  currentUser: { ...currentUser, ...auth.currentUser }, ...ownProps
+});
  
 export default connect(mapStateToProps)(ProfileForm);

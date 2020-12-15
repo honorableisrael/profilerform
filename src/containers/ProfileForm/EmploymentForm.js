@@ -15,6 +15,10 @@ import statesList from '../../utils/statesMapped';
 import cookies from '../../utils/cookies';
 import userActions from '../../store/actions/userActions';
 import "./../../commons/TextFieldGroup/ProfileTextField.css";
+import { BASE_URL, USER_PROFILE_URL } from '../../constants';
+import axios from 'axios';
+import http from '../../config/axios.config';
+
 
 const Wrapper = styled.div`
 
@@ -35,9 +39,26 @@ const validationSchema = Yup.object().shape({
 const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, goToRequest }) => {
   // const email = cookies.get('email');
   const handleSubmit = async (values) => {
+    // const valuesCloned = {...values};
+    // valuesCloned.have_equity = Number(valuesCloned.have_equity === 'yes');
+    // valuesCloned.down_payment = valuesCloned.equity_contribution;
+    // delete valuesCloned.budget;
+    // delete valuesCloned.payment_option;
+    // delete valuesCloned.equity_contribution;
+    // try { const { data: { data: { token } }} = await axios.post(
+    //   `${BASE_URL}${USER_PROFILE_URL}`,
+    //   {...currentUser, ...valuesCloned}
+    // );
+    // if (token) {
+    //   cookies.set('token', token);
+    //   http.defaults.headers.Authorization = `Bearer ${token}`;
+    // }
     batchDispatcher(values, userActions, dispatch);
     // goToNextComponent();
     goToRequest();
+    // } catch (error) {
+    // console.log(error.message);
+    // }
   };
 
   return (
@@ -45,17 +66,30 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
       {/* <NewDatePicker /> */}
       <Formik
         onSubmit={handleSubmit}
-        initialValues={{
-          employment_id: currentUser.employment_id,
-          employment_present_position: currentUser.employment_present_position,
-          // command: currentUser.command,
-          nhf_number: currentUser.nhf_number,
-          work_experience: currentUser.work_experience,
-          employment_state: currentUser.employment_state,
-          employer_address: currentUser.employer_address,
-          year_to_retirement: currentUser.year_to_retirement,
-        }}
         validationSchema={validationSchema}
+        // initialValues={{
+        //   employment_id: currentUser.employment_id,
+        //   employment_present_position: currentUser.employment_present_position,
+        //   nhf_number: currentUser.nhf_number,
+        //   work_experience: currentUser.work_experience,
+        //   employment_state: currentUser.employment_state,
+        //   employer_address: currentUser.employer_address,
+        //   year_to_retirement: currentUser.year_to_retirement,
+        // }}
+        initialValues={{
+          ...(() => {
+            const {
+              employment_id, employment_present_position, nhf_number, work_experience,
+              employment_state, employer_address, year_to_retirement
+            } = currentUser;
+
+            return {
+              employment_id, employment_present_position, nhf_number, work_experience,
+              employment_state, employer_address, year_to_retirement
+            };
+          })()
+        }}
+       
       >
         {({ values, errors, touched, handleBlur, handleChange, isSubmitting }) => {
           const states = statesList['160'] || [];
@@ -184,7 +218,7 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                           
                           <WrappedInputWithError
                             type="number"
-                            append='years'
+                            append='Years'
                             name='work_experience'
                             value={values.work_experience}
                             placeholder="years"
@@ -204,7 +238,7 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
                           
                           <WrappedInputWithError
                             type="number"
-                            append='years'
+                            append='Years'
                             name='year_to_retirement'
                             value={values.year_to_retirement}
                             placeholder="years"
@@ -254,6 +288,8 @@ const EmploymentForm = ({ dispatch, ranks, currentUser, goToPreviousComponent, g
   );
 };
 
-const mapStateToProps = ({ currentUser }, ownProps) => ({ currentUser, ...ownProps });
+const mapStateToProps = ({ auth, currentUser }, ownProps) => ({
+  currentUser: { ...currentUser, ...auth.currentUser }, ...ownProps
+});
  
 export default connect(mapStateToProps)(EmploymentForm);

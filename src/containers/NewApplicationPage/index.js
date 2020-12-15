@@ -7,6 +7,7 @@ import { faAngleDown, faAngleUp, faExclamationTriangle, faExpand } from '@fortaw
 import BathIcon from "../Resource/bathroom.png";
 import BedIcon from "../Resource/bedroom.png";
 import ButtonSpinner from '../ButtonSpinner';
+import { ALL_CITIES_URL, ALL_STATES_URL, PAYMENT_OPTIONS_URL, PROPERTY_TYPE_URL} from "../../constants";
 
 import SummarySection from './SummarySection';
 import withNewStyles from '../../hocs/withNewStyles';
@@ -528,6 +529,7 @@ const Wrapper = styled.div`
     outline: 0;
     background-color: #666666;
     opacity: 0.5;
+    // display: block;
   }
   .propertyRequest__modal{
     position: fixed;
@@ -538,30 +540,26 @@ const Wrapper = styled.div`
     height: 100%;
     outline: 0;
     background-color: #666666;
-    opacity: 0.5
+    opacity: 0.5;
+    // display: block
   }
   @media screen and (max-width: 770px){
     .propertyChoice__modal{
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 91%;
+      display: none;
     }
     .propertyRequest__modal{
-      top: unset;
-      right: unset;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 11%;
+      display: none;
     }
   }
   @media screen and (max-width: 770px){
     .affordability-page-content, .eligibility-page-content, .mortgage-page-content{
-      display: flex;
+      // display: flex;
       flex-direction: column !important;
       padding-bottom: 0px;
       margin-bottom: 0px;
+    }
+    .affordability-page-content{
+      padding-top: 30px;
     }
   }
 
@@ -717,6 +715,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
   const [formDataJSON, setFormDataJSON] = useState(
     JSON.stringify({ states: [], propertyTypes: [], paymentOptions: [] })
   );
+  const [viewedProperty, setViewedProperty] = useState({});
 
   const [propChoice, setPropChoice] = useState(false);
   const [propRequest, setPropRequest] = useState(false);
@@ -749,7 +748,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
       (statesMapped[fctVariants[0]] || statesMapped[fctVariants[1]])
       : statesMapped[stateName];
     // try {
-      const { data: { data: cities } } = await http.get(`/general/all-cities/${propertyStateId}`);
+      const { data: { data: cities } } = await http.get(`${ALL_CITIES_URL}${propertyStateId}`);
       const city = (cities || []).find(({ name }) => name.toLowerCase() === cityName);
       const cityId = city?.id;
       const bedrooms = typeof property_bedrooms === 'string' && property_bedrooms.includes('-') ?
@@ -788,7 +787,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
         const [
           { data: { data: states } }, { data: { data: propertyTypes } }, { data: { data: paymentOptions } }
         ] = await Promise.all([
-          http.get('/general/all-states'), http.get('/general/all-properties-types/1'), http.get('/general/finance-option')
+          http.get(`${ALL_STATES_URL}`), http.get(`${PROPERTY_TYPE_URL}1`), http.get(`${PAYMENT_OPTIONS_URL}`)
         ]);
 
         setFormDataJSON(JSON.stringify({ states, propertyTypes, paymentOptions }));
@@ -812,14 +811,14 @@ const NewApplicationPage = ({ properties, dispatch }) => {
         <div className="application-flow">
           {/* <!--Affordability Tab--> */}
           
-           <div
+           {/* <div
             className='summary-sticker'
             onClick={() => setSummaryStickerOpen(!summaryStickerOpen)}
-          >
+          > */}
             {/* <!-- <v-icon v-if="summaryStickerOpen">fas fa-angle-down</v-icon> */}
             {/* <v-icon v-else>fas fa-angle-up</v-icon> --> */}
-            <p>{ summaryStickerOpen ? 'Hide' : 'Show'} summary</p>
-          </div>
+            {/* <p>{ summaryStickerOpen ? 'Hide' : 'Show'} summary</p>
+          </div> */}
           <input
             name="mortgage-flow-nav"
             type="radio"
@@ -872,7 +871,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                 closed={!suggestionsStickerOpen}  
                 {...{
                   goToEligibility, setPropertyStoreData, submittedAffordability,
-                  activeTab, alertUser, selectedProperty, setSelectedProperty
+                  activeTab, alertUser, selectedProperty, setSelectedProperty, setViewedProperty, viewedProperty
                 }}
               />
             </div>
@@ -939,7 +938,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                 closed={!suggestionsStickerOpen}
                 {...{
                   goToEligibility, setPropertyStoreData, submittedAffordability,
-                  activeTab, alertUser, selectedProperty, setSelectedProperty
+                  activeTab, alertUser, selectedProperty, setSelectedProperty, setViewedProperty, viewedProperty
                 }}
               />
             </div>
@@ -1001,10 +1000,10 @@ const NewApplicationPage = ({ properties, dispatch }) => {
               {/* <!-- <div className="application-highlight-section"></div> --> */}
               {/* <!-- <div className="application-highlight-section"></div> --> */}
               <PropertySuggestionSection
-                closed={!suggestionsStickerOpen}
+                closed={propChoice ? suggestionsStickerOpen : !suggestionsStickerOpen}
                 {...{
                   goToEligibility, setPropertyStoreData, submittedAffordability,
-                  activeTab, alertUser, selectedProperty, setSelectedProperty, setPropRequest, setPropChoice
+                  activeTab, alertUser, selectedProperty, setSelectedProperty, setPropRequest, setPropChoice, setViewedProperty, viewedProperty
                 }}
               />
             </div>
@@ -1045,27 +1044,27 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                     <div className="property__content">
                       <div className="property__head">
                         <div className="property__title">
-                          <div className='property__name'>{selectedProperty ? selectedProperty.property_name : "4 Bd Detached House for Rent at Osapa London"}</div>
-                          <div className='property__address'>{selectedProperty ? selectedProperty.property_city : 'Lekki'}, {selectedProperty ? selectedProperty.property_state : "Lagos"}</div>
+                          <div className='property__name'>{viewedProperty ? viewedProperty.name : "4 Bd Detached House for Rent at Osapa London"}</div>
+                          <div className='property__address'>{viewedProperty ? viewedProperty.city : 'Lekki'}, {viewedProperty ? viewedProperty.state : "Lagos"}</div>
                         </div>
                         <h2>
-                          {selectedProperty ? `${selectedProperty.currency_symbol} ${formatCurrencyInput(selectedProperty.property_price)}` : "#40,000,000.00" }
+                          {viewedProperty ? `${viewedProperty.symbol} ${formatCurrencyInput(viewedProperty.price)}` : "#40,000,000.00" }
                         </h2>
                       </div>
                       <div className='property__features'>
                         <div className='property__fixes'>
                           <div className='property__icon'>
                             <img className='mr-2' src={BedIcon} alt='Bed Icon' />
-                            {selectedProperty 
-                              ? `${selectedProperty.property_bedrooms} bed`
-                              : "4"}{"beds"}
+                            {viewedProperty 
+                              ? `${viewedProperty.bed} ${viewedProperty.bed > 1 ? 'beds' : 'bed'}`
+                              : "4 beds"}
                           </div>
                           <div className='property__icon'>
                               <img className='ml-2' src={BathIcon} alt='Bath Icon' />
                               &nbsp;
-                              {selectedProperty 
-                                ? `${selectedProperty.property_bathrooms} bath`
-                                : "3"}{"baths"}
+                              {viewedProperty 
+                                ? `${viewedProperty.bath} ${viewedProperty.bath > 1 ? 'baths' : 'bath'}`
+                                : "3 baths"}
                           </div>
                         </div>
                         <div className="property__stats">

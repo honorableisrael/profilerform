@@ -1,6 +1,6 @@
-import { SET_IS_AUTHENTICATED } from '../../constants';
+import authTypes from '../types/authTypes';
 
 
 export default (isAuthenticated) => {
-  return { type: SET_IS_AUTHENTICATED, isAuthenticated };
+  return { type: authTypes.SET_IS_AUTHENTICATED, isAuthenticated };
 };

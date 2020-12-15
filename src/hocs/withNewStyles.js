@@ -2231,6 +2231,14 @@ const Wrapper = styled.div`
 
   .affordability-summary-section {
     padding: 3% 20px;
+      position: sticky;
+      position: -webkit-sticky;
+      position: -moz-sticky;
+      position: -ms-sticky;
+      position: -o-sticky;
+      top: 0 !important;
+      z-index: 1000 !important;
+      background: var(--primary-background-color) !important;
   }
 
   @media print {
@@ -2611,7 +2619,7 @@ const Wrapper = styled.div`
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
-    overflow: auto;
+    // overflow: auto;
   }
 
   .property-suggestion-toggle {
@@ -2761,13 +2769,16 @@ const Wrapper = styled.div`
       -webkit-box-shadow: 20px 46px 30px rgba(0, 0, 0, 0.2);
               box-shadow: 20px 46px 30px rgba(0, 0, 0, 0.2);
     }
-    .affordability-page-content {
+    .affordability-page-content, .eligibility-page-content, .mortgage-page-content {
       display: -ms-grid;
       display: grid;
-      grid-auto-rows: auto;
+      grid-auto-rows: 70px auto;
       grid-auto-flow: row;
       overflow: auto;
       padding-top: 30px;
+    }
+    .eligibility-page-content > *, .mortgage-page-content > *{
+      padding: 5px;
     }
     .property-suggestion-toggle {
       display: none;

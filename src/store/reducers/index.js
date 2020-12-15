@@ -16,5 +16,5 @@ export default combineReducers({
   currentUser: userReducer,
   affordability: affordabilityReducer,
   auth: authReducer,
-  errors: errorReducer
+  errors: errorReducer,
 });
