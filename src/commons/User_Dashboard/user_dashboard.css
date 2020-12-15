@@ -100,6 +100,7 @@
 .udshboard{
     background-color: #f9f9f9;
     width: 100%;
+    padding-left: 42px;
 }
 .udashsearchdiv{
     padding-top: 40px;
@@ -110,7 +111,6 @@
     padding: 9px;
     border: none;
     outline: none;
-    margin-left: 32px;
 }
 .dshbdsearchbar:focus{
     outline: none !important;
@@ -145,7 +145,6 @@
 }
 .userdahbdname{
     padding: 29px 0px;
-    margin-left: 32px;
     font-size: 17px;
     color: rgba(0, 0, 0, 0.603);
 }
@@ -155,7 +154,6 @@
 }
 .apstatus-section{
     background-color: #fff;
-    margin-left: 32px;
     border-radius: 6px;
     padding: 6px 0px 25px 0px
 }
@@ -166,10 +164,10 @@
     align-items: center;
     margin-bottom: 17px;
 }
-.applctnheader>p{
+.udashboadprimheader{
     color: #5fb49c;
     font-weight: 700;
-    font-size: 22px;
+    font-size: 21px;
 }
 .applctnheader>div{
     color: #1359f2;
@@ -228,4 +226,138 @@
     padding: 7px 45px;
     font-weight: 700;
     cursor: pointer;
+}
+.udashbdaccdiv{
+    margin-top: 30px;
+}
+.udashbdacrd{
+    border: none;
+}
+.udashbdacc{
+    background-color: #fff;
+    cursor: pointer;
+}
+.dshloader{
+    margin-left: 55px;
+}
+.dshgreencar{
+    margin-left: 115px;
+}
+
+.equitywrapper{
+    display:flex;
+    justify-content: space-between;
+    background-color: #fff;
+    margin-top: 32px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-bottom: 1px solid #9999;
+    padding: 22px 25px 5px 17px;
+}
+.equityimg{
+    margin-top: 46px;
+}
+.equitytext{
+    font-size: 12px;
+    color: #999;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
+.equityamt{
+    color: rgba(0, 0, 0, 0.63);
+    font-size: 22px;
+    font-weight: 700;
+}
+.equityamtdivs{
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 0px 25px 0px 17px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+.eqrghtdv{
+    border-left: 1px solid #9999;
+    padding-top: 22px;
+    padding-left: 11px
+}
+.eqleftdv{
+    padding-top: 22px;
+    padding-right: 11px;
+}
+.accordion>.card:first-of-type{
+    border-radius: 6px;
+}
+.collapse {
+    margin-top: 0px;
+}
+.carousel-section{
+    display: inline-block;
+    background-image: url(../../assets/house.png);
+    height: 25%;
+    border-top-right-radius: 8px;
+    width: 100%;
+    background-repeat: no-repeat;
+    margin-top: 32px;
+}
+.cardiv{
+    display: flex;
+    justify-content: space-between;
+    padding: 73px 23px;
+}
+.propstatsdv{
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    align-items: center;
+    padding: 19px;
+    border-bottom: 1px solid #9999;
+}
+.undsctrnbtn{
+    background: rgba(3, 50, 154, 0.1);
+    color: #1359f2;
+    padding: 7px 11px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+}
+.bung{
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.63);
+    font-weight: 700;
+    padding: 20px 64px;
+    border-bottom: 1px solid #9999;
+}
+.propprice{
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.63);
+    padding: 0px 45px; 
+}
+.propprice:not(:last-child){
+    border-bottom: 1px solid #9999;
+}
+.prpnme{
+    padding: 20px;
+    font-weight: 700
+}   
+.prpice{
+    padding: 20px 19px;
+    font-size: 24px;
+    font-weight: 700;
+    border-left: 1px solid #9999;
+}
+.prpnme2{
+    padding: 20px 131px 0px 20px;
+    color: rgba(0, 0, 0, 0.63);
+    font-weight: 700;
+    border-left: 1px solid #9999;
+}
+.prpnme3{
+    padding: 20px 64px 0px 21px;
+    color: rgba(0, 0, 0, 0.63);
+    font-weight: 700;
+    border-left: 1px solid #9999;
 }

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, Row, Col, Dropdown} from 'react-bootstrap';
+import { Container, Row, Col, Dropdown, Card} from 'react-bootstrap';
+import Accordion from "react-bootstrap/Accordion";
 import './user_dashboard.css';
 import plus from "../../assets/plus.png"
 import line from "../../assets/sidnavline.png"
@@ -10,6 +11,12 @@ import userimg from "../../assets/user-img.png";
 import arrowhead from "../../assets/arrowhead.png";
 import eye from "../../assets/show.png";
 import statusline from "../../assets/statusline.png";
+import loader from "../../assets/loader.png";
+import caretdwn from "../../assets/caret_down.png";
+import equity from"../../assets/equity.png";
+import cavetleft from "../../assets/caretleft.png";
+import cavetright from "../../assets/caretright.png"
+
 
 const Userdashboard = ()=>{
     return(
@@ -64,7 +71,7 @@ const Userdashboard = ()=>{
                         </div>
                         <div className="apstatus-section">
                             <div className="applctnheader">
-                                <p>Application status</p>
+                                <p className="udashboadprimheader">Application status</p>
                                 <div><img src={eye} className="udshbdeye"/> view</div> 
                             </div>
                             <div className="appstatusheadings">
@@ -73,7 +80,7 @@ const Userdashboard = ()=>{
                                <div>Status</div>
                                <div></div>
                             </div>
-                            <img src={statusline} className="statusline-img"/>
+                           <div><img src={statusline} className="statusline-img img-fluid"/></div>
                             <div className="appstatus">
                               <div className="statsitem">5 Bedroom Detached<br/> Bungalow</div>
                               <div className="itemprice">₦70, 000, 000.00</div>
@@ -81,10 +88,90 @@ const Userdashboard = ()=>{
                               <div className="statsprints-btn">Print</div>
                             </div>
                         </div>
+                        <Row>
+                            <Col md={7}>
+                              <div className="udashbdaccdiv">
+                                 <Accordion defaultActiveKey="">
+                                     <Card className="udashbdacrd">
+                                         <Accordion.Toggle as={Card.Header} className="udashbdacc" eventKey="5">
+                                             <p className="udashboadprimheader">Documents Upload</p>
+                                             <div><img src={loader} className="dshloader"/>
+                                             10 out of 14 Documents Uploaded <img src={caretdwn} className="dshgreencar" /></div>
+                                         </Accordion.Toggle>
+                                         <Accordion.Collapse eventKey="5">
+                                             <Card.Body>
+                                                 Passport 
+                                             </Card.Body>
+                                         </Accordion.Collapse>
+                                     </Card>
+                                 </Accordion>
+                              </div>
+                              <span className="carousel-section">
+                                  <div className="cardiv">
+                                      <img src={cavetleft}/>
+                                      <img src={cavetright}/>
+                                  </div>
+                             </span>
+                             <div className="propstatsdv">
+                                 <div className="savingsheader">Property Status</div>
+                                 <div className="undsctrnbtn">Under Construction</div>
+                             </div>
+                             <div className="bung">
+                                 5 Bedroom Detached Bungalow
+                             </div>
+                             <div className="propprice">
+                                 <div className="prpnme">
+                                   Price
+                                 </div>
+                                 <div className="prpice">
+                                 ₦200,000,000.00
+                                 </div>
+                             </div>
+                             <div className="propprice">
+                                 <div className="prpnme">
+                                 Payment Type
+                                 </div>
+                                 <div className="prpnme2">
+                                 Mortgage
+                                 </div>
+                             </div>
+                             <div className="propprice">
+                                 <div className="prpnme">
+                                 Date of Purchase
+                                 </div>
+                                 <div className="prpnme3">
+                                 30th October 2020
+                                 </div>
+                             </div>
+                            </Col>
+                            <Col md={5}>
+                                   <div className="equitywrapper ">
+                                     <div>
+                                         <p className="udashboadprimheader"> Equity Savings</p>
+                                         <p className="equitytext">Total Equity Needed</p>
+                                         <p className="equityamt">₦70,000,000.00</p>
+                                    </div>
+                                   <div>
+                                      <img src={equity} className="equityimg"/>
+                                   </div>
+                                 </div>
+                                 <div className="equityamtdivs">
+                                     <div className="eqleftdv">
+                                          <p className="equitytext">Total Saved</p>
+                                          <p className="equityamt">₦30,000,000.00</p>
+                                      </div>
+                                      <div className="eqrghtdv">
+                                          <p className="equitytext">Current Balance</p>  
+                                          <p className="equityamt">₦40,000,000.00</p>
+                                      </div>
+                                 </div>
+                            
+                            </Col>
+                        </Row>
                      </Col>
                  </Row>
             </Container>
         </div>
     )
 }
-export default Userdashboard;
+export default Userdashboard
