@@ -202,7 +202,7 @@
     margin-right: 77px;
 }
 .statusline-img{
-    border-bottom: 1px solid #9999;
+    border-bottom: 1px solid  #bbbbbb8e;
     margin-left: 3.4rem;
     margin-right: 3rem;
     padding-bottom: .2rem;
@@ -217,7 +217,7 @@
 }
 .statsitem{
     font-weight: 700;
-    color: rgba(0, 0, 0, 0.63);
+    color: #666666;
 }
 .itemprice{
     color: rgba(0, 0, 0, 0.63);
@@ -297,7 +297,7 @@
     margin-top: 32px;
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
-    border-bottom: 1px solid #9999;
+    border-bottom: .1px solid #bbbbbb8e;
     padding: 22px 25px 5px 17px;
 }
 .equityimg{
@@ -323,7 +323,7 @@
     border-bottom-left-radius: 8px;
 }
 .eqrghtdv{
-    border-left: 1px solid #9999;
+    border-left: .1px solid #bbbbbb65;
     padding-top: 22px;
     padding-left: 11px
 }
@@ -357,7 +357,7 @@
     background-color: #fff;
     align-items: center;
     padding: 19px;
-    border-bottom: 1px solid #9999;
+    border-bottom: 1px solid #bbbbbb8e;
 }
 .undsctrnbtn{
     background: rgba(3, 50, 154, 0.1);
@@ -373,7 +373,7 @@
     color: rgba(0, 0, 0, 0.63);
     font-weight: 700;
     padding: 20px 64px;
-    border-bottom: 1px solid #9999;
+    border-bottom: 1px solid  #bbbbbb8e;
 }
 .propprice{
     display: flex;
@@ -383,7 +383,7 @@
     padding: 0px 45px; 
 }
 .propprice:not(:last-child){
-    border-bottom: 1px solid #9999;
+    border-bottom: 1px solid  #bbbbbb8e;
 }
 .prpnme{
     padding: 20px;
@@ -393,17 +393,29 @@
     padding: 20px 19px;
     font-size: 24px;
     font-weight: 700;
-    border-left: 1px solid #9999;
+    border-left: 1px solid  #bbbbbb8e;
 }
 .prpnme2{
     padding: 20px 131px 0px 20px;
     color: rgba(0, 0, 0, 0.63);
     font-weight: 700;
-    border-left: 1px solid #9999;
+    border-left: 1px solid  #bbbbbb8e;
 }
 .prpnme3{
     padding: 20px 64px 0px 21px;
     color: rgba(0, 0, 0, 0.63);
     font-weight: 700;
-    border-left: 1px solid #9999;
+    border-left: 1px solid  #bbbbbb8e;
+}
+.doctxt{
+    color: #999999;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+}
+.thinss{
+    font-weight: 300;
+    padding-right: .1rem;
+    padding-left: .1rem;
 }
