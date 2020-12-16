@@ -15,7 +15,8 @@ import loader from "../../assets/loader.png";
 import caretdwn from "../../assets/caret_down.png";
 import equity from"../../assets/equity.png";
 import cavetleft from "../../assets/caretleft.png";
-import cavetright from "../../assets/caretright.png"
+import cavetright from "../../assets/caretright.png";
+import board from "../../assets/board.png";
 
 
 const Userdashboard = ()=>{
@@ -151,11 +152,11 @@ const Userdashboard = ()=>{
                                          <p className="equitytext">Total Equity Needed</p>
                                          <p className="equityamt">₦70,000,000.00</p>
                                     </div>
-                                   <div>
-                                      <img src={equity} className="equityimg"/>
-                                   </div>
-                                 </div>
-                                 <div className="equityamtdivs">
+                                    <div>
+                                       <img src={equity} className="equityimg"/>
+                                    </div>
+                                    </div>
+                                    <div className="equityamtdivs">
                                      <div className="eqleftdv">
                                           <p className="equitytext">Total Saved</p>
                                           <p className="equityamt">₦30,000,000.00</p>
@@ -165,8 +166,56 @@ const Userdashboard = ()=>{
                                           <p className="equityamt">₦40,000,000.00</p>
                                       </div>
                                  </div>
+                                 <Card className="creditreport-section">
+                                     <Card.Header className="creditreport-header ">
+                                         <p>Credit Report</p>
+                                     </Card.Header>
+                                     <Card.Body className="creditrprt-body">
+                                         <img src={board} className="crrpimg"/>
+                                         <p>No Credit Report Available</p>
+                                     </Card.Body>
+                                 </Card>
                             
                             </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                           <Card className="mortgage-section">
+                              <Card.Header className="mortgage-header">
+                                  Mortgages
+                              </Card.Header>
+                              <Card.Body className="mortgage-body">
+                              Sed lorem turpis tellus, nisl, vel <br/>quis rhoncus purus quis.
+                              <span className="mortgage-btn">Apply</span>
+                            </Card.Body> 
+                           </Card>
+                           </Col>   
+                           <Col md={4}>
+                           <Card className="mortgage-section">
+                              <Card.Header className="mortgage-header">
+                                Personal Loans
+                              </Card.Header>
+                              <Card.Body className="mortgage-body">
+                              Sed lorem turpis tellus, nisl, vel <br/>quis rhoncus purus quis.
+                              <span className="mortgage-btn">Apply</span>
+                            </Card.Body> 
+                           </Card>
+                           </Col>   
+                           <Col md={4}>
+                           <Card className="mortgage-section">
+                              <Card.Header className="mortgage-header">
+                                  Personal Details
+                              </Card.Header>
+                              <Card.Body className="dets-body">
+                                 
+                                 <p>Amount Loanable<br/>
+                                 Basic Salary</p>
+                               <div>  
+                              <span className="mortgage-btn">View More</span>
+                              </div>
+                            </Card.Body> 
+                           </Card>
+                           </Col>   
                         </Row>
                      </Col>
                  </Row>

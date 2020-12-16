@@ -361,3 +361,69 @@
     font-weight: 700;
     border-left: 1px solid #9999;
 }
+.creditreport-section{
+    margin-top: 32px;
+    border-radius: 6px;
+    border: none;
+    padding: 12px 0px 25px 0px;
+}
+.creditreport-header{
+    background-color: #fff;
+    border-bottom: none;
+    color: #5fb49c;
+    font-weight: 700;
+    font-size: 20px; 
+}
+.creditrprt-body{
+    text-align: center;
+    text-align: center;
+    color: #9999;
+    font-size: 14px;
+    font-weight: 700;
+}
+.crrpimg{
+    margin-bottom: 12px;
+}
+.mortgage-section{
+    border: none;
+    border-radius: 8px;
+}
+.mortgage-header{
+    background-color: #fff;
+    border-bottom: none;
+    text-align: center;
+    color: #5fb49c;
+    font-weight: 700;
+    font-size: 18px;
+}
+.mortgage-body{
+    text-align: center;
+    font-size: 13px;
+    color: #999;
+}
+.mortgage-btn{
+    display: inline-block;
+    border: 1px solid #5fb49c;
+    color: #5fb49c;
+    border-radius: 6px;
+    font-size: 14px;
+    padding: 8px 54px;
+    font-weight: 700;
+    margin-top: 27px;
+    transition: all .4s;
+}
+.mortgage-btn:hover{
+    background-color: #5fb49c;
+    color: #fff;
+    cursor: pointer;
+}
+.dets-body{
+    color: #999;
+    font-size: 13px;
+}
+.dets-body>p{
+    margin-bottom: 0px;
+}
+.dets-body>div{
+    text-align: center;
+}
