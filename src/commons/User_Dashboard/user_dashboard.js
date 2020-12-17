@@ -267,7 +267,7 @@ const Userdashboard = () => {
                                         Personal Details
                               </Card.Header>
                                     <Card.Body className="dets-body">
-                                        <p>Amount Loanable<br />
+                                        <p className="text-center">Amount Loanable<br />
                                         Basic Salary
                                         </p>
                                         <div>

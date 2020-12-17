@@ -173,7 +173,7 @@
 .udashboadprimheader{
     color: #5fb49c;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 18px;
 }
 .applctnheader>div{
     color: #1359f2;
@@ -519,9 +519,19 @@
 }
 .react-multi-carousel-item {
     width:auto;
+    border-top-right-radius: 1rem !important;
+    border-top-left-radius: 1rem !important;
+    width: 35px;
 }
+.react-multiple-carousel__arrow--right::before ,.react-multiple-carousel__arrow--left::before{
+    font-size: 12px !important;
+}
+
 .housess{
     width: 538px;
     position: relative;
     left: -1.2rem;
+    max-width: 538px;
+    height: 170px;
+    max-height: 170px;
 }
