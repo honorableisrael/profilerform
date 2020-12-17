@@ -19,6 +19,10 @@ import equity from "../../assets/equity.png";
 import cavetleft from "../../assets/caretleft.png";
 import cavetright from "../../assets/caretright.png";
 import board from "../../assets/board.png";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import house from "../../assets/house.png";
+import house2 from "../../assets/house2.png";
 
 
 
@@ -115,12 +119,60 @@ const Userdashboard = () => {
                                         </Card>
                                     </Accordion>
                                 </div>
+                                <Carousel
+                                    additionalTransfrom={0}
+                                    arrows
+                                    autoPlay={true}
+                                    autoPlaySpeed={7000}
+                                    centerMode={false}
+                                    containerClass="container-with-dots"
+                                    dotListClass=""
+                                    draggable
+                                    focusOnSelect={false}
+                                    infinite={true}
+                                    itemClass=""
+                                    keyBoardControl
+                                    minimumTouchDrag={80}
+                                    renderDotsOutside={false}
+                                    responsive={{
+                                        desktop: {
+                                            breakpoint: {
+                                                max: 3000,
+                                                min: 1024,
+                                            },
+                                            items: 1,
+                                            paritialVisibilityGutter: 40,
+                                        },
+                                        mobile: {
+                                            breakpoint: {
+                                                max: 710,
+                                                min: 0,
+                                            },
+                                            items: 1,
+                                            paritialVisibilityGutter: 30,
+                                        },
+                                        tablet: {
+                                            breakpoint: {
+                                                max: 1024,
+                                                min: 710,
+                                            },
+                                            items: 2,
+                                            paritialVisibilityGutter: 30,
+                                        },
+                                    }}
+                                    showDots={false}
+                                    sliderClass=""
+                                    slidesToSlide={1}
+                                    swipeable
+                                    className="center-changed"
+                                >
                                 <span className="carousel-section">
-                                    <div className="cardiv">
-                                        <img src={cavetleft} />
-                                        <img src={cavetright} />
-                                    </div>
+                                    <img src={house} className="housess" alt="houses" />
                                 </span>
+                                <span className="carousel-section">
+                                    <img src={house2} className="housess" alt="houses" />
+                                </span>
+                                </Carousel>
                                 <div className="propstatsdv">
                                     <div className="savingsheader">Property Status</div>
                                     <div className="undsctrnbtn">Under Construction</div>
@@ -215,9 +267,9 @@ const Userdashboard = () => {
                                         Personal Details
                               </Card.Header>
                                     <Card.Body className="dets-body">
-
                                         <p>Amount Loanable<br />
-                                 Basic Salary</p>
+                                        Basic Salary
+                                        </p>
                                         <div>
                                             <span className="mortgage-btn">View More</span>
                                         </div>

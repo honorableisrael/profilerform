@@ -339,12 +339,15 @@
 }
 .carousel-section{
     display: inline-block;
-    background-image: url(../../assets/house.png);
+    /* background-image: url(../../assets/house.png); */
     height: 25%;
     border-top-right-radius: 8px;
     width: 100%;
     background-repeat: no-repeat;
     margin-top: 32px;
+}
+.housess{
+    width: 100%;
 }
 .cardiv{
     display: flex;
@@ -489,9 +492,36 @@
 .dets-body>div{
     text-align: center;
 }
-.mnww{
-    min-width: 300px;
-    margin-bottom: 1rem;
-    max-width: 300px;
-    margin-top: 1rem;
+
+@media(max-width:768px){
+    .mnww{
+        min-width: 300px;
+        margin-bottom: 1rem;
+        max-width: 300px;
+        margin-top: 1rem;
+    }
+}
+.react-multiple-carousel__arrow--right,.react-multiple-carousel__arrow--left{
+    background: #5FB49C !important;
+    border: none;
+    outline: none;
+    position: relative;
+    top: 5.5rem;
+}
+.react-multiple-carousel__arrow--right{
+    right: .3em !important;
+}
+.react-multiple-carousel__arrow--right:focus,.react-multiple-carousel__arrow--left:focus{
+    outline: none;
+}
+.react-multiple-carousel__arrow--left{
+    left: .3em !important;
+}
+.react-multi-carousel-item {
+    width:auto;
+}
+.housess{
+    width: 538px;
+    position: relative;
+    left: -1.2rem;
 }
