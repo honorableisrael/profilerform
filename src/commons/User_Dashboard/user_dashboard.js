@@ -18,7 +18,11 @@ import caretdwn from "../../assets/caret_down.png";
 import equity from "../../assets/equity.png";
 import cavetleft from "../../assets/caretleft.png";
 import cavetright from "../../assets/caretright.png";
-import board from "../../assets/board.png";
+import pen from "../../assets/pen.png";
+import cross from "../../assets/cross.png";
+import uploadimg from "../../assets/uploadimg.png";
+import CreditReport from "./creditreport";
+import  Mortgagecards from "./mortgagecards";
 
 
 
@@ -37,7 +41,19 @@ const Userdashboard = () => {
                         <div className="mrginbttm">
                             <div className="sidnavoptions"><img src={grid} className="sidenvimg" />Dashboard</div>
                             <div className="sidnavoptionsna"><img src={gridwhite} className="sidenvimg" />Option 1</div>
-                            <div className="sidnavoptionsna"><img src={gridwhite} className="sidenvimg" />Multiple Option</div>
+                            <div >
+                              <Accordion defaultActiveKey="" className="sidenavacc">
+                              <Accordion.Toggle as={Card.Header} className="sidenavaccheader" eventKey="5">
+                              <img src={gridwhite} className="sidenvimg" /> Multiple Option
+                              </Accordion.Toggle>
+                              <Accordion.Collapse eventKey="5" className="">
+                                 <Card.Body className="sidenavaccbody">
+                                    Option 1
+                                 </Card.Body>
+                             </Accordion.Collapse>
+                            </Accordion>
+                               
+                            </div>
                             <div className="sidnavoptionsna "><img src={gridwhite} className="sidenvimg" />Option 2</div>
                         </div>
                         <div className="sdenavline2"><img src={line} className="img-fluid" /> </div>
@@ -108,8 +124,36 @@ const Userdashboard = () => {
                                                 </div>
                                             </Accordion.Toggle>
                                             <Accordion.Collapse eventKey="5">
-                                                <Card.Body>
-                                                    Passport
+                                                <Card.Body className="dashacccdbdy">
+                                                <div className="dashbdaccbdydescr">
+                                                    <div className="tyofdoc">Type of Documents</div>
+                                                    <div className="stats">status</div>
+                                                    
+                                                </div>
+                                                <div className="dashbdaccbdyitems">
+                                                    <div className="dashbdacbdyitem1">Passport</div>
+                                                    <div className="dashbdacbdyitem2">Uploaded </div>
+                                                    <div className="dashbdacbdyitem3"><img src={pen}/></div>
+                                                    <div className="dashbdacbdyitem4"><img src={cross}/></div>
+                                                </div>
+                                                <div className="dashbdaccbdyitems whitebackground">
+                                                    <div className="dashbdacbdyitem1">Evidence of Employment</div>
+                                                    <div className="dashbdacbdyitem2">Uploaded </div>
+                                                    <div className="dashbdacbdyitem3"><img src={pen}/></div>
+                                                    <div className="dashbdacbdyitem4"><img src={cross}/></div>
+                                                </div>
+                                                <div className="dashbdaccbdyitems">
+                                                    <div className="dashbdacbdyitem1">Sales/Allocation Offer Letter</div>
+                                                    <div className="dashbdacbdyitem2">Uploaded </div>
+                                                    <div className="dashbdacbdyitem3"><img src={pen}/></div>
+                                                    <div className="dashbdacbdyitem4"><img src={cross}/></div>
+                                                </div>
+                                                <div className="dashbdaccbdyitems whitebackground">
+                                                    <div className="dashbdacbdyitem1">Copy of Birth Certificate</div>
+                                                    <div className="dashbdacbdyitem2 pendingbtn">Pending </div>
+                                                    <div className="dashbdacbdyitem3"><img src={pen}/></div>
+                                                    <div className="dashbdacbdyitem4"><img src={uploadimg}/></div>
+                                                </div>
                                              </Card.Body>
                                             </Accordion.Collapse>
                                         </Card>
@@ -174,56 +218,12 @@ const Userdashboard = () => {
                                         <p className="equityamt">₦40,000,000.00</p>
                                     </div>
                                 </div>
-                                <Card className="creditreport-section">
-                                    <Card.Header className="creditreport-header ">
-                                        <p>Credit Report</p>
-                                    </Card.Header>
-                                    <Card.Body className="creditrprt-body">
-                                        <img src={board} className="crrpimg" />
-                                        <p>No Credit Report Available</p>
-                                    </Card.Body>
-                                </Card>
+                               <CreditReport/>
 
                             </Col>
                         </Row>
                         <Row>
-                            <Col md={4} className="mnww">
-                                <Card className="mortgage-section">
-                                    <Card.Header className="mortgage-header">
-                                        Mortgages
-                              </Card.Header>
-                                    <Card.Body className="mortgage-body">
-                                        Sed lorem turpis tellus, nisl, vel <br />quis rhoncus purus quis.
-                              <span className="mortgage-btn">Apply</span>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                            <Col md={4} className="mnww">
-                                <Card className="mortgage-section">
-                                    <Card.Header className="mortgage-header">
-                                        Personal Loans
-                              </Card.Header>
-                                    <Card.Body className="mortgage-body">
-                                        Sed lorem turpis tellus, nisl, vel <br />quis rhoncus purus quis.
-                              <span className="mortgage-btn">Apply</span>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                            <Col md={4} className="mnww">
-                                <Card className="mortgage-section">
-                                    <Card.Header className="mortgage-header">
-                                        Personal Details
-                              </Card.Header>
-                                    <Card.Body className="dets-body">
-
-                                        <p>Amount Loanable<br />
-                                 Basic Salary</p>
-                                        <div>
-                                            <span className="mortgage-btn">View More</span>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
+                           < Mortgagecards/>
                         </Row>
                     </Col>
                 </Row>
