@@ -725,6 +725,7 @@
         margin-top: 1rem;
     }
 }
+
 .react-multiple-carousel__arrow--right,.react-multiple-carousel__arrow--left{
     background: #5FB49C !important;
     border: none;
@@ -771,3 +772,9 @@
     margin-top: 1rem;
 }
  
+
+@media(max-width:480px){
+    .mnww {
+        max-width: 100%;
+    }
+}

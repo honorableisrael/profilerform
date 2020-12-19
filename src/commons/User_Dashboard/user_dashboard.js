@@ -39,6 +39,7 @@ const Userdashboard = (props) => {
     propertyList: [],
     documentPath: "",
     imageName: "",
+    applicationStatus: {},
     file: "",
   });
   let fileRef = useRef(null);
@@ -59,15 +60,19 @@ const Userdashboard = (props) => {
         axios.get(`${API}/user/user-files`, {
           headers: { Authorization: `Bearer ${userToken}` },
         }),
+        axios.get(`${API}/user/user-mortgage-status`, {
+          headers: { Authorization: `Bearer ${userToken}` },
+        }),
       ])
       .then(
-        axios.spread((res) => {
+        axios.spread((res, res1) => {
           console.log(res);
           if (res.status === 200) {
             setState({
               ...state,
               propertyList: res.data.data,
               user: currentUser.user,
+              applicationStatus: res1.data.data,
             });
           }
           if (res.status == 400) {
@@ -79,18 +84,21 @@ const Userdashboard = (props) => {
         console.log(err.response);
       });
   }, []);
-  const handleImageChange = (e) => {
+  const handleImageChange = (e, id) => {
     setState({
       ...state,
       file: e.target.files[0],
       imageName: e.target.files,
     });
+    if (state.imageName !== "") {
+      postNewDocument(id);
+    }
   };
 
   const postNewDocument = (id) => {
     const { documentPath } = state;
     const userToken = localStorage.getItem("jwtToken");
-    console.log(userToken);
+    console.log(id);
     const data = new FormData();
     data.append("id", id);
     data.append("employmentid", documentPath);
@@ -109,8 +117,8 @@ const Userdashboard = (props) => {
     return Math.abs(n % 2) == 1;
   };
 
-  const { user, propertyList, imageName } = state;
-  console.log(imageName);
+  const { user, propertyList, imageName, applicationStatus } = state;
+  console.log(applicationStatus);
   return (
     <div>
       <Container fluid>
@@ -235,12 +243,6 @@ const Userdashboard = (props) => {
                 <div className="statsprints-btn">Print</div>
               </div>
             </div>
-            <input
-              type="file"
-              onChange={handleImageChange}
-              style={{ display: "none" }}
-              ref={(fileInput) => (fileRef = fileInput)}
-            />
             <Row>
               <Col md={7}>
                 <div className="udashbdaccdiv">
@@ -277,17 +279,21 @@ const Userdashboard = (props) => {
                             >
                               <div className="dashbdacbdyitem1">
                                 {data?.doc_name}
-                                {console.log()}
+                                {console.log(data.is_uploaded)}
                               </div>
-                              {data?.upload_id == 1 ? (
+                              {data.is_uploaded == 1 ? (
                                 <div className="dashbdacbdyitem2">
                                   <a href={data.filename} target={"blank"}>
                                     Uploaded
                                   </a>
                                 </div>
-                              ) : (
+                              ) : data.is_uploaded == 0 ? (
                                 <div className="dashbdacbdyitem2 pendingbtn">
                                   Pending{" "}
+                                </div>
+                              ) : (
+                                <div className="dashbdacbdyitem2 pendingbtn">
+                                  Rejected{" "}
                                 </div>
                               )}
                               <div className="dashbdacbdyitem3">
@@ -305,6 +311,12 @@ const Userdashboard = (props) => {
                                   />
                                 </div>
                               )}
+                              <input
+                                type="file"
+                                onChange={()=>handleImageChange(data.id)}
+                                style={{ display: "none" }}
+                                ref={(fileInput) => (fileRef = fileInput)}
+                              />
                             </div>
                           ))}
                         </Card.Body>
@@ -366,22 +378,48 @@ const Userdashboard = (props) => {
                     <img src={house2} className="housess" alt="houses" />
                   </span>
                 </Carousel>
-                <div className="propstatsdv">
-                  <div className="savingsheader">Property Status</div>
-                  <div className="undsctrnbtn">Under Construction</div>
+                <div className="propstatsdvsection">
+                  <div className="propstatsdv">
+                    <div className="savingsheader">Property Status</div>
+                    <div className="undsctrnbtn">Under Construction</div>
+                  </div>
+                  <div className="bung">5 Bedroom Detached Bungalow</div>
+                  <div className="propprice">
+                    <div className="prpnme">Price</div>
+                    <div className="prpice">₦200,000,000.00</div>
+                  </div>
+                  <div className="propprice">
+                    <div className="prpnme">Payment Type</div>
+                    <div className="prpnme2">Mortgage</div>
+                  </div>
+                  <div className="propprice">
+                    <div className="prpnme">Date of Purchase</div>
+                    <div className="prpnme3">30th October 2020</div>
+                  </div>
                 </div>
-                <div className="bung">5 Bedroom Detached Bungalow</div>
-                <div className="propprice">
-                  <div className="prpnme">Price</div>
-                  <div className="prpice">₦200,000,000.00</div>
-                </div>
-                <div className="propprice">
-                  <div className="prpnme">Payment Type</div>
-                  <div className="prpnme2">Mortgage</div>
-                </div>
-                <div className="propprice">
-                  <div className="prpnme">Date of Purchase</div>
-                  <div className="prpnme3">30th October 2020</div>
+                <div className="mobilepropstatsdv">
+                  <div className="propstatsdv rmpad">
+                    <div className="savingsheader mobsavheader">
+                      Property Status
+                    </div>
+                    <div className=" mobstatsrvbtn">Not Started</div>
+                  </div>
+                  <div className="mobbung">
+                    <p className="mobsubheading"> Name </p>
+                    <p className="mobprop"> 5 Bedroom Detached Bungalow </p>
+                  </div>
+                  <div className="mobbung">
+                    <p className="mobsubheading">Price</p>
+                    <p className="mobprop">₦200,000,000.00</p>
+                  </div>
+                  <div className="mobbung">
+                    <p className="mobsubheading">Payment Type</p>
+                    <p className="mobprop">Mortgage</p>
+                  </div>
+                  <div className="mobbung lastprop">
+                    <p className="mobsubheading">Date of Purchase</p>
+                    <p className="mobprop">30th October 2020</p>
+                  </div>
                 </div>
               </Col>
               <Col md={5}>
