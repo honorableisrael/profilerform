@@ -2,13 +2,14 @@ import axios from "axios";
 import  setAuthToken  from "./../../utils/setAuthToken";
 // import jwt_decode from "jwt-decode";
 
-import { CLEAR_CURRENT_USER, CLEAR_EARNINGS, IS_LOADING } from "../../constants";
+import { CLEAR_CURRENT_USER, CLEAR_EARNINGS, CLEAR_REQUEST, IS_LOADING } from "../../constants";
 import errorTypes from "../types/errorTypes";
 import authTypes from "../types/authTypes";
 import userTypes from "../types/userTypes";
 import {BASE_URL, LOGIN_PAGE_URL, REGISTER_URL, FORGOT_PASSWORD_URL, CHANGE_PASSWORD_CODE_URL} from "../../constants";
 import userActions from "./userActions";
 import { batchDispatcher } from '../../utils/applicationBatchDispatchHelper';
+import http from "../../config/axios.config";
 
 
 // Register User
@@ -35,7 +36,8 @@ export const loginUser = (userData) => dispatch => {
         const {user} = res.data.data;
         const {token} = res.data.data;
         // Set token to local storage
-        localStorage.setItem("jwtToken" , `Bearer ${token}`);
+        localStorage.setItem("token" , token);
+        localStorage.setItem("user", JSON.stringify(user));
         //Set Token to  Auth Header
         setAuthToken(token);
         // //Decode token to get user data
@@ -113,10 +115,12 @@ export const setCurrentUser = (user)=>{
 //Logout User
 export const logoutUser = () => dispatch => {
         //Remove token from local storage
-        localStorage.removeItem("jwtToken");
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
         //Remove auth header for future requests
         setAuthToken(false);
         //set Current User to {} which will set isAuthenticated to false
         dispatch({type: CLEAR_CURRENT_USER});
         dispatch({type: CLEAR_EARNINGS});
+        dispatch({type: CLEAR_REQUEST});
 }

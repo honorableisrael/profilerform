@@ -2,12 +2,14 @@ import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import http from '../../config/axios.config';
+import axios from 'axios';
 
 import earningsTypes from '../../store/types/earningsTypes';
 import earningsActions from '../../store/actions/earningsActions';
 import affordabilityActions from '../../store/actions/affordabilityActions';
 import affordabilityTypes from '../../store/types/affordabilityTypes';
 import { clearCommas, formatCurrencyInput } from '../../utils/currencyUtils';
+import { BASE_URL } from '../../constants';
 
 
 const Wrapper = styled.div`
@@ -111,7 +113,7 @@ const Wrapper = styled.div`
       font-weight: bold;
       z-index: 10 !important;
       line-height: 28px !important;
-      font-size: 1.325rem !important;
+      font-size: 0.95rem !important;
     }
 
     // .application-summary-wrapper > h3{
@@ -140,7 +142,7 @@ const Wrapper = styled.div`
       font-weight: bold;
       z-index: 10 !important;
       line-height: 28px !important;
-      font-size: 1.025rem !important;
+      font-size: 0.725rem !important;
     }
 
     .row{
@@ -187,12 +189,12 @@ const Wrapper = styled.div`
     } 
 
     .col-sm-3{
-      padding-right: 5px;
-      padding-left: 5px;
+      padding-right: 3px;
+      padding-left: 2px;
     }
 
     .monetary-value::before{
-      font-size: 1.025rem !important;
+      font-size: 0.825rem !important;
       padding-right: 3px;
     }
     .section-heading{
@@ -212,80 +214,73 @@ const Wrapper = styled.div`
   }
 `;
 
-const SummarySection = ({ heading, closed, ...rest }) => {
-  let {
-    monthly_gross_pay, outstanding_loans, rate, tenure,
-    maxTenure, max_loanable_amount, monthly_repayment
-  } = rest;
+const SummarySection = ({ heading, closed, backUser, ...rest }) => {
+  let monthly_gross_pay = rest.monthly_gross_pay ? rest.monthly_gross_pay : backUser.monthly_gross_pay;
+  let outstanding_loans = rest.outstanding_loans ? rest.outstanding_loans : backUser.outstanding_loans;
+  let rate = rest.rate ? rest.rate : backUser.rate;
+  let tenure = rest.tenure ? rest.tenure : backUser.tenure;
+  let maxTenure = rest.maxTenure ? rest.maxTenure : backUser.maxTenure;
+  let loanable_amount = rest.loanable_amount ? rest.loanable_amount : backUser.loanable_amount;
+  let monthly_repayment = rest.monthly_repayment ? rest.monthly_repayment : backUser.monthly_repayment;
 
-  const dispatch = useDispatch();
-const [incomePercentage, setIncomePercentage] = useState(.333);
+//   const dispatch = useDispatch();
+// const [incomePercentage, setIncomePercentage] = useState(.333);
 
-const calculateMonthlyPayment = (principal, rate, months) => {
-let rate_plus_one = 1 + rate;
-let rate_raise_to_Number_of_month = Math.pow(rate_plus_one, months);
-let numerator = principal * rate * rate_raise_to_Number_of_month;
-let denominator = rate_raise_to_Number_of_month - 1;
-let monthly_payment = Math.round(numerator / denominator);
-return monthly_payment;
-};
+// const calculateMonthlyPayment = (principal, rate, months) => {
+// let rate_plus_one = 1 + rate;
+// let rate_raise_to_Number_of_month = Math.pow(rate_plus_one, months);
+// let numerator = principal * rate * rate_raise_to_Number_of_month;
+// let denominator = rate_raise_to_Number_of_month - 1;
+// let monthly_payment = Math.round(numerator / denominator);
+// return monthly_payment;
+// };
 
-const calculateLoanableAmount = () => {
-let income = parseFloat(clearCommas(monthly_gross_pay));
-if (isNaN(income)) income = 0;
+// const calculateLoanableAmount = () => {
+// let income = parseFloat(clearCommas(monthly_gross_pay));
+// if (isNaN(income)) income = 0;
 
-    // if (have_additional_income === 'yes') {
-    //   const additionalIncome = Number(clearCommas(additional_income));
-    //   income += isNaN(additionalIncome) ? 0 : additionalIncome;
-    // }
+//     // if (have_additional_income === 'yes') {
+//     //   const additionalIncome = Number(clearCommas(additional_income));
+//     //   income += isNaN(additionalIncome) ? 0 : additionalIncome;
+//     // }
 
-    if (outstanding_loans) {
-      const otherObligations = Number(clearCommas(outstanding_loans));
-      income -= isNaN(otherObligations) ? 0 : otherObligations;
-    }
+//     if (outstanding_loans) {
+//       const otherObligations = Number(clearCommas(outstanding_loans));
+//       income -= isNaN(otherObligations) ? 0 : otherObligations;
+//     }
 
-[rate, tenure] = [rate, tenure].map(el => parseInt(el, 10));
-const months = tenure * 12;
-rate = rate / 100 / 12;
-const rate_plus_one = 1 + rate;
-const rate_raise_to_Number_of_month = Math.pow(rate_plus_one, months);
-const raise_to_power_month_minus_one = rate_raise_to_Number_of_month - 1;
-const principal = Number(income) * incomePercentage;
-const numerator = principal * raise_to_power_month_minus_one;
-const denominator = rate * rate_raise_to_Number_of_month;
-const loanable_amount = numerator / denominator;
-const monthlyRepayment = Math.round(calculateMonthlyPayment(loanable_amount, rate, months));
-const maxLoanableAmount = Math.round(loanable_amount);
+// [rate, tenure] = [rate, tenure].map(el => parseInt(el, 10));
+// const months = tenure * 12;
+// rate = rate / 100 / 12;
+// const rate_plus_one = 1 + rate;
+// const rate_raise_to_Number_of_month = Math.pow(rate_plus_one, months);
+// const raise_to_power_month_minus_one = rate_raise_to_Number_of_month - 1;
+// const principal = Number(income) * incomePercentage;
+// const numerator = principal * raise_to_power_month_minus_one;
+// const denominator = rate * rate_raise_to_Number_of_month;
+// const loanable_amount = numerator / denominator;
+// const monthlyRepayment = Math.round(calculateMonthlyPayment(loanable_amount, rate, months));
+// const maxLoanableAmount = Math.round(loanable_amount);
 
-dispatch(affordabilityActions[affordabilityTypes.SET_MONTHLY_REPAYMENT](monthlyRepayment));
-dispatch(affordabilityActions[affordabilityTypes.SET_MAX_LOANABLE_AMOUNT](maxLoanableAmount));
-}
-
-useEffect(() => {
-calculateLoanableAmount();
-});
+// dispatch(affordabilityActions[affordabilityTypes.SET_MONTHLY_REPAYMENT](monthlyRepayment));
+// dispatch(affordabilityActions[affordabilityTypes.SET_MAX_LOANABLE_AMOUNT](maxLoanableAmount));
+// }
 
 // useEffect(() => {
-  // POST request using axios inside useEffect React hook
-  // const article = { title: 'React Hooks POST Request Example' };
-  // http.post(
-  //   '/user/affordability-test',
-    // 'https://staging.newhomes.ng/api/user/affordability-test',
-  //   {
-  //     monthly_gross_pay: 'police Deve',
-  //     total_annual_pay: 'home',
-  //     monthly_expenses: 0,
-  //     payment_option: 'mortgage',
-  //     ...values,
-  //     tenure: 15,
-  //     budget: affordability.budget,
-  //     payment_option: affordability.payment_option,
-  //     have_equity: 0
-  //   }
-  // );
+// calculateLoanableAmount();
+// });
 
-// empty dependency array means this effect will only run once (like componentDidMount in classes)
-// }, []);
+useEffect(() => {
+  console.log(rest)
+  axios.post(
+    `${BASE_URL}/user/affordability-test`,
+    {
+      monthly_gross_pay, outstanding_loans, rate, tenure,
+      maxTenure, loanable_amount, monthly_repayment
+    }
+  );
+
+}, []);
 
  
 
@@ -303,7 +298,7 @@ calculateLoanableAmount();
           <div className= "col-md-4 col-sm-3">
             <div className="summary-value-wrapper">
               <p>Maximum Loanable</p>
-              <h3 className="monetary-value">{formatCurrencyInput(max_loanable_amount || '') || '\t0,000,000'}</h3>
+              <h3 className="monetary-value">{formatCurrencyInput(loanable_amount || '') || '\t0,000,000'}</h3>
             </div>
           </div>
           <div className= "col-md-4 col-sm-3">
@@ -325,8 +320,8 @@ calculateLoanableAmount();
   );
 };
 
-const mapStateToProps = ({ affordability, currentUser: { year_to_retirement }, earnings }, ownProps) => {
-  return { ...affordability, ...earnings, tenure: year_to_retirement, maxTenure: year_to_retirement, ...ownProps };
+const mapStateToProps = ({ affordability, currentUser: { year_to_retirement }, auth, earnings }, ownProps) => {
+  return { ...affordability, ...earnings, backUser: {...auth.currentUser}, tenure: year_to_retirement, maxTenure: year_to_retirement, ...ownProps };
 };
 
 export default connect(mapStateToProps)(SummarySection);

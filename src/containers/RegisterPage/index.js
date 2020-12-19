@@ -24,11 +24,11 @@ function RegisterPage(props) {
   // const [password, setPassword] = useState("");
   const [backErrors, setBackErrors] = useState({});
 
-  useEffect(()=>{
-    if(props.auth.isAuthenticated){
-      props.history.push("/auth/login")
-    }
-  }, [props.history, props.auth.isAuthenticated]);
+  // useEffect(()=>{
+  //   if(props.auth.isAuthenticated){
+  //     props.history.push("/auth/login")
+  //   }
+  // }, [props.history, props.auth.isAuthenticated]);
 
   useEffect(()=>{
     if(props.errors.errors){
@@ -134,7 +134,7 @@ function RegisterPage(props) {
                         firstname: "",
                         lastname: "",
                       }}
-                      onSubmit={(data) => props.registerUser(data)}
+                      onSubmit={(data) => props.registerUser(data, props.history)}
                       validationSchema={validationSchema}
                     >
                       {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => {

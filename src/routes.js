@@ -30,11 +30,12 @@ import NewMortgageForm from "./containers/NewMortgageForm";
 
 
 //check for token
-if(localStorage.jwtToken){
+if(localStorage.token && localStorage.user){
   //set auth token header auth
-  setAuthToken(localStorage.jwtToken);
+  setAuthToken(localStorage.token);
   //set current user and isAuthenticated
-  store.dispatch(setCurrentUser(localStorage.jwtToken));
+  // store.dispatch(setCurrentUser(JSON.parse(localStorage.user)));
+  store.dispatch(setCurrentUser(localStorage.user));
 
   //Check for expired token
   const currentTime = Date.now() / 1000;

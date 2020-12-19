@@ -1,3 +1,4 @@
+import { CLEAR_REQUEST } from '../../constants';
 import requestTypes from '../types/requestTypes';
 
 
@@ -20,6 +21,7 @@ const requestReducer = (state = initialState, action) => {
     case requestTypes.SET_PROPERTY_VALUE: return { ...state, property_value: action.payload };
     case requestTypes.SET_PROPERTY_TYPE_ID: return { ...state, property_type_id: action.payload };
     case requestTypes.SET_PROPERTY_BEDROOM: return { ...state, property_bedroom: action.payload };
+    case CLEAR_REQUEST: return initialState;
     default: return state;
   }
 };

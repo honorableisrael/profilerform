@@ -20,6 +20,7 @@ import http from '../../config/axios.config';
 import cookies from '../../utils/cookies';
 import "./../../commons/TextFieldGroup/ProfileTextField.css";
 import Modal from "./../../commons/Modal";
+import isEmpty from '../../validation/is_Empty';
 
 
 const Wrapper = styled.div`
@@ -61,7 +62,7 @@ const validationSchema = (() => {
     monthly_expenses: validations.currencyField,
     outstanding_loans: validations.currencyField,
     monthly_gross_pay: validations.requiredCurrencyField,
-    total_annual_salary: validations.requiredCurrencyField,
+    total_annual_pay: validations.requiredCurrencyField,
     equity_contribution: validations.currencyFieldWithWhen([
       'have_equity', {
         is: value => value === DEFAULT_RADIO_VALUES[0],
@@ -82,7 +83,7 @@ const paymentOptionsWithBudget = ['Installment Payment', 'Rent to Own'];
 const NewAffordabilityForm = ({
   setActiveTab, setFoundProperty, maxTenure, currentUser, alert,
   paymentOptions, setSubmittedAffordability, dispatch, selectedProperty,
-  setPropertyStoreData, setSelectedProperty, submittedAffordability, ...rest
+  setPropertyStoreData, setSelectedProperty, submittedAffordability, backUser, ...rest
 }) => {
   const [submittedAtLeastOnce, setsubmittedAtLeastOnce] = useState(false);
   const [modalStatus, setModalStatus] = useState(false);
@@ -105,8 +106,8 @@ const NewAffordabilityForm = ({
     const valuesCloned = {...values};
     valuesCloned.have_equity = Number(valuesCloned.have_equity === 'yes');
     valuesCloned.down_payment = valuesCloned.equity_contribution;
-    delete valuesCloned.budget;
-    delete valuesCloned.payment_option;
+    valuesCloned.monthly_gross_pay = Number(valuesCloned.monthly_gross_pay);
+    // delete valuesCloned.budget;
     delete valuesCloned.equity_contribution;
     try {
       if (submittedAtLeastOnce || submittedAffordability) {
@@ -115,17 +116,19 @@ const NewAffordabilityForm = ({
         return await setPropertyStoreData(selectedProperty);
         // setActiveTab(2);
       }
+      console.log(valuesCloned)
       
       const { data: { data: { token } }} = await axios.post(
-        `${BASE_URL}${USER_PROFILE_URL}`, 
+        // `${BASE_URL}${USER_PROFILE_URL}`, 
         // 'https://staging.newhomes.ng/api/police/profile',
-        // `${BASE_URL}${USER_AFFORDABILITY_URL}`,
-        {...currentUser, ...valuesCloned, loanable_amount: rest.max_loanable_amount}
+        `${BASE_URL}${USER_AFFORDABILITY_URL}`,
+        {...valuesCloned, loanable_amount: rest.max_loanable_amount}
       );
-      if (token) {
-        cookies.set('token', token);
-        http.defaults.headers.Authorization = `Bearer ${token}`;
-      }
+      // if (token) {
+      //   cookies.set('token', token);
+      //   localStorage.setItem('token', token);
+      //   http.defaults.headers.Authorization = `Bearer ${token}`;
+      // }
       setsubmittedAtLeastOnce(true);
       setSubmittedAffordability(true);
       setSelectedProperty(null);
@@ -138,34 +141,34 @@ const NewAffordabilityForm = ({
       <Formik
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
-        // initialValues={{
-        //   budget: rest.budget,
-        //   have_equity: rest.have_equity,
-        //   payment_option: rest.payment_option,
-        //   monthly_expenses: rest.monthly_expenses,
-        //   outstanding_loans: rest.outstanding_loans,
-        //   monthly_gross_pay: rest.monthly_gross_pay,
-        //   total_annual_salary: rest.total_annual_salary,
-        //   equity_contribution: rest.equity_contribution,
-        // }}
         initialValues={{
-          ...(() => {
-            const {
-              budget, have_equity, payment_option, monthly_expenses,
-              outstanding_loans, monthly_gross_pay, total_annual_salary,equity_contribution
-            } = rest;
-
-            return {
-              budget, have_equity, payment_option, monthly_expenses,
-              outstanding_loans, monthly_gross_pay, total_annual_salary,equity_contribution
-            };
-          })()
+          budget: rest.budget ? Number(rest.budget) : (!isEmpty(backUser.budget) ? backUser.budget : ""),
+          have_equity: rest.have_budget ? rest.have_budget : (!isEmpty(backUser.have_budget) ? backUser.have_budget : "no"),
+          payment_option: rest.payment_option ? rest.payment_option : (!isEmpty(backUser.payment_option) ? backUser.payment_option : ""),
+          monthly_expenses: rest.monthly_expenses ? Number(rest.monthly_expenses) : (!isEmpty(backUser.monthly_expenses) ? backUser.monthly_expenses : ""),
+          outstanding_loans:  rest.outstanding_loans ? Number(rest.outstanding_loans) : (!isEmpty(backUser.outstanding_loans) ? backUser.outstanding_loans : ""),
+          monthly_gross_pay: rest.monthly_gross_pay ? Number(rest.monthly_gross_pay) : (!isEmpty(backUser.monthly_gross_pay) ? backUser.monthly_gross_pay : ""),
+          total_annual_pay: rest.total_annual_pay ? Number(rest.total_annual_pay) : (!isEmpty(backUser.total_annual_pay) ? backUser.total_annual_pay : ""),
+          equity_contribution: rest.equity_contribution ? rest.equity_contribution : (!isEmpty(backUser.equity_contribution) ? backUser.equity_contribution : ""),
         }}
+        // initialValues={{
+        //   ...(() => {
+        //     const {
+        //       budget, have_equity, payment_option, monthly_expenses,
+        //       outstanding_loans, monthly_gross_pay, total_annual_salary,equity_contribution
+        //     } = rest;
+
+        //     return {
+        //       budget, have_equity, payment_option, monthly_expenses,
+        //       outstanding_loans, monthly_gross_pay, total_annual_salary,equity_contribution
+        //     };
+        //   })()
+        // }}
       >
         {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => {
           const { 
             have_equity, outstanding_loans, monthly_gross_pay, budget,
-            total_annual_salary, equity_contribution, monthly_expenses, payment_option
+            total_annual_pay, equity_contribution, monthly_expenses, payment_option
           } = values;
           return (
             <Form className="form-main">
@@ -178,10 +181,10 @@ const NewAffordabilityForm = ({
                     append='Annually'
                     placeholder="30,000,000"
                     onBlur={handleBlur}
-                    name='total_annual_salary'
+                    name='total_annual_pay'
                     className='form-control'
-                    value={formatCurrencyInput(total_annual_salary)}
-                    onChange={getHandleChange(handleChange, earningsTypes.SET_TOTAL_ANNUAL_SALARY, true)}
+                    value={formatCurrencyInput(total_annual_pay)}
+                    onChange={getHandleChange(handleChange, earningsTypes.SET_TOTAL_ANNUAL_PAY, true)}
                     {...{ errors, touched }}
                     className="form-control form-control-lg form-area2"
                   />
@@ -209,8 +212,8 @@ const NewAffordabilityForm = ({
                     <div className="col-12 col-md-6 form-group">
                           <WrappedSelectWithError
                                 name="have_equity"
-                                value={values.have_equity}
-                                options={['no', 'yes']}
+                                value={have_equity}
+                                options={['select','no', 'yes']}
                                 onBlur={handleBlur}
                                 onChange={({ target }) => {
                                 if (target.value === 'no') {
@@ -449,7 +452,7 @@ const NewAffordabilityForm = ({
 
 
 const mapStateToProps = ({ affordability, earnings, auth, currentUser}, ownProps) => {
-  return { ...affordability, currentUser: { ...currentUser, ...auth.currentUser }, ...earnings, properties: [], ...ownProps };
+  return { ...affordability, currentUser : {...currentUser}, backUser : {...auth.currentUser}, ...earnings, properties: [], ...ownProps };
 }
 
  

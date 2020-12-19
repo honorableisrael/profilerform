@@ -218,10 +218,10 @@ const Wrapper = styled.div`
 const PropertySuggestionSection = ({
   closed, properties, goToEligibility, /* found, */
   setPropertyStoreData, submittedAffordability, activeTab,
-  equity_contribution, max_loanable_amount, alertUser,
+  equity_contribution, loanable_amount, alertUser, backUser,
   selectedProperty, setSelectedProperty, setPropRequest, setPropChoice, setViewedProperty, viewedProperty
 }) => {
-  const affords = +clearCommas(equity_contribution) + +clearCommas(max_loanable_amount);
+  const affords = +clearCommas(equity_contribution) + +clearCommas(loanable_amount ? loanable_amount : backUser.loanable_amount);
   const filteredProperties = submittedAffordability
     ?
     (properties || [])
@@ -260,9 +260,9 @@ const PropertySuggestionSection = ({
   ) : '';
 }
 
-const mapStateToProps = ({ properties, affordability: { equity_contribution, max_loanable_amount } }, ownProps) => {
+const mapStateToProps = ({ properties, affordability: { equity_contribution, loanable_amount }, auth: {currentUser} }, ownProps) => {
   return {
-    properties: properties.data, equity_contribution, max_loanable_amount, ...ownProps
+    properties: properties.data, equity_contribution, loanable_amount, backUser: {...currentUser}, ...ownProps
   };
 };
  

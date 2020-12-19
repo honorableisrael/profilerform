@@ -17,6 +17,7 @@ import statesList from '../../utils/statesMapped';
 import cookies from '../../utils/cookies';
 import userActions from '../../store/actions/userActions';
 import "./../../commons/TextFieldGroup/ProfileTextField.css";
+import isEmpty from "./../../validation/is_Empty";
 
 
 const Wrapper = styled.div`
@@ -47,7 +48,7 @@ const validationSchema = Yup.object().shape({
 })
 
 
-const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
+const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent, backUser }) => {
   const email = cookies.get('email') || '';
   const handleSubmit = async (values) => {
     try {
@@ -63,6 +64,8 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
   delete userClone.state; delete userClone.work_experience; delete userClone.year_to_retirement;
   delete userClone.work_experience; delete userClone.profession; delete userClone.employer_address;
   delete userClone.employment_state;
+  // const [dd, mm, yyyy] = userClone.dob.split('-');
+  //   const newdob = new Date(`${dd}/${mm}/${yyyy}`);
 
   return (
     <Wrapper className="container">
@@ -70,21 +73,35 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
       <Formik
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
-        initialValues={{
-          ...(() => {
-            const {
-              firstname, lastname, phone, no_of_dependents,
-              mode_of_contact, dob, marital_status, address,
-              current_apartment_status, state_of_origin, 
-            } = userClone;
+        // initialValues={{
+        //   ...(() => {
+        //     const {
+        //       firstname, lastname, phone, dob,
+        //       mode_of_contact, marital_status, address,
+        //       current_apartment_status, state_of_origin, 
+        //     } = userClone;
 
-            return {
-              firstname, lastname, phone, no_of_dependents,
-              mode_of_contact, dob, marital_status, address,
-              current_apartment_status, state_of_origin, 
-            };
-          })(),
-          email: userClone.email || email
+        //     return {
+        //       firstname, lastname, phone, dob,
+        //       mode_of_contact, marital_status, address,
+        //       current_apartment_status, state_of_origin, 
+        //     };
+        //   })(),
+        //   email: userClone.email || email,
+        //   no_of_dependents: Number(userClone.no_of_dependents),
+        // }}
+        initialValues={{
+          firstname: userClone.firstname ? userClone.firstname : (!isEmpty(backUser.firstname)) ? backUser.firstname : "", 
+          lastname: userClone.lastname ? userClone.lastname : !isEmpty(backUser.lastname) ? backUser.lastname : "", 
+          phone: userClone.phone ? userClone.phone : !isEmpty(backUser.phone) ? backUser.phone : "", 
+          dob: userClone.dob ? userClone.dob : !isEmpty(backUser.dob) ? backUser.dob : "",
+          mode_of_contact: userClone.mode_of_contact ? userClone.mode_of_contact : !isEmpty(backUser.mode_of_contact) ? backUser.mode_of_contact : "", 
+          marital_status: userClone.marital_status ? userClone.marital_status : !isEmpty(backUser.marital_status) ? backUser.marital_status : "", 
+          address: userClone.address ? userClone.address : !isEmpty(backUser.address) ? backUser.address : "",
+          current_apartment_status: userClone.current_apartment_status ? userClone.current_apartment_status : !isEmpty(backUser.current_apartment_status) ? backUser.current_apartment_status : "", 
+          state_of_origin: userClone.state_of_origin ? userClone.state_of_origin : !isEmpty(backUser.state_of_origin) ? backUser.state_of_origin : "", 
+          email: userClone.email ? userClone.email || email : !isEmpty(backUser.email) ? backUser.email : "",
+          no_of_dependents: userClone.no_of_dependents ? Number(userClone.no_of_dependents) : !isEmpty(backUser.no_of_dependents) ? Number(backUser.no_of_dependents) : "",
         }}
       >
         {({ values, errors, touched, handleBlur, handleChange, isSubmitting }) => {
@@ -496,7 +513,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
 }
 
 const mapStateToProps = ({ auth, currentUser }, ownProps) => ({
-  currentUser: { ...currentUser, ...auth.currentUser }, ...ownProps
+  currentUser: { ...currentUser} ,backUser: { ...auth.currentUser }, ...ownProps
 });
  
 export default connect(mapStateToProps)(ProfileForm);

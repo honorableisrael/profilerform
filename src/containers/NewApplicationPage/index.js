@@ -7,7 +7,7 @@ import { faAngleDown, faAngleUp, faExclamationTriangle, faExpand } from '@fortaw
 import BathIcon from "../Resource/bathroom.png";
 import BedIcon from "../Resource/bedroom.png";
 import ButtonSpinner from '../ButtonSpinner';
-import { ALL_CITIES_URL, ALL_STATES_URL, PAYMENT_OPTIONS_URL, PROPERTY_TYPE_URL} from "../../constants";
+import { ALL_CITIES_URL, ALL_STATES_URL, BASE_URL, PAYMENT_OPTIONS_URL, PROPERTY_TYPE_URL} from "../../constants";
 
 import SummarySection from './SummarySection';
 import withNewStyles from '../../hocs/withNewStyles';
@@ -18,6 +18,7 @@ import affordabilityTypes from '../../store/types/affordabilityTypes';
 import affordabilityActions from '../../store/actions/affordabilityActions';
 import cookies from '../../utils/cookies';
 import http from '../../config/axios.config';
+import axios from 'axios'
 import { batchDispatcher } from '../../utils/applicationBatchDispatchHelper';
 import propertyActions from '../../store/actions/propertyActions';
 import requestActions from '../../store/actions/requestActions';
@@ -523,7 +524,7 @@ const Wrapper = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1050;
+    z-index: 100;
     width: 70%;
     height: 100%;
     outline: 0;
@@ -748,7 +749,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
       (statesMapped[fctVariants[0]] || statesMapped[fctVariants[1]])
       : statesMapped[stateName];
     // try {
-      const { data: { data: cities } } = await http.get(`${ALL_CITIES_URL}${propertyStateId}`);
+      const { data: { data: cities } } = await axios.get(`${BASE_URL}${ALL_CITIES_URL}${propertyStateId}`);
       const city = (cities || []).find(({ name }) => name.toLowerCase() === cityName);
       const cityId = city?.id;
       const bedrooms = typeof property_bedrooms === 'string' && property_bedrooms.includes('-') ?
@@ -787,7 +788,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
         const [
           { data: { data: states } }, { data: { data: propertyTypes } }, { data: { data: paymentOptions } }
         ] = await Promise.all([
-          http.get(`${ALL_STATES_URL}`), http.get(`${PROPERTY_TYPE_URL}1`), http.get(`${PAYMENT_OPTIONS_URL}`)
+          axios.get(`${BASE_URL}${ALL_STATES_URL}`), axios.get(`${BASE_URL}${PROPERTY_TYPE_URL}1`), axios.get(`${BASE_URL}${PAYMENT_OPTIONS_URL}`)
         ]);
 
         setFormDataJSON(JSON.stringify({ states, propertyTypes, paymentOptions }));

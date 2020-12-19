@@ -44,6 +44,12 @@ const Wrapper = styled.div`
   .success-component h3 {
     color: #999 !important;
   }
+
+  @media screen and (max-width: 770px){
+    .success-component h3 {
+      text-align: center;
+    }
+  }
 `;
 // const CircularLoader = styled(CircularLoader)
 
@@ -80,13 +86,13 @@ const NewEligibilityForm = ({
 
   const handleSubmit = async (values) => {
     try {
-      await http.post(
-        `${USER_PROPERTY_REQUEST_URL}`,
+      await axios.post(
+        `${BASE_URL}${USER_PROPERTY_REQUEST_URL}`,
         // 'https://staging.newhomes.ng/api/police/property-request',
         {
           directed_to: 'police Deve',
-          request_type: 'home',
-          payment_option: 'mortgage',
+          request_type: 'Home',
+          payment_option: 'Mortgage',
           ...values,
           budget: affordability.budget,
           payment_option: affordability.payment_option,

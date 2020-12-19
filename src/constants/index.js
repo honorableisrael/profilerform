@@ -9,6 +9,7 @@ export const IS_LOADING = "IS_LOADING";
 export const USER_DATA = "USER_DATA";
 export const CLEAR_CURRENT_USER = 'CLEAR_CURRENT_USER';
 export const CLEAR_EARNINGS = 'CLEAR_EARNINGS';
+export const CLEAR_REQUEST = 'CLEAR_REQUEST';
 export const APPLICATION_URL = "/application";
 export const DASHBOARD_URL = "/user/dashboard";
 export const LENDER_DASHBOARD_URL = "/lender/dashboard";
