@@ -5,13 +5,14 @@ import board from "../../assets/board.png";
 const CreditReport = ()=>{
     return(
         <>
+        
          <Col md={4} className="mnww">
              <Card className="mortgage-section">
                  <Card.Header className="mortgage-header">
                         Mortgages
                     </Card.Header>
                     <Card.Body className="mortgage-body">
-                        Sed lorem turpis tellus, nisl, vel <br />quis rhoncus purus quis.
+                        <p>Sed lorem turpis tellus, nisl, vel</p><p>quis rhoncus purus quis.</p>
                        <span className="mortgage-btn">Apply</span>
                     </Card.Body>
                     </Card>
@@ -22,8 +23,8 @@ const CreditReport = ()=>{
                             Personal Loans
                          </Card.Header>
                           <Card.Body className="mortgage-body">
-                           Sed lorem turpis tellus, nisl, vel <br />quis rhoncus purus quis.
-                           <span className="mortgage-btn">Apply</span>
+                          <p>Sed lorem turpis tellus, nisl, vel</p><p>quis rhoncus purus quis.</p>
+                       <span className="mortgage-btn">Apply</span>
                          </Card.Body>
                       </Card>
                     </Col>

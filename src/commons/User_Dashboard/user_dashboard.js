@@ -31,6 +31,7 @@ import Mortgagecards from "./mortgagecards";
 import { API } from "../../config";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import eye2 from "../../assets/eye2.svg";
 
 const Userdashboard = (props) => {
   const [state, setState] = React.useState({
