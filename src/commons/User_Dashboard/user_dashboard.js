@@ -106,7 +106,7 @@ const Userdashboard = () => {
                             <div className="appstatus">
                                 <div className="statsitem">5 Bedroom Detached<br /> Bungalow</div>
                                 <div className="itemprice">₦70, 000, 000.00</div>
-                                <div className="c">Under Review</div>
+                                <div className="statsreview-btn">Under Review</div>
                                 <div className="statsprints-btn">Print</div>
                             </div>
                         </div>
