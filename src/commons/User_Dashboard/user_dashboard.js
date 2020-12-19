@@ -23,6 +23,7 @@ import cross from "../../assets/cross.png";
 import uploadimg from "../../assets/uploadimg.png";
 import CreditReport from "./creditreport";
 import  Mortgagecards from "./mortgagecards";
+import eye2 from "../../assets/eye2.svg";
 
 
 
@@ -66,14 +67,14 @@ const Userdashboard = () => {
                         </div>
                     </Col>
                     <Col md={9} className="udshboard">
-                        <Row className="udashsearchdiv">
-                            <Col md={8}>
+                        <div className="udashsearchdiv">
+                            <div className="seachcol">
                                 <form className="dxxa">
                                     <span className="sassa"><img src={searchImage} alt="search" className="searchImage" /></span>
                                     <input type="search" size="80" placeholder="Search" className="dshbdsearchbar form-control" />
                                 </form>
-                            </Col>
-                            <Col md={4}>
+                            </div>
+                            <div className="burgercol">
                                 <div className="userdashids">
                                     <Dropdown className="uddrpdwndiv">
                                         <img src={arrowhead} className="arrimg" />
@@ -85,8 +86,8 @@ const Userdashboard = () => {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </div>
-                            </Col>
-                        </Row>
+                            </div>
+                        </div>
                         <div className="userdahbdname">
                             Good Morning <span>Olundare Olumide</span>
                         </div>
@@ -105,8 +106,32 @@ const Userdashboard = () => {
                             <div className="appstatus">
                                 <div className="statsitem">5 Bedroom Detached<br /> Bungalow</div>
                                 <div className="itemprice">₦70, 000, 000.00</div>
-                                <div className="statsreview-btn">Under Review</div>
+                                <div className="c">Under Review</div>
                                 <div className="statsprints-btn">Print</div>
+                            </div>
+                        </div>
+                        <div className="mobile_appstatus_section">
+                            <div className="mobileappstatsheader">
+                               <p className="udashboadprimheader">Application status</p>
+                               <div className="statsreview-btn ">Under Review</div>
+                            </div>
+                            <div className="mobile_appstatusbody">
+                                 <div className="mobilestatusitem">
+                                <p className="mobileppstheadin"> Name</p>
+                                <p className="mobileitemprice"> 5 Bedroom Detached Bungalow</p>
+                                 </div>
+                                 <div className="mobilestatusitem adjdiv">
+                                <p className="mobileppstheadin"> Home Value</p>
+                                 <p className="mobileitemprice">₦70, 000, 000.00</p>
+
+                                 </div>
+                            </div>
+                            <div className="viewdiv">
+                               <div className="mobviewbtn">
+                                   <img src={eye2} /> 
+                                   view
+                               </div>
+                               <div className="mobprintbtn">Print</div>
                             </div>
                         </div>
                         <Row>
@@ -165,17 +190,18 @@ const Userdashboard = () => {
                                         <img src={cavetright} />
                                     </div>
                                 </span>
+                                <div className="propstatsdvsection">
                                 <div className="propstatsdv">
                                     <div className="savingsheader">Property Status</div>
                                     <div className="undsctrnbtn">Under Construction</div>
                                 </div>
                                 <div className="bung">
                                     5 Bedroom Detached Bungalow
-                             </div>
+                               </div>
                                 <div className="propprice">
                                     <div className="prpnme">
                                         Price
-                                 </div>
+                                    </div>
                                     <div className="prpice">
                                         ₦200,000,000.00
                                  </div>
@@ -191,10 +217,33 @@ const Userdashboard = () => {
                                 <div className="propprice">
                                     <div className="prpnme">
                                         Date of Purchase
-                                 </div>
+                                   </div>
                                     <div className="prpnme3">
                                         30th October 2020
+                                   </div>
                                  </div>
+                                </div>
+                                <div className="mobilepropstatsdv">
+                                  <div className="propstatsdv rmpad">
+                                     <div className="savingsheader mobsavheader">Property Status</div>
+                                     <div className=" mobstatsrvbtn">Not Started</div>
+                                 </div>
+                                 <div className="mobbung">
+                                    <p className="mobsubheading"> Name </p>
+                                     <p className="mobprop"> 5 Bedroom Detached Bungalow </p>
+                                 </div>
+                                  <div className="mobbung">
+                                    <p className="mobsubheading">Price</p>
+                                    <p className="mobprop">₦200,000,000.00</p>
+                                  </div>
+                                  <div className="mobbung">
+                                    <p className="mobsubheading">Payment Type</p>
+                                    <p className="mobprop">Mortgage</p>
+                                  </div>
+                                  <div className="mobbung lastprop">
+                                    <p className="mobsubheading">Date of Purchase</p>
+                                    <p className="mobprop">30th October 2020</p>
+                                  </div>
                                 </div>
                             </Col>
                             <Col md={5}>
@@ -218,7 +267,7 @@ const Userdashboard = () => {
                                         <p className="equityamt">₦40,000,000.00</p>
                                     </div>
                                 </div>
-                               <CreditReport/>
+                               <CreditReport className="credrep"/>
 
                             </Col>
                         </Row>

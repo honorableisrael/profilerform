@@ -136,9 +136,155 @@
     border: none;
     outline: none;
 }
+.udashsearchdiv{
+    display: flex;
+    justify-content: space-between;
+}
+.seachcol{
+    width: 65%;
+}
+.burgercol{
+    width: 35%;
+}
 .dshbdsearchbar:focus{
     outline: none !important;
     border: none !important;
+}
+.mobile_appstatus_section{
+    background-color: #fff;
+    border-radius: 7px;
+    width: 100%;
+   padding: 12px;
+}
+.mobile_appstatus_section{
+    display: none;
+}
+.mobileappstatsheader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #bbbbbb8e;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+}
+.mobile_appstatusbody{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #bbbbbb8e;
+    padding-bottom: 6px;
+    margin-bottom: 26px;
+}
+.mobilestatusitem{
+    width: 100%;
+}
+.adjdiv{
+    width: 71%;
+}
+.viewdiv{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+.mobviewbtn{
+   width: 46%;
+   color: #5fb49c;
+   border: 1px solid #5fb49c;
+   border-radius: 6px;
+   text-align: center;
+   padding: 8px;
+   font-size: 14px;
+}
+
+.mobprintbtn{
+ width: 50%;
+ background-color: #5fb49c;
+ color: #fff;
+ border-radius: 6px;
+ text-align: center;
+ padding: 8px;
+}
+.mobsavheader{
+    font-size: 15px;
+}
+.mobilepropstatsdv{
+    padding: 15px;
+    background-color: #fff;
+    display: none;
+}
+.mobstatsrvbtn{
+    font-size: 10px;
+    color: #ff523d;
+    font-weight: 700;
+    background-color: rgba(255, 82, 61, 0.1);
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.rmpad{
+    padding: 19px 0px !important;
+}
+.mobbung{
+    background-color: #fff;
+    border-bottom: 1px solid #bbbbbb8e;
+    padding: 11px 0px;
+}
+.mobsubheading{
+    color: #999;
+    font-size: 11px;
+    margin-bottom: 1px;
+    font-weight: 700;
+    background-color: #fff;
+}
+.mobprop{
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.63);
+    font-weight: 700;
+    margin-bottom: 4px
+}
+.lastprop{
+    border-bottom: none;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+@media (max-width:1024px){
+    .udshboard{
+        padding: 0px 12px;
+    }
+    .apstatus-section{
+        display: none;
+    }
+    .mobile_appstatus_section{
+        display: block;
+    }
+    .mobilepropstatsdv{
+        display: block;
+    }
+    .propstatsdvsection{
+        display: none;
+    }
+    .equityamt{
+        font-size: 17px !important;
+    }
+    .credrep{
+        display: none;
+    }
+    .mobcredrep{
+        display: block;
+    }
+}
+.mobcredrep{
+    display: none;
+}
+
+.mobileitemprice{
+    font-size: 15px;
+    color: #666666;
+    font-weight: 700;
+}
+.mobileppstheadin{
+    font-size: 11px;
+    color: #999;
+    font-weight: 700
 }
 .userdashids{
     margin-top: 14px;
@@ -538,6 +684,9 @@
     font-size: 13px;
     color: #999;
 }
+.mortgage-body>p{
+    margin: 0;
+}
 .mortgage-btn{
     display: inline-block;
     border: 1px solid #5fb49c;
@@ -565,8 +714,7 @@
     text-align: center;
 }
 .mnww{
-    min-width: 300px;
     margin-bottom: 1rem;
-    max-width: 300px;
     margin-top: 1rem;
 }
+ 
