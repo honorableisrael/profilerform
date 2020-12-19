@@ -1,0 +1,1 @@
+export const API = "https://hq.newhomes.ng/api"
