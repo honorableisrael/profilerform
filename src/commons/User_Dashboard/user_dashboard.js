@@ -31,7 +31,7 @@ import Mortgagecards from "./mortgagecards";
 import { API } from "../../config";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Navbar from "./navbar"
+import Navbar from "./navbar";
 import eye2 from "../../assets/eye2.svg";
 
 const Userdashboard = (props) => {
@@ -95,7 +95,9 @@ const Userdashboard = (props) => {
       postNewDocument(id);
     }
   };
-
+  const FormatAmount = (amount) => {
+    return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
   const postNewDocument = (id) => {
     const { documentPath } = state;
     const userToken = localStorage.getItem("jwtToken");
@@ -211,7 +213,7 @@ const Userdashboard = (props) => {
                       <Dropdown.Item href="#/action-2">Log out</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                  <Navbar/>
+                  <Navbar />
                 </div>
               </Col>
             </Row>
@@ -237,12 +239,47 @@ const Userdashboard = (props) => {
               <div className="statusline-img"></div>
               <div className="appstatus">
                 <div className="statsitem">
-                  5 Bedroom Detached
-                  <br /> Bungalow
+                  {applicationStatus[0]?.property_info[0]?.name}
                 </div>
-                <div className="itemprice">₦70, 000, 000.00</div>
-                <div className="statsreview-btn">Under Review</div>
+                <div className="itemprice">
+                  ₦{FormatAmount(applicationStatus[0]?.property_value)}
+                </div>
+                {false && <div className="statsreview-btn">Under Review</div>}
+                {false && (
+                  <div className="statsreview-btn completed12">Completed</div>
+                )}
+                 {true && (
+                  <div className="statsreview-btn notstarted">Not Started</div>
+                )}
                 <div className="statsprints-btn">Print</div>
+              </div>
+            </div>
+            <div className="mobile_appstatus_section">
+              <div className="mobileappstatsheader">
+                <p className="udashboadprimheader">Application status</p>
+                <div className="statsreview-btn ">Under Review</div>
+              </div>
+              <div className="mobile_appstatusbody">
+                <div className="mobilestatusitem">
+                  <p className="mobileppstheadin"> Name</p>
+                  <p className="mobileitemprice">
+                    {" "}
+                    {applicationStatus[0]?.property_info[0]?.name}
+                  </p>
+                </div>
+                <div className="mobilestatusitem adjdiv">
+                  <p className="mobileppstheadin"> Home Value</p>
+                  <p className="mobileitemprice">
+                    ₦{FormatAmount(applicationStatus[0]?.property_value)}
+                  </p>
+                </div>
+              </div>
+              <div className="viewdiv">
+                <div className="mobviewbtn">
+                  <img src={eye2} />
+                  view
+                </div>
+                <div className="mobprintbtn">Print</div>
               </div>
             </div>
             <Row>
@@ -315,7 +352,7 @@ const Userdashboard = (props) => {
                               )}
                               <input
                                 type="file"
-                                onChange={()=>handleImageChange(data.id)}
+                                onChange={() => handleImageChange(data.id)}
                                 style={{ display: "none" }}
                                 ref={(fileInput) => (fileRef = fileInput)}
                               />
