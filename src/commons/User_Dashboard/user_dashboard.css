@@ -270,6 +270,12 @@
     .barsimg{
         display: block;
     }
+    .udashsearchdiv{
+        flex-direction: column-reverse;
+    }
+    .dxxa{
+        margin-top: 1rem;
+    }
     .dashbdsidenav{
         display: none;
     }

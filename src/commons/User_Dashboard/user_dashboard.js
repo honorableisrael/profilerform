@@ -211,6 +211,7 @@ const Userdashboard = (props) => {
                       <Dropdown.Item href="#/action-2">Log out</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
+                  <Navbar/>
                 </div>
               </Col>
             </Row>
