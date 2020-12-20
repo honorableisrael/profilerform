@@ -66,7 +66,7 @@ const Userdashboard = () => {
                             <div className="savingspgphdiv"> <p className="savingsprgrph">with our all in one platform you can organise all
                               your savings in one place and on the go</p></div>
                             <img src={male} className="img-fluid" />
-                            <span className="sdenavsavingsbtn">Get the App</span>
+                           <span className="sdenavsavingsbtn">Get the App</span>
                         </div>
                     </Col>
                     <Col md={9} className="udshboard">

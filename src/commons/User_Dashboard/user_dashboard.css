@@ -264,6 +264,7 @@
     .equityamt{
         font-size: 14px !important;
     }
+
 }
 @media (max-width: 768px){
     .barsimg{
@@ -308,6 +309,12 @@
     }
     .mobcredrep{
         display: block;
+    }
+    .sidenavaccheader,.sidnavoptions {
+        padding:20px 20px 20px 19px;
+    }
+    .strtbtn {
+        padding: 8px;
     }
 }
 .mobcredrep{
@@ -473,7 +480,7 @@
         margin-left: 2rem;
     }
     .sidnavoptionsna {
-        padding: 20px 20px 20px 11px;    
+        padding: 20px 20px 20px 19px;    
     }
 }
 .udashbdaccdiv{
