@@ -22,14 +22,17 @@ import pen from "../../assets/pen.png";
 import cross from "../../assets/cross.png";
 import uploadimg from "../../assets/uploadimg.png";
 import CreditReport from "./creditreport";
+import Navbar from "./navbar"
 import  Mortgagecards from "./mortgagecards";
 import eye2 from "../../assets/eye2.svg";
 
 
 
 const Userdashboard = () => {
+   
+    
     return (
-        <div>
+        <>
             <Container fluid>
                 <Row className="sdnnavrow">
                     <Col md={3} className="dashbdsidenav">
@@ -85,7 +88,9 @@ const Userdashboard = () => {
                                             <Dropdown.Item href="#/action-2">Log out</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
+                                    <Navbar/>
                                 </div>
+                                
                             </div>
                         </div>
                         <div className="userdahbdname">
@@ -277,7 +282,7 @@ const Userdashboard = () => {
                     </Col>
                 </Row>
             </Container>
-        </div>
+        </>
     )
 }
 export default Userdashboard
