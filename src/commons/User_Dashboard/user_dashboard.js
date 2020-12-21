@@ -47,14 +47,14 @@ const Userdashboard = (props) => {
     documentPath: "",
     imageName: "",
     applicationStatus: {},
-    deleteModal:false,
+    deleteModal: false,
     file: "",
     propertySlide: {},
     isUploading: false,
     totalDoc: {},
     isloading: false,
-    isDeleting:false,
-    documentId:""
+    isDeleting: false,
+    documentId: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -171,7 +171,7 @@ const Userdashboard = (props) => {
     const userToken = localStorage.getItem("jwtToken");
     console.log(state.documentId);
     axios
-      .get(`${API}/user/user-upload-file`, {
+      .get(`${API}/user/user-delete-file/${state.documentId}`, {
         headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((res) => {
@@ -197,19 +197,19 @@ const Userdashboard = (props) => {
   const checkIfIsOdd = (n) => {
     return Math.abs(n % 2) == 1;
   };
-  const closeDeleteModal =()=>{
+  const closeDeleteModal = () => {
     setState({
       ...state,
-      deleteModal:false
-    })
-  }
-  const openDeleteModal =(id)=>{
+      deleteModal: false,
+    });
+  };
+  const openDeleteModal = (id) => {
     setState({
       ...state,
-      deleteModal:true,
-      documentId:id
-    })
-  }
+      deleteModal: true,
+      documentId: id,
+    });
+  };
   const {
     user,
     propertyList,
@@ -346,10 +346,7 @@ const Userdashboard = (props) => {
                   {applicationStatus[0]?.property_info[0]?.name}
                 </div>
                 <div className="itemprice">
-                  {applicationStatus && applicationStatus.property_value && (
-                    <span>₦</span>
-                  )}
-                  {FormatAmount(applicationStatus[0]?.property_value)}
+                  ₦{FormatAmount(applicationStatus[0]?.property_value)}
                 </div>
                 {false && <div className="statsreview-btn">Under Review</div>}
                 {false && (
@@ -460,9 +457,13 @@ const Userdashboard = (props) => {
                               </div>
                               {data?.is_uploaded == 1 ? (
                                 <div className="dashbdacbdyitem4">
-                                  <img src={cross} title="delete document" onClick={()=>{
-                                    openDeleteModal(data.id)
-                                  }}/>
+                                  <img
+                                    src={cross}
+                                    title="delete document"
+                                    onClick={() => {
+                                      openDeleteModal(data.id);
+                                    }}
+                                  />
                                 </div>
                               ) : (
                                 <div className="dashbdacbdyitem4">
@@ -666,14 +667,26 @@ const Userdashboard = (props) => {
         onHide={closeDeleteModal}
       >
         <div className="dllel">
-        <Modal.Title className="modal_title">Delete Document</Modal.Title>
-        <a className="close_view" onClick={closeDeleteModal}>
-          <img className="closeview" src={close} alt="close" />
-        </a>
+          <Modal.Title className="modal_title">Delete Document</Modal.Title>
+          <a className="close_view" onClick={closeDeleteModal}>
+            <img className="closeview" src={close} alt="close" />
+          </a>
         </div>
         <Modal.Body>
-          <div className="areyousure">You are about to delete this document please confirm?</div>
-          <div className="od12"><Button className="btn-danger" onClick={closeDeleteModal}>Back</Button><Button className="btn-success succs" onClick={DeleteExistingDocument}>{!state.isDeleting?"Delete":"Processing"}</Button></div>
+          <div className="areyousure">
+            You are about to delete this document please confirm?
+          </div>
+          <div className="od12">
+            <Button className="btn-danger" onClick={closeDeleteModal}>
+              Back
+            </Button>
+            <Button
+              className="btn-success succs"
+              onClick={DeleteExistingDocument}
+            >
+              {!state.isDeleting ? "Delete" : "Processing"}
+            </Button>
+          </div>
         </Modal.Body>
       </Modal>
     </div>
