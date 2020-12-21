@@ -33,6 +33,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Navbar from "./navbar";
 import eye2 from "../../assets/eye2.svg";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Spinner from "react-bootstrap/Spinner"
+
 
 const Userdashboard = (props) => {
   const [state, setState] = React.useState({
@@ -42,6 +46,9 @@ const Userdashboard = (props) => {
     imageName: "",
     applicationStatus: {},
     file: "",
+    propertySlide:{},
+    isUploading:false,
+    totalDoc: {},
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -64,16 +71,24 @@ const Userdashboard = (props) => {
         axios.get(`${API}/user/user-mortgage-status`, {
           headers: { Authorization: `Bearer ${userToken}` },
         }),
+        axios.get(`${API}/user/document-count`, {
+          headers: { Authorization: `Bearer ${userToken}` },
+        }),
+        axios.get(`${API}/user/user-property-request`, {
+          headers: { Authorization: `Bearer ${userToken}` },
+        }),
       ])
       .then(
-        axios.spread((res, res1) => {
-          console.log(res);
+        axios.spread((res, res1, res2,res3) => {
+          console.log(res3);
           if (res.status === 200) {
             setState({
               ...state,
               propertyList: res.data.data,
               user: currentUser.user,
               applicationStatus: res1.data.data,
+              totalDoc: res2.data.data,
+              propertySlide:res3.data.data
             });
           }
           if (res.status == 400) {
@@ -86,33 +101,51 @@ const Userdashboard = (props) => {
       });
   }, []);
   const handleImageChange = (e, id) => {
+    console.log(e);
     setState({
       ...state,
       file: e.target.files[0],
       imageName: e.target.files,
     });
-    if (state.imageName !== "") {
-      postNewDocument(id);
-    }
+    postNewDocument(id, e.target.files[0]);
   };
+  const notify = (message) => toast(message, { containerId: "t" });
+  const notifyFailed = (message) => toast(message, { containerId: "f" });
   const FormatAmount = (amount) => {
     return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
-  const postNewDocument = (id) => {
+  const postNewDocument = (id, doc) => {
+    setState({
+      ...state,
+      isUploading: true,
+    });
     const { documentPath } = state;
     const userToken = localStorage.getItem("jwtToken");
     console.log(id);
     const data = new FormData();
     data.append("id", id);
-    data.append("employmentid", documentPath);
+    data.append("employmentid", doc);
     axios
       .post(`${API}/user/user-upload-file`, data, {
         headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((res) => {
+        notify("Document Uploaded Successfully");
         console.log(res);
+        setState({
+          ...state,
+          isUploading: false,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       })
       .catch((err) => {
+        setState({
+          ...state,
+          isUploading: false,
+        });
+        notifyFailed("Document Upload Failed");
         console.log(err);
       });
   };
@@ -120,8 +153,8 @@ const Userdashboard = (props) => {
     return Math.abs(n % 2) == 1;
   };
 
-  const { user, propertyList, imageName, applicationStatus } = state;
-  console.log(applicationStatus);
+  const { user, propertyList, totalDoc, applicationStatus,isUploading,propertySlide } = state;
+  console.log(totalDoc);
   return (
     <div>
       <Container fluid>
@@ -227,7 +260,7 @@ const Userdashboard = (props) => {
               <div className="applctnheader">
                 <p className="udashboadprimheader">Application status</p>
                 <div>
-                  <img src={eye} className="udshbdeye" /> view
+                  <img src={eye} className="udshbdeye" /> View
                 </div>
               </div>
               <div className="appstatusheadings">
@@ -248,7 +281,7 @@ const Userdashboard = (props) => {
                 {false && (
                   <div className="statsreview-btn completed12">Completed</div>
                 )}
-                 {true && (
+                {true && (
                   <div className="statsreview-btn notstarted">Not Started</div>
                 )}
                 <div className="statsprints-btn">Print</div>
@@ -276,8 +309,7 @@ const Userdashboard = (props) => {
               </div>
               <div className="viewdiv">
                 <div className="mobviewbtn">
-                  <img src={eye2} />
-                  view
+                  <img src={eye2} /> View
                 </div>
                 <div className="mobprintbtn">Print</div>
               </div>
@@ -296,8 +328,9 @@ const Userdashboard = (props) => {
                         <div className="doctxt">
                           <div>
                             <img src={loader} className="dshloader" />
-                            10 <span className="thinss"> out of</span> 14{"  "}{" "}
-                            Documents Uploaded
+                            {totalDoc["Total Uploaded"]}{" "}
+                            <span className="thinss"> out of</span>{" "}
+                            {totalDoc?.total_doc} {"  "} Documents Uploaded
                           </div>
                           <img src={caretdwn} className="dshgreencar" />
                         </div>
@@ -323,7 +356,7 @@ const Userdashboard = (props) => {
                               {data.is_uploaded == 1 ? (
                                 <div className="dashbdacbdyitem2">
                                   <a href={data.filename} target={"blank"}>
-                                    Uploaded
+                                    Uploaded {" "}{isUploading && <span className="blank1w"> <Spinner animation="grow" className="qloading" variant="success"/></span>}
                                   </a>
                                 </div>
                               ) : data.is_uploaded == 0 ? (
@@ -336,9 +369,12 @@ const Userdashboard = (props) => {
                                 </div>
                               )}
                               <div className="dashbdacbdyitem3">
-                                <img src={pen} />
+                                <img
+                                  src={pen}
+                                  onClick={() => fileRef?.click()}
+                                />
                               </div>
-                              {data?.upload_id == 1 ? (
+                              {data?.is_uploaded == 1 ? (
                                 <div className="dashbdacbdyitem4">
                                   <img src={cross} />
                                 </div>
@@ -352,7 +388,7 @@ const Userdashboard = (props) => {
                               )}
                               <input
                                 type="file"
-                                onChange={() => handleImageChange(data.id)}
+                                onChange={(e) => handleImageChange(e, data.id)}
                                 style={{ display: "none" }}
                                 ref={(fileInput) => (fileRef = fileInput)}
                               />
@@ -422,7 +458,7 @@ const Userdashboard = (props) => {
                     <div className="savingsheader">Property Status</div>
                     <div className="undsctrnbtn">Under Construction</div>
                   </div>
-                  <div className="bung">5 Bedroom Detached Bungalow</div>
+                  <div className="bung">{propertySlide?.property?.property_name}</div>
                   <div className="propprice">
                     <div className="prpnme">Price</div>
                     <div className="prpice">₦200,000,000.00</div>
@@ -491,6 +527,20 @@ const Userdashboard = (props) => {
           </Col>
         </Row>
       </Container>
+      <ToastContainer
+        enableMultiContainer
+        containerId={"t"}
+        toastClassName="bg-info text-white"
+        hideProgressBar={true}
+        position={toast.POSITION.TOP_CENTER}
+      />
+      <ToastContainer
+        enableMultiContainer
+        containerId={"f"}
+        toastClassName="bg-danger text-white"
+        hideProgressBar={true}
+        position={toast.POSITION.TOP_CENTER}
+      />
     </div>
   );
 };
