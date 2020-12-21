@@ -12,10 +12,12 @@ import arrowhead from "../../assets/arrowhead.png";
 import eye from "../../assets/show.png";
 import statusline from "../../assets/statusline.png";
 import searchImage from "../../assets/search.png";
+import close from "../../assets/close.png";
 import "./animate.css";
 import loader from "../../assets/loader.png";
 import caretdwn from "../../assets/caret_down.png";
 import equity from "../../assets/equity.png";
+import Button from "react-bootstrap/Button";
 import cavetleft from "../../assets/caretleft.png";
 import cavetright from "../../assets/caretright.png";
 import board from "../../assets/board.png";
@@ -36,6 +38,7 @@ import eye2 from "../../assets/eye2.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Spinner from "react-bootstrap/Spinner";
+import Modal from "react-bootstrap/Modal";
 
 const Userdashboard = (props) => {
   const [state, setState] = React.useState({
@@ -44,11 +47,14 @@ const Userdashboard = (props) => {
     documentPath: "",
     imageName: "",
     applicationStatus: {},
+    deleteModal:false,
     file: "",
     propertySlide: {},
     isUploading: false,
     totalDoc: {},
     isloading: false,
+    isDeleting:false,
+    documentId:""
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -57,7 +63,7 @@ const Userdashboard = (props) => {
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/signin");
+      : window.location.assign("/auth/login");
     console.log(currentUser);
     setState({
       ...state,
@@ -94,7 +100,7 @@ const Userdashboard = (props) => {
             });
           }
           if (res.status == 400) {
-            props.history.push("/auth/signin");
+            props.history.push("/auth/login");
           }
         })
       )
@@ -156,16 +162,61 @@ const Userdashboard = (props) => {
         console.log(err);
       });
   };
+  const DeleteExistingDocument = () => {
+    setState({
+      ...state,
+      isDeleting: true,
+    });
+    const { documentPath } = state;
+    const userToken = localStorage.getItem("jwtToken");
+    console.log(state.documentId);
+    axios
+      .get(`${API}/user/user-upload-file`, {
+        headers: { Authorization: `Bearer ${userToken}` },
+      })
+      .then((res) => {
+        notify("Document Deleted Successfully");
+        console.log(res);
+        setState({
+          ...state,
+          isUploading: false,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      })
+      .catch((err) => {
+        setState({
+          ...state,
+          isUploading: false,
+        });
+        notifyFailed("Failed to delete document");
+        console.log(err);
+      });
+  };
   const checkIfIsOdd = (n) => {
     return Math.abs(n % 2) == 1;
   };
-
+  const closeDeleteModal =()=>{
+    setState({
+      ...state,
+      deleteModal:false
+    })
+  }
+  const openDeleteModal =(id)=>{
+    setState({
+      ...state,
+      deleteModal:true,
+      documentId:id
+    })
+  }
   const {
     user,
     propertyList,
     totalDoc,
     applicationStatus,
     isUploading,
+    deleteModal,
     propertySlide,
     isloading,
   } = state;
@@ -271,12 +322,11 @@ const Userdashboard = (props) => {
                 {user?.firstname} {user.lastname}
               </span>
             </div>
-            {
-              isloading && 
+            {isloading && (
               <div className="text-center">
-                <Spinner animation="grow" variant="info"/>
+                <Spinner animation="grow" variant="info" />
               </div>
-            }
+            )}
             <div className="apstatus-section">
               <div className="applctnheader">
                 <p className="udashboadprimheader">Application status</p>
@@ -296,7 +346,9 @@ const Userdashboard = (props) => {
                   {applicationStatus[0]?.property_info[0]?.name}
                 </div>
                 <div className="itemprice">
-                  {applicationStatus && applicationStatus.property_value && <span>₦</span>}
+                  {applicationStatus && applicationStatus.property_value && (
+                    <span>₦</span>
+                  )}
                   {FormatAmount(applicationStatus[0]?.property_value)}
                 </div>
                 {false && <div className="statsreview-btn">Under Review</div>}
@@ -408,7 +460,9 @@ const Userdashboard = (props) => {
                               </div>
                               {data?.is_uploaded == 1 ? (
                                 <div className="dashbdacbdyitem4">
-                                  <img src={cross} />
+                                  <img src={cross} title="delete document" onClick={()=>{
+                                    openDeleteModal(data.id)
+                                  }}/>
                                 </div>
                               ) : (
                                 <div className="dashbdacbdyitem4">
@@ -605,6 +659,23 @@ const Userdashboard = (props) => {
         hideProgressBar={true}
         position={toast.POSITION.TOP_CENTER}
       />
+      <Modal
+        show={deleteModal}
+        className="modcomplete fixmodal"
+        centered={true}
+        onHide={closeDeleteModal}
+      >
+        <div className="dllel">
+        <Modal.Title className="modal_title">Delete Document</Modal.Title>
+        <a className="close_view" onClick={closeDeleteModal}>
+          <img className="closeview" src={close} alt="close" />
+        </a>
+        </div>
+        <Modal.Body>
+          <div className="areyousure">You are about to delete this document please confirm?</div>
+          <div className="od12"><Button className="btn-danger" onClick={closeDeleteModal}>Back</Button><Button className="btn-success succs" onClick={DeleteExistingDocument}>{!state.isDeleting?"Delete":"Processing"}</Button></div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

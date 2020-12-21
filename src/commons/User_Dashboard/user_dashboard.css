@@ -833,6 +833,12 @@
     .mnww {
         max-width: 100%;
     }
+    .spec22 .nav-tabs{
+        background: white;
+    }
+    .od12 button{
+        width: 80px !important;
+    }
 }
 .completed12{
     color: #0FBC49;
@@ -851,4 +857,28 @@
 .blank1w{
     position: relative;
     bottom: .3rem;
+}
+.widd12,.lisst{
+    font-size: 12px !important;
+}
+.dllel{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+.closeview{
+    width: 17px;
+    cursor: pointer;
+}
+.areyousure{
+    padding-bottom: 1rem;
+}
+.succs{ 
+    margin-left: .5rem;
+}
+.od12{
+    text-align: right;
+}
+.modal_title{
+    font-size: 16px;
 }
