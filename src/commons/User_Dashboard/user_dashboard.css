@@ -671,18 +671,21 @@
     font-size: 24px;
     font-weight: 700;
     border-left: 1px solid  #bbbbbb8e;
+    width: 50%;
 }
 .prpnme2{
-    padding: 20px 131px 0px 20px;
+    padding: 20px 1px 0px 20px;
     color: rgba(0, 0, 0, 0.63);
     font-weight: 700;
     border-left: 1px solid  #bbbbbb8e;
+    width: 50%;
 }
 .prpnme3{
-    padding: 20px 64px 0px 21px;
+    padding: 20px 4px 0px 21px;
     color: rgba(0, 0, 0, 0.63);
     font-weight: 700;
     border-left: 1px solid  #bbbbbb8e;
+    width: 50%;
 }
 .doctxt{
     color: #999999;

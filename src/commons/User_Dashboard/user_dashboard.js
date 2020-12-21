@@ -35,8 +35,7 @@ import Navbar from "./navbar";
 import eye2 from "../../assets/eye2.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Spinner from "react-bootstrap/Spinner"
-
+import Spinner from "react-bootstrap/Spinner";
 
 const Userdashboard = (props) => {
   const [state, setState] = React.useState({
@@ -46,9 +45,10 @@ const Userdashboard = (props) => {
     imageName: "",
     applicationStatus: {},
     file: "",
-    propertySlide:{},
-    isUploading:false,
+    propertySlide: {},
+    isUploading: false,
     totalDoc: {},
+    isloading: false,
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -62,6 +62,7 @@ const Userdashboard = (props) => {
     setState({
       ...state,
       user: currentUser.user,
+      isloading: true,
     });
     axios
       .all([
@@ -79,7 +80,7 @@ const Userdashboard = (props) => {
         }),
       ])
       .then(
-        axios.spread((res, res1, res2,res3) => {
+        axios.spread((res, res1, res2, res3) => {
           console.log(res3);
           if (res.status === 200) {
             setState({
@@ -88,7 +89,8 @@ const Userdashboard = (props) => {
               user: currentUser.user,
               applicationStatus: res1.data.data,
               totalDoc: res2.data.data,
-              propertySlide:res3.data.data
+              propertySlide: res3.data.data,
+              isloading: false,
             });
           }
           if (res.status == 400) {
@@ -98,6 +100,11 @@ const Userdashboard = (props) => {
       )
       .catch((err) => {
         console.log(err.response);
+        setState({
+          ...state,
+          isloading: false,
+        });
+        notifyFailed("Sorry failed to fetch data");
       });
   }, []);
   const handleImageChange = (e, id) => {
@@ -153,7 +160,15 @@ const Userdashboard = (props) => {
     return Math.abs(n % 2) == 1;
   };
 
-  const { user, propertyList, totalDoc, applicationStatus,isUploading,propertySlide } = state;
+  const {
+    user,
+    propertyList,
+    totalDoc,
+    applicationStatus,
+    isUploading,
+    propertySlide,
+    isloading,
+  } = state;
   console.log(totalDoc);
   return (
     <div>
@@ -256,6 +271,12 @@ const Userdashboard = (props) => {
                 {user?.firstname} {user.lastname}
               </span>
             </div>
+            {
+              isloading && 
+              <div className="text-center">
+                <Spinner animation="grow" variant="info"/>
+              </div>
+            }
             <div className="apstatus-section">
               <div className="applctnheader">
                 <p className="udashboadprimheader">Application status</p>
@@ -275,7 +296,8 @@ const Userdashboard = (props) => {
                   {applicationStatus[0]?.property_info[0]?.name}
                 </div>
                 <div className="itemprice">
-                  ₦{FormatAmount(applicationStatus[0]?.property_value)}
+                  {applicationStatus && applicationStatus.property_value && <span>₦</span>}
+                  {FormatAmount(applicationStatus[0]?.property_value)}
                 </div>
                 {false && <div className="statsreview-btn">Under Review</div>}
                 {false && (
@@ -356,7 +378,17 @@ const Userdashboard = (props) => {
                               {data.is_uploaded == 1 ? (
                                 <div className="dashbdacbdyitem2">
                                   <a href={data.filename} target={"blank"}>
-                                    Uploaded {" "}{isUploading && <span className="blank1w"> <Spinner animation="grow" className="qloading" variant="success"/></span>}
+                                    Uploaded{" "}
+                                    {isUploading && (
+                                      <span className="blank1w">
+                                        {" "}
+                                        <Spinner
+                                          animation="grow"
+                                          className="qloading"
+                                          variant="success"
+                                        />
+                                      </span>
+                                    )}
                                   </a>
                                 </div>
                               ) : data.is_uploaded == 0 ? (
@@ -456,16 +488,34 @@ const Userdashboard = (props) => {
                 <div className="propstatsdvsection">
                   <div className="propstatsdv">
                     <div className="savingsheader">Property Status</div>
-                    <div className="undsctrnbtn">Under Construction</div>
+                    {propertySlide?.property?.property_status ==
+                      "Under Construction" && (
+                      <div className="undsctrnbtn">
+                        {propertySlide?.property?.property_status}
+                      </div>
+                    )}
+                    {propertySlide?.property?.property_status ==
+                      "Completed" && (
+                      <div className="undsctrnbtn completed12">
+                        {propertySlide?.property?.property_status}
+                      </div>
+                    )}
                   </div>
-                  <div className="bung">{propertySlide?.property?.property_name}</div>
+                  <div className="bung">
+                    {propertySlide?.property?.property_name}
+                  </div>
                   <div className="propprice">
                     <div className="prpnme">Price</div>
-                    <div className="prpice">₦200,000,000.00</div>
+                    <div className="prpice">
+                      {propertySlide?.property?.currency_symbol}
+                      {FormatAmount(propertySlide?.property?.property_price)}
+                    </div>
                   </div>
                   <div className="propprice">
                     <div className="prpnme">Payment Type</div>
-                    <div className="prpnme2">Mortgage</div>
+                    <div className="prpnme2">
+                      {propertySlide?.payment_option}
+                    </div>
                   </div>
                   <div className="propprice">
                     <div className="prpnme">Date of Purchase</div>
@@ -477,11 +527,25 @@ const Userdashboard = (props) => {
                     <div className="savingsheader mobsavheader">
                       Property Status
                     </div>
-                    <div className=" mobstatsrvbtn">Not Started</div>
+                    {propertySlide?.property?.property_status ==
+                      "Under Construction" && (
+                      <div className="undsctrnbtn mobstatsrvbtn">
+                        {propertySlide?.property?.property_status}
+                      </div>
+                    )}
+                    {propertySlide?.property?.property_status ==
+                      "Completed" && (
+                      <div className="undsctrnbtn completed12">
+                        {propertySlide?.property?.property_status}
+                      </div>
+                    )}
                   </div>
                   <div className="mobbung">
                     <p className="mobsubheading"> Name </p>
-                    <p className="mobprop"> 5 Bedroom Detached Bungalow </p>
+                    <p className="mobprop">
+                      {" "}
+                      {propertySlide?.property?.property_name}{" "}
+                    </p>
                   </div>
                   <div className="mobbung">
                     <p className="mobsubheading">Price</p>
@@ -489,7 +553,7 @@ const Userdashboard = (props) => {
                   </div>
                   <div className="mobbung">
                     <p className="mobsubheading">Payment Type</p>
-                    <p className="mobprop">Mortgage</p>
+                    <p className="mobprop">{propertySlide?.payment_option}</p>
                   </div>
                   <div className="mobbung lastprop">
                     <p className="mobsubheading">Date of Purchase</p>
