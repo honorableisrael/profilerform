@@ -210,10 +210,10 @@ const Userdashboard = (props) => {
       documentId: id,
     });
   };
-  const logOut =()=>{
-    localStorage.clear()
-    window.location.assign("/")
-  }
+  const logOut = () => {
+    localStorage.clear();
+    window.location.assign("/");
+  };
   const {
     user,
     propertyList,
@@ -244,9 +244,15 @@ const Userdashboard = (props) => {
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="5" className="">
                 <>
-                <Card.Body className="sidenavaccbody dddee">Mortgages</Card.Body>
-                <Card.Body className="sidenavaccbody">Personal Loan</Card.Body>
-                <Card.Body className="sidenavaccbody">Equity Savings</Card.Body>
+                  <Card.Body className="sidenavaccbody dddee">
+                    Mortgages
+                  </Card.Body>
+                  <Card.Body className="sidenavaccbody">
+                    Personal Loan
+                  </Card.Body>
+                  <Card.Body className="sidenavaccbody">
+                    Equity Savings
+                  </Card.Body>
                 </>
               </Accordion.Collapse>
             </Accordion>
@@ -316,8 +322,11 @@ const Userdashboard = (props) => {
                       className="usernavdrpdwn"
                     />
                     <Dropdown.Menu className="animated fadeIn">
+                      <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
                       <Dropdown.Item href="#/action-1">Settings</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2" onClick={logOut}>Log out</Dropdown.Item>
+                      <Dropdown.Item href="#/action-2" onClick={logOut}>
+                        Log out
+                      </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                   <Navbar />
