@@ -212,7 +212,7 @@ const Userdashboard = (props) => {
   };
   const logOut =()=>{
     localStorage.clear()
-    window.location.assign("/auth/signin")
+    window.location.assign("/")
   }
   const {
     user,
