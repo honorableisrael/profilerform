@@ -210,6 +210,10 @@ const Userdashboard = (props) => {
       documentId: id,
     });
   };
+  const logOut =()=>{
+    localStorage.clear()
+    window.location.assign("/auth/signin")
+  }
   const {
     user,
     propertyList,
@@ -227,10 +231,25 @@ const Userdashboard = (props) => {
         <Row className="sdnnavrow">
           <Col md={3} className="dashbdsidenav">
             <h2 className="dshbdlogo">LOGO</h2>
-            <div className="strtbtn">
-              <img src={plus} className="sidenvimg" />
-              Start new Application
-            </div>
+            <Accordion defaultActiveKey="" className="sidenavacc">
+              <Accordion.Toggle
+                as={Card.Header}
+                className="sidenavaccheader sidenavaccheader12"
+                eventKey="5"
+              >
+                <div className="strtbtn">
+                  <img src={plus} className="sidenvimg" />
+                  Start new Application
+                </div>
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="5" className="">
+                <>
+                <Card.Body className="sidenavaccbody dddee">Mortgages</Card.Body>
+                <Card.Body className="sidenavaccbody">Personal Loan</Card.Body>
+                <Card.Body className="sidenavaccbody">Equity Savings</Card.Body>
+                </>
+              </Accordion.Collapse>
+            </Accordion>
             <div className="sdenavline">
               <img src={line} className="img-fluid" />{" "}
             </div>
@@ -241,26 +260,15 @@ const Userdashboard = (props) => {
               </div>
               <div className="sidnavoptionsna">
                 <img src={gridwhite} className="sidenvimg" />
-                Option 1
-              </div>
-              <div>
-                <Accordion defaultActiveKey="" className="sidenavacc">
-                  <Accordion.Toggle
-                    as={Card.Header}
-                    className="sidenavaccheader"
-                    eventKey="5"
-                  >
-                    <img src={gridwhite} className="sidenvimg" /> Multiple
-                    Option
-                  </Accordion.Toggle>
-                  <Accordion.Collapse eventKey="5" className="">
-                    <Card.Body className="sidenavaccbody">Option 1</Card.Body>
-                  </Accordion.Collapse>
-                </Accordion>
+                Applications
               </div>
               <div className="sidnavoptionsna ">
                 <img src={gridwhite} className="sidenvimg" />
-                Option 2
+                Equity Savings
+              </div>
+              <div className="sidnavoptionsna ">
+                <img src={gridwhite} className="sidenvimg" />
+                Apply for Mortgage
               </div>
             </div>
             <div className="sdenavline2">
@@ -309,7 +317,7 @@ const Userdashboard = (props) => {
                     />
                     <Dropdown.Menu className="animated fadeIn">
                       <Dropdown.Item href="#/action-1">Settings</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">Log out</Dropdown.Item>
+                      <Dropdown.Item href="#/action-2" onClick={logOut}>Log out</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                   <Navbar />

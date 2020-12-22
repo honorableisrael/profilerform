@@ -39,10 +39,25 @@ const Navbar = () => {
       >
         <Col md={3} className="mobdashbdsidenav">
           <h2 className="dshbdlogo">LOGO</h2>
-          <div className="strtbtn">
-            <img src={plus} className="sidenvimg" />
-            Start new Application
-          </div>
+          <Accordion defaultActiveKey="" className="sidenavacc">
+              <Accordion.Toggle
+                as={Card.Header}
+                className="sidenavaccheader sidenavaccheader12"
+                eventKey="5"
+              >
+                <div className="strtbtn">
+                  <img src={plus} className="sidenvimg" />
+                  Start new Application
+                </div>
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="5" className="">
+                <>
+                <Card.Body className="sidenavaccbody dddee">Mortgages</Card.Body>
+                <Card.Body className="sidenavaccbody">Personal Loan</Card.Body>
+                <Card.Body className="sidenavaccbody">Equity Savings</Card.Body>
+                </>
+              </Accordion.Collapse>
+            </Accordion>
           <div className="sdenavline">
             <img src={line} className="img-fluid" />{" "}
           </div>
@@ -53,25 +68,16 @@ const Navbar = () => {
             </div>
             <div className="sidnavoptionsna">
               <img src={gridwhite} className="sidenvimg" />
-              Option 1
+              Applications
             </div>
-            <div>
-              <Accordion defaultActiveKey="" className="sidenavacc">
-                <Accordion.Toggle
-                  as={Card.Header}
-                  className="sidenavaccheader"
-                  eventKey="5"
-                >
-                  <img src={gridwhite} className="sidenvimg" /> Multiple Option
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="5" className="">
-                  <Card.Body className="sidenavaccbody">Option 1</Card.Body>
-                </Accordion.Collapse>
-              </Accordion>
+           
+            <div className="sidnavoptionsna ">
+              <img src={gridwhite} className="sidenvimg" />
+              Equity Savings
             </div>
             <div className="sidnavoptionsna ">
               <img src={gridwhite} className="sidenvimg" />
-              Option 2
+              Apply for Mortgage
             </div>
           </div>
         </Col>
