@@ -21,6 +21,8 @@ import cookies from '../../utils/cookies';
 import "./../../commons/TextFieldGroup/ProfileTextField.css";
 import Modal from "./../../commons/Modal";
 import isEmpty from '../../validation/is_Empty';
+// import PropTypes from "prop-types";
+// import { affordabilityTest } from './../../store/actions/authActions';
 
 
 const Wrapper = styled.div`
@@ -82,11 +84,11 @@ const paymentOptionsWithBudget = ['Installment Payment', 'Rent to Own'];
 
 const NewAffordabilityForm = ({
   setActiveTab, setFoundProperty, maxTenure, currentUser, alert,
-  paymentOptions, setSubmittedAffordability, dispatch, selectedProperty,
+  paymentOptions, setSubmittedAffordability,  dispatch, selectedProperty,
   setPropertyStoreData, setSelectedProperty, submittedAffordability, backUser, ...rest
 }) => {
   const [submittedAtLeastOnce, setsubmittedAtLeastOnce] = useState(false);
-  const [modalStatus, setModalStatus] = useState(false);
+  // const [modalStatus, setModalStatus] = useState(false);
 
   const getHandleChange = handleChangeRetriever(dispatch);
 
@@ -96,9 +98,9 @@ const NewAffordabilityForm = ({
     const dob = new Date(`${mm}-${dd}-${yyyy}`).getFullYear();
     const thisYear = new Date().getFullYear();
     const calculatedAge = thisYear - dob;
-    dispatch(affordabilityActions[affordabilityTypes.SET_AGE](calculatedAge));
+    calculatedAge && dispatch(affordabilityActions[affordabilityTypes.SET_AGE](calculatedAge));
     const { max } = getMinMaxTenure(calculatedAge);
-    dispatch(affordabilityActions[affordabilityTypes.SET_MAX_TENURE](max));
+    max && dispatch(affordabilityActions[affordabilityTypes.SET_MAX_TENURE](max));
   }, []);
 
   
@@ -110,29 +112,31 @@ const NewAffordabilityForm = ({
     // delete valuesCloned.budget;
     delete valuesCloned.equity_contribution;
     try {
+     
       if (submittedAtLeastOnce || submittedAffordability) {
         // if (!selectedProperty) return alert();
         if (!selectedProperty) setActiveTab(2);
         return await setPropertyStoreData(selectedProperty);
-        // setActiveTab(2);
       }
-      console.log(valuesCloned)
-      
       const { data: { data: { token } }} = await axios.post(
-        // `${BASE_URL}${USER_PROFILE_URL}`, 
-        // 'https://staging.newhomes.ng/api/police/profile',
         `${BASE_URL}${USER_AFFORDABILITY_URL}`,
         {...valuesCloned, loanable_amount: rest.max_loanable_amount}
-      );
+      ).then(res => {
+          dispatch(affordabilityActions[affordabilityTypes.SET_MAX_LOANABLE_AMOUNT](res.data.data.loanable_amount));
+          dispatch(affordabilityActions[affordabilityTypes.SET_MONTHLY_REPAYMENT](res.data.data.monthly_repayment));
+          dispatch(affordabilityActions[affordabilityTypes.SET_PAYMENT_OPTION](res.data.data.payment_option));
+          setsubmittedAtLeastOnce(true);
+          setSubmittedAffordability(true);
+          setSelectedProperty(null);
+          setActiveTab(2);
+      })
+      
       // if (token) {
       //   cookies.set('token', token);
       //   localStorage.setItem('token', token);
       //   http.defaults.headers.Authorization = `Bearer ${token}`;
       // }
-      setsubmittedAtLeastOnce(true);
-      setSubmittedAffordability(true);
-      setSelectedProperty(null);
-      setActiveTab(2);
+      
     } catch (error) { console.log(error) }
   };
 
@@ -449,6 +453,10 @@ const NewAffordabilityForm = ({
     </Wrapper>
   );
 };
+
+// NewAffordabilityForm.propTypes = {
+//   affordabilityTest: PropTypes.func.isRequired,
+// };
 
 
 const mapStateToProps = ({ affordability, earnings, auth, currentUser}, ownProps) => {

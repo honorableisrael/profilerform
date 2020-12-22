@@ -24,7 +24,7 @@ ReactDOM.render(
         <Routes />
       </PersistGate>
     </Provider>,
-  // </CookiesProvider>,
+//  </CookiesProvider>,
   document.getElementById("root")
 );
 serviceWorker.unregister();

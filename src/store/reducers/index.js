@@ -9,7 +9,7 @@ import authReducer from './authReducer';
 import errorReducer from './errorReducer';
 
 
-export default combineReducers({
+const rootReducer = combineReducers({
   request: requestReducer,
   earnings: earningsReducer,
   properties: propertyReducer,
@@ -18,3 +18,5 @@ export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
 });
+
+export default rootReducer

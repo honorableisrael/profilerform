@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import http from '../../config/axios.config';
 import axios from 'axios';
+import PropTypes from "prop-types";
 
+// import { affordabilityTest } from './../../store/actions/authActions';
 import earningsTypes from '../../store/types/earningsTypes';
 import earningsActions from '../../store/actions/earningsActions';
 import affordabilityActions from '../../store/actions/affordabilityActions';
@@ -270,17 +272,24 @@ const SummarySection = ({ heading, closed, backUser, ...rest }) => {
 // calculateLoanableAmount();
 // });
 
-useEffect(() => {
-  console.log(rest)
-  axios.post(
-    `${BASE_URL}/user/affordability-test`,
-    {
-      monthly_gross_pay, outstanding_loans, rate, tenure,
-      maxTenure, loanable_amount, monthly_repayment
-    }
-  );
+// useEffect(() => {
+//   console.log(rest)
+//   axios.post(
+//     `${BASE_URL}/user/affordability-test`,
+//     {
+//       monthly_gross_pay, outstanding_loans, rate, tenure,
+//       maxTenure, loanable_amount, monthly_repayment
+//     }
+//   )
+//   ;
 
-}, []);
+// }, []);
+// useEffect((props) => {
+//   props.affordabilityTest(  {
+//     monthly_gross_pay, outstanding_loans, rate, tenure,
+//     maxTenure, loanable_amount, monthly_repayment
+//   })
+// }, []);
 
  
 
@@ -319,6 +328,10 @@ useEffect(() => {
   </Wrapper>
   );
 };
+
+// SummarySection.propTypes = {
+//   affordabilityTest: PropTypes.func.isRequired,
+// };
 
 const mapStateToProps = ({ affordability, currentUser: { year_to_retirement }, auth, earnings }, ownProps) => {
   return { ...affordability, ...earnings, backUser: {...auth.currentUser}, tenure: year_to_retirement, maxTenure: year_to_retirement, ...ownProps };

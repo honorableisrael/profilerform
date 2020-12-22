@@ -2450,6 +2450,7 @@ const Wrapper = styled.div`
     font-size: 22px;
     line-height: 28px;
     z-index: 10;
+    padding-right: 5px;
   }
 
   .application-stage-description {

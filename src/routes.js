@@ -35,7 +35,7 @@ if(localStorage.token && localStorage.user){
   setAuthToken(localStorage.token);
   //set current user and isAuthenticated
   // store.dispatch(setCurrentUser(JSON.parse(localStorage.user)));
-  store.dispatch(setCurrentUser(localStorage.user));
+  // store.dispatch(setCurrentUser(localStorage.user));
 
   //Check for expired token
   const currentTime = Date.now() / 1000;

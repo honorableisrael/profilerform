@@ -1,6 +1,6 @@
 import authTypes from "../types/authTypes";
 import isEmpty from "../../validation/is_Empty";
-import { CLEAR_CURRENT_USER, CLEAR_EARNINGS } from "../../constants";
+import { CLEAR_AFFORDABILITY, CLEAR_CURRENT_USER, CLEAR_EARNINGS, CLEAR_ERRORS } from "../../constants";
 
 const initialState ={
     isAuthenticated: false,
@@ -28,6 +28,8 @@ const authReducer = (state = initialState, action) => {
                };
         case CLEAR_CURRENT_USER: return initialState;
         case CLEAR_EARNINGS: return initialState;
+        case CLEAR_ERRORS: return initialState;
+        case CLEAR_AFFORDABILITY: return initialState;
         default: 
             return state;
     }

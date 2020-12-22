@@ -28,7 +28,11 @@ function ProfileMenu({setActiveTab, setPropRequest, ...props}) {
                         data-toggle="collapse"
                         data-target="#mobile-device"
                     >
-                        <span className="navbar-toggler-icon"></span>
+                        {/* <span className="navbar-toggler-icon"></span> */}
+                        {/* <span class="sr-only">Toggle navigation</span> */}
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                 </button>
             
 

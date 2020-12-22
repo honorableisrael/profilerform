@@ -1,3 +1,4 @@
+import { CLEAR_AFFORDABILITY } from '../../constants';
 import types from '../types/affordabilityTypes';
 import { composeNewState } from './composeNewState';
 
@@ -25,7 +26,7 @@ const initialState = {
   // co_borrower_gross_income: "",
 };
 
-export default (state = initialState, action) => {
+const affordabilityReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_AGE: return composeNewState(state, 'age', action);
     case types.SET_RATE: return composeNewState(state, 'rate', action);
@@ -45,6 +46,9 @@ export default (state = initialState, action) => {
     case types.SET_PAYMENT_OPTION: return composeNewState(state, 'payment_option', action);
     case types.SET_BUDGET: return composeNewState(state, 'budget', action);
     case types.SET_HAVE_OTHER_OBLIGATIONS: return composeNewState(state, 'have_other_obligations', action);
+    case CLEAR_AFFORDABILITY: return initialState;
     default: return { ...state };
   }
 };
+
+export default affordabilityReducer;

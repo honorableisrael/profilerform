@@ -7,22 +7,22 @@ import thunk from "redux-thunk";
 import rootReducer from "./reducers";
 import {BASE_URL} from "../constants";
 import migrations from './migrations';
-import affordabilityReducer from './reducers/affordabilityReducer';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 
 const persistConfig = {
   storage,
   version: 0,
   key: "root",
   migrate: createMigrate(migrations),
-  // whitelist: ['auth' , 'earnings', 'currentUser', 'properties']
+  // whitelist: ['auth' , 'earnings', 'currentUser', 'affordability', 'request', 'properties'],
+  blacklist: ['errors']
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-const store = createStore(
+export const store = createStore(
   persistedReducer,
-  // rootReducer,
   composeEnhancers(applyMiddleware(thunk.withExtraArgument({baseUrl: BASE_URL})))
 );
 

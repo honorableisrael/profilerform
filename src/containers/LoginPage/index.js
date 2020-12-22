@@ -40,9 +40,9 @@ function LoginPage(props) {
 
   useEffect(()=>{
     if(props.errors.errors){
-      if(props.errors.errors.message === "login failed"){
+      if(props.errors.errors.data.message === "login failed"){
           console.log(props.errors.errors)
-          setBackErrors(props.errors.errors)
+          setBackErrors(props.errors.errors.data)
       }else if(props.errors.errors.message === "Validation Error"){
           props.errors.errors.data.map(data => (
             setBackErrors(data)
@@ -207,9 +207,9 @@ function LoginPage(props) {
                             // onChange={(e)=> setEmail(e.target.value)} 
                             pattern='^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$'
                             required
-                            error={errors ? errors.email : (backErrors.message === "login failed"  && backErrors.data)}
+                            // error={errors ? errors.email : (backErrors.message === "login failed"  && backErrors.data)}
                             // error={errors ? errors.email :  backErrors.data }
-                            // error= {(backErrors.message === "login failed" ? backErrors.data : errors.email )}  
+                            error= {(backErrors.message === "login failed" ? backErrors.data : errors.email )}  
                             // {...{ errors, touched }}
                             // error="Invalid email address"
                         />

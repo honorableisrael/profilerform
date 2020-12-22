@@ -341,6 +341,17 @@ const Wrapper = styled.div`
     font-size: 16px;
     padding-bottom: 15px
   }
+
+  .property__image {
+    width: 100%;
+    height: 250px;
+    // background-image: url("./../Resource/propty.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 15px;
+  }
+
   .property__name, .property__address{
     color: #666666;
   }
@@ -404,6 +415,11 @@ const Wrapper = styled.div`
     font-weight: 325;
     font-size: 14px;
     color: #666666;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
   }
 
   .property__link{
@@ -479,8 +495,8 @@ const Wrapper = styled.div`
     .property__description > p, .property__link > a{
       font-size: 8px;
     }
-    .property__description > p > span{
-      display: none;
+    .property__description > p {
+      -webkit-line-clamp: 3;
     }
   }
   .selection{
@@ -1040,7 +1056,9 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                 <div className="modal-content" z-index="20000">
                   <div className="modal-body">
                     <button type="button" className="close" data-dismiss="modal">&times;</button>
-                    <div className="property__image"></div>
+                    <div className="property__image"
+                      style={{ backgroundImage: `url(${viewedProperty.image})` }}
+                    ></div>
                     {/* <img src="./../Resource/homebase.png"/> */}
                     <div className="property__content">
                       <div className="property__head">
@@ -1082,9 +1100,8 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                       <div className="property__description">
                           <h3>Description</h3>
                           <p>
-                          The Address Homes-Femi Okunnu, 4 bed room semi-detached house.This comprises of 20(NOS) beautiful contemporary
-                          4 bedrooms luxury semi-detached and 4 fully detached homes with 1 bedroom QB on 3 floors where intelligent design <span> that meets aesthetics to create the perfect backdrop for the modern lifestyle.Features 1 room BQ4 car parkingCommunal - gym, poolEvent hallGreen area24hr powerSwimming PoolCCTV security NetworkArmed Security PersonnelAmple
-                          parking spacePrice:4 Bedroom Semi-detached: 125,000,000 </span>
+                          {viewedProperty ? viewedProperty.description : 
+                          'The Address Homes-Femi Okunnu, 4 bed room semi-detached house.This comprises of 20(NOS) beautiful contemporary 4 bedrooms luxury semi-detached and 4 fully detached homes with 1 bedroom QB on 3 floors where intelligent design that meets aesthetics to create the perfect backdrop for the modern lifestyle.Features 1 room BQ4 car parkingCommunal - gym, poolEvent hallGreen area24hr powerSwimming PoolCCTV security NetworkArmed Security PersonnelAmple parking spacePrice:4 Bedroom Semi-detached: 125,000,000 '}
                           </p>
                       </div>
                       <div className="property__link"><a href="https://newhomes.ng">View on newhomes.ng</a></div>

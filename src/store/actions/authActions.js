@@ -2,7 +2,7 @@ import axios from "axios";
 import  setAuthToken  from "./../../utils/setAuthToken";
 // import jwt_decode from "jwt-decode";
 
-import { CLEAR_CURRENT_USER, CLEAR_EARNINGS, CLEAR_REQUEST, IS_LOADING } from "../../constants";
+import { CLEAR_AFFORDABILITY, CLEAR_CURRENT_USER, CLEAR_EARNINGS, CLEAR_ERRORS, CLEAR_REQUEST, IS_LOADING, USER_AFFORDABILITY_URL } from "../../constants";
 import errorTypes from "../types/errorTypes";
 import authTypes from "../types/authTypes";
 import userTypes from "../types/userTypes";
@@ -10,6 +10,7 @@ import {BASE_URL, LOGIN_PAGE_URL, REGISTER_URL, FORGOT_PASSWORD_URL, CHANGE_PASS
 import userActions from "./userActions";
 import { batchDispatcher } from '../../utils/applicationBatchDispatchHelper';
 import http from "../../config/axios.config";
+import affordabilityTypes from "../types/affordabilityTypes";
 
 
 // Register User
@@ -40,8 +41,6 @@ export const loginUser = (userData) => dispatch => {
         localStorage.setItem("user", JSON.stringify(user));
         //Set Token to  Auth Header
         setAuthToken(token);
-        // //Decode token to get user data
-        // const decoded = jwt_decode(token);
         //set Current User
         console.log(user);
         dispatch(setCurrentUser(user));
@@ -49,6 +48,30 @@ export const loginUser = (userData) => dispatch => {
         // batchDispatcher(userTypes, userActions, dispatch, {payload: user});
     })
     .catch(err => {
+      dispatch(setErrorLoading());
+      dispatch({
+        type: errorTypes.SET_ERRORS,
+        payload: err.response
+      })
+    })
+}
+
+//Affordability test
+export const affordabilityTest = (userData) => dispatch =>{
+  axios
+  .post(`${BASE_URL}${USER_AFFORDABILITY_URL}`, userData)
+  .then(res => {
+      console.log(res.data);
+      dispatch({
+        type: affordabilityTypes.SET_MAX_LOANABLE_AMOUNT,
+        payload: res.data.loanable_amount
+      });
+      dispatch({
+        type: affordabilityTypes.SET_MONTHLY_REPAYMENT,
+        payload: res.data.monthly_repayment
+      })
+  })
+  .catch(err => {
       dispatch(setErrorLoading());
       dispatch({
         type: errorTypes.SET_ERRORS,
@@ -123,4 +146,6 @@ export const logoutUser = () => dispatch => {
         dispatch({type: CLEAR_CURRENT_USER});
         dispatch({type: CLEAR_EARNINGS});
         dispatch({type: CLEAR_REQUEST});
+        dispatch({type: CLEAR_ERRORS});
+        dispatch({type: CLEAR_AFFORDABILITY});
 }

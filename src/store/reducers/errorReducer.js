@@ -1,4 +1,4 @@
-import { IS_LOADING } from "../../constants";
+import { CLEAR_ERRORS, IS_LOADING } from "../../constants";
 import errorTypes from "../types/errorTypes"
 const initialState ={
   loading: false
@@ -16,8 +16,8 @@ const errorReducer = (state= initialState, action)=>{
         ...state,
         errors: action.payload,
         loading: false,
-      }
-        ; 
+      }; 
+  case CLEAR_ERRORS: return initialState;
     default:
       return state;
   }
