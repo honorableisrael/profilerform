@@ -1,5 +1,5 @@
-import { SET_ERRORS } from "../../constants";
+import errorTypes from "../types/errorTypes";
 
 export default (errors) => {
-  return { type: SET_ERRORS, errors };
+  return { type: errorTypes.SET_ERRORS, errors };
 };

@@ -10,3 +10,22 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* .property__image {
+  width: 100%;
+  height: 250px;
+  background-image: url("./../Resource/propty.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 15px;
+} */
+.selection__icon > div {
+  width: 95px;
+  height: 95px;
+  background-image: url("./../Resource/Ellipse 1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* margin-bottom: 15px; */
+}

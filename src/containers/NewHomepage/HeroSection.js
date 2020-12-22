@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import "./NewHomepage.css";
 import {Link} from "react-router-dom";
 
@@ -6,13 +6,36 @@ import {Link} from "react-router-dom";
 import Person1 from '../Resource/Rectangle.svg';
 import Person2 from "../Resource/Rectangle Copy 3.svg"
 import Pattern from "../Resource/Dot Pattern 1.png";
+import Family from "../Resource/family.png";
 import Videopic from "../Resource/gian-paolo-aliatis-EJSNrTzz6xk-unsplash 1.png";
 import Oval from "../Resource/Oval.svg";
 import Vector from "../Resource/Vector.png";
+// import { faGasPump } from '@fortawesome/free-solid-svg-icons';
+import gsap from "gsap"
+
 
 
 
 const HeroSection = () => {
+  // gsap.registerPlugin(ScrollTrigger);
+
+  let firstPerson = useRef(null);
+  // let secondPerson = useRef(null);
+  let headline = useRef(null);
+
+  useEffect(()=>{
+    gsap.from(firstPerson, {
+    //   scrollTrigger: {
+    //   trigger: firstPerson,
+    //   toggleActions: "restart pause reverse pause"
+    // },
+    duration: 1, opacity: 0, y: "random(-200, 200)", ease: "back"});
+    // gsap.from(secondPerson, {duration: 1, opacity: 0, x: "random(-200, 200)", ease: "back"});
+    gsap.from(headline, {y: 30, ease: "power3", opacity: 0}, 0.15, 'Start');
+  },[])
+
+  
+
   return (
     <section className="heroSection">
       <div
@@ -25,7 +48,7 @@ const HeroSection = () => {
         </div>
       
       <article className="heroSection__headline">
-        <h1 className="heroSection__headline--main">
+        <h1 className="heroSection__headline--main" ref = {el => {headline = el}}>
          <span>NPFPDCC</span> Profiling <br />and Home Ownership <br/> Platform
         </h1>
         <p>
@@ -38,9 +61,10 @@ const HeroSection = () => {
         </Link>
         <span>Still confused? Check our 1 min video</span>
       </article>
-      <div className="heroSection__images">
-        <div
+      <div className="heroSection__images" ref = {el => {firstPerson = el}}>
+        {/* <div
           className="hero__person1 homeImage"
+          ref = {el => {firstPerson = el}}
         >
           <img
           src={Person1}
@@ -49,6 +73,7 @@ const HeroSection = () => {
         </div>
         <div
           className="hero__person2 homeImage"
+          ref = {el => {secondPerson = el}}
         >
           <img
           src={Person2}
@@ -79,7 +104,13 @@ const HeroSection = () => {
           src={Oval}
           alt="hero__oval"
         />
-        </div>
+        </div> */}
+        {/* <div>
+          <img
+           src={Family}
+           alt="family"
+          />
+        </div> */}
       </div>
     </section>
   );

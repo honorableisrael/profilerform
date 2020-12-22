@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+// import React, { Component, createRef } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -8,22 +9,28 @@ import * as Icon from "react-feather";
 
 import "./LoginPage.css";
 // import { handleChange, validateForm } from "../../utils/authFormUtils";
-// import { handleChange} from "../../utils/authFormUtils";
-import ProgressBar from "../NProgress";
+// import ProgressBar from "../NProgress";
 // import setLoading from "../../store/actions/setLoading";
 // import setErrors from "../../store/actions/setErrors";
 // import login from "../../store/middlewares/login";
 // import setIsAuthenticated from "../../store/actions/setIsAuthenticated";
+
 import InputPassword from "./../../commons/InputPassword";
 import TextFieldGroup from "./../../commons/TextFieldGroup";
 import Header from "../../commons/Header";
+import ButtonSpinner from '../ButtonSpinner';
+import * as Yup from 'yup';
+import { Form, Formik } from 'formik';
+import { validations } from '../../utils/yupUtils';
+
 
 // import LoginDoorIcon from "../Resource/fp-login-page-door-access.svg";
 
+
 function LoginPage(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  const [backErrors, setBackErrors] = useState({});
 
   useEffect(()=>{
     if(props.auth.isAuthenticated){
@@ -33,34 +40,36 @@ function LoginPage(props) {
 
   useEffect(()=>{
     if(props.errors.errors){
-      if(props.errors.errors.message === "login failed"){
+      if(props.errors.errors.data.message === "login failed"){
           console.log(props.errors.errors)
-          setErrors(props.errors.errors)
+          setBackErrors(props.errors.errors.data)
       }else if(props.errors.errors.message === "Validation Error"){
           props.errors.errors.data.map(data => (
-            setErrors(data)
+            setBackErrors(data)
           )) 
       }
     }
   }, [props.errors]);
+
+  // class LoginPage extends Component {
   // constructor() {
   //   super();
-    // this.submitButtonRef = createRef(null);
-    // this.state = {
-    //   email: "",
-    //   password: "",
-    //   errors: {},
-    // };
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+  //   this.submitButtonRef = createRef(null);
+  //   // this.state = {
+  //   //   email: "",
+  //   //   password: "",
+  //   //   errors: {},
+  //   // };
+  //   // this.handleChange = this.handleChange.bind(this);
+  //   // this.handleSubmit = this.handleSubmit.bind(this);
   // }
 
-  // state = { email: "", password: "", keepMeLoggedIn: true, usertype:"Agent" };
+  // state = { email: "", password: "", keepMeLoggedIn: true };
   /**
    * Handles change event on an input element
    * @param {DOMEvent} event
    */
-  // const handleChange = event => handleChange(event, this);
+    //  handleChange = event => handleChange(event, this);
 
   // componentDidMount() {
   //   document.title = "Login Authentication | Finance Plus";
@@ -101,36 +110,26 @@ function LoginPage(props) {
    * Handles click event on "Join Now"
    * @param {DOMEvent} event
    */
-  const handleJoinNowClick = event => {
+   const handleJoinNowClick = event => {
     event.preventDefault();
   };
 
-  // handleChange(e) {
-  //   this.setState({ [e.target.name] : e.target.value });
-  //   console.log("value changing")
-  // }
-  const handleSubmit = (e)=> {
-    e.preventDefault(); 
-
-    const userData = {
-      email,
-      password,
-      // usertype:"Agent"
-    };
-
-    console.log("Log in successful");
-    props.loginUser(userData);
-  }
 
 
   // render() {
-    // const {isLoading} = this.state;
-    const {loading} = props.errors
+  //   const {errors, isLoading} = this.props;
+  //   const backErrors = errors
+
+    const validationSchema = (() => {
+      return Yup.object().shape({
+        email: validations.email,
+        password: validations.password,    
+      });
+    })();
 
     return (
 
       <div className='container-fluid px-0'>
-        {/* <ProgressBar isLoading={loading} /> */}
         <section id='fp-login-auth-page'>
         <Header />
         
@@ -154,9 +153,9 @@ function LoginPage(props) {
                           </div>
                         </div>
                       </div> */}
-                      {errors && errors.length ? (
+                      {backErrors && backErrors.length ? (
                         <ul className='error-list fp-errors-display-list'>
-                          {errors.map((msg, index) => {
+                          {backErrors.map((msg, index) => {
                             return (
                               <li className='error-item' key={index}>
                                 <Icon.AlertCircle
@@ -173,23 +172,45 @@ function LoginPage(props) {
                         ""
                       )}
 
-                      <form
-                        className='fp-login-form-wrapper'
-                        noValidate
-                        // onBlur={this.handleBlur}
-                        onSubmit={handleSubmit}
-                      > 
+              <Formik
+                      initialValues={{
+                        email: "",
+                        password: "",
+                      }}
+                      onSubmit={(data) => props.loginUser(data)}
+                      // onSubmit={this.handleSubmit}
+                      validationSchema={validationSchema}
+                    >
+                      {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => {
+                        const { 
+                          email, password
+                        } = values;
+                        if(backErrors.success === false){
+                          isSubmitting = false;
+                          // backErrors.data = {}
+                        }
+                        // if(backErrors){
+                        //   isSubmitting = false;
+                        //   // backErrors.data = {}
+                        // }
+                        
+                return (
+                  <Form className="fp-login-form-wrapper" > 
+                        
                         <TextFieldGroup 
                             type='email'
-                            // className='form-control'
                             placeholder='Email'
                             name='email'
                             value={email}
-                            // onChange={handleChange}
-                            onChange={(e)=> setEmail(e.target.value)} 
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            // onChange={(e)=> setEmail(e.target.value)} 
                             pattern='^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$'
                             required
-                            error={errors.message === "login failed" ? errors.data : errors.email }  
+                            // error={errors ? errors.email : (backErrors.message === "login failed"  && backErrors.data)}
+                            // error={errors ? errors.email :  backErrors.data }
+                            error= {(backErrors.message === "login failed" ? backErrors.data : errors.email )}  
+                            // {...{ errors, touched }}
                             // error="Invalid email address"
                         />
                         <InputPassword 
@@ -197,10 +218,14 @@ function LoginPage(props) {
                             placeholder="Password"
                             name='password'
                             value={password}
-                            // onChange={handleChange}
-                            onChange={(e)=> setPassword(e.target.value)}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            // onChange={(e)=> setPassword(e.target.value)}
                             minLength='6'
-                            error={errors.message === "login failed" ? errors.data : errors.password } 
+                            error={errors ? errors.password : (backErrors.message === "login failed"  && backErrors.data)}
+                            // error={errors ? errors.password : backErrors.data}
+                            // error = {(backErrors.message === "login failed" ? backErrors.data : errors.password )} 
+                            // {...{ errors, touched }}
                           /> 
 
 
@@ -211,7 +236,18 @@ function LoginPage(props) {
                             </Link>
                           </div>
                         </div>
-                        <input type="submit" className="btn-lg btn-info btn-block mt-4 mb-4" value="Sign In"  />
+                        {/* <input type="submit" className="btn-lg btn-info btn-block mt-4 mb-4" value="Sign In"  /> */}
+                        <button
+                          type='submit'
+                          className='btn-lg btn-info btn-block mt-4 mb-4'
+                          disabled={isSubmitting}
+                        >
+                          {
+                            isSubmitting ? (
+                              <ButtonSpinner />
+                            ) : 'Sign In'
+                          }
+                        </button>
                         <div className='fp-create-account-wrapper'>
                           Do not have an account?
                           <Link
@@ -223,27 +259,32 @@ function LoginPage(props) {
                             Sign Up
                           </Link>
                         </div>
-                      </form>
+                      </Form>
+              );
+            }}
+          </Formik>
                     </div>
                   </div>
                 </div>
         </section>
       </div>)
-    // };
-  };
+    // }
+  }
 
 LoginPage.propTypes ={
     loginUser : PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
   };
-// const mapStateToProps = (state) => {
+// const mapStateToProps = (state , ownProps) => {
 //   return {
-//     auth: state.auth,
-//     errors: state.errors
-//     // ...ownProps
+//     isAuthenticated: state.isAuthenticated,
+//     // isLoading: state.isLoading,
+//     errors: state.errors,
+//     ...ownProps
 //   };
 // };
+
 const mapStateToProps = (state)=>({
   auth: state.auth,
   errors: state.errors
@@ -267,3 +308,4 @@ const mapStateToProps = (state)=>({
 // };
 
 export default connect(mapStateToProps, {loginUser})(withRouter(LoginPage));
+// export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

@@ -12,21 +12,19 @@ import { persistedStore } from "./store";
 import * as serviceWorker from "./serviceWorker";
 import "./responsive.css";
 import CircularLoader from "./containers/CircularLoader";
-import { CookiesProvider } from "react-cookie";
+// import { CookiesProvider } from "react-cookie";
 
 ReactDOM.render(
-  <>
-    <CookiesProvider>
-      <Provider store={store}>
-        {/* <PersistGate
+  // <CookiesProvider>
+    <Provider store={store}>
+      <PersistGate
         loading={<CircularLoader isLoading={true} />}
         persistor={persistedStore}
-      > */}
+      >
         <Routes />
-        {/* </PersistGate> */}
-      </Provider>
-    </CookiesProvider>
-  </>,
+      </PersistGate>
+    </Provider>,
+//  </CookiesProvider>,
   document.getElementById("root")
 );
 serviceWorker.unregister();

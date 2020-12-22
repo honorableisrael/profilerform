@@ -3,19 +3,23 @@
   width: 100%;
   display: flex !important;
   justify-content: space-between !important;
-  padding-top: 20px;
-  padding-bottom: 35px;
+  padding-top: 5px;
+  padding-bottom: 15px;
 }
 .navbar-brand {
   padding-left: 95px;
 }
 .navbar-right {
   padding-right: 120px;
-  margin-top: 30px !important;
+  margin-top: 20px !important;
+}
+.name {
+  margin-top: 2px;
 }
 .navbar-logo1 {
   height: 30px;
   filter: invert(100%);
+  margin-top: 15px;
 }
 .navbar-item {
   padding-right: 2rem;
@@ -29,19 +33,19 @@
   width: 155px !important;
 }
 .btn-outline-success {
-  color: #5fb49c !important;
+  color: var(--accent-color) !important;
   background-color: #ffffff !important;
-  border-color: #5fb49c !important;
+  border-color: var(--accent-color) !important;
 }
 .btn-info {
   color: #ffffff !important;
-  background-color: #5fb49c !important;
+  background-color: var(--accent-color) !important;
   border-color: #ffffff !important;
 }
 @media only screen and (max-width: 991px) {
   .navbar {
-    padding-top: 20px;
-    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 5px;
   }
   .navbar-brand {
     padding-left: 5px;

@@ -13,7 +13,7 @@ function TextFieldGroup({
   error
 }) {
   return (
-    <div className="form-group auth-color">
+    <div className="form-group1 auth-color">
               <input 
                   type={type} 
                   id="form-field"
@@ -23,7 +23,7 @@ function TextFieldGroup({
                   placeholder="" 
                   value={value} 
                   onChange={onChange} 
-                  data-state-name={name} 
+                  name={name} 
                   pattern={pattern}
               />
               <label htmlFor="form-field" className="form-label auth-color">{placeholder}</label>

@@ -4,6 +4,10 @@ import { useHistory, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp, faExclamationTriangle, faExpand } from '@fortawesome/free-solid-svg-icons';
+import BathIcon from "../Resource/bathroom.png";
+import BedIcon from "../Resource/bedroom.png";
+import ButtonSpinner from '../ButtonSpinner';
+import { ALL_CITIES_URL, ALL_STATES_URL, BASE_URL, PAYMENT_OPTIONS_URL, PROPERTY_TYPE_URL} from "../../constants";
 
 import SummarySection from './SummarySection';
 import withNewStyles from '../../hocs/withNewStyles';
@@ -14,13 +18,17 @@ import affordabilityTypes from '../../store/types/affordabilityTypes';
 import affordabilityActions from '../../store/actions/affordabilityActions';
 import cookies from '../../utils/cookies';
 import http from '../../config/axios.config';
+import axios from 'axios'
 import { batchDispatcher } from '../../utils/applicationBatchDispatchHelper';
 import propertyActions from '../../store/actions/propertyActions';
 import requestActions from '../../store/actions/requestActions';
 import ProfileFormWrapper from '../ProfileForm';
 import fetchProperties from '../../utils/fetchProperties';
-import { clearCommas } from '../../utils/currencyUtils';
+import { clearCommas, formatCurrencyInput } from '../../utils/currencyUtils';
 import ProfileMenu from "../../commons/ProfileMenu";
+import './PropertyAdItem.css';
+
+
 
 
 const Wrapper = styled.div`
@@ -56,7 +64,7 @@ const Wrapper = styled.div`
     background-color: #009688;
   }
   .profile-form-section{
-    background: #f9f9f9 !important; 
+    background:var(--primary-background-color) !important; 
   }
 
   button {
@@ -129,8 +137,11 @@ const Wrapper = styled.div`
   .affordability-page-content > *{
     padding: 0px;
   }
+  .affordability-page-content{
+    padding: 0px;
+  }
   .affordability-form-section, .eligibility-form-section{
-    background: #f9f9f9 !important;
+    background:var(--primary-background-color) !important;
   }
 
   label {
@@ -173,7 +184,7 @@ const Wrapper = styled.div`
   }
 
   .form-radio:hover {
-    background-color: #f7f7f7;
+    background-color: var(--secondary-background-color);
   }
 
   .form-radio:checked {
@@ -301,10 +312,271 @@ const Wrapper = styled.div`
     opacity: 0.5;
   }
 
+  .modal-dialog{
+    max-width: 860px !important;
+  }
+
+  .modal-body{
+    padding: 0rem !important;
+  }
+  .close{
+    background-color: white !important;
+  }
+  
+  .property__content{
+    padding-left: 50px;
+    padding-right: 50px;
+    position: relative;
+  }
+
+  .property__head{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 0.5px solid #bbbbbb;
+    margin-bottom: 20px;
+    
+  }
+  .property__title{
+    font-weight: 700;
+    font-size: 16px;
+    padding-bottom: 15px
+  }
+
+  .property__image {
+    width: 100%;
+    height: 250px;
+    // background-image: url("./../Resource/propty.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 15px;
+  }
+
+  .property__name, .property__address{
+    color: #666666;
+  }
+  .property__head > h2{
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 41.5px;
+    color: var(--accent-color);
+    padding-left: 50px;
+    border-left: 1px solid #bbbbbb;
+    padding-bottom: 15px
+  }
+  .property__features{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 0.5px solid #bbbbbb;
+    padding-bottom: 20px;
+    align-items: center;
+  }
+  .property__fixes, .property__stats{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+  }
+  .property__fixes{
+    width: 30%;
+  }
+  .property__stats{
+    width: 60%;
+  }
+  .property__icon > img{
+    height: 24px;
+    width: 24px;
+  }
+  .property__finance, .property__status {
+    display: flex;
+    font-weight: 700;
+    font-size: 14px;
+    color: #666666;
+    align-items: center;
+  }
+  .property__finance > h4, .property__status > h4{
+    font-size: 14px;
+    padding-right: 5px;
+  }
+  .property__finance > p{
+    color: var(--red-color);
+    margin-bottom: 0.5rem;
+  }
+  .property__status > p{
+    color: var(--green-color);
+    margin-bottom: 0.5rem;
+  }
+  .property__description > h3{
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  .property__description > p{
+    font-weight: 325;
+    font-size: 14px;
+    color: #666666;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+
+  .property__link{
+    padding-bottom: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    width: 100%;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .property__link > a{
+    position: absolute;
+    right: 0;
+    color: var(--accent-color);
+  }
+
+  .property__button{
+    margin-bottom: 30px !important;
+  }
+  @media screen and (max-width: 770px){
+    .property__content{
+      padding-left: 20px;
+      padding-right: 20px;
+      position: relative;
+    }
+    .property__head{
+      flex-direction: column;
+      margin-bottom: 0px;
+      border-bottom: 0px;
+    }
+    .property__title{
+      font-size: 10px;
+      padding-bottom: 5px;
+    }
+    .property__head > h2{
+      font-size: 24px;
+      padding-left: 0px;
+      border-left: 0px;
+      padding-bottom: 0px;
+    }
+    .property__features{
+      flex-direction: column;
+      padding-bottom: 5px;
+    }
+    .property__fixes, .property__stats{
+      width: 100%;
+    }
+    .property__fixes{
+      justify-content: unset;
+      
+    }
+    .property__icon{
+      font-size: 12px;
+      margin-right: 15px;
+    }
+    .property__stats{
+      flex-direction: column;
+      align-items: unset;
+      padding-top: 10px;
+      margin-top: 10px;
+      border-top: 0.1px solid gray;
+    }
+    .property__finance, .property__status{
+      font-size: 10px;
+    }
+    .property__finance > h4, .property__status > h4{
+      font-size: 10px;
+    }
+    .property__description > h3{
+      font-size: 10px;
+    }
+    .property__description > p, .property__link > a{
+      font-size: 8px;
+    }
+    .property__description > p {
+      -webkit-line-clamp: 3;
+    }
+  }
+  .selection{
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-top: 40px;
+  }
+  .selection__content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+  .selection__icon{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #E9F2E9;
+    margin-bottom: 15px;
+  }
+  .selection__icon > img{
+    margin-bottom: 0;
+  }
+  .selection__header{
+    font-size: 24px;
+    font-weight: 325;
+    line-height: 28.8px;
+  }
+  .selection__header > span{
+    font-weight: 700;
+  }
+  .selection__text{
+    font-size: 14px;
+    font-weight: 325;
+    line-height: 16.8px;
+    color: #666666;
+    margin-bottom: 15px;
+  }
+  .propertyChoice__modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 70%;
+    height: 100%;
+    outline: 0;
+    background-color: #666666;
+    opacity: 0.5;
+    // display: block;
+  }
+  .propertyRequest__modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1050;
+    width: 28%;
+    height: 100%;
+    outline: 0;
+    background-color: #666666;
+    opacity: 0.5;
+    // display: block
+  }
+  @media screen and (max-width: 770px){
+    .propertyChoice__modal{
+      display: none;
+    }
+    .propertyRequest__modal{
+      display: none;
+    }
+  }
   @media screen and (max-width: 770px){
     .affordability-page-content, .eligibility-page-content, .mortgage-page-content{
-      display: flex;
+      // display: flex;
       flex-direction: column !important;
+      padding-bottom: 0px;
+      margin-bottom: 0px;
+    }
+    .affordability-page-content{
+      padding-top: 30px;
     }
   }
 
@@ -460,6 +732,10 @@ const NewApplicationPage = ({ properties, dispatch }) => {
   const [formDataJSON, setFormDataJSON] = useState(
     JSON.stringify({ states: [], propertyTypes: [], paymentOptions: [] })
   );
+  const [viewedProperty, setViewedProperty] = useState({});
+
+  const [propChoice, setPropChoice] = useState(false);
+  const [propRequest, setPropRequest] = useState(false);
 
 
   const { states, propertyTypes, paymentOptions } = JSON.parse(formDataJSON);
@@ -489,7 +765,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
       (statesMapped[fctVariants[0]] || statesMapped[fctVariants[1]])
       : statesMapped[stateName];
     // try {
-      const { data: { data: cities } } = await http.get(`/general/all-cities/${propertyStateId}`);
+      const { data: { data: cities } } = await axios.get(`${BASE_URL}${ALL_CITIES_URL}${propertyStateId}`);
       const city = (cities || []).find(({ name }) => name.toLowerCase() === cityName);
       const cityId = city?.id;
       const bedrooms = typeof property_bedrooms === 'string' && property_bedrooms.includes('-') ?
@@ -528,7 +804,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
         const [
           { data: { data: states } }, { data: { data: propertyTypes } }, { data: { data: paymentOptions } }
         ] = await Promise.all([
-          http.get('/general/all-states'), http.get('/general/all-properties-types/1'), http.get('/general/finance-option')
+          axios.get(`${BASE_URL}${ALL_STATES_URL}`), axios.get(`${BASE_URL}${PROPERTY_TYPE_URL}1`), axios.get(`${BASE_URL}${PAYMENT_OPTIONS_URL}`)
         ]);
 
         setFormDataJSON(JSON.stringify({ states, propertyTypes, paymentOptions }));
@@ -552,14 +828,14 @@ const NewApplicationPage = ({ properties, dispatch }) => {
         <div className="application-flow">
           {/* <!--Affordability Tab--> */}
           
-           <div
+           {/* <div
             className='summary-sticker'
             onClick={() => setSummaryStickerOpen(!summaryStickerOpen)}
-          >
+          > */}
             {/* <!-- <v-icon v-if="summaryStickerOpen">fas fa-angle-down</v-icon> */}
             {/* <v-icon v-else>fas fa-angle-up</v-icon> --> */}
-            <p>{ summaryStickerOpen ? 'Hide' : 'Show'} summary</p>
-          </div>
+            {/* <p>{ summaryStickerOpen ? 'Hide' : 'Show'} summary</p>
+          </div> */}
           <input
             name="mortgage-flow-nav"
             type="radio"
@@ -593,6 +869,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
               <ProfileMenu 
                 profileGreen="green" profileMark='passed' 
                 profileCurrent="current" 
+                {...{setActiveTab, setPropRequest}}
               />
 
               <div className="profile-form-section">
@@ -608,10 +885,10 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                 </div>
               </div>
               <PropertySuggestionSection
-                closed={!suggestionsStickerOpen}
+                closed={!suggestionsStickerOpen}  
                 {...{
                   goToEligibility, setPropertyStoreData, submittedAffordability,
-                  activeTab, alertUser, selectedProperty, setSelectedProperty
+                  activeTab, alertUser, selectedProperty, setSelectedProperty, setViewedProperty, viewedProperty
                 }}
               />
             </div>
@@ -650,6 +927,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                 profileGreen="green" profileMark='passed' 
                 affordabilityGreenBar="greenBar" affordabilityGreen="green" affordabilityMark='marked' 
                 affordabilityCurrent="current" 
+                {...{setActiveTab, setPropRequest}}
               
               />
               <div className="affordability-form-section">
@@ -677,7 +955,7 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                 closed={!suggestionsStickerOpen}
                 {...{
                   goToEligibility, setPropertyStoreData, submittedAffordability,
-                  activeTab, alertUser, selectedProperty, setSelectedProperty
+                  activeTab, alertUser, selectedProperty, setSelectedProperty, setViewedProperty, viewedProperty
                 }}
               />
             </div>
@@ -716,26 +994,35 @@ const NewApplicationPage = ({ properties, dispatch }) => {
                   affordabilityGreenBar="greenBar" affordabilityGreen="green" affordabilityMark='passed' 
                   propertyGreenBar="greenBar" propertyGreen="green" propertyMark='marked'
                   propertyCurrent="current" 
+                  {...{setActiveTab, setPropRequest}}
               />
               <div className="eligibility-form-section">
                 <h2 className="section-heading">Property Request</h2>
-                {/* <SummarySection
+                <SummarySection
                 closed={!summaryStickerOpen}
                 sectionHeading="Eligibility test"
-              /> */}
+              />
                 <p className="section-text">Please provide  your preference for the type of property you would prefer</p>
                 {
                   activeTab === 2 ? (
                     <NewEligibilityForm
                       {...{
                         setActiveTab, propertyTypes, foundProperty,
-                        setSubmitted, success, setSuccess, states
+                        setSubmitted, success, setSuccess, states, setPropRequest
                       }}
                     />
                   ) : ''
                 }
               </div>
               {/* <!-- <div className="application-highlight-section"></div> --> */}
+              {/* <!-- <div className="application-highlight-section"></div> --> */}
+              <PropertySuggestionSection
+                closed={propChoice ? suggestionsStickerOpen : !suggestionsStickerOpen}
+                {...{
+                  goToEligibility, setPropertyStoreData, submittedAffordability,
+                  activeTab, alertUser, selectedProperty, setSelectedProperty, setPropRequest, setPropChoice, setViewedProperty, viewedProperty
+                }}
+              />
             </div>
           </div>
           {/* <label className="mortgage-flow-nav" htmlFor="mortgage-application">Property Request</label> */}
@@ -760,6 +1047,138 @@ const NewApplicationPage = ({ properties, dispatch }) => {
             ) : ''
           }
         </div>
+
+
+        {/* Property suggestion modal */}
+        <div id="myModal" className="modal fade" role="dialog" aria-labelledby="..." aria-hidden="true">
+                {/* <!-- Modal content--> */}
+              <div className="modal-dialog" role="document" style={{width: "auto"}}>
+                <div className="modal-content" z-index="20000">
+                  <div className="modal-body">
+                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                    <div className="property__image"
+                      style={{ backgroundImage: `url(${viewedProperty.image})` }}
+                    ></div>
+                    {/* <img src="./../Resource/homebase.png"/> */}
+                    <div className="property__content">
+                      <div className="property__head">
+                        <div className="property__title">
+                          <div className='property__name'>{viewedProperty ? viewedProperty.name : "4 Bd Detached House for Rent at Osapa London"}</div>
+                          <div className='property__address'>{viewedProperty ? viewedProperty.city : 'Lekki'}, {viewedProperty ? viewedProperty.state : "Lagos"}</div>
+                        </div>
+                        <h2>
+                          {viewedProperty ? `${viewedProperty.symbol} ${formatCurrencyInput(viewedProperty.price)}` : "#40,000,000.00" }
+                        </h2>
+                      </div>
+                      <div className='property__features'>
+                        <div className='property__fixes'>
+                          <div className='property__icon'>
+                            <img className='mr-2' src={BedIcon} alt='Bed Icon' />
+                            {viewedProperty 
+                              ? `${viewedProperty.bed} ${viewedProperty.bed > 1 ? 'beds' : 'bed'}`
+                              : "4 beds"}
+                          </div>
+                          <div className='property__icon'>
+                              <img className='ml-2' src={BathIcon} alt='Bath Icon' />
+                              &nbsp;
+                              {viewedProperty 
+                                ? `${viewedProperty.bath} ${viewedProperty.bath > 1 ? 'baths' : 'bath'}`
+                                : "3 baths"}
+                          </div>
+                        </div>
+                        <div className="property__stats">
+                          <div className='property__finance'>
+                              <h4>Finance Status: </h4>
+                              <p>Not Available</p>
+                          </div>
+                          <div className='property__status'>
+                            <h4>Property Status: </h4>
+                            <p>Off plan</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="property__description">
+                          <h3>Description</h3>
+                          <p>
+                          {viewedProperty ? viewedProperty.description : 
+                          'The Address Homes-Femi Okunnu, 4 bed room semi-detached house.This comprises of 20(NOS) beautiful contemporary 4 bedrooms luxury semi-detached and 4 fully detached homes with 1 bedroom QB on 3 floors where intelligent design that meets aesthetics to create the perfect backdrop for the modern lifestyle.Features 1 room BQ4 car parkingCommunal - gym, poolEvent hallGreen area24hr powerSwimming PoolCCTV security NetworkArmed Security PersonnelAmple parking spacePrice:4 Bedroom Semi-detached: 125,000,000 '}
+                          </p>
+                      </div>
+                      <div className="property__link"><a href="https://newhomes.ng">View on newhomes.ng</a></div>
+                      <div className="col-md-12 col-sm-12">
+                          <button
+                            type='submit'
+                            className='w-100 property__button'
+                            // disabled={isSubmitting}
+                          >
+                             Choose this Property
+                          </button>
+                       </div>
+                    </div>
+                   
+                  </div>
+                </div>
+              </div>
+        </div>
+
+        {/* Modal for Property Selection */}
+        <div id="myModal2" className="modal fade" role="dialog" aria-labelledby="..." aria-hidden="true">
+
+                {/* <!-- Modal content--> */}
+              <div className="modal-dialog" role="document">
+                <div className="modal-content" z-index="20000">
+                  <div className="modal-body">
+                  <button type="button" className="close" data-dismiss="modal">&times;</button>
+                  <div className="selection">
+                    <div className="selection__content">
+                        <div className="selection__icon"><div></div></div>
+                        <h2 className="selection__header">Good job <span>Solamipe</span></h2>
+                        <p className="selection__text">we are excited you made it this far of the process, however just a few step to your dream home...
+                            You need to choose a property from the options we provided or request a property if you didnt find your preferred
+                        </p>
+                    </div>
+                    <div className='row'>
+                          <div className='col-md-6 col-sm-12'>
+                                <button
+                                    type='button'
+                                    className='w-150 mb-3'
+                                    data-dismiss="modal"
+                                    onClick={() => {
+                                      setPropRequest(true);
+                                    }}
+                                >
+                                    Make a Property Request
+                                </button>
+                          </div>
+                          <div className='col-md-6 col-sm-12'>
+                                <button
+                                    type='button'
+                                    // disabled={isSubmitting}
+                                    // rel='noopener noreferrer'
+                                    // data-toggle="modal" data-target="#myModal3"
+                                    onClick={() => {
+                                      setPropChoice(true)
+                                      // setSelectedProperty(null);
+                                      // setActiveTab(2);
+                                      {/* setsubmittedAtLeastOnce(false); */}
+                                      {/* resetForm(); */}
+                                    }}
+                                    data-dismiss="modal"
+                                    className=' w-100 fp-save-result-button m-0 d-flex align-items-center justify-content-center btn-block mb-3'
+                                >
+                                  Choose from suggested Properties
+                                </button>
+                            </div>
+                        </div>
+                      </div>
+                    
+                  </div>
+                </div>
+              </div>
+        </div>
+        {propChoice ? 
+        <div className="propertyChoice__modal fade"></div> : ''}
+        {propRequest ? <div className="propertyRequest__modal fade"></div>: ''}
       </main>
     </Wrapper>
   );

@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import axios from 'axios';
 
 import store from '../store';
 import { BASE_URL, USER_TOKEN } from '../constants';
@@ -8,11 +8,11 @@ import { extractErrors } from '../utils/errorUtils';
 import cookies from '../utils/cookies';
 
 
-const http = Axios.create({
+const http = axios.create({
   baseURL: BASE_URL,
-  headers: {
-    Authorization: `Bearer ${cookies.get('token') || localStorage.getItem(USER_TOKEN)}`
-  }
+  // headers: {
+  //   Authorization: `Bearer ${localStorage.getItem() || cookies.get('token')}`
+  // }
 });
 
 http.interceptors.request.use((config) => {

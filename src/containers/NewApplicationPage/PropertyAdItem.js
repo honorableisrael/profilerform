@@ -7,7 +7,7 @@ import { formatCurrencyInput } from "../../utils/currencyUtils";
 import "./PropertyAdItem.css";
 import styled from "@emotion/styled";
 import ButtonSpinner from "../ButtonSpinner";
-import Modal from "./../../commons/Modal";
+
 
 
 const Wrapper = styled.div`
@@ -27,13 +27,16 @@ const Wrapper = styled.div`
   .fp-finance > p, .fp-finance > h4, .fp-property-status > p, .fp-property-status > h4{
     margin-bottom: 5px !important;
   }
+  .fp-property-address{
+    margin-bottom: 10px !important;
+  }
   .fp-finance > p{
     padding-left: 10px;
-    color: #FF523D;
+    color:var(--red-color);
   }
   .fp-property-status > p{
     padding-left: 10px;
-    color: #0FBC49;
+    color:var(--green-color);
   }
 
   button:disabled {
@@ -61,14 +64,20 @@ const PropertyAdItem = ({
   submittedAffordability,
   mortgageApplicationData,
   setMortgageApplicationData,
+  setPropRequest,
+  setPropChoice,
+  setViewedProperty,
+  viewedProperty
+  // setActiveTab,
 }) => {
   // const baseImageUrl = "https://account.newhomes.ng";
   const [loading, setLoading] = useState(false);
   const { property_cover_image, id } = property;
   const isSelected = id === (selectedProperty || {}).id;
-  const [modalStatus, setModalStatus] = useState(false);
+  
   return (
     <Wrapper className={`fp-nh-affordability-regular-affordability-property-suggestion-list${isSelected ? ' selected' : ''}`}>
+      {/* <form> */}
       {/* <input
         type="radio"
         checked={isSelected}
@@ -126,7 +135,7 @@ const PropertyAdItem = ({
         </div> */}
         <div className='fp-property-suggestion-button'>
           <button
-            disabled={activeTab === 0 || !submittedAffordability || loading || isSelected}
+            disabled={activeTab === 0 || activeTab === 1|| !submittedAffordability || loading || isSelected}
             onClick={async ({ target }) => {
               if (setMortgageApplicationData) {
                 const { title_docs, property_price_raw, property_full_address } = property;
@@ -141,8 +150,11 @@ const PropertyAdItem = ({
                 if (goToEligibility) goToEligibility({ target });
               } else if (setPropertyStoreData) {
                 setSelectedProperty(property);
-                {/* setLoading(true) */}
-                {/* await setPropertyStoreData(property); */}
+                // setLoading(true)
+                await setPropertyStoreData(property);
+                setPropRequest(true);
+                setPropChoice(false);
+                // setActiveTab(2);
                 {/* setLoading(false); */}
               }
             }}
@@ -166,33 +178,29 @@ const PropertyAdItem = ({
             rel='noopener noreferrer'
             className='fp-property-suggestion-button-view-more'
             data-toggle="modal" data-target="#myModal"
-            // onClick={() => setModalStatus(true)}
+            onClick={async ({ target }) => {
+              if(setViewedProperty){
+              setViewedProperty({
+                name: property.property_name,
+                image: property.property_cover_image,
+                bed: property.property_bedrooms,
+                bath: property.property_bathrooms,
+                price: property.property_price,
+                city: property.property_city,
+                state: property.property_state,
+                description: property.property_description,
+                symbol: property.currency_symbol
+              })
+            }
+              
+            }}
       >
             <Icon.Eye className='mr-1' size='40px' color='#0fbc49' />
             
        </a>
             
-      {/* <!-- Modal --> */}
-      {/* { modalStatus && (<Modal closeModal={() => setModalStatus(false)}> <p>The content of the modal</p></Modal>)} */}
-        <div id="myModal" class="modal fade" role="dialog">
-              <div class="modal-dialog">
-
-                {/* <!-- Modal content--> */}
-                <div class="modal-content" z-index="20000">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                  </div>
-                  <div class="modal-body">
-                    <h2>Some text in the modal. Amazing and beautiful thing</h2>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-
-              </div>
-        </div>
+      
+       {/* </form>    */}
     </Wrapper>
   );
 };

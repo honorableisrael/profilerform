@@ -11,10 +11,12 @@ import { invalidValueErrorMessage, requiredFieldErrorMessage } from '../../utils
 import { clearCommas, formatCurrencyInput, handleChangeRetriever, roundToUpperTwoDecimalPlace } from '../../utils/currencyUtils';
 import http from '../../config/axios.config';
 import axios from 'axios'
+import { BASE_URL, USER_PROPERTY_REQUEST_URL, ALL_CITIES_URL} from "../../constants";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import CircularLoader from '../CircularLoader';
 import ButtonSpinner from '../ButtonSpinner';
+import $ from 'jquery';
 
 
 const Wrapper = styled.div`
@@ -36,18 +38,24 @@ const Wrapper = styled.div`
     padding: 16px;
     border-radius: 50%;
     margin-bottom: 24px;
-    border: 6px solid #5fb49c;
+    border: 6px solid var(--accent-color);
   }
 
   .success-component h3 {
     color: #999 !important;
+  }
+
+  @media screen and (max-width: 770px){
+    .success-component h3 {
+      text-align: center;
+    }
   }
 `;
 // const CircularLoader = styled(CircularLoader)
 
 const NewEligibilityForm = ({
   setActiveTab, states, propertyTypes, success, setSuccess,
-  foundProperty, affordability, request, setSubmitted
+  foundProperty, affordability, request, setSubmitted, setPropRequest
 }) => {
   // const dispatch = useDispatch();
   const [stateId, setStateId] = useState('');
@@ -65,7 +73,7 @@ const NewEligibilityForm = ({
       try {
         setLoadingCities(true);
         // console.log(stateId)
-        const { data: { data } } = await axios.get(`https://staging.newhomes.ng/api/general/all-cities/${stateId || request.state_id}`);
+        const { data: { data } } = await axios.get(`${BASE_URL}${ALL_CITIES_URL}${stateId || request.state_id}`);
         setCitiesJSON(JSON.stringify(data));
       } catch (error) {
         console.log(error.message);
@@ -78,13 +86,13 @@ const NewEligibilityForm = ({
 
   const handleSubmit = async (values) => {
     try {
-      await http.post(
-        '/save-property-request',
+      await axios.post(
+        `${BASE_URL}${USER_PROPERTY_REQUEST_URL}`,
         // 'https://staging.newhomes.ng/api/police/property-request',
         {
           directed_to: 'police Deve',
-          request_type: 'home',
-          payment_option: 'mortgage',
+          request_type: 'Home',
+          payment_option: 'Mortgage',
           ...values,
           budget: affordability.budget,
           payment_option: affordability.payment_option,
@@ -97,6 +105,12 @@ const NewEligibilityForm = ({
       console.log(error.message);
     }
   };
+  useEffect(()=> {
+    $(document).ready(function(){
+      $("#myModal2").modal('show');
+    });
+  }, [])
+  
 
 
   const validationSchema = (() => {
@@ -119,7 +133,7 @@ const NewEligibilityForm = ({
             <div className='success-component'>
               <div className="icon-wrapper">
                 <FontAwesomeIcon
-                  color='#5fb49c'
+                  color='var(--accent-color)'
                   size='5x'
                   icon={faCheck}
                 />
@@ -143,8 +157,8 @@ const NewEligibilityForm = ({
               {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => {
                 return (
                   <Form>
-                    <div className='form-group row'>
-                      <div className="col-12 col-sm-6">
+                    <div className='row'>
+                      <div className="col-12 col-sm-6 form-group">
                         
                         <WrappedSelectWithError
                           textKey='name'
@@ -159,12 +173,12 @@ const NewEligibilityForm = ({
                         />
                         <label className="form-label">Home type<sup>*</sup></label>
                       </div>
-                      <div className="col-12 col-sm-6">
+                      <div className="col-12 col-sm-6 form-group">
                         
                         <WrappedInputWithError
                           // prepend="₦"
                           name='property_value'
-                          value={formatCurrencyInput(values.property_value)}
+                          value={request.property_id === '' ? formatCurrencyInput(values.property_value) : request.property_value}
                           {...{ errors, touched }}
                           onBlur={handleBlur}
                           onChange={handleChange}
@@ -172,15 +186,16 @@ const NewEligibilityForm = ({
                         />
                         <label className="form-label">Home value <sup>*</sup></label>
                       </div>
-                      <div className="col-12">
+                    </div>
+                    
                         <div className="row">
-                          <div className="col-md-6 col-sm-6">
+                          <div className="col-md-6 col-sm-6 form-group">
                             
                             <WrappedInputWithError
                               type='number'
                               // append="bedrooms"
                               name='property_bedroom'
-                              value={values.property_bedroom}
+                              value={request.property_id === '' ? values.property_bedroom : request.property_bedroom}
                               {...{ errors, touched }}
                               onBlur={handleBlur}
                               onChange={handleChange}
@@ -188,7 +203,7 @@ const NewEligibilityForm = ({
                             />
                             <label className="form-label">Number of Bedrooms <sup>*</sup></label>
                           </div>
-                          <div className="col-md-6 col-sm-6">
+                          <div className="col-md-6 col-sm-6 form-group">
                             
                             <WrappedInputWithError
                               type='number'
@@ -204,13 +219,13 @@ const NewEligibilityForm = ({
                           </div>
                           
                         </div>
-                      </div>
-                      <div className="col-12 col-sm-6">
+                      <div className="row">
+                      <div className="col-12 col-sm-6 form-group">
                         
                         <WrappedSelectWithError
                           textKey='name'
                           name='state_id'
-                          value={values.state_id}
+                          value={request.property_id === '' ? values.state_id : request.state_id}
                           extractValue={({ id }) => id}
                           options={[{ name: 'Select a state', id: '' }, ...states]}
                           {...{ errors, touched }}
@@ -224,7 +239,7 @@ const NewEligibilityForm = ({
                         />
                         <label className="form-label">Desired state <sup>*</sup></label>
                       </div>
-                      <div className="col-12 col-sm-6">
+                      <div className="col-12 col-sm-6 form-group">
                         
                         <WrappedSelectWithError
                           textKey='name'
@@ -268,7 +283,7 @@ const NewEligibilityForm = ({
                       </div>
                     </div> */}
 
-                    <div className='form-group row mt-5'>
+                    <div className='form-group row'>
                       <div className="col-md-6">
                         <button
                           type='button'
@@ -276,7 +291,8 @@ const NewEligibilityForm = ({
                           className='w-100 item-btn mb-md-0 mb-3'
                           onClick={() => {
                             setSuccess(false);
-                            setActiveTab(1)
+                            setActiveTab(1);
+                            setPropRequest(false)
                           }}
                         >
                           back

@@ -17,15 +17,16 @@ import statesList from '../../utils/statesMapped';
 import cookies from '../../utils/cookies';
 import userActions from '../../store/actions/userActions';
 import "./../../commons/TextFieldGroup/ProfileTextField.css";
+import isEmpty from "./../../validation/is_Empty";
 
 
 const Wrapper = styled.div`
 
 `;
 
-const homeTypes = ['owned', 'rented', 'others'];
-const maritalStatuses = ['married', 'single', 'divorce'];
-const sexes = ['male', 'female'];
+const homeTypes = ['choose', 'owned', 'rented', 'others'];
+const maritalStatuses = ['choose', 'married', 'single', 'divorce'];
+// const sexes = ['male', 'female'];
 
 const validationSchema = Yup.object().shape({
   // sex: validations.requiredString,
@@ -47,10 +48,11 @@ const validationSchema = Yup.object().shape({
 })
 
 
-const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
+const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent, backUser }) => {
   const email = cookies.get('email') || '';
   const handleSubmit = async (values) => {
     try {
+      console.log({values, userActions});
       batchDispatcher(values, userActions, dispatch);
       goToNextComponent();
     } catch (error) {
@@ -62,14 +64,45 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
   delete userClone.state; delete userClone.work_experience; delete userClone.year_to_retirement;
   delete userClone.work_experience; delete userClone.profession; delete userClone.employer_address;
   delete userClone.employment_state;
+  // const [dd, mm, yyyy] = userClone.dob.split('-');
+  //   const newdob = new Date(`${dd}/${mm}/${yyyy}`);
 
   return (
-    <Wrapper>
+    <Wrapper className="container">
       {/* <NewDatePicker /> */}
       <Formik
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
-        initialValues={{...userClone, email: userClone.email || email}}
+        // initialValues={{
+        //   ...(() => {
+        //     const {
+        //       firstname, lastname, phone, dob,
+        //       mode_of_contact, marital_status, address,
+        //       current_apartment_status, state_of_origin, 
+        //     } = userClone;
+
+        //     return {
+        //       firstname, lastname, phone, dob,
+        //       mode_of_contact, marital_status, address,
+        //       current_apartment_status, state_of_origin, 
+        //     };
+        //   })(),
+        //   email: userClone.email || email,
+        //   no_of_dependents: Number(userClone.no_of_dependents),
+        // }}
+        initialValues={{
+          firstname: userClone.firstname ? userClone.firstname : (!isEmpty(backUser.firstname)) ? backUser.firstname : "", 
+          lastname: userClone.lastname ? userClone.lastname : !isEmpty(backUser.lastname) ? backUser.lastname : "", 
+          phone: userClone.phone ? userClone.phone : !isEmpty(backUser.phone) ? backUser.phone : "", 
+          dob: userClone.dob ? userClone.dob : !isEmpty(backUser.dob) ? backUser.dob : "",
+          mode_of_contact: userClone.mode_of_contact ? userClone.mode_of_contact : !isEmpty(backUser.mode_of_contact) ? backUser.mode_of_contact : "", 
+          marital_status: userClone.marital_status ? userClone.marital_status : !isEmpty(backUser.marital_status) ? backUser.marital_status : "", 
+          address: userClone.address ? userClone.address : !isEmpty(backUser.address) ? backUser.address : "",
+          current_apartment_status: userClone.current_apartment_status ? userClone.current_apartment_status : !isEmpty(backUser.current_apartment_status) ? backUser.current_apartment_status : "", 
+          state_of_origin: userClone.state_of_origin ? userClone.state_of_origin : !isEmpty(backUser.state_of_origin) ? backUser.state_of_origin : "", 
+          email: userClone.email ? userClone.email || email : !isEmpty(backUser.email) ? backUser.email : "",
+          no_of_dependents: userClone.no_of_dependents ? Number(userClone.no_of_dependents) : !isEmpty(backUser.no_of_dependents) ? Number(backUser.no_of_dependents) : "",
+        }}
       >
         {({ values, errors, touched, handleBlur, handleChange, isSubmitting }) => {
           const states = statesList['160'] || [];
@@ -229,7 +262,8 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                           
                           <WrappedSelectWithError
                             textKey='name'
-                            options={states}
+                            // options={states}
+                            options={[{ option: 'Select a State' }, ...states]}
                             name='state_of_origin'
                             value={values.state_of_origin}
                             extractValue={({ name }) => name}
@@ -341,11 +375,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                           
                           <WrappedSelectWithError
                             name='marital_status'
-                            options={[
-                              'Married',
-                              'Single',
-                              'Divorce'
-                            ]}
+                            options={maritalStatuses}
                             value={values.marital_status}
                             placeholder=''
                             onBlur={handleBlur}
@@ -361,13 +391,9 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                         <div className='col-md-6 col-sm-12 form-group'>
                           
                           <WrappedSelectWithError
-                            name='current_home_type'
-                            options={[
-                              'Owned',
-                              'Rented',
-                              'Others'
-                            ]}
-                            value={values.current_home_type}
+                            name='current_apartment_status'
+                            options={homeTypes}
+                            value={current_apartment_status}
                             placeholder=''
                             onBlur={handleBlur}
                             onChange={handleChange}
@@ -380,12 +406,36 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                           </label>
                         </div>
                       </div>
+                      
+                        {
+                          !isNotOtherHometype ? (
+                        <div className='row'>
+                            <div className='col-md-6 col-sm-12 form-group'>
+                              <WrappedInputWithError
+                                type="text"
+                                name="current_apartment_status"
+                                value={current_apartment_status}
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                {...{ errors, touched }}
+                                className="form-control form-control-lg form-area"
+                              />
+                              <label className="form-label">
+                                If others, please specify
+                                <sup>*</sup>
+                              </label>
+                            </div>
+                        </div>
+                          ) : ''
+                        }
+                     
                       <div className='row'>                      
                         <div className='col-md-6 col-sm-12 form-group'>
                           
                           <WrappedSelectWithError
                             name='mode_of_contact'
                             options={[
+                              'select',
                               'SMS',
                               'Email',
                               'Phone call',
@@ -438,7 +488,7 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
                     </div>
                   </div>
                 </div>
-                <div className='row mt-5'>
+                <div className='row'>
                   <div className="col-12">
                     <button
                       type="submit"
@@ -462,6 +512,8 @@ const ProfileForm = ({ dispatch, ranks, currentUser, goToNextComponent }) => {
   );
 }
 
-const mapStateToProps = ({ currentUser }, ownProps) => ({ currentUser, ...ownProps });
+const mapStateToProps = ({ auth, currentUser }, ownProps) => ({
+  currentUser: { ...currentUser} ,backUser: { ...auth.currentUser }, ...ownProps
+});
  
 export default connect(mapStateToProps)(ProfileForm);

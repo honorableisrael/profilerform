@@ -9,12 +9,14 @@ import authReducer from './authReducer';
 import errorReducer from './errorReducer';
 
 
-export default combineReducers({
+const rootReducer = combineReducers({
   request: requestReducer,
   earnings: earningsReducer,
   properties: propertyReducer,
   currentUser: userReducer,
   affordability: affordabilityReducer,
   auth: authReducer,
-  errors: errorReducer
+  errors: errorReducer,
 });
+
+export default rootReducer

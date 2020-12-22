@@ -28,18 +28,18 @@
   width: 100%;
 }
 .profileMenu__top--item {
-  padding: 15px 25px;
+  padding: 25px 40px;
   display: flex;
   align-items: center;
   /* justify-content: space-between; */
 }
 /* .profileMenu__top--item:first-child {
-  background-color: #e9f2e9 !important;
-  border-left: 4px solid #5fb49c;
+  background-color: var(--cool-green) !important;
+  border-left: 4px solid var(--accent-color);
 } */
 .current {
-  background-color: #e9f2e9 !important;
-  border-left: 4px solid #5fb49c;
+  /* background-color: rgb(181, 236, 222) !important; */
+  border-left: 4px solid var(--accent-color);
 }
 .profileMenu__top--item > .circle {
   border-color: #bbbbbb;
@@ -51,10 +51,10 @@
   margin-right: 12px;
 }
 .profileMenu__top--item > .green {
-  border-color: #0fbc49 !important;
+  border-color: var(--green-color) !important;
 }
 .circle > .green {
-  background-color: #0fbc49 !important;
+  background-color: var(--green-color) !important;
   border-radius: 50%;
   width: 7px !important;
   height: 7px;
@@ -65,10 +65,10 @@
   height: 60px;
   width: 2px;
   margin: 10px 0;
-  margin-left: 30px;
+  margin-left: 50px;
 }
 .greenBar {
-  background-color: #0fbc49 !important;
+  background-color: var(--green-color) !important;
 }
 .profileMenu__top--item > div {
   border: 0.5px solid #bbbbbb;
@@ -79,16 +79,16 @@
   font-size: 14px;
 }
 .profileMenu__top--link:link {
-  color: #bbbbbb;
+  color: #757575;
 }
 .profileMenu__top--link {
-  color: #bbbbbb;
+  color: #727171;
 }
 .marked {
   color: black !important;
 }
 .passed {
-  color: #0fbc49 !important;
+  color: var(--green-color) !important;
 }
 
 .profileMenu__bottom {
@@ -124,8 +124,6 @@
   .profileMenu {
     flex-direction: row !important;
     justify-content: space-between;
-
-    /* width: auto !important; */
     padding: 0rem 0 !important;
   }
   .profileMenu__top {
@@ -135,7 +133,7 @@
     display: flex; */
   }
   .navbar-toggler {
-    margin: 25px 15px !important;
+    /* margin: 25px 15px !important; */
     margin-left: 70vw !important;
     filter: invert(50%);
   }
@@ -191,7 +189,7 @@
   }
   .profileMenu__bottom-item .btn-info {
     color: #ffffff !important;
-    background-color: #5fb49c !important;
+    background-color: var(--accent-color) !important;
     font-weight: 700;
   }
   .profileMenu__bottom-icon {
@@ -205,6 +203,9 @@
 @media only screen and (max-width: 720px) {
   .navbar-toggler {
     margin-left: 60vw !important;
+  }
+  .navbar-toggler .icon-bar {
+    background-color: #07ded4;
   }
 }
 @media only screen and (max-width: 650px) {

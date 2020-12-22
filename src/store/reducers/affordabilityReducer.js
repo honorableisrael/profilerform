@@ -1,3 +1,4 @@
+import { CLEAR_AFFORDABILITY } from '../../constants';
 import types from '../types/affordabilityTypes';
 import { composeNewState } from './composeNewState';
 
@@ -16,7 +17,7 @@ const initialState = {
   monthly_repayment: 0,
   other_obligations: "",
   equity_contribution: '',
-  max_loanable_amount: "",
+  loanable_amount: "",
   have_other_obligations: "no",
   outstanding_loans: '',
   monthly_expenses: '',
@@ -25,7 +26,7 @@ const initialState = {
   // co_borrower_gross_income: "",
 };
 
-export default (state = initialState, action) => {
+const affordabilityReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_AGE: return composeNewState(state, 'age', action);
     case types.SET_RATE: return composeNewState(state, 'rate', action);
@@ -39,12 +40,15 @@ export default (state = initialState, action) => {
     case types.SET_OTHER_OBLIGATIONS: return composeNewState(state, 'other_obligations', action);
     case types.SET_HAVE_EQUITY: return composeNewState(state, 'have_equity', action);
     case types.SET_OUTSTANDING_LOANS: return composeNewState(state, 'outstanding_loans', action);
-    case types.SET_MAX_LOANABLE_AMOUNT: return composeNewState(state, 'max_loanable_amount', action);
+    case types.SET_MAX_LOANABLE_AMOUNT: return composeNewState(state, 'loanable_amount', action);
     case types.SET_EQUITY_CONTRIBUTION: return composeNewState(state, 'equity_contribution', action);
     case types.SET_MONTHLY_EXPENSES: return composeNewState(state, 'monthly_expenses', action);
     case types.SET_PAYMENT_OPTION: return composeNewState(state, 'payment_option', action);
     case types.SET_BUDGET: return composeNewState(state, 'budget', action);
     case types.SET_HAVE_OTHER_OBLIGATIONS: return composeNewState(state, 'have_other_obligations', action);
+    case CLEAR_AFFORDABILITY: return initialState;
     default: return { ...state };
   }
 };
+
+export default affordabilityReducer;

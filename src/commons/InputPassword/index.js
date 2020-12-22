@@ -33,7 +33,7 @@ function TextFieldGroup({ info, error, type, placeholder, onChange, value, minLe
                   placeholder={""} 
                   type={type}
                   onChange={onChange}
-                  data-state-name={name}
+                  name={name}
                   value={value}
                   minLength={minLength}
                   required

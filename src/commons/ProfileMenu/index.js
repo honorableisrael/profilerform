@@ -9,7 +9,7 @@ import { logoutUser } from "./../../store/actions/authActions";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-function ProfileMenu(props) {
+function ProfileMenu({setActiveTab, setPropRequest, ...props}) {
 
     const onLogoutClick =(e)=>{
         e.preventDefault()
@@ -28,7 +28,11 @@ function ProfileMenu(props) {
                         data-toggle="collapse"
                         data-target="#mobile-device"
                     >
-                        <span className="navbar-toggler-icon"></span>
+                        {/* <span className="navbar-toggler-icon"></span> */}
+                        {/* <span class="sr-only">Toggle navigation</span> */}
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                 </button>
             
 
@@ -36,31 +40,37 @@ function ProfileMenu(props) {
                     <ul className=" profileMenu__top--menu">
                         <li className={`nav-item profileMenu__top--item dropdown ${props.profileCurrent}`}>
                             <div className={`circle ${props.profileGreen}`}><div className={`${props.profileGreen}`}></div></div>
-                            <Link className={`profileMenu__top--link ${props.profileMark}`} to="/application" id="navbarDropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+                            <Link className={`profileMenu__top--link ${props.profileMark}`} onClick={() => 
+                                {setActiveTab(0); setPropRequest(false)}
+                                } id="navbarDropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
                             Profile
                             </Link>
                         </li>
-                        <div className={`profileMenu__top--bar ${props.affordabilityGreenBar}`}></div>
+                        {/* <div className={`profileMenu__top--bar ${props.affordabilityGreenBar}`}></div> */}
                         <li className={`nav-item profileMenu__top--item dropdown ${props.affordabilityCurrent}`}>
                         <div className={`circle ${props.affordabilityGreen}`}><div className={`${props.affordabilityGreen}`}></div></div>
-                            <Link className={`profileMenu__top--link ${props.affordabilityMark}`} to="/application/afforability"  id="navbarDropdownMenuLink" aria-haspopup="true" aria-expanded="false">
+                            <Link className={`profileMenu__top--link ${props.affordabilityMark}`} onClick={() =>
+                                 {setActiveTab(1); setPropRequest(false)}
+                                 }  id="navbarDropdownMenuLink" aria-haspopup="true" aria-expanded="false">
                                 Affordability Test
                             </Link>
                         </li> 
-                        <div className={`profileMenu__top--bar ${props.propertyGreenBar}`}></div>
+                        {/* <div className={`profileMenu__top--bar ${props.propertyGreenBar}`}></div> */}
                         <li className={`nav-item profileMenu__top--item dropdown ${props.propertyCurrent}`}>
                             <div className={`circle ${props.propertyGreen}`}><div className={`${props.propertyGreen}`}></div></div>
-                            <Link className={`profileMenu__top--link ${props.propertyMark}`} to="/application/propertyReq" id="navbarDropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+                            <Link className={`profileMenu__top--link ${props.propertyMark}`} onClick={() => 
+                                {setActiveTab(2); setPropRequest(false)}
+                                } id="navbarDropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
                                 Property Request
                             </Link>
                         </li> 
-                        <div className={`profileMenu__top--bar ${props.mortgageGreenBar}`}></div>
-                        <li className={`nav-item profileMenu__top--item dropdown ${props.mortgageCurrent}`}>
+                        {/* <div className={`profileMenu__top--bar ${props.mortgageGreenBar}`}></div> */}
+                        {/* <li className={`nav-item profileMenu__top--item dropdown ${props.mortgageCurrent}`}>
                             <div className={`circle ${props.mortgageGreen}`}><div className={`${props.mortgageGreen}`}></div></div>
                             <Link className={`profileMenu__top--link ${props.mortgageMark}`} to="/mortgage-application" id="navbarDropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
                                 Mortgage Application
                             </Link>
-                        </li>   
+                        </li>    */}
                     </ul>
                 </div>
              </div>

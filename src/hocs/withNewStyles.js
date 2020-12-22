@@ -44,7 +44,7 @@ const Wrapper = styled.div`
     /* ///// 1a. Colors /////// */
     /* Main Colors */
     --primary-color: #03339a;
-    --accent-color: #5fb49c;
+    --accent-color: var(--accent-color);
     /* Base Colors */
     --white-color: #fff;
     --black-color: #4e4e4e;
@@ -2231,6 +2231,14 @@ const Wrapper = styled.div`
 
   .affordability-summary-section {
     padding: 3% 20px;
+      position: sticky;
+      position: -webkit-sticky;
+      position: -moz-sticky;
+      position: -ms-sticky;
+      position: -o-sticky;
+      top: 0 !important;
+      z-index: 1000 !important;
+      background: var(--primary-background-color) !important;
   }
 
   @media print {
@@ -2265,14 +2273,14 @@ const Wrapper = styled.div`
   }
 
   .affordability-form-section h3 {
-    margin-top: 20px;
-    color: #d4d4d4;
+    margin-top: 0px;
+    color: #ffffff;
   }
 
   .affordability-form-section p {
     font-size: 12px;
     margin-top: 5px;
-    color: #d4d4d4;
+    color: #ffffff;
   }
 
   .property-suggestions-section {
@@ -2442,6 +2450,7 @@ const Wrapper = styled.div`
     font-size: 22px;
     line-height: 28px;
     z-index: 10;
+    padding-right: 5px;
   }
 
   .application-stage-description {
@@ -2611,7 +2620,7 @@ const Wrapper = styled.div`
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
-    overflow: auto;
+    // overflow: auto;
   }
 
   .property-suggestion-toggle {
@@ -2689,6 +2698,15 @@ const Wrapper = styled.div`
     margin: 20px 10px;
   }
 
+  @media screen and (max-width: 770px){
+    .row{
+      margin-bottom: 0px;
+    }
+    .mt-5{
+      margin-top: 0rem !important;
+    }
+  }
+
   @media screen and (max-width: 480px) {
     .application-flow {
       padding: 0;
@@ -2752,13 +2770,16 @@ const Wrapper = styled.div`
       -webkit-box-shadow: 20px 46px 30px rgba(0, 0, 0, 0.2);
               box-shadow: 20px 46px 30px rgba(0, 0, 0, 0.2);
     }
-    .affordability-page-content {
+    .affordability-page-content, .eligibility-page-content, .mortgage-page-content {
       display: -ms-grid;
       display: grid;
-      grid-auto-rows: auto;
+      grid-auto-rows: 70px auto;
       grid-auto-flow: row;
       overflow: auto;
       padding-top: 30px;
+    }
+    .eligibility-page-content > *, .mortgage-page-content > *{
+      padding: 5px;
     }
     .property-suggestion-toggle {
       display: none;
