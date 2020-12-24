@@ -2,16 +2,10 @@ import React, { useRef } from "react";
 import { Container, Row, Col, Dropdown, Card } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import "./user_dashboard.css";
-import plus from "../../assets/plus.png";
-import line from "../../assets/sidnavline.png";
-import grid from "../../assets/grid.png";
-import gridwhite from "../../assets/whitegrid.png";
-import male from "../../assets/superhero.png";
-import userimg from "../../assets/user-img.png";
-import arrowhead from "../../assets/arrowhead.png";
+
 import eye from "../../assets/show.png";
-import statusline from "../../assets/statusline.png";
-import searchImage from "../../assets/search.png";
+
+
 import close from "../../assets/close.png";
 import "./animate.css";
 import loader from "../../assets/loader.png";
@@ -32,13 +26,13 @@ import CreditReport from "./creditreport";
 import Mortgagecards from "./mortgagecards";
 import { API } from "../../config";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import Navbar from "./navbar";
 import eye2 from "../../assets/eye2.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Spinner from "react-bootstrap/Spinner";
 import Modal from "react-bootstrap/Modal";
+import UserdashboardSideBar from "./Sidebar";
+import NavComponent from "./NavComponent";
 
 const Userdashboard = (props) => {
   const [state, setState] = React.useState({
@@ -210,10 +204,7 @@ const Userdashboard = (props) => {
       documentId: id,
     });
   };
-  const logOut = () => {
-    localStorage.clear();
-    window.location.assign("/");
-  };
+
   const {
     user,
     propertyList,
@@ -229,110 +220,9 @@ const Userdashboard = (props) => {
     <div>
       <Container fluid>
         <Row className="sdnnavrow">
-          <Col md={3} className="dashbdsidenav">
-            <h2 className="dshbdlogo">LOGO</h2>
-            <Accordion defaultActiveKey="" className="sidenavacc">
-              <Accordion.Toggle
-                as={Card.Header}
-                className="sidenavaccheader sidenavaccheader12"
-                eventKey="5"
-              >
-                <div className="strtbtn">
-                  <img src={plus} className="sidenvimg" />
-                  Start new Application
-                </div>
-              </Accordion.Toggle>
-              <Accordion.Collapse eventKey="5" className="">
-                <>
-                  <Card.Body className="sidenavaccbody dddee">
-                    Mortgages
-                  </Card.Body>
-                  <Card.Body className="sidenavaccbody">
-                    Personal Loan
-                  </Card.Body>
-                  <Card.Body className="sidenavaccbody">
-                    Equity Savings
-                  </Card.Body>
-                </>
-              </Accordion.Collapse>
-            </Accordion>
-            <div className="sdenavline">
-              <img src={line} className="img-fluid" />{" "}
-            </div>
-            <div className="mrginbttm">
-              <div className="sidnavoptions">
-                <img src={grid} className="sidenvimg" />
-                Dashboard
-              </div>
-              <div className="sidnavoptionsna">
-                <img src={gridwhite} className="sidenvimg" />
-                Applications
-              </div>
-              <div className="sidnavoptionsna ">
-                <img src={gridwhite} className="sidenvimg" />
-                Equity Savings
-              </div>
-              <div className="sidnavoptionsna ">
-                <img src={gridwhite} className="sidenvimg" />
-                Apply for Mortgage
-              </div>
-            </div>
-            <div className="sdenavline2">
-              <img src={line} className="img-fluid" />{" "}
-            </div>
-            <div className="sidnavsavingsdv">
-              <h5 className="savingsheader">Easy way to Equity Saving</h5>
-              <div className="savingspgphdiv">
-                {" "}
-                <p className="savingsprgrph">
-                  with our all in one platform you can organise all your savings
-                  in one place and on the go
-                </p>
-              </div>
-              <img src={male} className="img-fluid" />
-              <span className="sdenavsavingsbtn">Get the App</span>
-            </div>
-          </Col>
+          <UserdashboardSideBar/>
           <Col md={9} className="udshboard">
-            <Row className="udashsearchdiv">
-              <Col md={8}>
-                <form className="dxxa">
-                  <span className="sassa">
-                    <img
-                      src={searchImage}
-                      alt="search"
-                      className="searchImage"
-                    />
-                  </span>
-                  <input
-                    type="search"
-                    size="80"
-                    placeholder="Search"
-                    className="dshbdsearchbar form-control"
-                  />
-                </form>
-              </Col>
-              <Col md={4}>
-                <div className="userdashids">
-                  <Dropdown className="uddrpdwndiv">
-                    <img src={arrowhead} className="arrimg" />
-                    <img src={userimg} className="uimg" />
-                    <Dropdown.Toggle
-                      id="dropdown-basic"
-                      className="usernavdrpdwn"
-                    />
-                    <Dropdown.Menu className="animated fadeIn">
-                      <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                      <Dropdown.Item href="#/action-1">Settings</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2" onClick={logOut}>
-                        Log out
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                  <Navbar />
-                </div>
-              </Col>
-            </Row>
+            <NavComponent/>
             <div className="userdahbdname">
               Good Morning{" "}
               <span>
