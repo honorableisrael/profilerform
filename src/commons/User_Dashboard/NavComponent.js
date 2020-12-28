@@ -13,7 +13,7 @@ const NavComponent = (props) => {
   return (
     <>
       <Row className="udashsearchdiv">
-        <Col md={8}>
+        <Col md={8} sm={12} xs={12}>
           {!props.hideSearch && (
             <form className="dxxa">
               <span className="sassa">
@@ -28,7 +28,7 @@ const NavComponent = (props) => {
             </form>
           )}
         </Col>
-        <Col md={4}>
+        <Col md={4} sm={12} xs={12}>
           <div className="userdashids">
             <Dropdown className="uddrpdwndiv">
               <img src={arrowhead} className="arrimg" />

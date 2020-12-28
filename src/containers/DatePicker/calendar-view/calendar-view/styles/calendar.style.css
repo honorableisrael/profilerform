@@ -51,29 +51,29 @@
   flex-direction: column;
 }
 
-select {
+/* select {
   width: 100%;
   background: none;
   border: none;
-}
+} */
 
-select option {
+/* select option {
   display: flex;
   justify-content: center;
-}
+} */
 
-.calendar-view-wrapper .calendar-view-header .year-view {
+/* .calendar-view-wrapper .calendar-view-header .year-view {
   align-self: flex-start;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
+} */
 
-.calendar-view-wrapper .calendar-view-header .down-facing-arrow {
+/* .calendar-view-wrapper .calendar-view-header .down-facing-arrow {
   color: #eee;
   font-weight: 600;
   margin-left: 5px;
-}
+} */
 
 .calendar-view-wrapper .calendar-view-header .year-view > div:first-child {
   margin-bottom: 10px;

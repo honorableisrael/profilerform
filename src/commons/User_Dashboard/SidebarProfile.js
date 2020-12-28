@@ -3,10 +3,9 @@ import { Container, Row, Col, Dropdown, Card } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import plus from "../../assets/plus.png";
 import line from "../../assets/sidnavline.png";
-import Profile from "../../assets/Profile.svg";
-import gridwhite from "../../assets/whitegrid.png";
-import Wallet from "../../assets/Wallet.svg";
-import Home from "../../assets/Home.svg";
+import { ReactComponent as Profile } from "../../assets/Profile.svg";
+import { ReactComponent as Wallet } from "../../assets/Wallet.svg";
+import { ReactComponent as Home } from "../../assets/Home.svg";
 import { Link } from "react-router-dom";
 
 const SideBarProfile = (props) => {
@@ -15,16 +14,24 @@ const SideBarProfile = (props) => {
       <Col md={3} className="dashbdsidenav tealbg">
         <h2 className="dshbdlogo">LOGO</h2>
         <div className="mrginbttm">
-          <div className="sidnavoptions">
-            <img src={Profile} className="sidenvimg" />
+          <div
+            className={
+              props.profile == true ? "sidnavoptions" : "sidnavoptionsna"
+            }
+          >
+            <Profile className="sidenvimg" fill="white" stroke="white" />
             Profile
           </div>
-          <div className="sidnavoptionsna ">
-            <img src={Wallet} className="sidenvimg" />
+          <div className={
+              props.affordability == true ? "sidnavoptions" : "sidnavoptionsna"
+            }>
+            <Wallet className="sidenvimg" fill="#039c71" stroke="#039c71" />
             Affordability Test
           </div>
-          <div className="sidnavoptionsna ">
-            <img src={Home} className="sidenvimg" />
+          <div className={
+              props.property_request == true ? "sidnavoptions" : "sidnavoptionsna"
+            }>
+            <Home  className="sidenvimg" fill="#039c71" stroke="#039c71"/>
             Property Request
           </div>
         </div>

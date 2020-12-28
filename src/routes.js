@@ -28,6 +28,10 @@ import Userdashboard from "./commons/User_Dashboard/user_dashboard";
 import PrivateRoute from "./commons/PrivateRoute";
 import NewMortgageForm from "./containers/NewMortgageForm";
 import Profile_1 from "./commons/User_Dashboard/ProfileStep1";
+import Profile_2 from "./commons/User_Dashboard/ProfileStep2";
+import Profile_3 from "./commons/User_Dashboard/ProfileStep3";
+import Profile_4 from "./commons/User_Dashboard/ProfileStep4";
+import Profile_6 from "./commons/User_Dashboard/ProfileStep6";
 
 //check for token
 if (localStorage.token && localStorage.user) {
@@ -74,6 +78,10 @@ class Routes extends Component {
             <Route exact path="/userdashboard" component={Userdashboard} />
 
             <Route exact path="/user-profile" component={Profile_1} />
+            <Route exact path="/user-employment-info" component={Profile_2} />
+            <Route exact path="/user-affordability-test" component={Profile_3} />
+            <Route exact path="/user-property-request" component={Profile_4} />
+            <Route exact path="/user-request-form" component={Profile_6} />
             {/* <Route
               exact
               path='/auth/resetPassword'

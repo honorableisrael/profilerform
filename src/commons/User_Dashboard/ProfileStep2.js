@@ -2,25 +2,11 @@ import React, { useRef } from "react";
 import { Container, Row, Col, Dropdown, Card } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import "./user_dashboard.css";
-import eye from "../../assets/show.png";
 import close from "../../assets/close.png";
 import "./animate.css";
-import loader from "../../assets/loader.png";
-import caretdwn from "../../assets/caret_down.png";
-import equity from "../../assets/equity.png";
 import Button from "react-bootstrap/Button";
-import cavetleft from "../../assets/caretleft.png";
-import cavetright from "../../assets/caretright.png";
-import board from "../../assets/board.png";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import house from "../../assets/house.png";
-import house2 from "../../assets/house2.png";
-import pen from "../../assets/pen.png";
-import cross from "../../assets/cross.png";
-import uploadimg from "../../assets/uploadimg.png";
-import CreditReport from "./creditreport";
-import Mortgagecards from "./mortgagecards";
+
 import { API } from "../../config";
 import axios from "axios";
 
@@ -32,31 +18,27 @@ import Modal from "react-bootstrap/Modal";
 import SideBarProfile from "./SidebarProfile";
 import NavComponent from "./NavComponent";
 import HeaderStats from "./HeaderStats";
+import { Link } from "react-router-dom";
 
-const Profile_1 = (props) => {
+const Profile_2 = (props) => {
   const [state, setState] = React.useState({
     user: {},
     propertyList: [],
     formError: "",
     applicationStatus: {},
     deleteModal: false,
-    file: "",
+    BVN: "",
     propertySlide: {},
     isUploading: false,
-    totalDoc: {},
+    nhf_number: "",
     isloading: false,
     isDeleting: false,
-    documentId: "",
-    firstname: "",
-    lastname: "",
-    address: "",
-    email: "",
-    phone: "",
-    date_of_birth: "",
-    state_of_origin: "",
-    married_status: "",
-    home_status: "",
-    mode_of_contact: "",
+    yearstoretirement: "",
+    fap_number: "",
+    Rank: "",
+    lengthofservice: "",
+    StateofDeployment: "",
+    Command: "",
     number_of_dependants: "",
   });
   let fileRef = useRef(null);
@@ -110,14 +92,15 @@ const Profile_1 = (props) => {
   const validateForm = () => {
     if (
       address === "" ||
-      email == "" ||
-      phone == "" ||
-      date_of_birth == "" ||
+      lengthofservice == "" ||
+      yearstoretirement == "" ||
+      BVN == "" ||
       state_of_origin == "" ||
-      home_status == "" ||
-      firstname == "" ||
-      lastname == "" ||
-      mode_of_contact == "" ||
+      Command == "" ||
+      fap_number == "" ||
+      Rank == "" ||
+      nhf_number == "" ||
+      StateofDeployment == "" ||
       number_of_dependants == ""
     ) {
       setState({
@@ -138,13 +121,14 @@ const Profile_1 = (props) => {
     });
     const data = {
       address,
-      email,
+      lengthofservice,
       phone,
+      BVN,
       date_of_birth,
       number_of_dependants,
-      state_of_origin,
+      yearstoretirement,
       home_status,
-      firstname,
+      fap_number,
       lastname,
       mode_of_contact,
     };
@@ -204,20 +188,25 @@ const Profile_1 = (props) => {
   const test = ["New", "Old"];
   const {
     user,
+    nhf_number,
     totalDoc,
     address,
-    email,
+    lengthofservice,
     phone,
     date_of_birth,
     state_of_origin,
     home_status,
-    firstname,
+    fap_number,
+    yearstoretirement,
     lastname,
+    Command,
+    Rank,
+    StateofDeployment,
     mode_of_contact,
     deleteModal,
     formError,
     isloading,
-    married_status,
+    BVN,
     number_of_dependants,
   } = state;
   console.log(totalDoc);
@@ -234,12 +223,12 @@ const Profile_1 = (props) => {
               </div>
             )}
             <div className="proffl">Profile</div>
-           <HeaderStats/>
+            <HeaderStats />
             <Col md={12} className="lldl">
               <div className="oll12">
                 Hi <span className="name2p"> Olumide Olorundare</span>
               </div>
-              <div className="selg">Tell us about your self</div>
+              <div className="selg">Provide your Employment Information</div>
               <div className="straightdivider"></div>
             </Col>
             <Col md={12} className="formwrapper1">
@@ -249,22 +238,24 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && firstname == ""
+                          formError && fap_number == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        First Name
+                        F/AP Number
                       </span>
                       <Form.Control
                         type="text"
                         onChange={onchange}
                         required
-                        value={firstname}
+                        value={fap_number}
                         className={
-                          formError && firstname == "" ? "fmc formerror" : "fmc"
+                          formError && fap_number == ""
+                            ? "fmc formerror"
+                            : "fmc"
                         }
-                        name="firstname"
+                        name="fap_number"
                         placeholder=""
                       />
                     </Form.Group>
@@ -273,123 +264,72 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && lastname == ""
+                          formError && Command == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Last Name
+                        Command
                       </span>
                       <Form.Control
                         type="text"
                         onChange={onchange}
                         required
-                        value={lastname}
+                        value={Command}
                         className={
-                          formError && lastname == "" ? "fmc formerror" : "fmc"
+                          formError && Command == "" ? "fmc formerror" : "fmc"
                         }
-                        name="lastname"
+                        name="Command"
                         placeholder="   "
                       />
                     </Form.Group>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md={12} className="">
-                    <Form.Group>
-                      <span
-                        className={
-                          formError && address == ""
-                            ? "userprofile formerror1"
-                            : "userprofile"
-                        }
-                      >
-                        Address
-                      </span>
-                      <Form.Control
-                        type="text"
-                        onChange={onchange}
-                        required
-                        value={address}
-                        className={
-                          formError && address == "" ? "fmc formerror" : "fmc"
-                        }
-                        name="address"
-                        placeholder=""
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row>
                   <Col md={6} className="eachfield">
                     <Form.Group>
                       <span
                         className={
-                          formError && email == ""
+                          formError && Rank == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Email
+                        Rank
                       </span>
                       <Form.Control
-                        type="email"
-                        onChange={onchange}
-                        required
-                        value={email}
+                        as="select"
                         className={
-                          formError && email == "" ? "fmc formerror" : "fmc"
+                          formError && Rank == "" ? "fmc formerror" : "fmc"
                         }
-                        name="email"
-                        placeholder=""
-                      />
+                        name="Rank"
+                        onChange={handleChange}
+                      >
+                        <option value=""></option>
+                        <option value="Mini">Mini</option>
+                        <option value="N/A">N/A</option>
+                      </Form.Control>
                     </Form.Group>
                   </Col>
                   <Col md={6} className="eachfield2">
                     <Form.Group>
                       <span
                         className={
-                          formError && phone == ""
+                          formError && StateofDeployment == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Phone Number
-                      </span>
-                      <Form.Control
-                        type="text"
-                        onChange={onchange}
-                        required
-                        value={phone}
-                        className={
-                          formError && phone == "" ? "fmc formerror" : "fmc"
-                        }
-                        name="phone"
-                        placeholder=""
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md={6} className="eachfield">
-                    <Form.Group>
-                      <span
-                        className={
-                          formError && married_status == ""
-                            ? "userprofile formerror1"
-                            : "userprofile"
-                        }
-                      >
-                        Marital Status
+                        State of Deployment
                       </span>
                       <Form.Control
                         as="select"
                         className={
-                          formError && married_status == ""
+                          formError && StateofDeployment == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="married_status"
+                        name="StateofDeployment"
                         onChange={handleChange}
                       >
                         <option value=""></option>
@@ -400,98 +340,127 @@ const Profile_1 = (props) => {
                       </Form.Control>
                     </Form.Group>
                   </Col>
-                  <Col md={6} className="eachfield2">
-                    <Form.Group>
-                      <span
-                        className={
-                          formError && home_status == ""
-                            ? "userprofile formerror1"
-                            : "userprofile"
-                        }
-                      >
-                        Current Home Status
-                      </span>
-                      <Form.Control
-                        as="select"
-                        className={
-                          formError && home_status == ""
-                            ? "fmc formerror"
-                            : "fmc"
-                        }
-                        value={home_status}
-                        name="home_status"
-                        onChange={handleChange}
-                      >
-                        <option value=""></option>
-                        <option value="Mini">Mini</option>
-                        <option value="N/A">N/A</option>
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
                 </Row>
                 <Row>
                   <Col md={6} className="eachfield">
                     <Form.Group>
                       <span
                         className={
-                          formError && mode_of_contact == ""
+                          formError && lengthofservice == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Preferred Mode of Contact
+                        Length of Service
                       </span>
                       <Form.Control
-                        as="select"
+                        type="lengthofservice"
+                        onChange={onchange}
+                        required
+                        value={lengthofservice}
                         className={
-                          formError && mode_of_contact == ""
+                          formError && lengthofservice == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="mode_of_contact"
-                        onChange={handleChange}
-                      >
-                        <option value=""></option>
-                        <option value="single">Single</option>
-                        <option value="married">Married</option>
-                      </Form.Control>
+                        name="lengthofservice"
+                        placeholder=""
+                      />
+                      <div className="spna12">
+                        <span className="spna122">years</span>
+                      </div>
                     </Form.Group>
                   </Col>
                   <Col md={6} className="eachfield2">
                     <Form.Group>
                       <span
                         className={
-                          formError && number_of_dependants == ""
+                          formError && yearstoretirement == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Number of Dependant
+                        Years to Retirement
                       </span>
                       <Form.Control
-                        as="select"
+                        type="text"
+                        onChange={onchange}
+                        required
+                        value={yearstoretirement}
                         className={
-                          formError && number_of_dependants == ""
+                          formError && yearstoretirement == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="number_of_dependants"
-                        onChange={handleChange}
+                        name="yearstoretirement"
+                        placeholder=""
+                      />
+                      <div className="spna12">
+                        <span className="spna122">years</span>
+                      </div>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row className="poll878">
+                  <Col md={6} className="eachfield">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && nhf_number == ""
+                            ? "userprofile formerror1"
+                            : "userprofile"
+                        }
                       >
-                        <option value=""></option>
-                        <option value="Mini" class="otherss">
-                          Mini
-                        </option>
-                        <option value="N/A" class="otherss">
-                          N/A
-                        </option>
-                      </Form.Control>
+                        NHF Number
+                      </span>
+                      <Form.Control
+                        type="text"
+                        onChange={onchange}
+                        required
+                        value={nhf_number}
+                        className={
+                          formError && nhf_number == ""
+                            ? "fmc formerror"
+                            : "fmc"
+                        }
+                        name="nhf_number"
+                        placeholder=""
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={6} className="eachfield2">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && BVN == ""
+                            ? "userprofile formerror1"
+                            : "userprofile"
+                        }
+                      >
+                        BVN
+                      </span>
+                      <Form.Control
+                        type="text"
+                        onChange={onchange}
+                        required
+                        value={BVN}
+                        className={
+                          formError && Command == "" ? "fmc formerror" : "fmc"
+                        }
+                        name="BVN"
+                        placeholder=""
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md={12}>
-                    <Button className="continue1 nomargn" onClick={validateForm}>
+                  <Col md={6}>
+                    <Link to="/user-profile">
+                      <Button className="continue1 polld">Previous</Button>
+                    </Link>
+                  </Col>
+                  <Col md={6}>
+                    <Button className="continue1" onClick={validateForm}>
                       Continue
                     </Button>
                   </Col>
@@ -544,4 +513,4 @@ const Profile_1 = (props) => {
     </div>
   );
 };
-export default Profile_1;
+export default Profile_2;
