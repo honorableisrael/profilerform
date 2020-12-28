@@ -1600,3 +1600,19 @@ select .form-control {
     margin-top: 1rem;
   }
 }
+.meanas{
+  font-style: normal;
+font-weight: bold;
+font-size: 14px;
+line-height: 17px;
+color: #666666;
+}
+.fofof{
+  padding-bottom: 1rem;
+}
+.fofofd{
+  border: 1px solid #ced4da;
+  padding: 1rem .4rem;
+  border-radius: 10px;
+  margin: 1rem 0rem;
+}
