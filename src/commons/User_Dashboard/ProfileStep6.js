@@ -19,6 +19,7 @@ import SideBarProfile from "./SidebarProfile";
 import NavComponent from "./NavComponent";
 import { Link } from "react-router-dom";
 import handshake from "../../assets/handshake.png";
+import SecondNavComponent from "./SecondNavComponent";
 
 const Profile_6 = (props) => {
   const [state, setState] = React.useState({
@@ -249,7 +250,7 @@ const Profile_6 = (props) => {
         <Row className="sdnnavrow">
           <SideBarProfile property_request={true} />
           <Col md={9} className="udshboard">
-            <NavComponent hideSearch={true} />
+            <SecondNavComponent hideSearch={true} />
             {isloading && (
               <div className="text-center">
                 <Spinner animation="grow" variant="info" />
@@ -338,7 +339,7 @@ const Profile_6 = (props) => {
                         Number of Bedrooms
                       </span>
                       <Form.Control
-                        type="text"
+                        type="number"
                         onChange={onchange}
                         required
                         value={number_of_bedrooms}
@@ -367,7 +368,7 @@ const Profile_6 = (props) => {
                         Number of Bathrooms
                       </span>
                       <Form.Control
-                        type="text"
+                        type="number"
                         onChange={onchange}
                         required
                         value={monthlygross}

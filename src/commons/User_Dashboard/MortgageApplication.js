@@ -32,6 +32,7 @@ import Modal from "react-bootstrap/Modal";
 import SideBarProfile from "./SidebarProfile";
 import NavComponent from "./NavComponent";
 import HeaderStats from "./HeaderStats";
+import SecondNavComponent from "./SecondNavComponent";
 
 const MortgageApplication = (props) => {
   const [state, setState] = React.useState({
@@ -66,6 +67,10 @@ const MortgageApplication = (props) => {
     place_of_birth: "",
     profession: "",
     highest_education: "",
+    type_of_identification: "",
+    id_number: "",
+    id_issue_date: "",
+    id_expiry_date: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -135,7 +140,11 @@ const MortgageApplication = (props) => {
       place_of_birth == "" ||
       state_of_origin == "" ||
       profession == "" ||
-      highest_education == ""
+      highest_education == "" ||
+      type_of_identification == "" ||
+      id_number == "" ||
+      id_issue_date == "" ||
+      id_expiry_date == ""
     ) {
       setState({
         ...state,
@@ -162,6 +171,7 @@ const MortgageApplication = (props) => {
       state_of_origin,
       home_status,
       firstname,
+      type_of_identification,
       lastname,
       mode_of_contact,
       profession,
@@ -171,6 +181,9 @@ const MortgageApplication = (props) => {
       sex,
       highest_education,
       place_of_birth,
+      id_expiry_date,
+      id_issue_date,
+      id_number,
     };
     axios
       .post(`${API}/user/u`, data, {
@@ -242,7 +255,7 @@ const MortgageApplication = (props) => {
     deleteModal,
     formError,
     isloading,
-    married_status,
+    type_of_identification,
     number_of_dependants,
     sex,
     nationality,
@@ -251,6 +264,9 @@ const MortgageApplication = (props) => {
     highest_education,
     place_of_birth,
     middle_name,
+    id_expiry_date,
+    id_issue_date,
+    id_number,
   } = state;
   console.log(totalDoc);
   return (
@@ -259,7 +275,7 @@ const MortgageApplication = (props) => {
         <Row className="sdnnavrow">
           <SideBarProfile profile={true} />
           <Col md={9} className="udshboard">
-            <NavComponent hideSearch={true} />
+            <SecondNavComponent hideSearch={true} />
             {isloading && (
               <div className="text-center">
                 <Spinner animation="grow" variant="info" />
@@ -444,7 +460,7 @@ const MortgageApplication = (props) => {
                         Phone Number
                       </span>
                       <Form.Control
-                        type="text"
+                        type="number"
                         onChange={onchange}
                         required
                         value={phone}
@@ -468,7 +484,7 @@ const MortgageApplication = (props) => {
                         Age
                       </span>
                       <Form.Control
-                        type="text"
+                        type="number"
                         onChange={onchange}
                         required
                         value={age}
@@ -502,10 +518,10 @@ const MortgageApplication = (props) => {
                         onChange={handleChange}
                       >
                         <option value=""></option>
-                        <option value="single" class="otherss">
-                          Single
+                        <option value="MALE" class="otherss">
+                          MALE
                         </option>
-                        <option value="married">Married</option>
+                        <option value="FEMALE">FEMALE</option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -659,7 +675,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && state_of_origin == ""
+                          formError && type_of_identification == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -669,7 +685,7 @@ const MortgageApplication = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && state_of_origin == ""
+                          formError && type_of_identification == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -685,27 +701,27 @@ const MortgageApplication = (props) => {
                     </Form.Group>
                   </Col>
                   <Col md={3} className="eachfield2">
-                  <Form.Group>
+                    <Form.Group>
                       <span
                         className={
-                          formError && profession == ""
+                          formError && id_issue_date == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        ID Issue Date
+                        ID Number
                       </span>
                       <Form.Control
                         type="text"
                         onChange={onchange}
                         required
-                        value={profession}
+                        value={id_number}
                         className={
-                          formError && profession == ""
+                          formError && id_number == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="profession"
+                        name="id_number"
                         placeholder=""
                       />
                     </Form.Group>
@@ -714,7 +730,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && profession == ""
+                          formError && id_issue_date == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -722,16 +738,16 @@ const MortgageApplication = (props) => {
                         ID Issue Date
                       </span>
                       <Form.Control
-                        type="text"
+                        type="date"
                         onChange={onchange}
                         required
-                        value={profession}
+                        value={id_issue_date}
                         className={
-                          formError && profession == ""
+                          formError && id_issue_date == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="profession"
+                        name="id_issue_date"
                         placeholder=""
                       />
                     </Form.Group>
@@ -740,7 +756,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && profession == ""
+                          formError && id_expiry_date == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -748,16 +764,16 @@ const MortgageApplication = (props) => {
                         ID Expiry Date
                       </span>
                       <Form.Control
-                        type="text"
+                        type="date"
                         onChange={onchange}
                         required
-                        value={profession}
+                        value={id_expiry_date}
                         className={
-                          formError && profession == ""
+                          formError && id_expiry_date == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="profession"
+                        name="id_expiry_date"
                         placeholder=""
                       />
                     </Form.Group>

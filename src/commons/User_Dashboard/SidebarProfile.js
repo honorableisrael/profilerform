@@ -20,19 +20,27 @@ const SideBarProfile = (props) => {
             }
           >
             <Profile className="sidenvimg" fill="white" stroke="white" />
-            Profile
+            <Link to="/user-profile">Profile</Link>
           </div>
-          <div className={
+          <div
+            className={
               props.affordability == true ? "sidnavoptions" : "sidnavoptionsna"
-            }>
+            }
+          >
             <Wallet className="sidenvimg" fill="#039c71" stroke="#039c71" />
-            Affordability Test
+            <Link to="/user-affordability-test">Affordability Test</Link>
           </div>
-          <div className={
-              props.property_request == true ? "sidnavoptions" : "sidnavoptionsna"
-            }>
-            <Home  className="sidenvimg" fill="#039c71" stroke="#039c71"/>
+          <div
+            className={
+              props.property_request == true
+                ? "sidnavoptions"
+                : "sidnavoptionsna"
+            }
+          >
+            <Home className="sidenvimg" fill="#039c71" stroke="#039c71" />
+            <Link to="/user-request-form">
             Property Request
+            </Link>
           </div>
         </div>
       </Col>

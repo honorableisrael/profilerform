@@ -23,15 +23,16 @@ import CreditReport from "./creditreport";
 import Mortgagecards from "./mortgagecards";
 import { API } from "../../config";
 import axios from "axios";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Spinner from "react-bootstrap/Spinner";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import SideBarProfile from "./SidebarProfile";
-import NavComponent from "./NavComponent";
 import HeaderStats from "./HeaderStats";
+import SecondNavComponent from "./SecondNavComponent";
+import { States } from "./states";
+
 
 const Profile_1 = (props) => {
   const [state, setState] = React.useState({
@@ -120,11 +121,13 @@ const Profile_1 = (props) => {
       mode_of_contact == "" ||
       number_of_dependants == ""
     ) {
-      setState({
+      notify("Please fill the required feilds");
+      return setState({
         ...state,
         formError: "Please fill",
       });
     }
+    SumitForm();
   };
   const SumitForm = () => {
     const userToken = localStorage.getItem("jwtToken");
@@ -137,19 +140,19 @@ const Profile_1 = (props) => {
       isUploading: true,
     });
     const data = {
+      firstname,
+      lastname,
       address,
       email,
       phone,
-      date_of_birth,
-      number_of_dependants,
+      dob: date_of_birth,
+      no_of_dependents: number_of_dependants,
       state_of_origin,
-      home_status,
-      firstname,
-      lastname,
+      current_apartment_status: home_status,
       mode_of_contact,
     };
     axios
-      .post(`${API}/user/u`, data, {
+      .post(`${API}/user/profile`, data, {
         headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((res) => {
@@ -161,9 +164,10 @@ const Profile_1 = (props) => {
         });
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 3000);
       })
       .catch((err) => {
+        console.log(err);
         setState({
           ...state,
           isUploading: false,
@@ -227,14 +231,14 @@ const Profile_1 = (props) => {
         <Row className="sdnnavrow">
           <SideBarProfile profile={true} />
           <Col md={9} className="udshboard">
-            <NavComponent hideSearch={true} />
+            <SecondNavComponent hideSearch={true} />
             {isloading && (
               <div className="text-center">
                 <Spinner animation="grow" variant="info" />
               </div>
             )}
             <div className="proffl">Profile</div>
-           <HeaderStats/>
+            <HeaderStats />
             <Col md={12} className="lldl">
               <div className="oll12">
                 Hi <span className="name2p"> Olumide Olorundare</span>
@@ -295,7 +299,7 @@ const Profile_1 = (props) => {
                   </Col>
                 </Row>
                 <Row>
-                  <Col md={12} className="">
+                  <Col md={12} className="dapadd">
                     <Form.Group>
                       <span
                         className={
@@ -357,7 +361,7 @@ const Profile_1 = (props) => {
                         Phone Number
                       </span>
                       <Form.Control
-                        type="text"
+                        type="number"
                         onChange={onchange}
                         required
                         value={phone}
@@ -367,6 +371,64 @@ const Profile_1 = (props) => {
                         name="phone"
                         placeholder=""
                       />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6} className="eachfield">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && date_of_birth == ""
+                            ? "userprofile formerror1"
+                            : "userprofile"
+                        }
+                      >
+                        Date of Birth
+                      </span>
+                      <Form.Control
+                        type="date"
+                        onChange={onchange}
+                        required
+                        value={date_of_birth}
+                        className={
+                          formError && date_of_birth == ""
+                            ? "fmc formerror"
+                            : "fmc"
+                        }
+                        name="date_of_birth"
+                        placeholder=""
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={6} className="eachfield2">
+                    <Form.Group>
+                    <span
+                        className={
+                          formError && state_of_origin == ""
+                            ? "userprofile formerror1"
+                            : "userprofile"
+                        }
+                      >
+                        State of Origin
+                      </span>
+                      <Form.Control
+                        as="select"
+                        className={
+                          formError && state_of_origin == ""
+                            ? "fmc formerror"
+                            : "fmc"
+                        }
+                        name="state_of_origin"
+                        onChange={handleChange}
+                      >
+                        <option></option>
+                        {States?.map((data, i) => (
+                          <option value={data} class="otherss" key={i}>
+                            {data}
+                          </option>
+                        ))}
+                      </Form.Control>
                     </Form.Group>
                   </Col>
                 </Row>
@@ -423,8 +485,8 @@ const Profile_1 = (props) => {
                         onChange={handleChange}
                       >
                         <option value=""></option>
-                        <option value="Mini">Mini</option>
-                        <option value="N/A">N/A</option>
+                        <option value="Owned">Owned</option>
+                        <option value="Rented">Rented</option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -452,8 +514,9 @@ const Profile_1 = (props) => {
                         onChange={handleChange}
                       >
                         <option value=""></option>
-                        <option value="single">Single</option>
-                        <option value="married">Married</option>
+                        <option value="Call">Call</option>
+                        <option value="Whatsapp">Whatsapp</option>
+                        <option value="Email">Email</option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -469,29 +532,27 @@ const Profile_1 = (props) => {
                         Number of Dependant
                       </span>
                       <Form.Control
-                        as="select"
+                        type="number"
+                        onChange={onchange}
+                        required
+                        value={number_of_dependants}
                         className={
                           formError && number_of_dependants == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
                         name="number_of_dependants"
-                        onChange={handleChange}
-                      >
-                        <option value=""></option>
-                        <option value="Mini" class="otherss">
-                          Mini
-                        </option>
-                        <option value="N/A" class="otherss">
-                          N/A
-                        </option>
-                      </Form.Control>
+                        placeholder=""
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md={12}>
-                    <Button className="continue1 nomargn" onClick={validateForm}>
+                  <Col md={12} className="dapadd">
+                    <Button
+                      className="continue1 nomargn"
+                      onClick={validateForm}
+                    >
                       Continue
                     </Button>
                   </Col>

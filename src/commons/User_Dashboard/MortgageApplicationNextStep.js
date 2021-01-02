@@ -2,11 +2,25 @@ import React, { useRef } from "react";
 import { Container, Row, Col, Dropdown, Card } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import "./user_dashboard.css";
+import eye from "../../assets/show.png";
 import close from "../../assets/close.png";
 import "./animate.css";
+import loader from "../../assets/loader.png";
+import caretdwn from "../../assets/caret_down.png";
+import equity from "../../assets/equity.png";
 import Button from "react-bootstrap/Button";
+import cavetleft from "../../assets/caretleft.png";
+import cavetright from "../../assets/caretright.png";
+import board from "../../assets/board.png";
+import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
+import house from "../../assets/house.png";
+import house2 from "../../assets/house2.png";
+import pen from "../../assets/pen.png";
+import cross from "../../assets/cross.png";
+import uploadimg from "../../assets/uploadimg.png";
+import CreditReport from "./creditreport";
+import Mortgagecards from "./mortgagecards";
 import { API } from "../../config";
 import axios from "axios";
 
@@ -21,30 +35,26 @@ import HeaderStats from "./HeaderStats";
 import { Link } from "react-router-dom";
 import SecondNavComponent from "./SecondNavComponent";
 
-const Profile_3 = (props) => {
+const Mortgage_Application_Third = (props) => {
   const [state, setState] = React.useState({
     user: {},
     propertyList: [],
     formError: "",
     applicationStatus: {},
     deleteModal: false,
-    BVN: "",
+    file: "",
     propertySlide: {},
     isUploading: false,
-    nhf_number: "",
+    totalDoc: {},
     isloading: false,
     isDeleting: false,
-    monthlygross: "",
-    annual_salary: "",
-    fap_number: "",
-    Rank: "",
-    annual_salary: "",
-    StateofDeployment: "",
-    Command: "",
-    number_of_dependants: "",
-    do_you_have_equity: "",
-    monthly_expense:"",
-    loan_repayments:""
+    current_home_status: "",
+    marital_status: "",
+    do_you_have_children: "",
+    next_of_kin_fullname: "",
+    next_of_kin_relationship: "",
+    next_of_kin_age: "",
+    next_of_kin_address: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -96,20 +106,13 @@ const Profile_3 = (props) => {
   };
   const validateForm = () => {
     if (
-      address === "" ||
-      annual_salary == "" ||
-      monthlygross == "" ||
-      BVN == "" ||
-      state_of_origin == "" ||
-      Command == "" ||
-      fap_number == "" ||
-      Rank == "" ||
-      do_you_have_equity == "" ||
-      nhf_number == "" ||
-      StateofDeployment == "" ||
-      number_of_dependants == "" ||
-      monthly_expense=="" ||
-      loan_repayments==""
+      current_home_status === "" ||
+      marital_status === "" ||
+      do_you_have_children === "" ||
+      next_of_kin_fullname === "" ||
+      next_of_kin_relationship === "" ||
+      next_of_kin_age === "" ||
+      next_of_kin_address === ""
     ) {
       setState({
         ...state,
@@ -128,20 +131,13 @@ const Profile_3 = (props) => {
       isUploading: true,
     });
     const data = {
-      address,
-      annual_salary,
-      phone,
-      BVN,
-      date_of_birth,
-      number_of_dependants,
-      monthlygross,
-      do_you_have_equity,
-      home_status,
-      fap_number,
-      lastname,
-      monthly_expense,
-      mode_of_contact,
-      loan_repayments,
+      current_home_status,
+      marital_status,
+      do_you_have_children,
+      next_of_kin_fullname,
+      next_of_kin_relationship,
+      next_of_kin_age,
+      next_of_kin_address,
     };
     axios
       .post(`${API}/user/u`, data, {
@@ -199,36 +195,25 @@ const Profile_3 = (props) => {
   const test = ["New", "Old"];
   const {
     user,
-    nhf_number,
-    do_you_have_equity,
     totalDoc,
     address,
-    annual_salary,
-    monthly_expense,
-    phone,
-    date_of_birth,
-    state_of_origin,
-    home_status,
-    fap_number,
-    monthlygross,
-    lastname,
-    Command,
-    Rank,
-    StateofDeployment,
-    mode_of_contact,
+    current_home_status,
+    marital_status,
+    do_you_have_children,
+    next_of_kin_fullname,
+    next_of_kin_relationship,
+    next_of_kin_age,
+    next_of_kin_address,
     deleteModal,
     formError,
     isloading,
-    loan_repayments,
-    BVN,
-    number_of_dependants,
   } = state;
   console.log(totalDoc);
   return (
     <div>
       <Container fluid>
         <Row className="sdnnavrow">
-          <SideBarProfile affordability={true} />
+          <SideBarProfile profile={true} />
           <Col md={9} className="udshboard">
             <SecondNavComponent hideSearch={true} />
             {isloading && (
@@ -236,126 +221,38 @@ const Profile_3 = (props) => {
                 <Spinner animation="grow" variant="info" />
               </div>
             )}
-            <div className="proffl">Affordability Test</div>
-            <HeaderStats />
+            <div className="proffl">Mortgage Application</div>
             <Col md={12} className="lldl">
               <div className="oll12">
                 Hi <span className="name2p"> Olumide Olorundare</span>
               </div>
               <div className="selg">
-                Check how much you can afford to borrow
+                Please provide details of next of kin and dependents
               </div>
               <div className="straightdivider"></div>
             </Col>
             <Col md={12} className="formwrapper1">
               <Form>
                 <Row>
-                  <Col md={6} className="eachfield">
+                  <Col md={4} className="eachfield">
                     <Form.Group>
                       <span
                         className={
-                          formError && annual_salary == ""
+                          formError && current_home_status == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        What is your total annual salary? (₦)
-                      </span>
-                      <Form.Control
-                        type="number"
-                        onChange={onchange}
-                        required
-                        value={annual_salary}
-                        className={
-                          formError && annual_salary == ""
-                            ? "fmc formerror"
-                            : "fmc"
-                        }
-                        name="annual_salary"
-                        placeholder=""
-                      />
-                      <div className="spna12">
-                        <span className="spna122">Annually</span>
-                      </div>
-                    </Form.Group>
-                  </Col>
-                  <Col md={6} className="eachfield2">
-                    <Form.Group>
-                      <span
-                        className={
-                          formError && monthlygross == ""
-                            ? "userprofile formerror1"
-                            : "userprofile"
-                        }
-                      >
-                        What is your monthly gross salary? (₦)
-                      </span>
-                      <Form.Control
-                        type="number"
-                        onChange={onchange}
-                        required
-                        value={monthlygross}
-                        className={
-                          formError && monthlygross == ""
-                            ? "fmc formerror"
-                            : "fmc"
-                        }
-                        name="monthlygross"
-                        placeholder=""
-                      />
-                      <div className="spna12">
-                        <span className="spna122">years</span>
-                      </div>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row className="poll878">
-                  <Col md={6} className="eachfield">
-                    <Form.Group>
-                      <span
-                        className={
-                          formError && do_you_have_equity == ""
-                            ? "userprofile formerror1"
-                            : "userprofile"
-                        }
-                      >
-                        Do you have Equity
+                        Current Home Status
                       </span>
                       <Form.Control
                         as="select"
                         className={
-                          formError && do_you_have_equity == ""
+                          formError && current_home_status == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="do_you_have_equity"
-                        onChange={handleChange}
-                      >
-                        <option value=""></option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
-                  <Col md={6} className="eachfield2">
-                    <Form.Group>
-                      <span
-                        className={
-                          formError && StateofDeployment == ""
-                            ? "userprofile formerror1"
-                            : "userprofile"
-                        }
-                      >
-                        State of Deployment
-                      </span>
-                      <Form.Control
-                        as="select"
-                        className={
-                          formError && StateofDeployment == ""
-                            ? "fmc formerror"
-                            : "fmc"
-                        }
-                        name="StateofDeployment"
+                        name="current_home_status"
                         onChange={handleChange}
                       >
                         <option value=""></option>
@@ -366,68 +263,174 @@ const Profile_3 = (props) => {
                       </Form.Control>
                     </Form.Group>
                   </Col>
-                </Row>
-                <Row className="poll878">
-                  <Col md={6} className="eachfield">
+                  <Col md={4} className="eachfield2">
                     <Form.Group>
                       <span
                         className={
-                          formError && annual_salary == ""
+                          formError && marital_status == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Monthly Expenses
+                        Marital Status
                       </span>
                       <Form.Control
-                        type="number"
-                        onChange={onchange}
-                        required
-                        value={monthly_expense}
+                        as="select"
                         className={
-                          formError && monthly_expense == ""
+                          formError && marital_status == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="monthly_expense"
+                        name="marital_status"
+                        onChange={handleChange}
+                      >
+                        <option value=""></option>
+                        <option value="single" class="otherss">
+                          Single
+                        </option>
+                        <option value="married">Married</option>
+                      </Form.Control>
+                    </Form.Group>
+                  </Col>
+                  <Col md={4} className="eachfield2">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && do_you_have_children == ""
+                            ? "userprofile formerror1"
+                            : "userprofile"
+                        }
+                      >
+                        Do you have Children/Dependants
+                      </span>
+                      <Form.Control
+                        as="select"
+                        className={
+                          formError && do_you_have_children == ""
+                            ? "fmc formerror"
+                            : "fmc"
+                        }
+                        name="do_you_have_children"
+                        onChange={handleChange}
+                      >
+                        <option value=""></option>
+                        <option value="single" class="otherss">
+                          Yes
+                        </option>
+                        <option value="married">No</option>
+                      </Form.Control>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6} className="eachfield">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && next_of_kin_fullname == ""
+                            ? "userprofile formerror1"
+                            : "userprofile"
+                        }
+                      >
+                        Next-of-Kin’s Full Name
+                      </span>
+                      <Form.Control
+                        type="text"
+                        onChange={onchange}
+                        required
+                        value={next_of_kin_fullname}
+                        className={
+                          formError && next_of_kin_fullname == ""
+                            ? "fmc formerror"
+                            : "fmc"
+                        }
+                        name="next_of_kin_fullname"
                         placeholder=""
                       />
-                      <div className="spna12">
-                        <span className="spna122">Monthly</span>
-                      </div>
                     </Form.Group>
                   </Col>
                   <Col md={6} className="eachfield2">
                     <Form.Group>
                       <span
                         className={
-                          formError && loan_repayments == ""
+                          formError && next_of_kin_relationship == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Existing loan Repayments
+                        Relationship with Next-of-Kin
                       </span>
                       <Form.Control
-                        type="number"
+                        type="text"
                         onChange={onchange}
                         required
-                        value={loan_repayments}
+                        value={next_of_kin_relationship}
                         className={
-                          formError && loan_repayments == ""
+                          formError && next_of_kin_relationship == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="loan_repayments"
-                        placeholder=""
+                        name="next_of_kin_relationship"
+                        placeholder="   "
                       />
-                      <div className="spna12">
-                        <span className="spna122">Monthly</span>
-                      </div>
                     </Form.Group>
                   </Col>
                 </Row>
-                <Row className="poll878 polz2">
+                <Row>
+                  <Col md={6} className="">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && address == ""
+                            ? "userprofile formerror1"
+                            : "userprofile"
+                        }
+                      >
+                        Next-of-Kin’s Age
+                      </span>
+                      <Form.Control
+                        type="text"
+                        onChange={onchange}
+                        required
+                        value={next_of_kin_age}
+                        className={
+                          formError && next_of_kin_age == ""
+                            ? "fmc formerror"
+                            : "fmc"
+                        }
+                        name="next_of_kin_age"
+                        placeholder=""
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={6} className="eachfield2">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && next_of_kin_address == ""
+                            ? "userprofile formerror1"
+                            : "userprofile"
+                        }
+                      >
+                        Address
+                      </span>
+                      <Form.Control
+                        type="text"
+                        onChange={onchange}
+                        required
+                        value={next_of_kin_address}
+                        className={
+                          formError && next_of_kin_address == ""
+                            ? "fmc formerror"
+                            : "fmc"
+                        }
+                        name="next_of_kin_address"
+                        placeholder=""
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
                   <Col md={6}>
                     <Link to="/user-profile">
                       <Button className="continue1 polld">Previous</Button>
@@ -435,7 +438,7 @@ const Profile_3 = (props) => {
                   </Col>
                   <Col md={6}>
                     <Button className="continue1" onClick={validateForm}>
-                      Check Affordable Properties
+                      Continue
                     </Button>
                   </Col>
                 </Row>
@@ -487,4 +490,4 @@ const Profile_3 = (props) => {
     </div>
   );
 };
-export default Profile_3;
+export default Mortgage_Application_Third;

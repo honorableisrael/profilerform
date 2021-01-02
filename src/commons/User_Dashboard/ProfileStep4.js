@@ -26,6 +26,7 @@ import beds from "../../assets/beds.png";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import mkshift from "../../assets/mkshift.png";
+import SecondNavComponent from "./SecondNavComponent";
 
 const Profile_4 = (props) => {
   const [state, setState] = React.useState({
@@ -242,7 +243,7 @@ const Profile_4 = (props) => {
         <Row className="sdnnavrow">
           <SideBarProfile request={true} />
           <Col md={9} className="udshboard">
-            <NavComponent hideSearch={true} />
+            <SecondNavComponent hideSearch={true} />
             {isloading && (
               <div className="text-center">
                 <Spinner animation="grow" variant="info" />

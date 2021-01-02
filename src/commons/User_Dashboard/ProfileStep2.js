@@ -19,6 +19,8 @@ import SideBarProfile from "./SidebarProfile";
 import NavComponent from "./NavComponent";
 import HeaderStats from "./HeaderStats";
 import { Link } from "react-router-dom";
+import SecondNavComponent from "./SecondNavComponent";
+import { States } from "./states";
 
 const Profile_2 = (props) => {
   const [state, setState] = React.useState({
@@ -209,14 +211,14 @@ const Profile_2 = (props) => {
     BVN,
     number_of_dependants,
   } = state;
-  console.log(totalDoc);
+  console.log(States);
   return (
     <div>
       <Container fluid>
         <Row className="sdnnavrow">
           <SideBarProfile profile={true} />
           <Col md={9} className="udshboard">
-            <NavComponent hideSearch={true} />
+            <SecondNavComponent hideSearch={true} />
             {isloading && (
               <div className="text-center">
                 <Spinner animation="grow" variant="info" />
@@ -333,10 +335,11 @@ const Profile_2 = (props) => {
                         onChange={handleChange}
                       >
                         <option value=""></option>
-                        <option value="single" class="otherss">
-                          Single
-                        </option>
-                        <option value="married">Married</option>
+                        {States?.map((data, i) => (
+                          <option value={data} class="otherss" key={i}>
+                            {data}
+                          </option>
+                        ))}
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -354,7 +357,7 @@ const Profile_2 = (props) => {
                         Length of Service
                       </span>
                       <Form.Control
-                        type="lengthofservice"
+                        type="number"
                         onChange={onchange}
                         required
                         value={lengthofservice}
@@ -383,7 +386,7 @@ const Profile_2 = (props) => {
                         Years to Retirement
                       </span>
                       <Form.Control
-                        type="text"
+                        type="number"
                         onChange={onchange}
                         required
                         value={yearstoretirement}
@@ -414,7 +417,7 @@ const Profile_2 = (props) => {
                         NHF Number
                       </span>
                       <Form.Control
-                        type="text"
+                        type="number"
                         onChange={onchange}
                         required
                         value={nhf_number}
@@ -440,7 +443,7 @@ const Profile_2 = (props) => {
                         BVN
                       </span>
                       <Form.Control
-                        type="text"
+                        type="number"
                         onChange={onchange}
                         required
                         value={BVN}

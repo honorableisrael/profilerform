@@ -18,7 +18,6 @@ import NewApplicationPage from "./containers/NewApplicationPage";
 // import ProfilePage from "./containers/ProfilePage";
 // import ResetPassword from "./containers/ResetPassword";
 // import NewAffordabilityForm from "./containers/NewAffordabilityForm";
-import ForgotPassword from "./containers/ForgotPassword";
 
 import setAuthToken from "./utils/setAuthToken";
 import { logoutUser, setCurrentUser } from "./store/actions/authActions";
@@ -33,6 +32,11 @@ import Profile_3 from "./commons/User_Dashboard/ProfileStep3";
 import Profile_4 from "./commons/User_Dashboard/ProfileStep4";
 import Profile_6 from "./commons/User_Dashboard/ProfileStep6";
 import MortgageApplication from "./commons/User_Dashboard/MortgageApplication";
+import Mortgage_Application_Third from "./commons/User_Dashboard/MortgageApplicationNextStep";
+import MortgageApplication_SecondStep from "./commons/User_Dashboard/MortgageApplicationSecondStep";
+import NewSignUp from "./commons/AuthHandlers/NewSignUp";
+import NewSIGNIN from "./commons/AuthHandlers/NewSIGNIN";
+import PasswordRecovery from "./commons/AuthHandlers/ForgotPassword";
 
 //check for token
 if (localStorage.token && localStorage.user) {
@@ -77,13 +81,17 @@ class Routes extends Component {
               component={NewMortgageForm}
             />
             <Route exact path="/userdashboard" component={Userdashboard} />
-
+            <Route exact path="/signup" component={NewSignUp} />
+            <Route exact path="/signin" component={NewSIGNIN} />
+            <Route exact path="/password-recovery" component={PasswordRecovery} />
             <Route exact path="/user-profile" component={Profile_1} />
             <Route exact path="/user-employment-info" component={Profile_2} />
             <Route exact path="/user-affordability-test" component={Profile_3} />
             <Route exact path="/user-property-request" component={Profile_4} />
             <Route exact path="/user-request-form" component={Profile_6} />
             <Route exact path="/mortage-request" component={MortgageApplication} />
+            <Route exact path="/mortage-request-step-3" component={Mortgage_Application_Third} />
+            <Route exact path="/mortage-request-step-2" component={MortgageApplication_SecondStep} />
             
             {/* <Route
               exact

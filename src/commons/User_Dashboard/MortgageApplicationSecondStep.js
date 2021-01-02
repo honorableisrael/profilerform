@@ -2,11 +2,25 @@ import React, { useRef } from "react";
 import { Container, Row, Col, Dropdown, Card } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import "./user_dashboard.css";
+import eye from "../../assets/show.png";
 import close from "../../assets/close.png";
 import "./animate.css";
+import loader from "../../assets/loader.png";
+import caretdwn from "../../assets/caret_down.png";
+import equity from "../../assets/equity.png";
 import Button from "react-bootstrap/Button";
+import cavetleft from "../../assets/caretleft.png";
+import cavetright from "../../assets/caretright.png";
+import board from "../../assets/board.png";
+import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
+import house from "../../assets/house.png";
+import house2 from "../../assets/house2.png";
+import pen from "../../assets/pen.png";
+import cross from "../../assets/cross.png";
+import uploadimg from "../../assets/uploadimg.png";
+import CreditReport from "./creditreport";
+import Mortgagecards from "./mortgagecards";
 import { API } from "../../config";
 import axios from "axios";
 
@@ -18,33 +32,34 @@ import Modal from "react-bootstrap/Modal";
 import SideBarProfile from "./SidebarProfile";
 import NavComponent from "./NavComponent";
 import HeaderStats from "./HeaderStats";
-import { Link } from "react-router-dom";
 import SecondNavComponent from "./SecondNavComponent";
 
-const Profile_3 = (props) => {
+const MortgageApplication_SecondStep = (props) => {
   const [state, setState] = React.useState({
     user: {},
     propertyList: [],
     formError: "",
     applicationStatus: {},
     deleteModal: false,
-    BVN: "",
+    file: "",
     propertySlide: {},
     isUploading: false,
-    nhf_number: "",
+    totalDoc: {},
     isloading: false,
     isDeleting: false,
-    monthlygross: "",
-    annual_salary: "",
-    fap_number: "",
-    Rank: "",
-    annual_salary: "",
-    StateofDeployment: "",
-    Command: "",
-    number_of_dependants: "",
-    do_you_have_equity: "",
-    monthly_expense:"",
-    loan_repayments:""
+    documentId: "",
+    firstname: "",
+    lastname: "",
+    address: "",
+    email: "",
+    phone: "",
+    date_of_birth: "",
+    state_of_origin: "",
+    married_status: "",
+    home_status: "",
+    employers_fullname:"",
+    has_your_employment_been_confirmed:"",
+    years_at_current_employment:""
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -97,19 +112,15 @@ const Profile_3 = (props) => {
   const validateForm = () => {
     if (
       address === "" ||
-      annual_salary == "" ||
-      monthlygross == "" ||
-      BVN == "" ||
-      state_of_origin == "" ||
-      Command == "" ||
-      fap_number == "" ||
-      Rank == "" ||
-      do_you_have_equity == "" ||
-      nhf_number == "" ||
-      StateofDeployment == "" ||
-      number_of_dependants == "" ||
-      monthly_expense=="" ||
-      loan_repayments==""
+      email == "" ||
+      phone == "" ||
+      address == "" ||
+      company_email == "" ||
+      employers_fullname == "" ||
+      employers_phone  == "" ||
+      employers_current_position  == "" ||
+      employers_fullname == "" ||
+      has_your_employment_been_confirmed == ""
     ) {
       setState({
         ...state,
@@ -128,20 +139,8 @@ const Profile_3 = (props) => {
       isUploading: true,
     });
     const data = {
-      address,
-      annual_salary,
-      phone,
-      BVN,
-      date_of_birth,
-      number_of_dependants,
-      monthlygross,
-      do_you_have_equity,
-      home_status,
-      fap_number,
-      lastname,
-      monthly_expense,
-      mode_of_contact,
-      loan_repayments,
+
+      employers_fullname,
     };
     axios
       .post(`${API}/user/u`, data, {
@@ -198,37 +197,27 @@ const Profile_3 = (props) => {
   };
   const test = ["New", "Old"];
   const {
-    user,
-    nhf_number,
-    do_you_have_equity,
+    email,
     totalDoc,
     address,
-    annual_salary,
-    monthly_expense,
+    company_email,
+    employers_fullname,
+    employers_phone,
+    employers_current_position,
     phone,
-    date_of_birth,
+    years_at_current_employment,
     state_of_origin,
-    home_status,
-    fap_number,
-    monthlygross,
-    lastname,
-    Command,
-    Rank,
-    StateofDeployment,
-    mode_of_contact,
+    has_your_employment_been_confirmed,
     deleteModal,
     formError,
     isloading,
-    loan_repayments,
-    BVN,
-    number_of_dependants,
   } = state;
   console.log(totalDoc);
   return (
     <div>
       <Container fluid>
         <Row className="sdnnavrow">
-          <SideBarProfile affordability={true} />
+          <SideBarProfile profile={true} />
           <Col md={9} className="udshboard">
             <SecondNavComponent hideSearch={true} />
             {isloading && (
@@ -236,15 +225,12 @@ const Profile_3 = (props) => {
                 <Spinner animation="grow" variant="info" />
               </div>
             )}
-            <div className="proffl">Affordability Test</div>
-            <HeaderStats />
+            <div className="proffl">Mortgage Application</div>
             <Col md={12} className="lldl">
               <div className="oll12">
                 Hi <span className="name2p"> Olumide Olorundare</span>
               </div>
-              <div className="selg">
-                Check how much you can afford to borrow
-              </div>
+              <div className="selg">Please provide your current employment status</div>
               <div className="straightdivider"></div>
             </Col>
             <Col md={12} className="formwrapper1">
@@ -254,108 +240,147 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && annual_salary == ""
+                          formError && employers_fullname == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        What is your total annual salary? (₦)
+                        Employers Full Name
                       </span>
                       <Form.Control
-                        type="number"
+                        type="text"
                         onChange={onchange}
                         required
-                        value={annual_salary}
+                        value={employers_fullname}
                         className={
-                          formError && annual_salary == ""
-                            ? "fmc formerror"
-                            : "fmc"
+                          formError && employers_fullname == "" ? "fmc formerror" : "fmc"
                         }
-                        name="annual_salary"
+                        name="employers_fullname"
                         placeholder=""
                       />
-                      <div className="spna12">
-                        <span className="spna122">Annually</span>
-                      </div>
                     </Form.Group>
                   </Col>
                   <Col md={6} className="eachfield2">
                     <Form.Group>
                       <span
                         className={
-                          formError && monthlygross == ""
+                          formError && company_email == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        What is your monthly gross salary? (₦)
+                        Company Email 
                       </span>
                       <Form.Control
-                        type="number"
+                        type="text"
                         onChange={onchange}
                         required
-                        value={monthlygross}
+                        value={company_email}
                         className={
-                          formError && monthlygross == ""
-                            ? "fmc formerror"
-                            : "fmc"
+                          formError && company_email == "" ? "fmc formerror" : "fmc"
                         }
-                        name="monthlygross"
-                        placeholder=""
+                        name="company_email"
+                        placeholder="   "
                       />
-                      <div className="spna12">
-                        <span className="spna122">years</span>
-                      </div>
                     </Form.Group>
                   </Col>
                 </Row>
-                <Row className="poll878">
+                <Row>
                   <Col md={6} className="eachfield">
                     <Form.Group>
                       <span
                         className={
-                          formError && do_you_have_equity == ""
+                          formError && employers_phone == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Do you have Equity
+                        Employers Phone Number
                       </span>
                       <Form.Control
-                        as="select"
+                        type="text"
+                        onChange={onchange}
+                        required
+                        value={employers_phone}
                         className={
-                          formError && do_you_have_equity == ""
-                            ? "fmc formerror"
-                            : "fmc"
+                          formError && employers_phone == "" ? "fmc formerror" : "fmc"
                         }
-                        name="do_you_have_equity"
-                        onChange={handleChange}
-                      >
-                        <option value=""></option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                      </Form.Control>
+                        name="employers_phone"
+                        placeholder=""
+                      />
                     </Form.Group>
                   </Col>
                   <Col md={6} className="eachfield2">
                     <Form.Group>
                       <span
                         className={
-                          formError && StateofDeployment == ""
+                          formError && employers_current_position == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        State of Deployment
+                        Employers Current Position
+                      </span>
+                      <Form.Control
+                        type="email"
+                        onChange={onchange}
+                        required
+                        value={email}
+                        className={
+                          formError && email == "" ? "fmc formerror" : "fmc"
+                        }
+                        name="email"
+                        placeholder=""
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={12} className="">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && phone == ""
+                            ? "userprofile formerror1"
+                            : "userprofile"
+                        }
+                      >
+                        Employers Address
+                      </span>
+                      <Form.Control
+                        type="text"
+                        onChange={onchange}
+                        required
+                        value={phone}
+                        className={
+                          formError && phone == "" ? "fmc formerror" : "fmc"
+                        }
+                        name="phone"
+                        placeholder=""
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={4} className="eachfield">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && state_of_origin == ""
+                            ? "userprofile formerror1"
+                            : "userprofile"
+                        }
+                      >
+                        Number of years to Retirement
                       </span>
                       <Form.Control
                         as="select"
                         className={
-                          formError && StateofDeployment == ""
+                          formError && state_of_origin == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="StateofDeployment"
+                        name="state_of_origin"
                         onChange={handleChange}
                       >
                         <option value=""></option>
@@ -366,76 +391,66 @@ const Profile_3 = (props) => {
                       </Form.Control>
                     </Form.Group>
                   </Col>
-                </Row>
-                <Row className="poll878">
-                  <Col md={6} className="eachfield">
+                  <Col md={4} className="eachfield2">
                     <Form.Group>
                       <span
                         className={
-                          formError && annual_salary == ""
+                          formError && years_at_current_employment == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Monthly Expenses
+                       Years at Current Employment
                       </span>
                       <Form.Control
-                        type="number"
-                        onChange={onchange}
-                        required
-                        value={monthly_expense}
+                        as="select"
                         className={
-                          formError && monthly_expense == ""
+                          formError && years_at_current_employment == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="monthly_expense"
-                        placeholder=""
-                      />
-                      <div className="spna12">
-                        <span className="spna122">Monthly</span>
-                      </div>
+                        name="years_at_current_employment"
+                        onChange={handleChange}
+                      >
+                        <option value=""></option>
+                        <option value="single" class="otherss">
+                          Single
+                        </option>
+                        <option value="married">Married</option>
+                      </Form.Control>
                     </Form.Group>
                   </Col>
-                  <Col md={6} className="eachfield2">
+                  <Col md={4} className="eachfield2">
                     <Form.Group>
                       <span
                         className={
-                          formError && loan_repayments == ""
+                          formError && has_your_employment_been_confirmed == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Existing loan Repayments
+                        Has your Employment been Confirmed
                       </span>
                       <Form.Control
-                        type="number"
+                        type="text"
                         onChange={onchange}
                         required
-                        value={loan_repayments}
+                        value={has_your_employment_been_confirmed}
                         className={
-                          formError && loan_repayments == ""
+                          formError && has_your_employment_been_confirmed == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="loan_repayments"
+                        name="has_your_employment_been_confirmed"
                         placeholder=""
                       />
-                      <div className="spna12">
-                        <span className="spna122">Monthly</span>
-                      </div>
                     </Form.Group>
                   </Col>
                 </Row>
-                <Row className="poll878 polz2">
-                  <Col md={6}>
-                    <Link to="/user-profile">
-                      <Button className="continue1 polld">Previous</Button>
-                    </Link>
-                  </Col>
-                  <Col md={6}>
-                    <Button className="continue1" onClick={validateForm}>
-                      Check Affordable Properties
+                <Row>
+                  <Col md={12}>
+                    <Button className="continue1 nomargn" onClick={validateForm}>
+                      Continue
                     </Button>
                   </Col>
                 </Row>
@@ -487,4 +502,4 @@ const Profile_3 = (props) => {
     </div>
   );
 };
-export default Profile_3;
+export default MortgageApplication_SecondStep;
