@@ -1623,6 +1623,14 @@ select .form-control {
     padding-right: .5rem;
   }
 }
+@media (max-width: 1024px) {
+  .sidnavoptions {
+    padding: 20px 20px 20px 11px;
+  }
+  .sidnavoptionsna {
+    padding: 20px 20px 20px 4px;
+  }
+}
 .meanas{
   font-style: normal;
 font-weight: bold;
@@ -1645,4 +1653,17 @@ a{
 }
 a:hover{
   color: inherit;
+}
+
+@media (max-width: 380px) {
+  .maxa12{
+    flex-wrap: wrap;
+  }
+  .firs122,.sec122{
+    width: 100%;
+    margin-top: .5rem;
+  }
+  .ton1{
+    margin-bottom: 0px;
+  }
 }

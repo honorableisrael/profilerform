@@ -20,6 +20,7 @@ import NavComponent from "./NavComponent";
 import HeaderStats from "./HeaderStats";
 import { Link } from "react-router-dom";
 import SecondNavComponent from "./SecondNavComponent";
+import { States } from "./states";
 
 const Profile_3 = (props) => {
   const [state, setState] = React.useState({
@@ -28,26 +29,25 @@ const Profile_3 = (props) => {
     formError: "",
     applicationStatus: {},
     deleteModal: false,
-    BVN: "",
+    have_equity: null,
     propertySlide: {},
-    isUploading: false,
+    isLoading: false,
     nhf_number: "",
     isloading: false,
     isDeleting: false,
-    monthlygross: "",
-    annual_salary: "",
-    fap_number: "",
-    Rank: "",
-    annual_salary: "",
-    StateofDeployment: "",
-    Command: "",
+    monthly_gross_pay: "",
+    total_annual_pay: "",
+    employment_id: "",
+    employment_state: "",
     number_of_dependants: "",
-    do_you_have_equity: "",
-    monthly_expense:"",
-    loan_repayments:""
+    monthly_expenses: "",
+    monthly_repayment: "",
+    budget: "",
+    payment_option: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
+    window.scrollTo(-0, -0);
     const userToken = localStorage.getItem("jwtToken");
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
@@ -64,12 +64,17 @@ const Profile_3 = (props) => {
         axios.get(`${API}/user/user-files`, {
           headers: { Authorization: `Bearer ${userToken}` },
         }),
+        axios.get(`${API}/user/get-profile`, {
+          headers: { Authorization: `Bearer ${userToken}` },
+        }),
       ])
       .then(
-        axios.spread((res) => {
+        axios.spread((res, res2) => {
+          console.log(res2.data.data);
           if (res.status === 200) {
             setState({
               ...state,
+              ...res2.data.data,
               propertyList: res.data.data,
               user: currentUser.user,
               isloading: false,
@@ -89,33 +94,30 @@ const Profile_3 = (props) => {
         notifyFailed("Sorry failed to fetch data");
       });
   }, []);
-  const notify = (message) => toast(message, { containerId: "t" });
+  const notify = (message) => toast(message, { containerId: "w" });
   const notifyFailed = (message) => toast(message, { containerId: "f" });
   const FormatAmount = (amount) => {
-    return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parseInt(amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
   };
   const validateForm = () => {
     if (
-      address === "" ||
-      annual_salary == "" ||
-      monthlygross == "" ||
-      BVN == "" ||
-      state_of_origin == "" ||
-      Command == "" ||
-      fap_number == "" ||
-      Rank == "" ||
-      do_you_have_equity == "" ||
-      nhf_number == "" ||
-      StateofDeployment == "" ||
-      number_of_dependants == "" ||
-      monthly_expense=="" ||
-      loan_repayments==""
+      total_annual_pay == "" ||
+      monthly_gross_pay == "" ||
+      (have_equity !== 1 && have_equity!==0) ||
+      employment_state == "" ||
+      monthly_expenses == "" ||
+      loan_repayments == "" ||
+      monthly_repayment == "" ||
+      payment_option == "" ||
+      budget == ""
     ) {
-      setState({
+      notify("Please fill the required feilds");
+      return setState({
         ...state,
         formError: "Please fill",
       });
     }
+    SumitForm();
   };
   const SumitForm = () => {
     const userToken = localStorage.getItem("jwtToken");
@@ -125,63 +127,45 @@ const Profile_3 = (props) => {
       : window.location.assign("/auth/login");
     setState({
       ...state,
-      isUploading: true,
+      isLoading: true,
     });
     const data = {
-      address,
-      annual_salary,
-      phone,
-      BVN,
-      date_of_birth,
-      number_of_dependants,
-      monthlygross,
-      do_you_have_equity,
-      home_status,
-      fap_number,
-      lastname,
-      monthly_expense,
-      mode_of_contact,
-      loan_repayments,
+      monthly_gross_pay,
+      total_annual_pay,
+      monthly_expenses,
+      payment_option: "nhf",
+      have_equity,
+      budget,
     };
     axios
-      .post(`${API}/user/u`, data, {
+      .post(`${API}/user/affordability-test`, data, {
         headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((res) => {
-        notify("Successfully Saved profile information");
+        window.scrollTo(-0, -0);
+        notify("Successfully, Loanable amount updated");
         console.log(res);
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         setTimeout(() => {
-          window.location.reload();
+          props.history.push("/user-property-request");
         }, 2000);
       })
       .catch((err) => {
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         notifyFailed("Failed to save");
         console.log(err);
       });
   };
-
-  const checkIfIsOdd = (n) => {
-    return Math.abs(n % 2) == 1;
-  };
   const closeDeleteModal = () => {
     setState({
       ...state,
       deleteModal: false,
-    });
-  };
-  const openDeleteModal = (id) => {
-    setState({
-      ...state,
-      deleteModal: true,
-      documentId: id,
     });
   };
   const onchange = (e) => {
@@ -196,34 +180,24 @@ const Profile_3 = (props) => {
       [e.target.name]: e.target.value,
     });
   };
-  const test = ["New", "Old"];
   const {
     user,
-    nhf_number,
-    do_you_have_equity,
-    totalDoc,
-    address,
-    annual_salary,
-    monthly_expense,
-    phone,
-    date_of_birth,
-    state_of_origin,
-    home_status,
-    fap_number,
-    monthlygross,
-    lastname,
-    Command,
-    Rank,
-    StateofDeployment,
-    mode_of_contact,
+    payment_option,
+    total_annual_pay,
+    monthly_expenses,
+    budget,
+    monthly_repayment,
+    monthly_gross_pay,
+    isLoading,
     deleteModal,
     formError,
     isloading,
     loan_repayments,
-    BVN,
+    have_equity,
+    employment_state,
     number_of_dependants,
   } = state;
-  console.log(totalDoc);
+  console.log(have_equity);
   return (
     <div>
       <Container fluid>
@@ -254,7 +228,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && annual_salary == ""
+                          formError && total_annual_pay == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -265,13 +239,13 @@ const Profile_3 = (props) => {
                         type="number"
                         onChange={onchange}
                         required
-                        value={annual_salary}
+                        value={total_annual_pay}
                         className={
-                          formError && annual_salary == ""
+                          formError && total_annual_pay == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="annual_salary"
+                        name="total_annual_pay"
                         placeholder=""
                       />
                       <div className="spna12">
@@ -283,7 +257,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && monthlygross == ""
+                          formError && monthly_gross_pay == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -294,13 +268,13 @@ const Profile_3 = (props) => {
                         type="number"
                         onChange={onchange}
                         required
-                        value={monthlygross}
+                        value={monthly_gross_pay}
                         className={
-                          formError && monthlygross == ""
+                          formError && monthly_gross_pay == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="monthlygross"
+                        name="monthly_gross_pay"
                         placeholder=""
                       />
                       <div className="spna12">
@@ -314,7 +288,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && do_you_have_equity == ""
+                          (formError && have_equity !== 0 && have_equity !== 1)
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -324,16 +298,22 @@ const Profile_3 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && do_you_have_equity == ""
+                          formError && have_equity !== 0 && have_equity !== 1
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="do_you_have_equity"
+                        name="have_equity"
                         onChange={handleChange}
                       >
-                        <option value=""></option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
+                        <option>
+                          {have_equity === 1
+                            ? "Yes"
+                            : have_equity === 0
+                            ? "No"
+                            : ""}
+                        </option>
+                        <option value={1}>Yes</option>
+                        <option value={0}>No</option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -341,7 +321,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && StateofDeployment == ""
+                          formError && employment_state == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -351,18 +331,19 @@ const Profile_3 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && StateofDeployment == ""
+                          formError && employment_state == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="StateofDeployment"
+                        name="employment_state"
                         onChange={handleChange}
                       >
-                        <option value=""></option>
-                        <option value="single" class="otherss">
-                          Single
-                        </option>
-                        <option value="married">Married</option>
+                        <option>{employment_state}</option>
+                        {States?.map((data, i) => (
+                          <option value={data} class="otherss" key={i}>
+                            {data}
+                          </option>
+                        ))}
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -372,7 +353,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && annual_salary == ""
+                          formError && monthly_expenses == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -383,13 +364,13 @@ const Profile_3 = (props) => {
                         type="number"
                         onChange={onchange}
                         required
-                        value={monthly_expense}
+                        value={monthly_expenses}
                         className={
-                          formError && monthly_expense == ""
+                          formError && monthly_expenses == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="monthly_expense"
+                        name="monthly_expenses"
                         placeholder=""
                       />
                       <div className="spna12">
@@ -401,7 +382,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && loan_repayments == ""
+                          formError && monthly_repayment == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -412,18 +393,72 @@ const Profile_3 = (props) => {
                         type="number"
                         onChange={onchange}
                         required
-                        value={loan_repayments}
+                        value={monthly_repayment}
                         className={
-                          formError && loan_repayments == ""
+                          formError && monthly_repayment == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="loan_repayments"
+                        name="monthly_repayment"
                         placeholder=""
                       />
                       <div className="spna12">
                         <span className="spna122">Monthly</span>
                       </div>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row className="poll878">
+                  <Col md={6} className="eachfield">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && budget == ""
+                            ? "userprofile formerror1"
+                            : "userprofile"
+                        }
+                      >
+                        What is your budget? (₦)
+                      </span>
+                      <Form.Control
+                        type="number"
+                        onChange={onchange}
+                        required
+                        value={budget}
+                        className={
+                          formError && budget == "" ? "fmc formerror" : "fmc"
+                        }
+                        name="budget"
+                        placeholder=""
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={6} className="eachfield2">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && payment_option == ""
+                            ? "userprofile formerror1"
+                            : "userprofile"
+                        }
+                      >
+                        Payment Option
+                      </span>
+                      <Form.Control
+                        as="select"
+                        className={
+                          formError && payment_option == ""
+                            ? "fmc formerror"
+                            : "fmc"
+                        }
+                        name="payment_option"
+                        onChange={handleChange}
+                      >
+                        <option>{payment_option}</option>
+                          <option value={"nhf"} className="otherss">
+                            NHF
+                          </option>
+                      </Form.Control>
                     </Form.Group>
                   </Col>
                 </Row>
@@ -435,7 +470,9 @@ const Profile_3 = (props) => {
                   </Col>
                   <Col md={6}>
                     <Button className="continue1" onClick={validateForm}>
-                      Check Affordable Properties
+                      {!isLoading
+                        ? " Check Affordable Properties"
+                        : "Processing"}
                     </Button>
                   </Col>
                 </Row>
@@ -445,19 +482,19 @@ const Profile_3 = (props) => {
         </Row>
       </Container>
       <ToastContainer
-        enableMultiContainer
-        containerId={"t"}
+        enableMultiContainer={false}
+        containerId={"w"}
         toastClassName="bg-info text-white"
         hideProgressBar={true}
         position={toast.POSITION.TOP_CENTER}
       />
-      <ToastContainer
-        enableMultiContainer
+      {/* <ToastContainer
+        enableMultiContainer={false}
         containerId={"f"}
         toastClassName="bg-danger text-white"
         hideProgressBar={true}
         position={toast.POSITION.TOP_CENTER}
-      />
+      /> */}
       <Modal
         show={deleteModal}
         className="modcomplete fixmodal"

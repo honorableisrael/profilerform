@@ -47,18 +47,19 @@ const Profile_1 = (props) => {
     totalDoc: {},
     isloading: false,
     isDeleting: false,
+    isLoading:false,
     documentId: "",
     firstname: "",
     lastname: "",
+    dob: "",
     address: "",
     email: "",
     phone: "",
-    date_of_birth: "",
     state_of_origin: "",
-    married_status: "",
-    home_status: "",
+    marital_status: "",
+    current_apartment_status: "",
     mode_of_contact: "",
-    number_of_dependants: "",
+    no_of_dependents: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -78,12 +79,17 @@ const Profile_1 = (props) => {
         axios.get(`${API}/user/user-files`, {
           headers: { Authorization: `Bearer ${userToken}` },
         }),
+        axios.get(`${API}/user/get-profile`, {
+          headers: { Authorization: `Bearer ${userToken}` },
+        })
       ])
       .then(
-        axios.spread((res) => {
+        axios.spread((res,res2) => {
+          console.log(res2.data.data)
           if (res.status === 200) {
             setState({
               ...state,
+              ...res2.data.data,
               propertyList: res.data.data,
               user: currentUser.user,
               isloading: false,
@@ -113,13 +119,13 @@ const Profile_1 = (props) => {
       address === "" ||
       email == "" ||
       phone == "" ||
-      date_of_birth == "" ||
+      dob == "" ||
       state_of_origin == "" ||
-      home_status == "" ||
+      current_apartment_status == "" ||
       firstname == "" ||
       lastname == "" ||
       mode_of_contact == "" ||
-      number_of_dependants == ""
+      no_of_dependents == ""
     ) {
       notify("Please fill the required feilds");
       return setState({
@@ -137,7 +143,7 @@ const Profile_1 = (props) => {
       : window.location.assign("/auth/login");
     setState({
       ...state,
-      isUploading: true,
+      isLoading: true,
     });
     const data = {
       firstname,
@@ -145,10 +151,10 @@ const Profile_1 = (props) => {
       address,
       email,
       phone,
-      dob: date_of_birth,
-      no_of_dependents: number_of_dependants,
+      dob,
+      no_of_dependents,
       state_of_origin,
-      current_apartment_status: home_status,
+      current_apartment_status,
       mode_of_contact,
     };
     axios
@@ -160,17 +166,17 @@ const Profile_1 = (props) => {
         console.log(res);
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         setTimeout(() => {
-          window.location.reload();
+          props.history.push("/user-employment-info");
         }, 3000);
       })
       .catch((err) => {
         console.log(err);
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         notifyFailed("Failed to save");
         console.log(err);
@@ -205,24 +211,23 @@ const Profile_1 = (props) => {
       [e.target.name]: e.target.value,
     });
   };
-  const test = ["New", "Old"];
   const {
-    user,
+    isLoading,
     totalDoc,
     address,
     email,
     phone,
-    date_of_birth,
+    dob,
     state_of_origin,
-    home_status,
+    current_apartment_status,
     firstname,
     lastname,
     mode_of_contact,
     deleteModal,
     formError,
     isloading,
-    married_status,
-    number_of_dependants,
+    marital_status,
+    no_of_dependents,
   } = state;
   console.log(totalDoc);
   return (
@@ -241,7 +246,7 @@ const Profile_1 = (props) => {
             <HeaderStats />
             <Col md={12} className="lldl">
               <div className="oll12">
-                Hi <span className="name2p"> Olumide Olorundare</span>
+                Hi <span className="name2p"> {firstname} {lastname}</span>
               </div>
               <div className="selg">Tell us about your self</div>
               <div className="straightdivider"></div>
@@ -379,7 +384,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && date_of_birth == ""
+                          formError && dob == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -390,14 +395,15 @@ const Profile_1 = (props) => {
                         type="date"
                         onChange={onchange}
                         required
-                        value={date_of_birth}
+                        as={"input"}
+                        value={dob}
                         className={
-                          formError && date_of_birth == ""
+                          formError && dob == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="date_of_birth"
-                        placeholder=""
+                        name="dob"
+                        placeholder={dob}
                       />
                     </Form.Group>
                   </Col>
@@ -422,7 +428,7 @@ const Profile_1 = (props) => {
                         name="state_of_origin"
                         onChange={handleChange}
                       >
-                        <option></option>
+                        <option>{state_of_origin}</option>
                         {States?.map((data, i) => (
                           <option value={data} class="otherss" key={i}>
                             {data}
@@ -437,7 +443,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && married_status == ""
+                          formError && marital_status == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -447,14 +453,14 @@ const Profile_1 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && married_status == ""
+                          formError && marital_status == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="married_status"
+                        name="marital_status"
                         onChange={handleChange}
                       >
-                        <option value=""></option>
+                        <option>{marital_status}</option>
                         <option value="single" class="otherss">
                           Single
                         </option>
@@ -466,7 +472,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && home_status == ""
+                          formError && current_apartment_status == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -476,12 +482,12 @@ const Profile_1 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && home_status == ""
+                          formError && current_apartment_status == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        value={home_status}
-                        name="home_status"
+                        value={current_apartment_status}
+                        name="current_apartment_status"
                         onChange={handleChange}
                       >
                         <option value=""></option>
@@ -513,7 +519,7 @@ const Profile_1 = (props) => {
                         name="mode_of_contact"
                         onChange={handleChange}
                       >
-                        <option value=""></option>
+                        <option value="">{mode_of_contact}</option>
                         <option value="Call">Call</option>
                         <option value="Whatsapp">Whatsapp</option>
                         <option value="Email">Email</option>
@@ -524,7 +530,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && number_of_dependants == ""
+                          formError && no_of_dependents == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -535,13 +541,13 @@ const Profile_1 = (props) => {
                         type="number"
                         onChange={onchange}
                         required
-                        value={number_of_dependants}
+                        value={no_of_dependents}
                         className={
-                          formError && number_of_dependants == ""
+                          formError && no_of_dependents == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="number_of_dependants"
+                        name="no_of_dependents"
                         placeholder=""
                       />
                     </Form.Group>
@@ -553,7 +559,7 @@ const Profile_1 = (props) => {
                       className="continue1 nomargn"
                       onClick={validateForm}
                     >
-                      Continue
+                      {!isLoading?"Continue":"Updating"}
                     </Button>
                   </Col>
                 </Row>
@@ -576,32 +582,6 @@ const Profile_1 = (props) => {
         hideProgressBar={true}
         position={toast.POSITION.TOP_CENTER}
       />
-      <Modal
-        show={deleteModal}
-        className="modcomplete fixmodal"
-        centered={true}
-        onHide={closeDeleteModal}
-      >
-        <div className="dllel">
-          <Modal.Title className="modal_title">Delete Document</Modal.Title>
-          <a className="close_view" onClick={closeDeleteModal}>
-            <img className="closeview" src={close} alt="close" />
-          </a>
-        </div>
-        <Modal.Body>
-          <div className="areyousure">
-            You are about to delete this document please confirm?
-          </div>
-          <div className="od12">
-            <Button className="btn-danger" onClick={closeDeleteModal}>
-              Back
-            </Button>
-            <Button className="btn-success succs">
-              {!state.isDeleting ? "Delete" : "Processing"}
-            </Button>
-          </div>
-        </Modal.Body>
-      </Modal>
     </div>
   );
 };

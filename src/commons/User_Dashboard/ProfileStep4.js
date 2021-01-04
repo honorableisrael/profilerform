@@ -41,15 +41,6 @@ const Profile_4 = (props) => {
     nhf_number: "",
     isloading: false,
     isDeleting: false,
-    monthlygross: "",
-    annual_salary: "",
-    fap_number: "",
-    Rank: "",
-    annual_salary: "",
-    StateofDeployment: "",
-    Command: "",
-    number_of_dependants: "",
-    do_you_have_equity: "",
     displaymoreInfo: false,
     selectPopUp: false,
   });
@@ -71,13 +62,17 @@ const Profile_4 = (props) => {
         axios.get(`${API}/user/user-files`, {
           headers: { Authorization: `Bearer ${userToken}` },
         }),
+        axios.get(`${API}/general/properties-suggestion`, {
+          headers: { Authorization: `Bearer ${userToken}` },
+        }),
       ])
       .then(
-        axios.spread((res) => {
+        axios.spread((res, res1) => {
+          console.log(res1);
           if (res.status === 200) {
             setState({
               ...state,
-              propertyList: res.data.data,
+              propertyList: res1.data.data.flat(Infinity),
               user: currentUser.user,
               isloading: false,
             });
@@ -101,27 +96,6 @@ const Profile_4 = (props) => {
   const FormatAmount = (amount) => {
     return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
-  const validateForm = () => {
-    if (
-      address === "" ||
-      annual_salary == "" ||
-      monthlygross == "" ||
-      BVN == "" ||
-      state_of_origin == "" ||
-      Command == "" ||
-      fap_number == "" ||
-      Rank == "" ||
-      do_you_have_equity == "" ||
-      nhf_number == "" ||
-      StateofDeployment == "" ||
-      number_of_dependants == ""
-    ) {
-      setState({
-        ...state,
-        formError: "Please fill",
-      });
-    }
-  };
   const SumitForm = () => {
     const userToken = localStorage.getItem("jwtToken");
     const userData = localStorage.getItem("loggedInDetails");
@@ -132,26 +106,13 @@ const Profile_4 = (props) => {
       ...state,
       isUploading: true,
     });
-    const data = {
-      address,
-      annual_salary,
-      phone,
-      BVN,
-      date_of_birth,
-      number_of_dependants,
-      monthlygross,
-      do_you_have_equity,
-      home_status,
-      fap_number,
-      lastname,
-      mode_of_contact,
-    };
+    const data = {};
     axios
-      .post(`${API}/user/u`, data, {
+      .post(`${API}/general/properties-suggestion`, data, {
         headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((res) => {
-        notify("Successfully Saved profile information");
+        notify("Successfully");
         console.log(res);
         setState({
           ...state,
@@ -219,24 +180,17 @@ const Profile_4 = (props) => {
     totalDoc,
     address,
     annual_salary,
-    phone,
-    date_of_birth,
-    state_of_origin,
     home_status,
-    fap_number,
     monthlygross,
     lastname,
-    Command,
-    Rank,
-    StateofDeployment,
     mode_of_contact,
     selectPopUp,
     displaymoreInfo,
     isloading,
-    BVN,
+    propertyList,
     number_of_dependants,
   } = state;
-  console.log(totalDoc);
+  console.log(propertyList[0]);
   return (
     <div>
       <Container fluid>
@@ -303,97 +257,69 @@ const Profile_4 = (props) => {
                       swipeable
                       className="center-changed"
                     >
-                      <div className="slidewrapp">
-                        <div className="viewmorr">
-                          <img
-                            src={viewmore}
-                            className="viewmore1"
-                            alt="viewmore"
-                            onClick={openMoreinfoModal}
-                          />
-                        </div>
-                        <div className="imageContainer">
-                          <img
-                            src={sliderImg}
-                            alt="propertyslider"
-                            className="propertyslider"
-                          />
-                        </div>
-                        <div className="cardtextsection">
-                          <div className="Detachedo1">
-                            {" "}
-                            4 Bd Detached House for Rent at Osapa London Lekki,
-                            Lagos
+                      {propertyList.map((data, i) => (
+                        <div className="slidewrapp" key={i}>
+                          <div className="viewmorr">
+                            <img
+                              src={viewmore}
+                              className="viewmore1"
+                              alt="viewmore"
+                              onClick={openMoreinfoModal}
+                            />
                           </div>
-                          <div className="Detachedo">₦ 70,000,000.00</div>
-                          <div className="bedsbaths">
-                            <span className="biid1">
-                              <img src={beds} className="baths" /> 4 beds{" "}
-                            </span>
-                            <span>
-                              <img src={baths} className="baths" /> 4 baths{" "}
-                            </span>
+                          <div className="imageContainer">
+                            <img
+                              src={sliderImg}
+                              alt="propertyslider"
+                              className="propertyslider"
+                            />
                           </div>
-                          <div className="statuss1">
-                            <span>
-                              Finance status :{" "}
-                              <span className="textred12"> Not Available</span>
-                            </span>
-                            <div className="firstspam">
-                              Property Status :{" "}
-                              <span className="textggrn"> Off Plan</span>
+                          <div className="cardtextsection">
+                            <div className="Detachedo1">
+                              {" "}
+                              {data.property_name} {data.property_state}
                             </div>
-                          </div>
-                          <Button className="proptybtn">
-                            Choose this Property
-                          </Button>
-                        </div>
-                      </div>
-                      <div className="slidewrapp">
-                        <div className="viewmorr">
-                          <img
-                            src={viewmore}
-                            className="viewmore1"
-                            alt="viewmore"
-                          />
-                        </div>
-                        <div className="imageContainer">
-                          <img
-                            src={sliderImg}
-                            alt="propertyslider"
-                            className="propertyslider"
-                          />
-                        </div>
-                        <div className="cardtextsection">
-                          <div className="Detachedo1">
-                            {" "}
-                            4 Bd Detached House for Rent at Osapa London Lekki,
-                            Lagos
-                          </div>
-                          <div className="Detachedo">₦60,900,000.00</div>
-                          <div className="bedsbaths">
-                            <span className="biid1">
-                              <img src={beds} className="baths" /> 4 beds{" "}
-                            </span>
-                            <span>
-                              <img src={baths} className="baths" /> 4 baths{" "}
-                            </span>
-                          </div>
-                          <div className="statuss1">
-                            <span>
-                              Finance status :{" "}
-                              <span className="textred12"> Not Available</span>
-                            </span>
-                            <div className="firstspam">
-                              Property Status :{" "}
-                              <span className="textggrn"> Off Plan</span>
+                            <div className="Detachedo">
+                              ₦ {FormatAmount(data.property_price)}
                             </div>
+                            <div className="bedsbaths">
+                              <span className="biid1">
+                                <img src={beds} className="baths" />{" "}
+                                {data.property_bedrooms}{" "}
+                                {data.property_bedrooms == 1
+                                  ? "bedroom"
+                                  : "beds"}{" "}
+                              </span>
+                              <span>
+                                <img src={baths} className="baths" />{" "}
+                                {data.property_bathrooms}{" "}
+                                {data.property_bathrooms == 1
+                                  ? "baths"
+                                  : "baths"}{" "}
+                              </span>
+                            </div>
+                            <div className="statuss1">
+                              <span>
+                                Finance status :{" "}
+                                <span className="textred12">
+                                  {" "}
+                                  Not Available
+                                </span>
+                              </span>
+                              <div className="firstspam">
+                                Property Status :{" "}
+                                <span className="textggrn">
+                                  {" "}
+                                  {data.property_status}
+                                </span>
+                              </div>
+                            </div>
+                            <Button className="proptybtn">
+                              Choose this Property
+                            </Button>
                           </div>
-                          <Button className="proptybtn">
-                            Choose this Property
-                          </Button>
                         </div>
-                      </div>
+                      ))}
                     </Carousel>
                   </Col>
                 </Row>
@@ -492,12 +418,14 @@ const Profile_4 = (props) => {
         <Container className="intmod">
           <Row>
             <Col md={12}>
-              <div className="moddtitle ">Hmmm!You have not selected any property</div>
+              <div className="moddtitle ">
+                Hmmm!You have not selected any property
+              </div>
               <div className="exvited">
-                we are excited you made it this far, however just
-                a few step to your dream home... You need to choose a property
-                from the options we provided or request a property if you didnt
-                find your preferred
+                we are excited you made it this far, however just a few step to
+                your dream home... You need to choose a property from the
+                options we provided or request a property if you didnt find your
+                preferred
               </div>
             </Col>
           </Row>
@@ -508,12 +436,10 @@ const Profile_4 = (props) => {
               </Link>
             </div>
             <div className="pdkd2">
-              <Button className="nue1a mgoo" onClick={validateForm}>
-                Request a property
-              </Button>
+              <Button className="nue1a mgoo">Request a property</Button>
             </div>
           </div>
-        </Container> 
+        </Container>
       </Modal>
     </div>
   );

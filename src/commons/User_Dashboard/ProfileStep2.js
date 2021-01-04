@@ -29,22 +29,28 @@ const Profile_2 = (props) => {
     formError: "",
     applicationStatus: {},
     deleteModal: false,
-    BVN: "",
+    bvn: "",
+    firstname: "",
+    lastname: "",
+    dob: "",
     propertySlide: {},
-    isUploading: false,
-    nhf_number: "",
+    isLoading: false,
+    employment_id: "",
     isloading: false,
     isDeleting: false,
-    yearstoretirement: "",
-    fap_number: "",
-    Rank: "",
-    lengthofservice: "",
-    StateofDeployment: "",
-    Command: "",
+    year_to_retirement: "",
+    employment_id: "",
+    employment_present_position: "",
+    policeRank: [],
+    employment_state: "",
+    employer_address: "",
     number_of_dependants: "",
+    employer_nhf_registration_number: "",
+    work_experience: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
+    window.scrollTo(-0, -0);
     const userToken = localStorage.getItem("jwtToken");
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
@@ -61,15 +67,24 @@ const Profile_2 = (props) => {
         axios.get(`${API}/user/user-files`, {
           headers: { Authorization: `Bearer ${userToken}` },
         }),
+        axios.get(`${API}/general/ranks`, {
+          headers: { Authorization: `Bearer ${userToken}` },
+        }),
+        axios.get(`${API}/user/get-profile`, {
+          headers: { Authorization: `Bearer ${userToken}` },
+        }),
       ])
       .then(
-        axios.spread((res) => {
+        axios.spread((res, res2, res3) => {
+          console.log(res2);
           if (res.status === 200) {
             setState({
               ...state,
               propertyList: res.data.data,
               user: currentUser.user,
               isloading: false,
+              policeRank: [...res2.data.data],
+              ...res3.data.data,
             });
           }
           if (res.status == 400) {
@@ -92,24 +107,30 @@ const Profile_2 = (props) => {
     return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   const validateForm = () => {
+    console.log(year_to_retirement);
+    console.log(employment_id);
+    console.log(employment_present_position);
+
+    console.log(year_to_retirement);
+    console.log(year_to_retirement);
     if (
-      address === "" ||
-      lengthofservice == "" ||
-      yearstoretirement == "" ||
-      BVN == "" ||
-      state_of_origin == "" ||
-      Command == "" ||
-      fap_number == "" ||
-      Rank == "" ||
-      nhf_number == "" ||
-      StateofDeployment == "" ||
-      number_of_dependants == ""
+      year_to_retirement == "" ||
+      bvn == "" ||
+      // employer_address == "" ||
+      employment_id == "" ||
+      employment_present_position == "" ||
+      employment_state == "" ||
+      employer_nhf_registration_number == "" ||
+      employer_nhf_registration_number == null ||
+      work_experience == ""
     ) {
-      setState({
+      notify("Please fill the required feilds");
+      return setState({
         ...state,
         formError: "Please fill",
       });
     }
+    SumitForm();
   };
   const SumitForm = () => {
     const userToken = localStorage.getItem("jwtToken");
@@ -119,23 +140,25 @@ const Profile_2 = (props) => {
       : window.location.assign("/auth/login");
     setState({
       ...state,
-      isUploading: true,
+      isLoading: true,
     });
     const data = {
-      address,
-      lengthofservice,
-      phone,
-      BVN,
-      date_of_birth,
+      bvn,
+      employment_id,
+      employer_address,
       number_of_dependants,
-      yearstoretirement,
-      home_status,
-      fap_number,
+      year_to_retirement,
+      employment_present_position,
+      work_experience,
+      employment_state,
+      employer_nhf_registration_number,
+      work_experience,
+      firstname,
       lastname,
-      mode_of_contact,
+      dob,
     };
     axios
-      .post(`${API}/user/u`, data, {
+      .post(`${API}/user/profile`, data, {
         headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((res) => {
@@ -143,16 +166,17 @@ const Profile_2 = (props) => {
         console.log(res);
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+          props.history.push("/user-affordability-test");
+        }, 3000);
       })
       .catch((err) => {
+        console.log(err.response);
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         notifyFailed("Failed to save");
         console.log(err);
@@ -187,31 +211,26 @@ const Profile_2 = (props) => {
       [e.target.name]: e.target.value,
     });
   };
-  const test = ["New", "Old"];
   const {
-    user,
-    nhf_number,
-    totalDoc,
-    address,
-    lengthofservice,
-    phone,
-    date_of_birth,
-    state_of_origin,
-    home_status,
-    fap_number,
-    yearstoretirement,
+    isLoading,
+    employment_id,
+    firstname,
     lastname,
-    Command,
-    Rank,
-    StateofDeployment,
-    mode_of_contact,
+    dob,
+    employer_nhf_registration_number,
+    year_to_retirement,
+    work_experience,
+    employer_address,
+    employment_present_position,
+    employment_state,
     deleteModal,
     formError,
     isloading,
-    BVN,
+    bvn,
     number_of_dependants,
+    policeRank,
   } = state;
-  console.log(States);
+  console.log(policeRank);
   return (
     <div>
       <Container fluid>
@@ -228,7 +247,11 @@ const Profile_2 = (props) => {
             <HeaderStats />
             <Col md={12} className="lldl">
               <div className="oll12">
-                Hi <span className="name2p"> Olumide Olorundare</span>
+                Hi{" "}
+                <span className="name2p">
+                  {" "}
+                  {firstname} {lastname}
+                </span>
               </div>
               <div className="selg">Provide your Employment Information</div>
               <div className="straightdivider"></div>
@@ -240,7 +263,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && fap_number == ""
+                          formError && employment_id == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -251,13 +274,13 @@ const Profile_2 = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={fap_number}
+                        value={employment_id}
                         className={
-                          formError && fap_number == ""
+                          formError && employment_id == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="fap_number"
+                        name="employment_id"
                         placeholder=""
                       />
                     </Form.Group>
@@ -266,7 +289,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && Command == ""
+                          formError && employer_address == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -277,11 +300,13 @@ const Profile_2 = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={Command}
+                        value={employer_address}
                         className={
-                          formError && Command == "" ? "fmc formerror" : "fmc"
+                          formError && employer_address == ""
+                            ? "fmc formerror"
+                            : "fmc"
                         }
-                        name="Command"
+                        name="employer_address"
                         placeholder="   "
                       />
                     </Form.Group>
@@ -292,7 +317,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && Rank == ""
+                          formError && employment_present_position == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -302,14 +327,19 @@ const Profile_2 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && Rank == "" ? "fmc formerror" : "fmc"
+                          formError && employment_present_position == ""
+                            ? "fmc formerror"
+                            : "fmc"
                         }
-                        name="Rank"
+                        name="employment_present_position"
                         onChange={handleChange}
                       >
-                        <option value=""></option>
-                        <option value="Mini">Mini</option>
-                        <option value="N/A">N/A</option>
+                        <option>{employment_present_position}</option>
+                        {policeRank?.map((data, i) => (
+                          <option value={data.name} class="otherss" key={i}>
+                            {data.name}
+                          </option>
+                        ))}
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -317,7 +347,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && StateofDeployment == ""
+                          formError && employment_state == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -327,14 +357,14 @@ const Profile_2 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && StateofDeployment == ""
+                          formError && employment_state == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="StateofDeployment"
+                        name="employment_state"
                         onChange={handleChange}
                       >
-                        <option value=""></option>
+                        <option>{employment_state}</option>
                         {States?.map((data, i) => (
                           <option value={data} class="otherss" key={i}>
                             {data}
@@ -349,7 +379,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && lengthofservice == ""
+                          formError && work_experience == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -360,13 +390,13 @@ const Profile_2 = (props) => {
                         type="number"
                         onChange={onchange}
                         required
-                        value={lengthofservice}
+                        value={work_experience}
                         className={
-                          formError && lengthofservice == ""
+                          formError && work_experience == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="lengthofservice"
+                        name="work_experience"
                         placeholder=""
                       />
                       <div className="spna12">
@@ -378,7 +408,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && yearstoretirement == ""
+                          formError && year_to_retirement == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -389,13 +419,13 @@ const Profile_2 = (props) => {
                         type="number"
                         onChange={onchange}
                         required
-                        value={yearstoretirement}
+                        value={year_to_retirement}
                         className={
-                          formError && yearstoretirement == ""
+                          formError && year_to_retirement == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="yearstoretirement"
+                        name="year_to_retirement"
                         placeholder=""
                       />
                       <div className="spna12">
@@ -409,7 +439,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && nhf_number == ""
+                          formError && employment_id == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -417,16 +447,16 @@ const Profile_2 = (props) => {
                         NHF Number
                       </span>
                       <Form.Control
-                        type="number"
+                        type="text"
                         onChange={onchange}
                         required
-                        value={nhf_number}
+                        value={employer_nhf_registration_number}
                         className={
-                          formError && nhf_number == ""
+                          formError && employer_nhf_registration_number == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="nhf_number"
+                        name="employer_nhf_registration_number"
                         placeholder=""
                       />
                     </Form.Group>
@@ -435,7 +465,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && BVN == ""
+                          formError && bvn == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -446,11 +476,11 @@ const Profile_2 = (props) => {
                         type="number"
                         onChange={onchange}
                         required
-                        value={BVN}
+                        value={bvn}
                         className={
-                          formError && Command == "" ? "fmc formerror" : "fmc"
+                          formError && bvn == "" ? "fmc formerror" : "fmc"
                         }
-                        name="BVN"
+                        name="bvn"
                         placeholder=""
                       />
                     </Form.Group>
@@ -464,7 +494,7 @@ const Profile_2 = (props) => {
                   </Col>
                   <Col md={6}>
                     <Button className="continue1" onClick={validateForm}>
-                      Continue
+                      {!isLoading ? "Continue" : "Updating"}
                     </Button>
                   </Col>
                 </Row>
