@@ -16,14 +16,15 @@ import Spinner from "react-bootstrap/Spinner";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import SideBarProfile from "./SidebarProfile";
-import {toLowercase} from "./controller";
+import NavComponent from "./NavComponent";
 import { Link } from "react-router-dom";
 import handshake from "../../assets/handshake.png";
 import SecondNavComponent from "./SecondNavComponent";
 import { States } from "./states";
 
 
-const Profile_6 = (props) => {
+
+const Profile_6_disabled_pop = (props) => {
   const [state, setState] = React.useState({
     user: {},
     propertyList: [],
@@ -40,15 +41,12 @@ const Profile_6 = (props) => {
     number_of_bedrooms: "",
     number_of_bathrooms: "",
     fap_number: "",
-    budget: "",
+    Rank: "",
     paymentOption: "",
-    allCities: [],
     Command: "",
     number_of_dependants: "",
-    desired_state: "",
-    disired_city:"",
     home_type: "",
-    disabledform: false,
+    disabledform: true,
     selectPopUp: false,
     firstname: "",
     lastname: "",
@@ -57,7 +55,9 @@ const Profile_6 = (props) => {
   React.useEffect(() => {
     const userToken = localStorage.getItem("jwtToken");
     const userData = localStorage.getItem("SelectedProperty");
-    const currentProperty = userData ? JSON.parse(userData) : null;
+    const currentProperty = userData
+      ? JSON.parse(userData)
+      : null;
     console.log(currentProperty);
     setState({
       ...state,
@@ -71,15 +71,13 @@ const Profile_6 = (props) => {
         }),
       ])
       .then(
-        axios.spread((res, res2) => {
-          console.log(res2);
+        axios.spread((res) => {
           if (res.status === 200) {
             setState({
               ...state,
               ...res.data.data,
               property: currentProperty,
               isloading: false,
-              allCities: res2.data,
             });
           }
           if (res.status == 400) {
@@ -96,30 +94,6 @@ const Profile_6 = (props) => {
         notifyFailed("Sorry failed to fetch data");
       });
   }, []);
-  const fetch_Desired_Cities = (state_name) => {
-    axios
-      .all([
-        axios.get(
-          `http://locationsng-api.herokuapp.com/api/v1/states/${toLowercase(state_name)}/lgas`
-        ),
-      ])
-      .then(
-        axios.spread((res2) => {
-          console.log(res2);
-          setState({
-            allCities: res2.data,
-          });
-        })
-      )
-      .catch((err) => {
-        console.log(err.response);
-        setState({
-          ...state,
-          isloading: false,
-        });
-        notifyFailed("Sorry failed to fetch data");
-      });
-  };
   const notify = (message) => toast(message, { containerId: "t" });
   const notifyFailed = (message) => toast(message, { containerId: "f" });
   const FormatAmount = (amount) => {
@@ -144,7 +118,7 @@ const Profile_6 = (props) => {
       monthlygross == "" ||
       BVN == "" ||
       state_of_origin == "" ||
-      budget == "" ||
+      Rank == "" ||
       home_type == "" ||
       nhf_number == "" ||
       paymentOption == "" ||
@@ -156,7 +130,7 @@ const Profile_6 = (props) => {
       });
     }
   };
-  const SumitForm = () => {
+  const submitForm = () => {
     const userToken = localStorage.getItem("jwtToken");
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
@@ -170,13 +144,13 @@ const Profile_6 = (props) => {
       property_id: null,
       directed_to: "police Deve",
       found_property: 0,
-      state_id: 5,
+      state_id: currentProperty.state_id,
       city_id: 3,
       property_type_id: 4,
       request_type: "Home",
-      property_value: 4567843,
-      property_bedroom: number_of_bedrooms,
-      budget,
+      property_value: property?.property_price,
+      property_bedroom: property?.property_bedroom,
+      budget: property?.property_price,
       payment_option: "Mortgage",
     };
     axios
@@ -191,7 +165,7 @@ const Profile_6 = (props) => {
           isUploading: false,
         });
         setTimeout(() => {
-          window.location.reload();
+          window.location.assign("/userdashboard");
         }, 2000);
       })
       .catch((err) => {
@@ -231,10 +205,6 @@ const Profile_6 = (props) => {
       ...state,
       [e.target.name]: e.target.value,
     });
-    if (e.target.name === "desired_state") {
-      // if(e.target.value=="")
-      fetch_Desired_Cities(e.target.value);
-    }
   };
   const closedisabledform = () => {
     setState({
@@ -249,29 +219,28 @@ const Profile_6 = (props) => {
     });
   };
   const {
-    user,
+    currentProperty,
     number_of_bathrooms,
     disabledform,
     nhf_number,
     home_type,
+    totalDoc,
     address,
     number_of_bedrooms,
     firstname,
     lastname,
     state_of_origin,
     monthlygross,
-    budget,
-    desired_state,
-    disired_city,
+    property,
+    Rank,
     paymentOption,
     selectPopUp,
     formError,
     isloading,
     BVN,
-    allCities,
     number_of_dependants,
   } = state;
-  console.log(allCities);
+  console.log(totalDoc);
   return (
     <div>
       <Container fluid>
@@ -349,10 +318,10 @@ const Profile_6 = (props) => {
                         onChange={handleChange}
                       >
                         <option value=""></option>
-                        <option value="Mortage" class="otherss">
-                          Mortage
+                        <option value="single" class="otherss">
+                          Single
                         </option>
-                        <option value="NHF">NHF</option>
+                        <option value="married">Married</option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -422,7 +391,7 @@ const Profile_6 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && desired_state == ""
+                          formError && home_type == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -432,14 +401,12 @@ const Profile_6 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && desired_state == ""
-                            ? "fmc formerror"
-                            : "fmc"
+                          formError && home_type == "" ? "fmc formerror" : "fmc"
                         }
-                        name="desired_state"
+                        name="home_type"
                         onChange={handleChange}
                       >
-                        <option>{desired_state}</option>
+                        <option>{state_of_origin}</option>
                         {States?.map((data, i) => (
                           <option value={data} class="otherss" key={i}>
                             {data}
@@ -452,7 +419,7 @@ const Profile_6 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && disired_city == ""
+                          formError && paymentOption == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -462,19 +429,18 @@ const Profile_6 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && disired_city == ""
+                          formError && paymentOption == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="disired_city"
+                        name="paymentOption"
                         onChange={handleChange}
                       >
-                        <option>{disired_city}</option>
-                        {allCities?.map((data, i) => (
-                          <option value={data} class="otherss" key={i}>
-                            {data}
-                          </option>
-                        ))}
+                        <option value=""></option>
+                        <option value="single" class="otherss">
+                          Single
+                        </option>
+                        <option value="married">Married</option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -548,7 +514,10 @@ const Profile_6 = (props) => {
         className="modd moddw"
         centered={true}
         size={"md"}
-        onHide={closedisabledform}
+        onHide={()=>setState({
+          ...state,
+          disabledform:true
+        })}
       >
         <Container className="intmod">
           <Row className="bnone">
@@ -608,7 +577,7 @@ const Profile_6 = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={number_of_bathrooms}
+                        value={property?.property_bathrooms}
                         className={
                           formError && monthlygross == ""
                             ? "fmc formerror"
@@ -637,7 +606,7 @@ const Profile_6 = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={monthlygross}
+                        value={property?.property_price}
                         className={
                           formError && monthlygross == ""
                             ? "fmc formerror"
@@ -666,7 +635,7 @@ const Profile_6 = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={monthlygross}
+                        value={property?.property_state}
                         className={
                           formError && monthlygross == ""
                             ? "fmc formerror"
@@ -693,7 +662,7 @@ const Profile_6 = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={monthlygross}
+                        value={property?.property_city}
                         className={
                           formError && monthlygross == ""
                             ? "fmc formerror"
@@ -717,7 +686,7 @@ const Profile_6 = (props) => {
                   <Col md={6}>
                     <Button
                       className="continue1 polld1q"
-                      onClick={validateForm}
+                      onClick={submitForm}
                     >
                       I’m Sure, Submit Order
                     </Button>
@@ -740,4 +709,4 @@ const Profile_6 = (props) => {
     </div>
   );
 };
-export default Profile_6;
+export default Profile_6_disabled_pop;

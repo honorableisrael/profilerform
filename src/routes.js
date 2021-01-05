@@ -37,6 +37,7 @@ import MortgageApplication_SecondStep from "./commons/User_Dashboard/MortgageApp
 import NewSignUp from "./commons/AuthHandlers/NewSignUp";
 import NewSIGNIN from "./commons/AuthHandlers/NewSIGNIN";
 import PasswordRecovery from "./commons/AuthHandlers/ForgotPassword";
+import Profile_6_disabled_pop from "./commons/User_Dashboard/ProfileStep6disabledform";
 
 //check for token
 if (localStorage.token && localStorage.user) {
@@ -92,7 +93,7 @@ class Routes extends Component {
             <Route exact path="/mortage-request" component={MortgageApplication} />
             <Route exact path="/mortage-request-step-3" component={Mortgage_Application_Third} />
             <Route exact path="/mortage-request-step-2" component={MortgageApplication_SecondStep} />
-            
+            <Route exact path="/user-request-form-view" component={Profile_6_disabled_pop} />          
             {/* <Route
               exact
               path='/auth/resetPassword'

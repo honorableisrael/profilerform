@@ -78,8 +78,8 @@ const HeaderStats = (props) => {
             </div>
             <div className="sec122">
               <div className="ton1">Est. Monthly Repayment</div>
-              {loan_tenure && (
-                <div className="mza animated bounceIn">₦ {FormatAmount(loan_tenure)}</div>
+              {monthly_repayment && (
+                <div className="mza animated bounceIn">₦ {FormatAmount(monthly_repayment)}</div>
               )}
             </div>
             <div className="sec122">

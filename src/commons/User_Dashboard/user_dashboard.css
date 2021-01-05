@@ -1667,3 +1667,19 @@ a:hover{
     margin-bottom: 0px;
   }
 }
+.center-changed1 ul li{
+  padding-left: 0px;
+}
+.slidewrapplarge3 {
+  width: 840px;
+  height: 400px;
+  padding: 0px;
+}
+.center-changed1 .react-multiple-carousel__arrow--right, .react-multiple-carousel__arrow--left{
+  top: initial;
+}
+
+.descro1{
+  border-top-right-radius: 1rem !important;
+  border-top-left-radius: 1rem !important;
+}

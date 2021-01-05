@@ -30,7 +30,7 @@ import Spinner from "react-bootstrap/Spinner";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import SideBarProfile from "./SidebarProfile";
-import NavComponent from "./NavComponent";
+import { Link } from "react-router-dom";
 import HeaderStats from "./HeaderStats";
 import SecondNavComponent from "./SecondNavComponent";
 
@@ -87,7 +87,7 @@ const MortgageApplication = (props) => {
     });
     axios
       .all([
-        axios.get(`${API}/user/user-files`, {
+        axios.get(`${API}/user/get-profile`, {
           headers: { Authorization: `Bearer ${userToken}` },
         }),
       ])
@@ -96,7 +96,7 @@ const MortgageApplication = (props) => {
           if (res.status === 200) {
             setState({
               ...state,
-              propertyList: res.data.data,
+              ...res.data.data,
               user: currentUser.user,
               isloading: false,
             });
@@ -284,7 +284,11 @@ const MortgageApplication = (props) => {
             <div className="proffl">Mortgage Application</div>
             <Col md={12} className="lldl">
               <div className="oll12">
-                Hi <span className="name2p"> Olumide Olorundare</span>
+                Hi{" "}
+                <span className="name2p">
+                  {" "}
+                  {firstname} {lastname}
+                </span>
               </div>
               <div className="selg">
                 Ordinary Mortgage | Personal Information
@@ -717,9 +721,7 @@ const MortgageApplication = (props) => {
                         required
                         value={id_number}
                         className={
-                          formError && id_number == ""
-                            ? "fmc formerror"
-                            : "fmc"
+                          formError && id_number == "" ? "fmc formerror" : "fmc"
                         }
                         name="id_number"
                         placeholder=""
@@ -781,12 +783,14 @@ const MortgageApplication = (props) => {
                 </Row>
                 <Row>
                   <Col md={6}>
-                    <Button
-                      className="continue1 nomargn polld"
-                      onClick={validateForm}
-                    >
-                      Go Back to property Selection
-                    </Button>
+                    <Link to="/user-property-request">
+                      <Button
+                        className="continue1 nomargn polld"
+                        onClick={validateForm}
+                      >
+                        Go Back to property Selection
+                      </Button>
+                    </Link>
                   </Col>
                   <Col md={6}>
                     <Button

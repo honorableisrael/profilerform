@@ -27,6 +27,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import mkshift from "../../assets/mkshift.png";
 import SecondNavComponent from "./SecondNavComponent";
+import { data } from "jquery";
 
 const Profile_4 = (props) => {
   const [state, setState] = React.useState({
@@ -43,6 +44,7 @@ const Profile_4 = (props) => {
     isDeleting: false,
     displaymoreInfo: false,
     selectPopUp: false,
+    data1: {},
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -96,45 +98,6 @@ const Profile_4 = (props) => {
   const FormatAmount = (amount) => {
     return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
-  const SumitForm = () => {
-    const userToken = localStorage.getItem("jwtToken");
-    const userData = localStorage.getItem("loggedInDetails");
-    const currentUser = userData
-      ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
-    setState({
-      ...state,
-      isUploading: true,
-    });
-    const data = {};
-    axios
-      .post(`${API}/general/properties-suggestion`, data, {
-        headers: { Authorization: `Bearer ${userToken}` },
-      })
-      .then((res) => {
-        notify("Successfully");
-        console.log(res);
-        setState({
-          ...state,
-          isUploading: false,
-        });
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
-      })
-      .catch((err) => {
-        setState({
-          ...state,
-          isUploading: false,
-        });
-        notifyFailed("Failed to save");
-        console.log(err);
-      });
-  };
-
-  const checkIfIsOdd = (n) => {
-    return Math.abs(n % 2) == 1;
-  };
   const closeMoreinfoModal = () => {
     setState({
       ...state,
@@ -154,10 +117,23 @@ const Profile_4 = (props) => {
     });
   };
   const openMoreinfoModal = (id) => {
-    setState({
-      ...state,
-      displaymoreInfo: true,
-      documentId: id,
+    propertyList.forEach((x) => {
+      if (x.id == id) {
+        setState({
+          ...state,
+          displaymoreInfo: true,
+          documentId: id,
+          data1: x,
+        });
+      }
+    });
+  };
+  const saveProperty = (id) => {
+    propertyList.forEach((x) => {
+      if (x.id == id) {
+        localStorage.setItem("SelectedProperty", JSON.stringify(x));
+        props.history.push("/user-request-form-view");
+      }
     });
   };
   const onchange = (e) => {
@@ -183,7 +159,7 @@ const Profile_4 = (props) => {
     home_status,
     monthlygross,
     lastname,
-    mode_of_contact,
+    data1,
     selectPopUp,
     displaymoreInfo,
     isloading,
@@ -264,12 +240,13 @@ const Profile_4 = (props) => {
                               src={viewmore}
                               className="viewmore1"
                               alt="viewmore"
-                              onClick={openMoreinfoModal}
+                              onClick={() => openMoreinfoModal(data.id)}
                             />
                           </div>
                           <div className="imageContainer">
                             <img
                               src={sliderImg}
+                              // src={data.property_cover_image}
                               alt="propertyslider"
                               className="propertyslider"
                             />
@@ -299,13 +276,15 @@ const Profile_4 = (props) => {
                               </span>
                             </div>
                             <div className="statuss1">
-                              <span>
-                                Finance status :{" "}
-                                <span className="textred12">
-                                  {" "}
-                                  Not Available
+                              {data.property_finance_option && (
+                                <span>
+                                  Finance status :{" "}
+                                  <span className="textred12">
+                                    {" "}
+                                    {data.property_finance_option}
+                                  </span>
                                 </span>
-                              </span>
+                              )}
                               <div className="firstspam">
                                 Property Status :{" "}
                                 <span className="textggrn">
@@ -314,7 +293,10 @@ const Profile_4 = (props) => {
                                 </span>
                               </div>
                             </div>
-                            <Button className="proptybtn">
+                            <Button
+                              className="proptybtn"
+                              onClick={() => saveProperty(data.id)}
+                            >
                               Choose this Property
                             </Button>
                           </div>
@@ -361,46 +343,114 @@ const Profile_4 = (props) => {
         onHide={closeMoreinfoModal}
       >
         <div className="containffe">
-          <div className="slidewrapplarge">
-            <img src={mkshift} alt="slide" className="largeimgslide" />
+          <div className="slidewrapplarge descro1">
+            <Carousel
+              additionalTransfrom={0}
+              arrows
+              autoPlay={true}
+              autoPlaySpeed={7000}
+              centerMode={false}
+              containerClass="container-with-dots"
+              dotListClass=""
+              draggable
+              focusOnSelect={false}
+              infinite={true}
+              itemClass=""
+              keyBoardControl
+              minimumTouchDrag={80}
+              renderDotsOutside={false}
+              responsive={{
+                desktop: {
+                  breakpoint: {
+                    max: 3000,
+                    min: 1024,
+                  },
+                  items: 1,
+                  paritialVisibilityGutter: 40,
+                },
+                mobile: {
+                  breakpoint: {
+                    max: 710,
+                    min: 0,
+                  },
+                  items: 1,
+                  paritialVisibilityGutter: 30,
+                },
+                tablet: {
+                  breakpoint: {
+                    max: 1024,
+                    min: 710,
+                  },
+                  items: 1,
+                  paritialVisibilityGutter: 30,
+                },
+              }}
+              showDots={false}
+              sliderClass=""
+              slidesToSlide={1}
+              swipeable
+              className="center-changed1"
+            >
+              {data1?.propertyphoto?.map((data, i) => (
+                <div className="slidewrapplarge3">
+                  {/* <img
+                    src={data.filename}
+                    alt="slide"
+                    className="largeimgslide"
+                  /> */}
+                  <img src={mkshift} alt="slide" className="largeimgslide" />
+                </div>
+              ))}
+            </Carousel>
             <div className="housee1a">
               <div className="housee11">
                 <div className="housee">
-                  4 Bd Detached House for Rent at Osapa London Lekki, Lagos
+                  {data1.property_name} {data1.property_state}
                 </div>
-                <div className="aamt">₦ 70,000,000.00</div>
+                <div className="aamt">
+                  {" "}
+                  ₦ {FormatAmount(data1.property_price)}
+                </div>
               </div>
 
               <div className="flxc">
                 <div className="biid1">
-                  <img src={beds} className="baths" /> 4 beds{" "}
+                  <img src={beds} className="baths" /> {data1.property_bedrooms}{" "}
+                  {data1.property_bedrooms == 1 ? "bedroom" : "beds"}{" "}
                 </div>
                 <div>
-                  <img src={baths} className="baths" /> 4 baths{" "}
+                  <img src={baths} className="baths" />{" "}
+                  {data1.property_bathrooms}{" "}
+                  {data1.property_bathrooms == 1 ? "baths" : "baths"}{" "}
                 </div>
                 <div className="fina11">
                   Finance status :{" "}
-                  <span className="textred12"> Not Available</span>
+                  <span className="textred12">
+                    {data1.property_finance_option}
+                  </span>
                 </div>
                 <div className="fina112">
-                  Property Status : <span className="textggrn"> Off Plan</span>
+                  Property Status :{" "}
+                  <span className="textggrn"> {data1.property_status}</span>
                 </div>
               </div>
               <div className="ffdda1">
                 <div className="ffdda">Description</div>
-                <div className="ffdaa11">
-                  The Address Homes-Femi Okunnu, 4 bed room semi-detached
-                  house.This comprises of 20(NOS) beautiful contemporary 4
-                  bedrooms luxury semi-detached and 4 fully detached homes with
-                  1 bedroom QB on 3 floors where intelligent design that meets
-                  aesthetics to create the perfect backdrop for the modern
-                </div>
+                <div
+                  className="ffdaa11"
+                  dangerouslySetInnerHTML={{
+                    __html: `${data1.property_description}`,
+                  }}
+                ></div>
               </div>
               <div className="newhomes">
                 View on <a href="https://newhomes.ng"> newhomes.ng</a>
               </div>
               <div>
-                <Button className="continue1 nomargn">
+                <Button
+                  className="continue1 nomargn"
+                  onClick={() => saveProperty(data1.id)}
+                >
                   Choose this property
                 </Button>
               </div>
@@ -436,7 +486,9 @@ const Profile_4 = (props) => {
               </Link>
             </div>
             <div className="pdkd2">
-              <Button className="nue1a mgoo">Request a property</Button>
+              <Link to="/user-request-form">
+                <Button className="nue1a mgoo">Request a property</Button>
+              </Link>
             </div>
           </div>
         </Container>
