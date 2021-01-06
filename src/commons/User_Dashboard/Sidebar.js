@@ -27,7 +27,9 @@ const UserdashboardSideBar = (props) => {
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="5" className="">
             <>
-              <Card.Body className="sidenavaccbody dddee">Mortgages</Card.Body>
+              <Card.Body className="sidenavaccbody dddee">
+                <Link to="/mortage-request">Mortgages</Link>
+              </Card.Body>
               <Card.Body className="sidenavaccbody">Personal Loan</Card.Body>
               <Card.Body className="sidenavaccbody">Equity Savings</Card.Body>
             </>
@@ -51,7 +53,7 @@ const UserdashboardSideBar = (props) => {
           </div>
           <div className="sidnavoptionsna ">
             <img src={gridwhite} className="sidenvimg" />
-            Apply for Mortgage
+            <Link to="/mortage-request"> Apply for Mortgage </Link>
           </div>
         </div>
         <div className="sdenavline2">

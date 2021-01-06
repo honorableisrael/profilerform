@@ -16,12 +16,11 @@ import Spinner from "react-bootstrap/Spinner";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import SideBarProfile from "./SidebarProfile";
-import {toLowercase} from "./controller";
+import { toLowercase } from "./controller";
 import { Link } from "react-router-dom";
 import handshake from "../../assets/handshake.png";
 import SecondNavComponent from "./SecondNavComponent";
 import { States } from "./states";
-
 
 const Profile_6 = (props) => {
   const [state, setState] = React.useState({
@@ -46,11 +45,12 @@ const Profile_6 = (props) => {
     Command: "",
     number_of_dependants: "",
     desired_state: "",
-    disired_city:"",
+    disired_city: "",
     home_type: "",
     disabledform: false,
     selectPopUp: false,
     firstname: "",
+    Home_value:"",
     lastname: "",
   });
   let fileRef = useRef(null);
@@ -79,7 +79,7 @@ const Profile_6 = (props) => {
               ...res.data.data,
               property: currentProperty,
               isloading: false,
-              allCities: res2.data,
+              // allCities: res2.data,
             });
           }
           if (res.status == 400) {
@@ -88,7 +88,7 @@ const Profile_6 = (props) => {
         })
       )
       .catch((err) => {
-        console.log(err.response);
+        console.log(err);
         setState({
           ...state,
           isloading: false,
@@ -100,7 +100,9 @@ const Profile_6 = (props) => {
     axios
       .all([
         axios.get(
-          `http://locationsng-api.herokuapp.com/api/v1/states/${toLowercase(state_name)}/lgas`
+          `http://locationsng-api.herokuapp.com/api/v1/states/${toLowercase(
+            state_name
+          )}/lgas`
         ),
       ])
       .then(
@@ -171,10 +173,10 @@ const Profile_6 = (props) => {
       directed_to: "police Deve",
       found_property: 0,
       state_id: 5,
-      city_id: 3,
+      Home_value:"",
       property_type_id: 4,
       request_type: "Home",
-      property_value: 4567843,
+      property_value: Home_value,
       property_bedroom: number_of_bedrooms,
       budget,
       payment_option: "Mortgage",
@@ -267,6 +269,7 @@ const Profile_6 = (props) => {
     selectPopUp,
     formError,
     isloading,
+    Home_value,
     BVN,
     allCities,
     number_of_dependants,
@@ -321,39 +324,57 @@ const Profile_6 = (props) => {
                         name="home_type"
                         onChange={handleChange}
                       >
-                        <option value=""></option>
-                        <option value="Mini">Mini</option>
-                        <option value="N/A">N/A</option>
+                        <option value="All">All</option>
+                        <option value="Block of flats">Block of flats</option>
+                        <option value="Detached Bungalow">
+                          Detached Bungalow
+                        </option>
+                        <option value="Detached Duplex">Detached Duplex</option>
+                        <option value="Massionette">Massionette</option>
+                        <option value="Semi-Detached Bungalow">
+                          Semi-Detached Bungalow
+                        </option>
+                        <option value="Semi-Detached Duplex">
+                          Semi-Detached Duplex
+                        </option>
+                        <option value="Terrace Bungalow">
+                          Terrace Bungalow
+                        </option>
+                        <option value="Terrace Duplex">Terrace Duplex</option>
+                        <option value="PentHouse">PentHouse</option>
+                        <option value="Studio Apartment">
+                          Studio Apartment
+                        </option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
                   <Col md={6} className="eachfield2">
-                    <Form.Group>
+                  <Form.Group>
                       <span
                         className={
-                          formError && paymentOption == ""
+                          formError && Home_value == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Payment Option
+                        Home Value
                       </span>
                       <Form.Control
-                        as="select"
+                        type="number"
+                        onChange={onchange}
+                        required
+                        value={Home_value}
                         className={
-                          formError && paymentOption == ""
+                          formError && Home_value == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="paymentOption"
-                        onChange={handleChange}
-                      >
-                        <option value=""></option>
-                        <option value="Mortage" class="otherss">
-                          Mortage
-                        </option>
-                        <option value="NHF">NHF</option>
-                      </Form.Control>
+                        name="Home_value"
+                        placeholder=""
+                      />
+                      <div className="spna12">
+                        <span className="spna122">NGN</span>
+                      </div>
                     </Form.Group>
                   </Col>
                 </Row>
@@ -481,7 +502,7 @@ const Profile_6 = (props) => {
                 </Row>
                 <Row className="poll878">
                   <Col md={6}>
-                    <Link to="/user-profile">
+                    <Link to="/user-property-request">
                       <Button className="continue1 polld">Previous</Button>
                     </Link>
                   </Col>
@@ -708,7 +729,7 @@ const Profile_6 = (props) => {
                 </Row>
                 <Row className="poll878">
                   <Col md={6}>
-                    <Link to="/user-profile">
+                    <Link to="/user-property-request">
                       <Button className="continue1 polld">
                         Not Sure yet, Go Back
                       </Button>

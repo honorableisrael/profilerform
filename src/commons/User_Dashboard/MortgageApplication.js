@@ -33,6 +33,7 @@ import SideBarProfile from "./SidebarProfile";
 import { Link } from "react-router-dom";
 import HeaderStats from "./HeaderStats";
 import SecondNavComponent from "./SecondNavComponent";
+import { States } from "./states";
 
 const MortgageApplication = (props) => {
   const [state, setState] = React.useState({
@@ -46,6 +47,7 @@ const MortgageApplication = (props) => {
     isUploading: false,
     totalDoc: {},
     isloading: false,
+    isLoading: false,
     isDeleting: false,
     documentId: "",
     firstname: "",
@@ -59,18 +61,18 @@ const MortgageApplication = (props) => {
     home_status: "",
     mode_of_contact: "",
     number_of_dependants: "",
-    middle_name: "",
-    mothers_maiden_name: "",
+    middlename: "",
+    mother_middle_name: "",
     age: "",
     sex: "",
     nationality: "",
     place_of_birth: "",
     profession: "",
     highest_education: "",
-    type_of_identification: "",
+    means_of_identification: "",
     id_number: "",
     id_issue_date: "",
-    id_expiry_date: "",
+    id_expire_date: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -132,8 +134,8 @@ const MortgageApplication = (props) => {
       lastname == "" ||
       mode_of_contact == "" ||
       number_of_dependants == "" ||
-      mothers_maiden_name == "" ||
-      middle_name == "" ||
+      mother_middle_name == "" ||
+      middlename == "" ||
       nationality == "" ||
       age == "" ||
       sex == "" ||
@@ -141,16 +143,17 @@ const MortgageApplication = (props) => {
       state_of_origin == "" ||
       profession == "" ||
       highest_education == "" ||
-      type_of_identification == "" ||
+      means_of_identification == "" ||
       id_number == "" ||
       id_issue_date == "" ||
-      id_expiry_date == ""
+      id_expire_date == ""
     ) {
-      setState({
+      return setState({
         ...state,
         formError: "Please fill",
       });
     }
+    SumitForm()
   };
   const SumitForm = () => {
     const userToken = localStorage.getItem("jwtToken");
@@ -160,7 +163,7 @@ const MortgageApplication = (props) => {
       : window.location.assign("/auth/login");
     setState({
       ...state,
-      isUploading: true,
+      isLoading: true,
     });
     const data = {
       address,
@@ -171,22 +174,22 @@ const MortgageApplication = (props) => {
       state_of_origin,
       home_status,
       firstname,
-      type_of_identification,
       lastname,
+      means_of_identification,
       mode_of_contact,
       profession,
-      middle_name,
+      middlename,
       nationality,
       age,
       sex,
       highest_education,
       place_of_birth,
-      id_expiry_date,
+      id_expire_date,
       id_issue_date,
       id_number,
     };
     axios
-      .post(`${API}/user/u`, data, {
+      .post(`${API}/user/profile`, data, {
         headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((res) => {
@@ -194,16 +197,16 @@ const MortgageApplication = (props) => {
         console.log(res);
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         setTimeout(() => {
-          window.location.reload();
+          props.history.push("/mortage-request-step-2");
         }, 2000);
       })
       .catch((err) => {
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         notifyFailed("Failed to save");
         console.log(err);
@@ -255,16 +258,17 @@ const MortgageApplication = (props) => {
     deleteModal,
     formError,
     isloading,
-    type_of_identification,
+    isLoading,
+    means_of_identification,
     number_of_dependants,
     sex,
     nationality,
-    mothers_maiden_name,
+    mother_middle_name,
     age,
     highest_education,
     place_of_birth,
-    middle_name,
-    id_expiry_date,
+    middlename,
+    id_expire_date,
     id_issue_date,
     id_number,
   } = state;
@@ -352,7 +356,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && middle_name == ""
+                          formError && middlename == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -363,13 +367,13 @@ const MortgageApplication = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={middle_name}
+                        value={middlename}
                         className={
-                          formError && middle_name == ""
+                          formError && middlename == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="middle_name"
+                        name="middlename"
                         placeholder=""
                       />
                     </Form.Group>
@@ -378,7 +382,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && mothers_maiden_name == ""
+                          formError && mother_middle_name == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -389,9 +393,9 @@ const MortgageApplication = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={mothers_maiden_name}
+                        value={mother_middle_name}
                         className={
-                          formError && mothers_maiden_name == ""
+                          formError && mother_middle_name == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -521,11 +525,11 @@ const MortgageApplication = (props) => {
                         name="sex"
                         onChange={handleChange}
                       >
-                        <option value=""></option>
-                        <option value="MALE" class="otherss">
-                          MALE
+                        <option>{sex}</option>
+                        <option value="Male" class="otherss">
+                          Male
                         </option>
-                        <option value="FEMALE">FEMALE</option>
+                        <option value="Female">Female</option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -567,21 +571,18 @@ const MortgageApplication = (props) => {
                         Nationality
                       </span>
                       <Form.Control
-                        as="select"
+                        type="text"
+                        onChange={onchange}
+                        required
+                        value={nationality}
                         className={
                           formError && nationality == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
                         name="nationality"
-                        onChange={handleChange}
-                      >
-                        <option value=""></option>
-                        <option value="single" class="otherss">
-                          Single
-                        </option>
-                        <option value="married">Married</option>
-                      </Form.Control>
+                        placeholder=""
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -607,11 +608,12 @@ const MortgageApplication = (props) => {
                         name="state_of_origin"
                         onChange={handleChange}
                       >
-                        <option value=""></option>
-                        <option value="single" class="otherss">
-                          Single
-                        </option>
-                        <option value="married">Married</option>
+                        <option>{state_of_origin}</option>
+                        {States?.map((data, i) => (
+                          <option value={data} class="otherss" key={i}>
+                            {data}
+                          </option>
+                        ))}
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -679,7 +681,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && type_of_identification == ""
+                          formError && means_of_identification == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -689,18 +691,18 @@ const MortgageApplication = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && type_of_identification == ""
+                          formError && means_of_identification == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
                         name="state_of_origin"
                         onChange={handleChange}
                       >
-                        <option value=""></option>
-                        <option value="single" class="otherss">
-                          Single
+                        <option>{means_of_identification}</option>
+                        <option value="ID" class="otherss">
+                          ID
                         </option>
-                        <option value="married">Married</option>
+                        <option value="married">ID</option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -708,7 +710,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && id_issue_date == ""
+                          formError && id_number == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -758,7 +760,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && id_expiry_date == ""
+                          formError && id_expire_date == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -769,13 +771,13 @@ const MortgageApplication = (props) => {
                         type="date"
                         onChange={onchange}
                         required
-                        value={id_expiry_date}
+                        value={id_expire_date}
                         className={
-                          formError && id_expiry_date == ""
+                          formError && id_expire_date == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="id_expiry_date"
+                        name="id_expire_date"
                         placeholder=""
                       />
                     </Form.Group>
@@ -784,20 +786,14 @@ const MortgageApplication = (props) => {
                 <Row>
                   <Col md={6}>
                     <Link to="/user-property-request">
-                      <Button
-                        className="continue1 nomargn polld"
-                        onClick={validateForm}
-                      >
+                      <Button className="continue1 nomargn polld">
                         Go Back to property Selection
                       </Button>
                     </Link>
                   </Col>
                   <Col md={6}>
-                    <Button
-                      className="continue1 nomargn"
-                      onClick={validateForm}
-                    >
-                      Continue
+                    <Button className="continue1 nomargn" onClick={validateForm}>
+                      {!isLoading?"Continue":"Processing"}
                     </Button>
                   </Col>
                 </Row>

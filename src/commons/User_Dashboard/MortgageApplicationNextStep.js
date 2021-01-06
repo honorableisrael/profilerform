@@ -54,6 +54,8 @@ const Mortgage_Application_Third = (props) => {
     next_of_kin_fullname: "",
     next_of_kin_relationship: "",
     next_of_kin_age: "",
+    firstname:"",
+    lastname:"",
     next_of_kin_address: "",
   });
   let fileRef = useRef(null);
@@ -138,6 +140,8 @@ const Mortgage_Application_Third = (props) => {
       next_of_kin_relationship,
       next_of_kin_age,
       next_of_kin_address,
+      firstname,
+      lastname,
     };
     axios
       .post(`${API}/user/u`, data, {
@@ -192,7 +196,6 @@ const Mortgage_Application_Third = (props) => {
       [e.target.name]: e.target.value,
     });
   };
-  const test = ["New", "Old"];
   const {
     user,
     totalDoc,
@@ -207,6 +210,8 @@ const Mortgage_Application_Third = (props) => {
     deleteModal,
     formError,
     isloading,
+    firstname,
+    lastname,
   } = state;
   console.log(totalDoc);
   return (
@@ -224,7 +229,12 @@ const Mortgage_Application_Third = (props) => {
             <div className="proffl">Mortgage Application</div>
             <Col md={12} className="lldl">
               <div className="oll12">
-                Hi <span className="name2p"> Olumide Olorundare</span>
+                Hi{" "}
+                <span className="name2p">
+                  {" "}
+                  {firstname}{" "}
+                  {lastname}
+                </span>
               </div>
               <div className="selg">
                 Please provide details of next of kin and dependents

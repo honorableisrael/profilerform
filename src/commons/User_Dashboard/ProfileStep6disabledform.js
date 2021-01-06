@@ -141,7 +141,7 @@ const Profile_6_disabled_pop = (props) => {
       isUploading: true,
     });
     const data = {
-      property_id: null,
+      property_id: property.id,
       directed_to: "police Deve",
       found_property: 0,
       state_id: currentProperty.state_id,
@@ -151,7 +151,7 @@ const Profile_6_disabled_pop = (props) => {
       property_value: property?.property_price,
       property_bedroom: property?.property_bedroom,
       budget: property?.property_price,
-      payment_option: "Mortgage",
+      payment_option: property?.property_finance_option,
     };
     axios
       .post(`${API}/user/property-request`, data, {

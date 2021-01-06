@@ -121,7 +121,6 @@ const Profile_2 = (props) => {
       employment_present_position == "" ||
       employment_state == "" ||
       employer_nhf_registration_number == "" ||
-      employer_nhf_registration_number == null ||
       work_experience == ""
     ) {
       notify("Please fill the required feilds");
@@ -439,9 +438,9 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && employment_id == ""
+                          formError && employer_nhf_registration_number == ""
                             ? "userprofile formerror1"
-                            : "userprofile"
+                            : (formError && employer_nhf_registration_number == null?"userprofile formerror1":"userprofile")
                         }
                       >
                         NHF Number

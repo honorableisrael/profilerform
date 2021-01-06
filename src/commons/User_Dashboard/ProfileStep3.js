@@ -44,6 +44,7 @@ const Profile_3 = (props) => {
     monthly_repayment: "",
     budget: "",
     payment_option: "",
+    equityamount: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -103,7 +104,7 @@ const Profile_3 = (props) => {
     if (
       total_annual_pay == "" ||
       monthly_gross_pay == "" ||
-      (have_equity !== 1 && have_equity!==0) ||
+      (have_equity !== 1 && have_equity !== 0) ||
       employment_state == "" ||
       monthly_expenses == "" ||
       loan_repayments == "" ||
@@ -196,6 +197,7 @@ const Profile_3 = (props) => {
     have_equity,
     employment_state,
     number_of_dependants,
+    equityamount,
   } = state;
   console.log(have_equity);
   return (
@@ -278,7 +280,7 @@ const Profile_3 = (props) => {
                         placeholder=""
                       />
                       <div className="spna12">
-                        <span className="spna122">years</span>
+                        <span className="spna122">Monthly</span>
                       </div>
                     </Form.Group>
                   </Col>
@@ -288,7 +290,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          (formError && have_equity !== 0 && have_equity !== 1)
+                          formError && have_equity !== 0 && have_equity !== 1
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -317,35 +319,34 @@ const Profile_3 = (props) => {
                       </Form.Control>
                     </Form.Group>
                   </Col>
+
                   <Col md={6} className="eachfield2">
-                    <Form.Group>
-                      <span
-                        className={
-                          formError && employment_state == ""
-                            ? "userprofile formerror1"
-                            : "userprofile"
-                        }
-                      >
-                        State of Deployment
-                      </span>
-                      <Form.Control
-                        as="select"
-                        className={
-                          formError && employment_state == ""
-                            ? "fmc formerror"
-                            : "fmc"
-                        }
-                        name="employment_state"
-                        onChange={handleChange}
-                      >
-                        <option>{employment_state}</option>
-                        {States?.map((data, i) => (
-                          <option value={data} class="otherss" key={i}>
-                            {data}
-                          </option>
-                        ))}
-                      </Form.Control>
-                    </Form.Group>
+                    {have_equity == 1 && (
+                      <Form.Group>
+                        <span
+                          className={
+                            formError && equityamount == ""
+                              ? "userprofile formerror1"
+                              : "userprofile"
+                          }
+                        >
+                          How much equity do you have? (₦)
+                        </span>
+                        <Form.Control
+                          type="number"
+                          onChange={onchange}
+                          required
+                          value={equityamount}
+                          className={
+                            formError && equityamount == ""
+                              ? "fmc formerror"
+                              : "fmc"
+                          }
+                          name="equityamount"
+                          placeholder=""
+                        />
+                      </Form.Group>
+                    )}
                   </Col>
                 </Row>
                 <Row className="poll878">
@@ -413,30 +414,6 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && budget == ""
-                            ? "userprofile formerror1"
-                            : "userprofile"
-                        }
-                      >
-                        What is your budget? (₦)
-                      </span>
-                      <Form.Control
-                        type="number"
-                        onChange={onchange}
-                        required
-                        value={budget}
-                        className={
-                          formError && budget == "" ? "fmc formerror" : "fmc"
-                        }
-                        name="budget"
-                        placeholder=""
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col md={6} className="eachfield2">
-                    <Form.Group>
-                      <span
-                        className={
                           formError && payment_option == ""
                             ? "userprofile formerror1"
                             : "userprofile"
@@ -455,11 +432,76 @@ const Profile_3 = (props) => {
                         onChange={handleChange}
                       >
                         <option>{payment_option}</option>
-                          <option value={"nhf"} className="otherss">
-                            NHF
-                          </option>
+                        <option value={"nhf"} className="otherss">
+                          NHF
+                        </option>
+                        <option value={"Mortgage"} className="otherss">
+                          Mortgage
+                        </option>
+                        <option
+                          value={"Installment Payment"}
+                          className="otherss"
+                        >
+                          Installment Payment
+                        </option>
+                        <option value={"Outright Payment"} className="otherss">
+                          Outright Payment
+                        </option>
+                        <option value={"Rent to own"} className="otherss">
+                          Rent to own
+                        </option>
                       </Form.Control>
                     </Form.Group>
+                  </Col>
+                  <Col md={6} className="eachfield2">
+                    {payment_option == "Installment Payment" && (
+                      <Form.Group>
+                        <span
+                          className={
+                            formError && budget == ""
+                              ? "userprofile formerror1"
+                              : "userprofile"
+                          }
+                        >
+                          What is your annual budget? (₦)
+                        </span>
+                        <Form.Control
+                          type="number"
+                          onChange={onchange}
+                          required
+                          value={budget}
+                          className={
+                            formError && budget == "" ? "fmc formerror" : "fmc"
+                          }
+                          name="budget"
+                          placeholder=""
+                        />
+                      </Form.Group>
+                    )}
+                    {payment_option == "Rent to own" && (
+                      <Form.Group>
+                        <span
+                          className={
+                            formError && budget == ""
+                              ? "userprofile formerror1"
+                              : "userprofile"
+                          }
+                        >
+                          What is your monthly budget? (₦)
+                        </span>
+                        <Form.Control
+                          type="number"
+                          onChange={onchange}
+                          required
+                          value={budget}
+                          className={
+                            formError && budget == "" ? "fmc formerror" : "fmc"
+                          }
+                          name="budget"
+                          placeholder=""
+                        />
+                      </Form.Group>
+                    )}
                   </Col>
                 </Row>
                 <Row className="poll878 polz2">

@@ -57,9 +57,9 @@ const MortgageApplication_SecondStep = (props) => {
     state_of_origin: "",
     married_status: "",
     home_status: "",
-    employers_fullname:"",
-    has_your_employment_been_confirmed:"",
-    years_at_current_employment:""
+    employers_fullname: "",
+    has_your_employment_been_confirmed: "",
+    years_at_current_employment: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -117,8 +117,8 @@ const MortgageApplication_SecondStep = (props) => {
       address == "" ||
       company_email == "" ||
       employers_fullname == "" ||
-      employers_phone  == "" ||
-      employers_current_position  == "" ||
+      employers_phone == "" ||
+      employers_current_position == "" ||
       employers_fullname == "" ||
       has_your_employment_been_confirmed == ""
     ) {
@@ -139,7 +139,6 @@ const MortgageApplication_SecondStep = (props) => {
       isUploading: true,
     });
     const data = {
-
       employers_fullname,
     };
     axios
@@ -211,6 +210,8 @@ const MortgageApplication_SecondStep = (props) => {
     deleteModal,
     formError,
     isloading,
+    firstname,
+    lastname,
   } = state;
   console.log(totalDoc);
   return (
@@ -228,9 +229,15 @@ const MortgageApplication_SecondStep = (props) => {
             <div className="proffl">Mortgage Application</div>
             <Col md={12} className="lldl">
               <div className="oll12">
-                Hi <span className="name2p"> Olumide Olorundare</span>
+                Hi{" "}
+                <span className="name2p">
+                  {" "}
+                  {firstname} {lastname}
+                </span>
               </div>
-              <div className="selg">Please provide your current employment status</div>
+              <div className="selg">
+                Please provide your current employment status
+              </div>
               <div className="straightdivider"></div>
             </Col>
             <Col md={12} className="formwrapper1">
@@ -253,7 +260,9 @@ const MortgageApplication_SecondStep = (props) => {
                         required
                         value={employers_fullname}
                         className={
-                          formError && employers_fullname == "" ? "fmc formerror" : "fmc"
+                          formError && employers_fullname == ""
+                            ? "fmc formerror"
+                            : "fmc"
                         }
                         name="employers_fullname"
                         placeholder=""
@@ -269,7 +278,7 @@ const MortgageApplication_SecondStep = (props) => {
                             : "userprofile"
                         }
                       >
-                        Company Email 
+                        Company Email
                       </span>
                       <Form.Control
                         type="text"
@@ -277,7 +286,9 @@ const MortgageApplication_SecondStep = (props) => {
                         required
                         value={company_email}
                         className={
-                          formError && company_email == "" ? "fmc formerror" : "fmc"
+                          formError && company_email == ""
+                            ? "fmc formerror"
+                            : "fmc"
                         }
                         name="company_email"
                         placeholder="   "
@@ -303,7 +314,9 @@ const MortgageApplication_SecondStep = (props) => {
                         required
                         value={employers_phone}
                         className={
-                          formError && employers_phone == "" ? "fmc formerror" : "fmc"
+                          formError && employers_phone == ""
+                            ? "fmc formerror"
+                            : "fmc"
                         }
                         name="employers_phone"
                         placeholder=""
@@ -400,7 +413,7 @@ const MortgageApplication_SecondStep = (props) => {
                             : "userprofile"
                         }
                       >
-                       Years at Current Employment
+                        Years at Current Employment
                       </span>
                       <Form.Control
                         as="select"
@@ -449,7 +462,10 @@ const MortgageApplication_SecondStep = (props) => {
                 </Row>
                 <Row>
                   <Col md={12}>
-                    <Button className="continue1 nomargn" onClick={validateForm}>
+                    <Button
+                      className="continue1 nomargn"
+                      onClick={validateForm}
+                    >
                       Continue
                     </Button>
                   </Col>

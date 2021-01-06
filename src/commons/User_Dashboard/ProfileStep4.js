@@ -307,7 +307,7 @@ const Profile_4 = (props) => {
                 </Row>
                 <Row className="poll878 polz2">
                   <Col md={6}>
-                    <Link to="/user-profile">
+                    <Link to="/user-property-request">
                       <Button className="continue1 polld">Previous</Button>
                     </Link>
                   </Col>
@@ -481,9 +481,7 @@ const Profile_4 = (props) => {
           </Row>
           <div className="pdkd flex23">
             <div className="pdkd2">
-              <Link to="/">
-                <Button className="nue1a nue1b polld mgoo">Go Back</Button>
-              </Link>
+                <Button className="nue1a nue1b polld mgoo" onClick={closeSelectPopUp}>Go Back</Button>
             </div>
             <div className="pdkd2">
               <Link to="/user-request-form">
