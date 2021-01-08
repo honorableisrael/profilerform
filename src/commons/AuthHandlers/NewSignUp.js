@@ -37,7 +37,7 @@ const NewSignUp = (props) => {
       ...state,
       [e.target.name]: e.target.value,
       errorMessage: "",
-      success:"",
+      success: "",
     });
   };
   const HidePassword = () => {
@@ -67,12 +67,16 @@ const NewSignUp = (props) => {
       password,
     };
     Axios.post(`${API}/auth/register`, data)
-      .then((response) => {
-        console.log(response);
+      .then((res) => {
+        console.log(res);
         setState({
           ...state,
           success: "Sign Up Successful",
         });
+        const { token } = res.data.data;
+        localStorage.setItem("jwtToken", token);
+        localStorage.setItem("loggedInDetails", JSON.stringify(res.data.data));
+          props.history.push("/user-profile")
       })
       .catch((err) => {
         console.log(err?.response);
@@ -241,7 +245,7 @@ const NewSignUp = (props) => {
               <Row>
                 <Col md={12} className="">
                   <Button className="signnp" onClick={validateForm}>
-                   {isloading?"Registering...":"Sign Up"}
+                    {isloading ? "Registering..." : "Sign Up"}
                   </Button>
                 </Col>
                 <Col md={12}>
