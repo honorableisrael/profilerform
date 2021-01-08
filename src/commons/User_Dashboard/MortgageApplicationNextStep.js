@@ -41,21 +41,22 @@ const Mortgage_Application_Third = (props) => {
     propertyList: [],
     formError: "",
     applicationStatus: {},
-    deleteModal: false,
+    no_of_dependents: false,
     file: "",
     propertySlide: {},
     isUploading: false,
     totalDoc: {},
     isloading: false,
     isDeleting: false,
-    current_home_status: "",
+    current_apartment_status: "",
     marital_status: "",
     do_you_have_children: "",
-    next_of_kin_fullname: "",
+    next_of_kin_name: "",
     next_of_kin_relationship: "",
-    next_of_kin_age: "",
-    firstname:"",
-    lastname:"",
+    next_of_kin_dob: "",
+    firstname: "",
+    lastname: "",
+    dob: "",
     next_of_kin_address: "",
   });
   let fileRef = useRef(null);
@@ -64,7 +65,7 @@ const Mortgage_Application_Third = (props) => {
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
+      : window.location.assign("/signin");
     console.log(currentUser);
     setState({
       ...state,
@@ -73,7 +74,7 @@ const Mortgage_Application_Third = (props) => {
     });
     axios
       .all([
-        axios.get(`${API}/user/user-files`, {
+        axios.get(`${API}/user/get-profile`, {
           headers: { Authorization: `Bearer ${userToken}` },
         }),
       ])
@@ -82,13 +83,13 @@ const Mortgage_Application_Third = (props) => {
           if (res.status === 200) {
             setState({
               ...state,
-              propertyList: res.data.data,
+              ...res.data.data,
               user: currentUser.user,
               isloading: false,
             });
           }
           if (res.status == 400) {
-            props.history.push("/auth/login");
+            props.history.push("/signin");
           }
         })
       )
@@ -108,47 +109,52 @@ const Mortgage_Application_Third = (props) => {
   };
   const validateForm = () => {
     if (
-      current_home_status === "" ||
+      current_apartment_status === "" ||
       marital_status === "" ||
-      do_you_have_children === "" ||
-      next_of_kin_fullname === "" ||
+      no_of_dependents === "" ||
+      next_of_kin_name === "" ||
       next_of_kin_relationship === "" ||
-      next_of_kin_age === "" ||
-      next_of_kin_address === ""
+      next_of_kin_dob === "" ||
+      next_of_kin_address === "" ||
+      no_of_dependents ===""
     ) {
-      setState({
+      notify("Please fill all required fields")
+      return setState({
         ...state,
         formError: "Please fill",
       });
     }
+    SubmitForm();
   };
-  const SumitForm = () => {
+  const SubmitForm = () => {
     const userToken = localStorage.getItem("jwtToken");
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
+      : window.location.assign("/signin");
     setState({
       ...state,
       isUploading: true,
     });
     const data = {
-      current_home_status,
+      current_apartment_status,
       marital_status,
       do_you_have_children,
-      next_of_kin_fullname,
+      next_of_kin_name,
       next_of_kin_relationship,
-      next_of_kin_age,
+      next_of_kin_dob,
       next_of_kin_address,
+      no_of_dependents,
       firstname,
       lastname,
+      dob
     };
     axios
-      .post(`${API}/user/u`, data, {
+      .post(`${API}/user/profile`, data, {
         headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((res) => {
-        notify("Successfully Saved profile information");
+        notify("Successfully applied for mortgage");
         console.log(res);
         setState({
           ...state,
@@ -164,7 +170,7 @@ const Mortgage_Application_Third = (props) => {
           isUploading: false,
         });
         notifyFailed("Failed to save");
-        console.log(err);
+        console.log(err.response);
       });
   };
 
@@ -197,17 +203,17 @@ const Mortgage_Application_Third = (props) => {
     });
   };
   const {
-    user,
+    no_of_dependents,
     totalDoc,
     address,
-    current_home_status,
+    current_apartment_status,
     marital_status,
     do_you_have_children,
-    next_of_kin_fullname,
+    next_of_kin_name,
     next_of_kin_relationship,
-    next_of_kin_age,
+    next_of_kin_dob,
     next_of_kin_address,
-    deleteModal,
+    dob,
     formError,
     isloading,
     firstname,
@@ -232,8 +238,7 @@ const Mortgage_Application_Third = (props) => {
                 Hi{" "}
                 <span className="name2p">
                   {" "}
-                  {firstname}{" "}
-                  {lastname}
+                  {firstname} {lastname}
                 </span>
               </div>
               <div className="selg">
@@ -248,7 +253,7 @@ const Mortgage_Application_Third = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && current_home_status == ""
+                          formError && current_apartment_status == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -258,18 +263,18 @@ const Mortgage_Application_Third = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && current_home_status == ""
+                          formError && current_apartment_status == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="current_home_status"
+                        name="current_apartment_status"
                         onChange={handleChange}
                       >
-                        <option value=""></option>
-                        <option value="single" class="otherss">
-                          Single
+                        <option></option>
+                        <option value="Owned" class="otherss">
+                          Owned
                         </option>
-                        <option value="married">Married</option>
+                        <option value="Rent">Rent</option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -294,7 +299,7 @@ const Mortgage_Application_Third = (props) => {
                         name="marital_status"
                         onChange={handleChange}
                       >
-                        <option value=""></option>
+                        <option>{marital_status}</option>
                         <option value="single" class="otherss">
                           Single
                         </option>
@@ -306,28 +311,23 @@ const Mortgage_Application_Third = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && do_you_have_children == ""
+                          formError && no_of_dependents == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Do you have Children/Dependants
+                        Number of Children/Dependants
                       </span>
                       <Form.Control
-                        as="select"
                         className={
-                          formError && do_you_have_children == ""
+                          formError && no_of_dependents == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="do_you_have_children"
+                        value={no_of_dependents}
+                        name="no_of_dependents"
                         onChange={handleChange}
                       >
-                        <option value=""></option>
-                        <option value="single" class="otherss">
-                          Yes
-                        </option>
-                        <option value="married">No</option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -337,7 +337,7 @@ const Mortgage_Application_Third = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && next_of_kin_fullname == ""
+                          formError && next_of_kin_name == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -348,13 +348,13 @@ const Mortgage_Application_Third = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={next_of_kin_fullname}
+                        value={next_of_kin_name}
                         className={
-                          formError && next_of_kin_fullname == ""
+                          formError && next_of_kin_name == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="next_of_kin_fullname"
+                        name="next_of_kin_name"
                         placeholder=""
                       />
                     </Form.Group>
@@ -396,19 +396,19 @@ const Mortgage_Application_Third = (props) => {
                             : "userprofile"
                         }
                       >
-                        Next-of-Kin’s Age
+                        Next-of-Kin’s Date Of Birth
                       </span>
                       <Form.Control
-                        type="text"
+                        type="date"
                         onChange={onchange}
                         required
-                        value={next_of_kin_age}
+                        value={next_of_kin_dob}
                         className={
-                          formError && next_of_kin_age == ""
+                          formError && next_of_kin_dob == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="next_of_kin_age"
+                        name="next_of_kin_dob"
                         placeholder=""
                       />
                     </Form.Group>
@@ -442,7 +442,7 @@ const Mortgage_Application_Third = (props) => {
                 </Row>
                 <Row>
                   <Col md={6}>
-                    <Link to="/user-profile">
+                    <Link to="/mortage-request-step-2">
                       <Button className="continue1 polld">Previous</Button>
                     </Link>
                   </Col>
@@ -471,32 +471,6 @@ const Mortgage_Application_Third = (props) => {
         hideProgressBar={true}
         position={toast.POSITION.TOP_CENTER}
       />
-      <Modal
-        show={deleteModal}
-        className="modcomplete fixmodal"
-        centered={true}
-        onHide={closeDeleteModal}
-      >
-        <div className="dllel">
-          <Modal.Title className="modal_title">Delete Document</Modal.Title>
-          <a className="close_view" onClick={closeDeleteModal}>
-            <img className="closeview" src={close} alt="close" />
-          </a>
-        </div>
-        <Modal.Body>
-          <div className="areyousure">
-            You are about to delete this document please confirm?
-          </div>
-          <div className="od12">
-            <Button className="btn-danger" onClick={closeDeleteModal}>
-              Back
-            </Button>
-            <Button className="btn-success succs">
-              {!state.isDeleting ? "Delete" : "Processing"}
-            </Button>
-          </div>
-        </Modal.Body>
-      </Modal>
     </div>
   );
 };

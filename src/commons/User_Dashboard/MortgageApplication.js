@@ -34,6 +34,7 @@ import { Link } from "react-router-dom";
 import HeaderStats from "./HeaderStats";
 import SecondNavComponent from "./SecondNavComponent";
 import { States } from "./states";
+import { formatDate } from "./controller";
 
 const MortgageApplication = (props) => {
   const [state, setState] = React.useState({
@@ -55,7 +56,7 @@ const MortgageApplication = (props) => {
     address: "",
     email: "",
     phone: "",
-    date_of_birth: "",
+    dob: "",
     state_of_origin: "",
     married_status: "",
     home_status: "",
@@ -80,7 +81,7 @@ const MortgageApplication = (props) => {
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
+      : window.location.assign("/signin");
     console.log(currentUser);
     setState({
       ...state,
@@ -104,7 +105,7 @@ const MortgageApplication = (props) => {
             });
           }
           if (res.status == 400) {
-            props.history.push("/auth/login");
+            props.history.push("/signin");
           }
         })
       )
@@ -119,21 +120,15 @@ const MortgageApplication = (props) => {
   }, []);
   const notify = (message) => toast(message, { containerId: "t" });
   const notifyFailed = (message) => toast(message, { containerId: "f" });
-  const FormatAmount = (amount) => {
-    return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
   const validateForm = () => {
     if (
       address === "" ||
       email == "" ||
       phone == "" ||
-      date_of_birth == "" ||
       state_of_origin == "" ||
-      home_status == "" ||
+      // home_status == "" ||
       firstname == "" ||
       lastname == "" ||
-      mode_of_contact == "" ||
-      number_of_dependants == "" ||
       mother_middle_name == "" ||
       middlename == "" ||
       nationality == "" ||
@@ -153,28 +148,28 @@ const MortgageApplication = (props) => {
         formError: "Please fill",
       });
     }
-    SumitForm()
+    SumitForm();
   };
   const SumitForm = () => {
     const userToken = localStorage.getItem("jwtToken");
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
+      : window.location.assign("/signin");
     setState({
       ...state,
       isLoading: true,
     });
     const data = {
       address,
+      dob,
+      firstname,
+      lastname,
       email,
       phone,
-      date_of_birth,
       number_of_dependants,
       state_of_origin,
       home_status,
-      firstname,
-      lastname,
       means_of_identification,
       mode_of_contact,
       profession,
@@ -193,7 +188,7 @@ const MortgageApplication = (props) => {
         headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((res) => {
-        notify("Successfully Saved profile information");
+        notify("Successfully");
         console.log(res);
         setState({
           ...state,
@@ -209,7 +204,7 @@ const MortgageApplication = (props) => {
           isLoading: false,
         });
         notifyFailed("Failed to save");
-        console.log(err);
+        console.log(err.response  );
       });
   };
 
@@ -249,7 +244,7 @@ const MortgageApplication = (props) => {
     address,
     email,
     phone,
-    date_of_birth,
+    dob,
     profession,
     home_status,
     firstname,
@@ -500,6 +495,7 @@ const MortgageApplication = (props) => {
                           formError && age == "" ? "fmc formerror" : "fmc"
                         }
                         name="age"
+                        disabled={true}
                         placeholder=""
                       />
                     </Form.Group>
@@ -638,11 +634,15 @@ const MortgageApplication = (props) => {
                         name="highest_education"
                         onChange={handleChange}
                       >
-                        <option value=""></option>
-                        <option value="single" class="otherss">
-                          Single
+                        <option></option>
+                        <option value="Secondary School  " class="otherss">
+                          Secondary School
                         </option>
-                        <option value="married">Married</option>
+                        <option value="College">College</option>
+                        <option value="Technical Institution">
+                          Technical Institution
+                        </option>
+                        <option value="University">University</option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -702,7 +702,7 @@ const MortgageApplication = (props) => {
                         <option value="ID" class="otherss">
                           ID
                         </option>
-                        <option value="married">ID</option>
+                        <option value="ID">ID</option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -745,7 +745,7 @@ const MortgageApplication = (props) => {
                         type="date"
                         onChange={onchange}
                         required
-                        value={id_issue_date}
+                        value={formatDate(id_issue_date)}
                         className={
                           formError && id_issue_date == ""
                             ? "fmc formerror"
@@ -771,7 +771,7 @@ const MortgageApplication = (props) => {
                         type="date"
                         onChange={onchange}
                         required
-                        value={id_expire_date}
+                        value={formatDate(id_expire_date)}
                         className={
                           formError && id_expire_date == ""
                             ? "fmc formerror"
@@ -792,8 +792,11 @@ const MortgageApplication = (props) => {
                     </Link>
                   </Col>
                   <Col md={6}>
-                    <Button className="continue1 nomargn" onClick={validateForm}>
-                      {!isLoading?"Continue":"Processing"}
+                    <Button
+                      className="continue1 nomargn"
+                      onClick={validateForm}
+                    >
+                      {!isLoading ? "Continue" : "Processing"}
                     </Button>
                   </Col>
                 </Row>

@@ -33,7 +33,7 @@ function Header(props) {
     const guestLinks = (
         <ul className="navbar-nav ml-auto">
             <li className="nav-item navbar-item dropdown">
-                <Link className="btn btn-outline-success " to="/auth/login" id="navbarDropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+                <Link className="btn btn-outline-success " to="/signin" id="navbarDropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
                      Sign In
                 </Link>
             </li>

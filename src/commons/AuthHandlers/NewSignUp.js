@@ -20,6 +20,7 @@ const NewSignUp = (props) => {
     passwordIsVisible: false,
     isloading: false,
     errorMessage: "",
+    success: "",
   });
   const {
     firstname,
@@ -29,12 +30,14 @@ const NewSignUp = (props) => {
     errorMessage,
     passwordIsVisible,
     formError,
+    isloading,
   } = state;
   const onchange = (e) => {
     setState({
       ...state,
       [e.target.name]: e.target.value,
       errorMessage: "",
+      success:"",
     });
   };
   const HidePassword = () => {
@@ -45,12 +48,12 @@ const NewSignUp = (props) => {
   };
   const validateForm = () => {
     if (firstname == "" || email == "" || lastname == "" || password == "") {
-     return setState({
+      return setState({
         ...state,
         formError: "Please fill",
       });
     }
-    submitForm()
+    submitForm();
   };
   const submitForm = () => {
     setState({
@@ -58,14 +61,33 @@ const NewSignUp = (props) => {
       isloading: true,
     });
     const data = {
-
-    }
-    Axios.post(`${API}/auth/register`,data)
+      firstname,
+      lastname,
+      email,
+      password,
+    };
+    Axios.post(`${API}/auth/register`, data)
       .then((response) => {
         console.log(response);
+        setState({
+          ...state,
+          success: "Sign Up Successful",
+        });
       })
-      .catch((error) => {
-        console.log("Error" + error);
+      .catch((err) => {
+        console.log(err?.response);
+        if (err?.response?.status == 404) {
+          return setState({
+            ...state,
+            errorMessage: err.response.data.data,
+            isloading: false,
+          });
+        }
+        setState({
+          ...state,
+          errorMessage: "Failed to Signup please try again later",
+          isloading: false,
+        });
       });
   };
   return (
@@ -81,7 +103,7 @@ const NewSignUp = (props) => {
           <Col md={6} className="whitcont1">
             <Form onSubmit={validateForm}>
               <div className="ctrl1">Sign Up</div>
-              <div>
+              <div className={"text-center"}>
                 {errorMessage && (
                   <Alert variant={"danger"} className="infoo1">
                     {errorMessage}
@@ -219,13 +241,13 @@ const NewSignUp = (props) => {
               <Row>
                 <Col md={12} className="">
                   <Button className="signnp" onClick={validateForm}>
-                    Sign Up
+                   {isloading?"Registering...":"Sign Up"}
                   </Button>
                 </Col>
                 <Col md={12}>
                   <div className="rigistxt">
                     Already have an account?
-                    <Link to="/login" className="plicy">
+                    <Link to="/signin" className="plicy">
                       {" "}
                       Sign In
                     </Link>

@@ -20,7 +20,7 @@ import { toLowercase } from "./controller";
 import { Link } from "react-router-dom";
 import handshake from "../../assets/handshake.png";
 import SecondNavComponent from "./SecondNavComponent";
-import { States } from "./states";
+// import { States } from "./states";
 
 const Profile_6 = (props) => {
   const [state, setState] = React.useState({
@@ -30,6 +30,7 @@ const Profile_6 = (props) => {
     applicationStatus: {},
     deleteModal: false,
     BVN: "",
+    desired_city: "",
     propertySlide: {},
     isUploading: false,
     nhf_number: "",
@@ -45,13 +46,14 @@ const Profile_6 = (props) => {
     Command: "",
     number_of_dependants: "",
     desired_state: "",
-    disired_city: "",
     home_type: "",
     disabledform: false,
     selectPopUp: false,
     firstname: "",
-    Home_value:"",
+    Home_value: "",
+    States: [],
     lastname: "",
+    state_id: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -69,26 +71,29 @@ const Profile_6 = (props) => {
         axios.get(`${API}/user/get-profile`, {
           headers: { Authorization: `Bearer ${userToken}` },
         }),
+        axios.get(`${API}/general/all-states`, {
+          headers: { Authorization: `Bearer ${userToken}` },
+        }),
       ])
       .then(
         axios.spread((res, res2) => {
-          console.log(res2);
+          console.log(res2.data.data);
           if (res.status === 200) {
             setState({
               ...state,
               ...res.data.data,
+              States: [...res2.data.data],
               property: currentProperty,
               isloading: false,
-              // allCities: res2.data,
             });
           }
           if (res.status == 400) {
-            props.history.push("/auth/login");
+            props.history.push("/signin");
           }
         })
       )
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
         setState({
           ...state,
           isloading: false,
@@ -98,18 +103,14 @@ const Profile_6 = (props) => {
   }, []);
   const fetch_Desired_Cities = (state_name) => {
     axios
-      .all([
-        axios.get(
-          `http://locationsng-api.herokuapp.com/api/v1/states/${toLowercase(
-            state_name
-          )}/lgas`
-        ),
-      ])
+      .all([axios.get(`${API}/general/all-cities/${state_name}`)])
       .then(
         axios.spread((res2) => {
           console.log(res2);
           setState({
-            allCities: res2.data,
+            ...state,
+            allCities: [...res2.data.data],
+            desired_state:state_name
           });
         })
       )
@@ -141,46 +142,42 @@ const Profile_6 = (props) => {
   };
   const validateForm = () => {
     if (
-      address === "" ||
       number_of_bedrooms == "" ||
-      monthlygross == "" ||
-      BVN == "" ||
-      state_of_origin == "" ||
-      budget == "" ||
-      home_type == "" ||
-      nhf_number == "" ||
-      paymentOption == "" ||
-      number_of_dependants == ""
+      Home_value =="" ||
+      // home_type == "" ||
+      // paymentOption == "" ||
+      number_of_bathrooms == ""
     ) {
-      setState({
+      return setState({
         ...state,
         formError: "Please fill",
       });
     }
+    SumitForm();
   };
   const SumitForm = () => {
     const userToken = localStorage.getItem("jwtToken");
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
+      : window.location.assign("/signin");
     setState({
       ...state,
       isUploading: true,
     });
     const data = {
       property_id: null,
-      directed_to: "police Deve",
-      found_property: 0,
-      state_id: 5,
-      Home_value:"",
+      found_property: 1,
+      state_id: desired_state,
+      city_id: desired_city,
+      Home_value,
       property_type_id: 4,
       request_type: "Home",
       property_value: Home_value,
       property_bedroom: number_of_bedrooms,
       budget,
-      payment_option: "Mortgage",
     };
+    console.log(data)
     axios
       .post(`${API}/user/property-request`, data, {
         headers: { Authorization: `Bearer ${userToken}` },
@@ -193,7 +190,7 @@ const Profile_6 = (props) => {
           isUploading: false,
         });
         setTimeout(() => {
-          window.location.reload();
+          window.location.assign("/userdashboard");
         }, 2000);
       })
       .catch((err) => {
@@ -202,7 +199,7 @@ const Profile_6 = (props) => {
           isUploading: false,
         });
         notifyFailed("Failed to save");
-        console.log(err);
+        console.log(err.response);
       });
   };
 
@@ -251,7 +248,7 @@ const Profile_6 = (props) => {
     });
   };
   const {
-    user,
+    desired_city,
     number_of_bathrooms,
     disabledform,
     nhf_number,
@@ -271,10 +268,12 @@ const Profile_6 = (props) => {
     isloading,
     Home_value,
     BVN,
+    States,
     allCities,
     number_of_dependants,
   } = state;
-  console.log(allCities);
+  console.log(desired_city);
+  console.log(desired_state);
   return (
     <div>
       <Container fluid>
@@ -324,6 +323,7 @@ const Profile_6 = (props) => {
                         name="home_type"
                         onChange={handleChange}
                       >
+                        <option></option>
                         <option value="All">All</option>
                         <option value="Block of flats">Block of flats</option>
                         <option value="Detached Bungalow">
@@ -349,7 +349,7 @@ const Profile_6 = (props) => {
                     </Form.Group>
                   </Col>
                   <Col md={6} className="eachfield2">
-                  <Form.Group>
+                    <Form.Group>
                       <span
                         className={
                           formError && Home_value == ""
@@ -412,7 +412,7 @@ const Profile_6 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && monthlygross == ""
+                          formError && number_of_bathrooms == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -423,13 +423,13 @@ const Profile_6 = (props) => {
                         type="number"
                         onChange={onchange}
                         required
-                        value={monthlygross}
+                        value={number_of_bathrooms}
                         className={
-                          formError && monthlygross == ""
+                          formError && number_of_bathrooms == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="monthlygross"
+                        name="number_of_bathrooms"
                         placeholder=""
                       />
                       <div className="spna12">
@@ -443,8 +443,8 @@ const Profile_6 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && desired_state == ""
-                            ? "userprofile formerror1"
+                          formError
+                            ? "userprofile"
                             : "userprofile"
                         }
                       >
@@ -452,18 +452,14 @@ const Profile_6 = (props) => {
                       </span>
                       <Form.Control
                         as="select"
-                        className={
-                          formError && desired_state == ""
-                            ? "fmc formerror"
-                            : "fmc"
-                        }
+                        className={formError ? "fmc" : "fmc"}
                         name="desired_state"
                         onChange={handleChange}
                       >
-                        <option>{desired_state}</option>
+                        <option></option>
                         {States?.map((data, i) => (
-                          <option value={data} class="otherss" key={i}>
-                            {data}
+                          <option value={data.id} class="otherss" key={i}>
+                            {data.name}
                           </option>
                         ))}
                       </Form.Control>
@@ -473,7 +469,7 @@ const Profile_6 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && disired_city == ""
+                          formError && !desired_city
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -483,17 +479,17 @@ const Profile_6 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && disired_city == ""
+                          formError && desired_city == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="disired_city"
+                        name="desired_city"
                         onChange={handleChange}
                       >
-                        <option>{disired_city}</option>
+                        <option></option>
                         {allCities?.map((data, i) => (
-                          <option value={data} class="otherss" key={i}>
-                            {data}
+                          <option value={data.id} class="otherss" key={i}>
+                            {data.name}
                           </option>
                         ))}
                       </Form.Control>
@@ -647,7 +643,7 @@ const Profile_6 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && monthlygross == ""
+                          formError && Home_value == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -676,7 +672,7 @@ const Profile_6 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && monthlygross == ""
+                          formError && desired_state == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -687,13 +683,12 @@ const Profile_6 = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={monthlygross}
                         className={
-                          formError && monthlygross == ""
+                          formError && desired_state == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="monthlygross"
+                        name="desired_state"
                         placeholder=""
                         disabled={true}
                       />
@@ -703,7 +698,7 @@ const Profile_6 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && monthlygross == ""
+                          formError && desired_city == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -714,16 +709,22 @@ const Profile_6 = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={monthlygross}
                         className={
-                          formError && monthlygross == ""
+                          formError && desired_city == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="monthlygross"
+                        name="desired_city"
                         placeholder=""
                         disabled={true}
+                        as={"select"}
                       />
+                      <option></option>
+                      {allCities.map((data, i) => (
+                        <option value={data.id} key={i}>
+                          {data.name}
+                        </option>
+                      ))}
                     </Form.Group>
                   </Col>
                 </Row>

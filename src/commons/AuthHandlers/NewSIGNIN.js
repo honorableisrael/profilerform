@@ -13,8 +13,6 @@ import { sub } from "date-fns";
 
 const NewSIGNIN = (props) => {
   const [state, setState] = React.useState({
-    firstname: "",
-    lastname: "",
     password: "",
     email: "",
     formError: "",
@@ -23,8 +21,7 @@ const NewSIGNIN = (props) => {
     errorMessage: "",
   });
   const {
-    firstname,
-    lastname,
+    isloading,
     email,
     password,
     errorMessage,
@@ -45,18 +42,14 @@ const NewSIGNIN = (props) => {
     });
   };
   const validateForm = () => {
-    if (
-      firstname == "" ||
-      email == "" ||
-      lastname == "" ||
-      password == ""
-    ) {
-    return  setState({
+    if (email == "" || password == "") {
+      return setState({
         ...state,
         formError: "Please fill",
+        errorMessage: "All feilds are required",
       });
     }
-    submitForm()
+    submitForm();
   };
   const submitForm = () => {
     setState({
@@ -64,17 +57,40 @@ const NewSIGNIN = (props) => {
       isloading: true,
     });
     const data = {
-      firstname,
-      lastname,
       email,
-      password
-    }
-    Axios.post(`${API}/auth/login`,data)
-    .then((res)=>{
-      console.log(res)
-    }).catch((err)=>{
-      console.log(err)
-    });
+      password,
+    };
+    Axios.post(`${API}/auth/login`, data)
+      .then((res) => {
+        const { token } = res.data.data;
+        localStorage.setItem("jwtToken", token);
+        localStorage.setItem("loggedInDetails", JSON.stringify(res.data.data));
+        if (res?.data?.data?.user?.has_profile == 0) {
+          props.history.push("/user-profile");
+        }
+        if (res?.data?.data?.user?.has_profile == 1) {
+          props.history.push("/userdashboard");
+        }
+        setState({
+          ...state,
+          isloading: false,
+        });
+      })
+      .catch((err) => {
+        console.log(err?.response);
+        if (err?.response?.status == 404) {
+         return setState({
+            ...state,
+            errorMessage: err.response.data.data,
+            isloading: false,
+          });
+        }
+        setState({
+          ...state,
+          errorMessage: "Failed to login please try again later",
+          isloading: false,
+        });
+      });
   };
   return (
     <>
@@ -84,7 +100,7 @@ const NewSIGNIN = (props) => {
           <Col md={6} className="whitcont1">
             <Form onSubmit={validateForm}>
               <div className="ctrl1">Sign In</div>
-              <div>
+              <div className="text-center">
                 {errorMessage && (
                   <Alert variant={"danger"} className="infoo1">
                     {errorMessage}
@@ -109,7 +125,9 @@ const NewSIGNIN = (props) => {
                       required
                       value={email}
                       className={
-                        formError && email?.trim() == "" ? "fmc2 formerror" : "fmc2"
+                        formError && email?.trim() == ""
+                          ? "fmc2 formerror"
+                          : "fmc2"
                       }
                       name="email"
                       placeholder=""
@@ -135,10 +153,17 @@ const NewSIGNIN = (props) => {
                       required
                       value={password}
                       className={
-                        formError && password?.trim() == "" ? "fmc2 formerror" : "fmc2"
+                        formError && password?.trim() == ""
+                          ? "fmc2 formerror"
+                          : "fmc2"
                       }
                       name="password"
                       placeholder=""
+                      onKeyPress={(e) => {
+                        if (e.key == "Enter") {
+                          submitForm();
+                        }
+                      }}
                     />
                     <div className="wrapa1">
                       {passwordIsVisible ? (
@@ -156,11 +181,11 @@ const NewSIGNIN = (props) => {
                       )}
                     </div>
                     <div className="text-right">
-                    <Link to="/password-recovery" className="plicy">
-                      {" "}
-                      Forgot your password? Recover it
-                    </Link>
-                  </div>
+                      <Link to="/password-recovery" className="plicy">
+                        {" "}
+                        Forgot your password? Recover it
+                      </Link>
+                    </div>
                     {/* <div className="charvalid">
                     Your password must be at least 6 characters
                   </div> */}
@@ -170,12 +195,12 @@ const NewSIGNIN = (props) => {
               <Row>
                 <Col md={12} className="">
                   <Button className="signnp" onClick={validateForm}>
-                    Sign In
+                    {isloading ? "Signing In" : "Sign In"}
                   </Button>
                 </Col>
                 <Col md={12}>
                   <div className="rigistxt">
-                    Already have an account?
+                    Don't have an account?
                     <Link to="/signup" className="plicy">
                       {" "}
                       Sign Up

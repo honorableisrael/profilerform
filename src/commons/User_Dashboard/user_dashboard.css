@@ -1683,3 +1683,16 @@ a:hover{
   border-top-right-radius: 1rem !important;
   border-top-left-radius: 1rem !important;
 }
+.textright22 {
+  text-align: right;
+  font-size: 2rem;
+  /* position: absolute; */
+  right: 0px;
+}
+.times42{
+  position: relative;
+  bottom: -5rem;
+  right: 2rem;
+  z-index: 100;
+  cursor: pointer;
+}

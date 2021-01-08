@@ -55,7 +55,7 @@ if (localStorage.token && localStorage.user) {
     //TODO: Clear current Profile
 
     // Redirect to login
-    window.location.href = "/auth/login";
+    window.location.href = "/signin";
   }
 }
 

@@ -81,7 +81,7 @@ const Profile_6_disabled_pop = (props) => {
             });
           }
           if (res.status == 400) {
-            props.history.push("/auth/login");
+            props.history.push("/signin");
           }
         })
       )
@@ -135,14 +135,13 @@ const Profile_6_disabled_pop = (props) => {
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
+      : window.location.assign("/signin");
     setState({
       ...state,
       isUploading: true,
     });
     const data = {
       property_id: property.id,
-      directed_to: "police Deve",
       found_property: 0,
       state_id: currentProperty.state_id,
       city_id: 3,
@@ -677,7 +676,7 @@ const Profile_6_disabled_pop = (props) => {
                 </Row>
                 <Row className="poll878">
                   <Col md={6}>
-                    <Link to="/user-profile">
+                    <Link to="/user-property-request">
                       <Button className="continue1 polld">
                         Not Sure yet, Go Back
                       </Button>

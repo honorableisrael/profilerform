@@ -67,7 +67,7 @@ const Profile_1 = (props) => {
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
+      : window.location.assign("/signin");
     console.log(currentUser);
     setState({
       ...state,
@@ -96,7 +96,7 @@ const Profile_1 = (props) => {
             });
           }
           if (res.status == 400) {
-            props.history.push("/auth/login");
+            props.history.push("/signin");
           }
         })
       )
@@ -140,7 +140,7 @@ const Profile_1 = (props) => {
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
+      : window.location.assign("/signin");
     setState({
       ...state,
       isLoading: true,

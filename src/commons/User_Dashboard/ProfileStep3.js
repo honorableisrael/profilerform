@@ -29,7 +29,7 @@ const Profile_3 = (props) => {
     formError: "",
     applicationStatus: {},
     deleteModal: false,
-    have_equity: null,
+    have_equity: "",
     propertySlide: {},
     isLoading: false,
     nhf_number: "",
@@ -44,7 +44,7 @@ const Profile_3 = (props) => {
     monthly_repayment: "",
     budget: "",
     payment_option: "",
-    equityamount: "",
+    down_payment: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -104,14 +104,27 @@ const Profile_3 = (props) => {
     if (
       total_annual_pay == "" ||
       monthly_gross_pay == "" ||
-      (have_equity !== 1 && have_equity !== 0) ||
+      // have_equity == "" ||
       employment_state == "" ||
       monthly_expenses == "" ||
       loan_repayments == "" ||
       monthly_repayment == "" ||
-      payment_option == "" ||
-      budget == ""
+      payment_option == ""
     ) {
+      notify("Please fill the required feilds");
+      return setState({
+        ...state,
+        formError: "Please fill",
+      });
+    }
+    if(have_equity=="1" && down_payment==""){
+      notify("Please fill the required feilds");
+      return setState({
+        ...state,
+        formError: "Please fill",
+      });
+    }
+    if(payment_option=="Installment Payment" && budget==""){
       notify("Please fill the required feilds");
       return setState({
         ...state,
@@ -125,7 +138,7 @@ const Profile_3 = (props) => {
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
+      : window.location.assign("/signin");
     setState({
       ...state,
       isLoading: true,
@@ -197,7 +210,7 @@ const Profile_3 = (props) => {
     have_equity,
     employment_state,
     number_of_dependants,
-    equityamount,
+    down_payment,
   } = state;
   console.log(have_equity);
   return (
@@ -325,7 +338,7 @@ const Profile_3 = (props) => {
                       <Form.Group>
                         <span
                           className={
-                            formError && equityamount == ""
+                            formError && down_payment == ""
                               ? "userprofile formerror1"
                               : "userprofile"
                           }
@@ -336,13 +349,13 @@ const Profile_3 = (props) => {
                           type="number"
                           onChange={onchange}
                           required
-                          value={equityamount}
+                          value={down_payment}
                           className={
-                            formError && equityamount == ""
+                            formError && down_payment == ""
                               ? "fmc formerror"
                               : "fmc"
                           }
-                          name="equityamount"
+                          name="down_payment"
                           placeholder=""
                         />
                       </Form.Group>

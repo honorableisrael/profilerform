@@ -68,7 +68,7 @@ export const NON_PROTECTED_ROUTES = [
   "/contact",
   "/company/about",
   "/mortgage/application-type",
-  "/auth/login",
+  "/signin",
   "/auth/register",
   "/",
   "",

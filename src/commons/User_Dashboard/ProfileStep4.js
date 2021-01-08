@@ -52,7 +52,7 @@ const Profile_4 = (props) => {
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
+      : window.location.assign("/signin");
     console.log(currentUser);
     setState({
       ...state,
@@ -342,6 +342,12 @@ const Profile_4 = (props) => {
         centered={true}
         onHide={closeMoreinfoModal}
       >
+        {" "}
+        <div className="textright22">
+          <span className="times42" onClick={closeMoreinfoModal}>
+            &times;
+          </span>
+        </div>
         <div className="containffe">
           <div className="slidewrapplarge descro1">
             <Carousel
@@ -481,7 +487,12 @@ const Profile_4 = (props) => {
           </Row>
           <div className="pdkd flex23">
             <div className="pdkd2">
-                <Button className="nue1a nue1b polld mgoo" onClick={closeSelectPopUp}>Go Back</Button>
+              <Button
+                className="nue1a nue1b polld mgoo"
+                onClick={closeSelectPopUp}
+              >
+                Go Back
+              </Button>
             </div>
             <div className="pdkd2">
               <Link to="/user-request-form">

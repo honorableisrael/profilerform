@@ -20,6 +20,7 @@ const PasswordRecovery = (props) => {
     passwordIsVisible: false,
     isloading: false,
     errorMessage: "",
+    success: "",
   });
   const {
     firstname,
@@ -29,12 +30,15 @@ const PasswordRecovery = (props) => {
     errorMessage,
     passwordIsVisible,
     formError,
+    isloading,
+    success,
   } = state;
   const onchange = (e) => {
     setState({
       ...state,
       [e.target.name]: e.target.value,
       errorMessage: "",
+      success:"",
     });
   };
   const HidePassword = () => {
@@ -43,8 +47,9 @@ const PasswordRecovery = (props) => {
       passwordIsVisible: passwordIsVisible ? false : true,
     });
   };
-  const validateForm = () => {
-    if (firstname == "" || email == "" || lastname == "" || password == "") {
+  const validateForm = (e) => {
+    e.preventDefault()
+    if (email == "") {
       return setState({
         ...state,
         formError: "Please fill",
@@ -59,14 +64,30 @@ const PasswordRecovery = (props) => {
     });
     const data = {
       email,
-      password,
     };
     Axios.post(`${API}/auth/forgot-password`, data)
       .then((res) => {
         console.log(res);
+        setState({
+          ...state,
+          isloading: false,
+          success: res?.data?.message,
+        });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err?.response);
+        if (err?.response?.status == 404) {
+          return setState({
+            ...state,
+            errorMessage: err.response.data.data,
+            isloading: false,
+          });
+        }
+        setState({
+          ...state,
+          errorMessage: "Failed to login please try again later",
+          isloading: false,
+        });
       });
   };
   return (
@@ -77,15 +98,16 @@ const PasswordRecovery = (props) => {
           <Col md={6} className="whitcont1">
             <Form onSubmit={validateForm}>
               <div className="ctrl1">Password Recovery</div>
-              <div>
-                Enter the email address you used when you joined. then provide a
-                new password and we’ll send you instructions to reset your
-                password.
-              </div>
+              <div></div>
               <div>
                 {errorMessage && (
                   <Alert variant={"danger"} className="infoo1">
                     {errorMessage}
+                  </Alert>
+                )}
+                {success && (
+                  <Alert variant={"info"} className="infoo1">
+                    {success}
                   </Alert>
                 )}
               </div>
@@ -112,67 +134,15 @@ const PasswordRecovery = (props) => {
                           : "fmc2"
                       }
                       name="email"
-                      placeholder=""
+                      placeholder="Enter the email address you registered with"
                     />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={12} className="">
-                  <Form.Group>
-                    <span
-                      className={
-                        formError && password?.trim() == ""
-                          ? "userprofile formerror1 bg-white23"
-                          : "userprofile bg-white23"
-                      }
-                    >
-                      Password{" "}
-                    </span>
-                    <Form.Control
-                      type={passwordIsVisible ? "text" : "password"}
-                      onChange={onchange}
-                      required
-                      value={password}
-                      className={
-                        formError && password?.trim() == ""
-                          ? "fmc2 formerror"
-                          : "fmc2"
-                      }
-                      name="password"
-                      placeholder=""
-                    />
-                    <div className="wrapa1">
-                      {passwordIsVisible ? (
-                        <img
-                          src={eye}
-                          className="esyes"
-                          onClick={HidePassword}
-                        />
-                      ) : (
-                        <img
-                          src={eyeoff}
-                          className="esyes"
-                          onClick={HidePassword}
-                        />
-                      )}
-                    </div>
-                    <div className="text-right">
-                      <Link to="/passwordrecovery" className="plicy">
-                        {" "}
-                        Forgot your password? Recover it
-                      </Link>
-                    </div>
-                    {/* <div className="charvalid">
-                    Your password must be at least 6 characters
-                  </div> */}
                   </Form.Group>
                 </Col>
               </Row>
               <Row>
                 <Col md={12} className="">
                   <Button className="signnp" onClick={validateForm}>
-                    Sign In
+                    {isloading ? "Submitting" : "Submit"}
                   </Button>
                 </Col>
                 <Col md={12}>

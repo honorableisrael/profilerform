@@ -45,7 +45,7 @@ const Profile_2 = (props) => {
     employment_state: "",
     employer_address: "",
     number_of_dependants: "",
-    employer_nhf_registration_number: "",
+    nhf_registration_number: "",
     work_experience: "",
   });
   let fileRef = useRef(null);
@@ -55,7 +55,7 @@ const Profile_2 = (props) => {
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
+      : window.location.assign("/signin");
     console.log(currentUser);
     setState({
       ...state,
@@ -88,7 +88,7 @@ const Profile_2 = (props) => {
             });
           }
           if (res.status == 400) {
-            props.history.push("/auth/login");
+            props.history.push("/signin");
           }
         })
       )
@@ -120,7 +120,7 @@ const Profile_2 = (props) => {
       employment_id == "" ||
       employment_present_position == "" ||
       employment_state == "" ||
-      employer_nhf_registration_number == "" ||
+      nhf_registration_number == "" ||
       work_experience == ""
     ) {
       notify("Please fill the required feilds");
@@ -136,7 +136,7 @@ const Profile_2 = (props) => {
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
+      : window.location.assign("/signin");
     setState({
       ...state,
       isLoading: true,
@@ -150,7 +150,7 @@ const Profile_2 = (props) => {
       employment_present_position,
       work_experience,
       employment_state,
-      employer_nhf_registration_number,
+      nhf_registration_number,
       work_experience,
       firstname,
       lastname,
@@ -216,7 +216,7 @@ const Profile_2 = (props) => {
     firstname,
     lastname,
     dob,
-    employer_nhf_registration_number,
+    nhf_registration_number,
     year_to_retirement,
     work_experience,
     employer_address,
@@ -438,9 +438,9 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && employer_nhf_registration_number == ""
+                          formError && nhf_registration_number == ""
                             ? "userprofile formerror1"
-                            : (formError && employer_nhf_registration_number == null?"userprofile formerror1":"userprofile")
+                            : (formError && nhf_registration_number == null?"userprofile formerror1":"userprofile")
                         }
                       >
                         NHF Number
@@ -449,13 +449,13 @@ const Profile_2 = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={employer_nhf_registration_number}
+                        value={nhf_registration_number}
                         className={
-                          formError && employer_nhf_registration_number == ""
+                          formError && nhf_registration_number == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="employer_nhf_registration_number"
+                        name="nhf_registration_number"
                         placeholder=""
                       />
                     </Form.Group>

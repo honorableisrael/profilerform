@@ -2,7 +2,8 @@ import React from "react";
 import "./style.css";
 import { Button } from "react-bootstrap";
 import logo from "../../assets/logo.png";
-import "../User_Dashboard/animate.css"
+import "../User_Dashboard/animate.css";
+import { Link } from "react-router-dom";
 
 const HomeNav = () => {
   const [state, setState] = React.useState({ NavisOpen: false });
@@ -14,8 +15,13 @@ const HomeNav = () => {
           <img src={logo} alt="logo" className="logo2" />
         </div>
         <div className="otherwrap">
-          <Button className="navsignup1">Sign In</Button>
-          <Button className="navsignup navsignup1">Sign Up</Button>
+          <Link to={"/signin"}>
+            {" "}
+            <Button className="navsignup1">Sign In</Button>
+          </Link>
+          <Link to={"/signup"}>
+            <Button className="navsignup navsignup1">Sign Up</Button>
+          </Link>
         </div>
         <div
           className="mobileham"

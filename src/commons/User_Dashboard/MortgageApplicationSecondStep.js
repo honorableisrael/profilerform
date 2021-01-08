@@ -43,23 +43,23 @@ const MortgageApplication_SecondStep = (props) => {
     deleteModal: false,
     file: "",
     propertySlide: {},
-    isUploading: false,
+    isLoading: false,
     totalDoc: {},
     isloading: false,
     isDeleting: false,
     documentId: "",
     firstname: "",
     lastname: "",
-    address: "",
+    dob: "",
+    employer_address: "",
     email: "",
     phone: "",
-    date_of_birth: "",
-    state_of_origin: "",
+    year_to_retirement: "",
     married_status: "",
     home_status: "",
-    employers_fullname: "",
-    has_your_employment_been_confirmed: "",
-    years_at_current_employment: "",
+    employer_name: "",
+    employment_is_confirmed: "",
+    work_experience: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -67,7 +67,7 @@ const MortgageApplication_SecondStep = (props) => {
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
+      : window.location.assign("/signin");
     console.log(currentUser);
     setState({
       ...state,
@@ -76,22 +76,24 @@ const MortgageApplication_SecondStep = (props) => {
     });
     axios
       .all([
-        axios.get(`${API}/user/user-files`, {
+        axios.get(`${API}/user/get-profile`, {
           headers: { Authorization: `Bearer ${userToken}` },
         }),
       ])
       .then(
         axios.spread((res) => {
+          console.log(res);
           if (res.status === 200) {
             setState({
               ...state,
+              ...res.data.data,
               propertyList: res.data.data,
               user: currentUser.user,
               isloading: false,
             });
           }
           if (res.status == 400) {
-            props.history.push("/auth/login");
+            props.history.push("/signin");
           }
         })
       )
@@ -111,58 +113,65 @@ const MortgageApplication_SecondStep = (props) => {
   };
   const validateForm = () => {
     if (
-      address === "" ||
-      email == "" ||
-      phone == "" ||
-      address == "" ||
-      company_email == "" ||
-      employers_fullname == "" ||
+      employer_address == "" ||
+      employer_email == "" ||
+      employer_name == "" ||
       employers_phone == "" ||
-      employers_current_position == "" ||
-      employers_fullname == "" ||
-      has_your_employment_been_confirmed == ""
+      employment_present_position == "" ||
+      employment_is_confirmed == "" ||
+      work_experience == ""
     ) {
-      setState({
+      return setState({
         ...state,
         formError: "Please fill",
       });
     }
+    SubmitForm();
   };
-  const SumitForm = () => {
+  const SubmitForm = () => {
     const userToken = localStorage.getItem("jwtToken");
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/auth/login");
+      : window.location.assign("/signin");
     setState({
       ...state,
-      isUploading: true,
+      isLoading: true,
     });
     const data = {
-      employers_fullname,
+      employer_address,
+      employer_email,
+      employer_name,
+      employers_phone,
+      employment_present_position,
+      employment_is_confirmed,
+      work_experience,
+      dob,
+      firstname,
+      lastname,
     };
     axios
-      .post(`${API}/user/u`, data, {
+      .post(`${API}/user/profile`, data, {
         headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((res) => {
-        notify("Successfully Saved profile information");
+        notify("Successfully");
         console.log(res);
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         setTimeout(() => {
-          window.location.reload();
+          props.history.push("/mortage-request-step-3");
         }, 2000);
       })
       .catch((err) => {
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         notifyFailed("Failed to save");
-        console.log(err);
+        console.log(err.response);
       });
   };
 
@@ -194,24 +203,24 @@ const MortgageApplication_SecondStep = (props) => {
       [e.target.name]: e.target.value,
     });
   };
-  const test = ["New", "Old"];
   const {
     email,
     totalDoc,
-    address,
-    company_email,
-    employers_fullname,
+    employer_address,
+    employer_email,
+    employer_name,
     employers_phone,
-    employers_current_position,
-    phone,
-    years_at_current_employment,
-    state_of_origin,
-    has_your_employment_been_confirmed,
+    employment_present_position,
+    work_experience,
+    isLoading,
+    year_to_retirement,
+    employment_is_confirmed,
     deleteModal,
     formError,
     isloading,
     firstname,
     lastname,
+    dob
   } = state;
   console.log(totalDoc);
   return (
@@ -247,7 +256,7 @@ const MortgageApplication_SecondStep = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && employers_fullname == ""
+                          formError && employer_name == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -258,13 +267,13 @@ const MortgageApplication_SecondStep = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={employers_fullname}
+                        value={employer_name}
                         className={
-                          formError && employers_fullname == ""
+                          formError && employer_name == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="employers_fullname"
+                        name="employer_name"
                         placeholder=""
                       />
                     </Form.Group>
@@ -273,7 +282,7 @@ const MortgageApplication_SecondStep = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && company_email == ""
+                          formError && employer_email == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -284,13 +293,13 @@ const MortgageApplication_SecondStep = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={company_email}
+                        value={employer_email}
                         className={
-                          formError && company_email == ""
+                          formError && employer_email == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="company_email"
+                        name="employer_email"
                         placeholder="   "
                       />
                     </Form.Group>
@@ -327,7 +336,7 @@ const MortgageApplication_SecondStep = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && employers_current_position == ""
+                          formError && employment_present_position == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -335,14 +344,16 @@ const MortgageApplication_SecondStep = (props) => {
                         Employers Current Position
                       </span>
                       <Form.Control
-                        type="email"
+                        type="text"
                         onChange={onchange}
                         required
-                        value={email}
+                        value={employment_present_position}
                         className={
-                          formError && email == "" ? "fmc formerror" : "fmc"
+                          formError && employment_present_position == ""
+                            ? "fmc formerror"
+                            : "fmc"
                         }
-                        name="email"
+                        name="employment_present_position"
                         placeholder=""
                       />
                     </Form.Group>
@@ -353,7 +364,7 @@ const MortgageApplication_SecondStep = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && phone == ""
+                          formError && employer_address == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -364,11 +375,13 @@ const MortgageApplication_SecondStep = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={phone}
+                        value={employer_address}
                         className={
-                          formError && phone == "" ? "fmc formerror" : "fmc"
+                          formError && employer_address == ""
+                            ? "fmc formerror"
+                            : "fmc"
                         }
-                        name="phone"
+                        name="employer_address"
                         placeholder=""
                       />
                     </Form.Group>
@@ -379,7 +392,7 @@ const MortgageApplication_SecondStep = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && state_of_origin == ""
+                          formError && year_to_retirement == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -387,57 +400,46 @@ const MortgageApplication_SecondStep = (props) => {
                         Number of years to Retirement
                       </span>
                       <Form.Control
-                        as="select"
+                        type="text"
                         className={
-                          formError && state_of_origin == ""
+                          formError && year_to_retirement == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="state_of_origin"
+                        name="year_to_retirement"
                         onChange={handleChange}
-                      >
-                        <option value=""></option>
-                        <option value="single" class="otherss">
-                          Single
-                        </option>
-                        <option value="married">Married</option>
-                      </Form.Control>
+                      ></Form.Control>
                     </Form.Group>
                   </Col>
                   <Col md={4} className="eachfield2">
                     <Form.Group>
                       <span
                         className={
-                          formError && years_at_current_employment == ""
+                          formError && work_experience == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Years at Current Employment
+                        Years at Current Employment(Years)
                       </span>
                       <Form.Control
-                        as="select"
+                        type="number"
                         className={
-                          formError && years_at_current_employment == ""
+                          formError && work_experience == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="years_at_current_employment"
+                        name="work_experience"
                         onChange={handleChange}
-                      >
-                        <option value=""></option>
-                        <option value="single" class="otherss">
-                          Single
-                        </option>
-                        <option value="married">Married</option>
-                      </Form.Control>
+                        placeholder=""
+                      ></Form.Control>
                     </Form.Group>
                   </Col>
                   <Col md={4} className="eachfield2">
                     <Form.Group>
                       <span
                         className={
-                          formError && has_your_employment_been_confirmed == ""
+                          formError && employment_is_confirmed == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -448,13 +450,13 @@ const MortgageApplication_SecondStep = (props) => {
                         type="text"
                         onChange={onchange}
                         required
-                        value={has_your_employment_been_confirmed}
+                        value={employment_is_confirmed}
                         className={
-                          formError && has_your_employment_been_confirmed == ""
+                          formError && employment_is_confirmed == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="has_your_employment_been_confirmed"
+                        name="employment_is_confirmed"
                         placeholder=""
                       />
                     </Form.Group>
@@ -466,7 +468,7 @@ const MortgageApplication_SecondStep = (props) => {
                       className="continue1 nomargn"
                       onClick={validateForm}
                     >
-                      Continue
+                      {!isLoading?"Continue":"Processing"}
                     </Button>
                   </Col>
                 </Row>

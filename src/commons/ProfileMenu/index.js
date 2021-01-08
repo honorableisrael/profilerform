@@ -83,7 +83,7 @@ function ProfileMenu({setActiveTab, setPropRequest, ...props}) {
                     </li>
                     <li className="profileMenu__bottom-item">
                         <img className="profileMenu__bottom-icon" src={Exit} alt="exit"  />
-                        <Link className="btn btn-info profileMenu__bottom-link" to="/auth/login" onClick={onLogoutClick} id="navbarDropdownMenuLink" aria-haspopup="true" aria-expanded="false">
+                        <Link className="btn btn-info profileMenu__bottom-link" to="/signin" onClick={onLogoutClick} id="navbarDropdownMenuLink" aria-haspopup="true" aria-expanded="false">
                                 Logout
                         </Link>
                     </li>
