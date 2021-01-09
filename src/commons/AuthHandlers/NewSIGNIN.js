@@ -66,6 +66,9 @@ const NewSIGNIN = (props) => {
         const { token } = res.data.data;
         localStorage.setItem("jwtToken", token);
         localStorage.setItem("loggedInDetails", JSON.stringify(res.data.data));
+        if(res?.data?.data?.is_verified==0){
+          return props.history.push("/account-verification")
+        }
         if (res?.data?.data?.user?.has_profile == 0) {
           props.history.push("/user-profile");
         }

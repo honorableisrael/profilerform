@@ -23,7 +23,9 @@ const SideBarProfile = (props) => {
       ...state,
       email:currentUser?.user?.email
     })
-    // if(currentUser.is_verified)
+    // if(currentUser?.is_verified==0){
+    //   props.history.push("/account-verification")
+    // }
   }, []);
   return (
     <>

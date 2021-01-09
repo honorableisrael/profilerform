@@ -27,7 +27,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Spinner from "react-bootstrap/Spinner";
 import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
+import {formatDate} from "./controller"
 import SideBarProfile from "./SidebarProfile";
 import HeaderStats from "./HeaderStats";
 import SecondNavComponent from "./SecondNavComponent";
@@ -239,7 +239,7 @@ const Profile_1 = (props) => {
     marital_status,
     no_of_dependents,
   } = state;
-  console.log(totalDoc);
+  console.log(formatDate());
   return (
     <div>
       <Container fluid>
@@ -406,7 +406,7 @@ const Profile_1 = (props) => {
                         onChange={onchange}
                         required
                         as={"input"}
-                        value={dob}
+                        value={formatDate(dob)}
                         className={
                           formError && !dob
                             ? "fmc formerror"

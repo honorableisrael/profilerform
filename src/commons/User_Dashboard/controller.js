@@ -9,8 +9,9 @@ export const toLowercase = (s) => {
   return s.charAt(0).toLowerCase() + s.slice(1);
 };
 export const formatDate = (d) => {
-  console.log(typeof d)
-  const date = moment(d).format("YYYY-mm-dd");
-  console.log(date);
-  return date;
+  if (d) {
+    var parts = d.split("/");
+    const result = parts[2] + "-" + parts[1] + "-" + parts[0];
+    return result;
+  }
 };

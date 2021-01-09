@@ -10,6 +10,21 @@ import statusline from "../../assets/statusline.png";
 import { Link } from "react-router-dom";
 
 const UserdashboardSideBar = (props) => {
+  const [state, setState] = React.useState({
+    email:""
+  });
+  React.useEffect(() => {
+    window.scrollTo(-0, -0);
+    const userData = localStorage.getItem("loggedInDetails");
+    const currentUser = userData
+      ? JSON.parse(userData)
+      : window.location.assign("/signin");
+    console.log(currentUser);
+    setState({
+      ...state,
+      email:currentUser?.user?.email
+    })
+  }, []);
   return (
     <>
       <Col md={3} className="dashbdsidenav">

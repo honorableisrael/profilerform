@@ -122,26 +122,25 @@ const MortgageApplication = (props) => {
   const notifyFailed = (message) => toast(message, { containerId: "f" });
   const validateForm = () => {
     if (
-      address === "" ||
-      email == "" ||
-      phone == "" ||
-      state_of_origin == "" ||
-      // home_status == "" ||
-      firstname == "" ||
-      lastname == "" ||
-      mother_middle_name == "" ||
-      middlename == "" ||
-      nationality == "" ||
-      age == "" ||
-      sex == "" ||
-      place_of_birth == "" ||
-      state_of_origin == "" ||
-      profession == "" ||
-      highest_education == "" ||
-      means_of_identification == "" ||
-      id_number == "" ||
-      id_issue_date == "" ||
-      id_expire_date == ""
+      !address ||
+      !email ||
+      !phone ||
+      !state_of_origin ||
+      !firstname ||
+      !lastname ||
+      !mother_middle_name ||
+      !middlename ||
+      !nationality ||
+      !age ||
+      !sex ||
+      !place_of_birth ||
+      !state_of_origin ||
+      !profession ||
+      !highest_education ||
+      !means_of_identification ||
+      !id_number ||
+      !id_issue_date ||
+      !id_expire_date
     ) {
       return setState({
         ...state,
@@ -301,7 +300,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && firstname == ""
+                          formError && !firstname
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -314,7 +313,7 @@ const MortgageApplication = (props) => {
                         required
                         value={firstname}
                         className={
-                          formError && firstname == "" ? "fmc formerror" : "fmc"
+                          formError && !firstname ? "fmc formerror" : "fmc"
                         }
                         name="firstname"
                         placeholder=""
@@ -325,7 +324,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && lastname == ""
+                          formError && !lastname
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -338,7 +337,7 @@ const MortgageApplication = (props) => {
                         required
                         value={lastname}
                         className={
-                          formError && lastname == "" ? "fmc formerror" : "fmc"
+                          formError && !lastname ? "fmc formerror" : "fmc"
                         }
                         name="lastname"
                         placeholder="   "
@@ -351,7 +350,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && middlename == ""
+                          formError && !middlename
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -364,7 +363,7 @@ const MortgageApplication = (props) => {
                         required
                         value={middlename}
                         className={
-                          formError && middlename == ""
+                          formError && !middlename
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -377,7 +376,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && mother_middle_name == ""
+                          formError && !mother_middle_name
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -390,7 +389,7 @@ const MortgageApplication = (props) => {
                         required
                         value={mother_middle_name}
                         className={
-                          formError && mother_middle_name == ""
+                          formError && !mother_middle_name
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -405,7 +404,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && address == ""
+                          formError && !address
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -418,7 +417,7 @@ const MortgageApplication = (props) => {
                         required
                         value={address}
                         className={
-                          formError && address == "" ? "fmc formerror" : "fmc"
+                          formError && !address ? "fmc formerror" : "fmc"
                         }
                         name="address"
                         placeholder=""
@@ -431,7 +430,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && email == ""
+                          formError && !email
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -444,7 +443,7 @@ const MortgageApplication = (props) => {
                         required
                         value={email}
                         className={
-                          formError && email == "" ? "fmc formerror" : "fmc"
+                          formError && !email ? "fmc formerror" : "fmc"
                         }
                         name="email"
                         placeholder=""
@@ -455,7 +454,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && phone == ""
+                          formError && !phone
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -468,7 +467,7 @@ const MortgageApplication = (props) => {
                         required
                         value={phone}
                         className={
-                          formError && phone == "" ? "fmc formerror" : "fmc"
+                          formError && !phone ? "fmc formerror" : "fmc"
                         }
                         name="phone"
                         placeholder=""
@@ -479,7 +478,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && age == ""
+                          formError && !age
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -492,7 +491,7 @@ const MortgageApplication = (props) => {
                         required
                         value={age}
                         className={
-                          formError && age == "" ? "fmc formerror" : "fmc"
+                          formError && !age ? "fmc formerror" : "fmc"
                         }
                         name="age"
                         disabled={true}
@@ -506,7 +505,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && sex == ""
+                          formError && !sex
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -516,7 +515,7 @@ const MortgageApplication = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && sex == "" ? "fmc formerror" : "fmc"
+                          formError && !sex ? "fmc formerror" : "fmc"
                         }
                         name="sex"
                         onChange={handleChange}
@@ -533,7 +532,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && place_of_birth == ""
+                          formError && !place_of_birth
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -546,7 +545,7 @@ const MortgageApplication = (props) => {
                         required
                         value={place_of_birth}
                         className={
-                          formError && place_of_birth == ""
+                          formError && !place_of_birth
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -559,7 +558,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && nationality == ""
+                          formError && !nationality
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -572,7 +571,7 @@ const MortgageApplication = (props) => {
                         required
                         value={nationality}
                         className={
-                          formError && nationality == ""
+                          formError && !nationality
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -587,7 +586,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && state_of_origin == ""
+                          formError && !state_of_origin
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -597,7 +596,7 @@ const MortgageApplication = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && state_of_origin == ""
+                          formError && !state_of_origin
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -617,7 +616,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && highest_education == ""
+                          formError && !highest_education
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -627,7 +626,7 @@ const MortgageApplication = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && highest_education == ""
+                          formError && !highest_education
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -650,7 +649,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && profession == ""
+                          formError && !profession 
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -663,7 +662,7 @@ const MortgageApplication = (props) => {
                         required
                         value={profession}
                         className={
-                          formError && profession == ""
+                          formError && !profession
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -681,7 +680,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && means_of_identification == ""
+                          formError && !means_of_identification
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -691,7 +690,7 @@ const MortgageApplication = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && means_of_identification == ""
+                          formError && !means_of_identification
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -710,7 +709,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && id_number == ""
+                          formError && !id_number
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -723,7 +722,7 @@ const MortgageApplication = (props) => {
                         required
                         value={id_number}
                         className={
-                          formError && id_number == "" ? "fmc formerror" : "fmc"
+                          formError && !id_number ? "fmc formerror" : "fmc"
                         }
                         name="id_number"
                         placeholder=""
@@ -734,7 +733,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && id_issue_date == ""
+                          formError && !id_issue_date
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -747,7 +746,7 @@ const MortgageApplication = (props) => {
                         required
                         value={formatDate(id_issue_date)}
                         className={
-                          formError && id_issue_date == ""
+                          formError && !id_issue_date
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -760,7 +759,7 @@ const MortgageApplication = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && id_expire_date == ""
+                          formError && !id_expire_date
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -773,7 +772,7 @@ const MortgageApplication = (props) => {
                         required
                         value={formatDate(id_expire_date)}
                         className={
-                          formError && id_expire_date == ""
+                          formError && !id_expire_date
                             ? "fmc formerror"
                             : "fmc"
                         }

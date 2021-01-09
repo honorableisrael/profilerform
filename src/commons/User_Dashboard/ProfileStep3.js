@@ -42,6 +42,7 @@ const Profile_3 = (props) => {
     number_of_dependants: "",
     monthly_expenses: "",
     monthly_repayment: "",
+    loan_repayments:"",
     budget: "",
     payment_option: "",
     down_payment: "",
@@ -105,7 +106,6 @@ const Profile_3 = (props) => {
       !total_annual_pay ||
       !monthly_gross_pay ||
       // have_equity == "" ||
-      !employment_state ||
       !monthly_expenses ||
       !loan_repayments ||
       !monthly_repayment ||
@@ -395,7 +395,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && !monthly_repayment
+                          formError && !loan_repayments
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -406,13 +406,13 @@ const Profile_3 = (props) => {
                         type="number"
                         onChange={onchange}
                         required
-                        value={monthly_repayment}
+                        value={loan_repayments}
                         className={
-                          formError && !monthly_repayment
+                          formError && !loan_repayments
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="monthly_repayment"
+                        name="loan_repayments"
                         placeholder=""
                       />
                       <div className="spna12">

@@ -113,13 +113,13 @@ const MortgageApplication_SecondStep = (props) => {
   };
   const validateForm = () => {
     if (
-      employer_address == "" ||
-      employer_email == "" ||
-      employer_name == "" ||
-      employers_phone == "" ||
-      employment_present_position == "" ||
-      employment_is_confirmed == "" ||
-      work_experience == ""
+      !employer_address ||
+      !employer_email ||
+      !employer_name ||
+      !employers_phone ||
+      !employment_present_position ||
+      !employment_is_confirmed ||
+      !work_experience
     ) {
       return setState({
         ...state,
@@ -256,7 +256,7 @@ const MortgageApplication_SecondStep = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && employer_name == ""
+                          formError && !employer_name
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -269,7 +269,7 @@ const MortgageApplication_SecondStep = (props) => {
                         required
                         value={employer_name}
                         className={
-                          formError && employer_name == ""
+                          formError && !employer_name
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -282,7 +282,7 @@ const MortgageApplication_SecondStep = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && employer_email == ""
+                          formError && !employer_email
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -295,7 +295,7 @@ const MortgageApplication_SecondStep = (props) => {
                         required
                         value={employer_email}
                         className={
-                          formError && employer_email == ""
+                          formError && !employer_email
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -310,7 +310,7 @@ const MortgageApplication_SecondStep = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && employers_phone == ""
+                          formError && !employers_phone
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -323,7 +323,7 @@ const MortgageApplication_SecondStep = (props) => {
                         required
                         value={employers_phone}
                         className={
-                          formError && employers_phone == ""
+                          formError && !employers_phone
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -336,7 +336,7 @@ const MortgageApplication_SecondStep = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && employment_present_position == ""
+                          formError && !employment_present_position
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -349,7 +349,7 @@ const MortgageApplication_SecondStep = (props) => {
                         required
                         value={employment_present_position}
                         className={
-                          formError && employment_present_position == ""
+                          formError && !employment_present_position
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -364,7 +364,7 @@ const MortgageApplication_SecondStep = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && employer_address == ""
+                          formError && !employer_address
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -377,7 +377,7 @@ const MortgageApplication_SecondStep = (props) => {
                         required
                         value={employer_address}
                         className={
-                          formError && employer_address == ""
+                          formError && !employer_address
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -392,7 +392,7 @@ const MortgageApplication_SecondStep = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && year_to_retirement == ""
+                          formError && !year_to_retirement
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -402,7 +402,7 @@ const MortgageApplication_SecondStep = (props) => {
                       <Form.Control
                         type="text"
                         className={
-                          formError && year_to_retirement == ""
+                          formError && !year_to_retirement
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -415,7 +415,7 @@ const MortgageApplication_SecondStep = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && work_experience == ""
+                          formError && !work_experience
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -425,7 +425,7 @@ const MortgageApplication_SecondStep = (props) => {
                       <Form.Control
                         type="number"
                         className={
-                          formError && work_experience == ""
+                          formError && !work_experience
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -439,7 +439,7 @@ const MortgageApplication_SecondStep = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && employment_is_confirmed == ""
+                          formError && !employment_is_confirmed
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -452,7 +452,7 @@ const MortgageApplication_SecondStep = (props) => {
                         required
                         value={employment_is_confirmed}
                         className={
-                          formError && employment_is_confirmed == ""
+                          formError && !employment_is_confirmed
                             ? "fmc formerror"
                             : "fmc"
                         }

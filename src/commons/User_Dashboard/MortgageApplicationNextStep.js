@@ -109,14 +109,14 @@ const Mortgage_Application_Third = (props) => {
   };
   const validateForm = () => {
     if (
-      current_apartment_status === "" ||
-      marital_status === "" ||
-      no_of_dependents === "" ||
-      next_of_kin_name === "" ||
-      next_of_kin_relationship === "" ||
-      next_of_kin_dob === "" ||
-      next_of_kin_address === "" ||
-      no_of_dependents ===""
+      !current_apartment_status ||
+      !marital_status ||
+      !no_of_dependents ||
+      !next_of_kin_name ||
+      !next_of_kin_relationship ||
+      !next_of_kin_dob ||
+      !next_of_kin_address ||
+      !no_of_dependents
     ) {
       notify("Please fill all required fields")
       return setState({
@@ -253,7 +253,7 @@ const Mortgage_Application_Third = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && current_apartment_status == ""
+                          formError && !current_apartment_status
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -263,7 +263,7 @@ const Mortgage_Application_Third = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && current_apartment_status == ""
+                          formError && !current_apartment_status
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -282,7 +282,7 @@ const Mortgage_Application_Third = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && marital_status == ""
+                          formError && !marital_status
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -292,7 +292,7 @@ const Mortgage_Application_Third = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && marital_status == ""
+                          formError && !marital_status
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -311,7 +311,7 @@ const Mortgage_Application_Third = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && no_of_dependents == ""
+                          formError && !no_of_dependents
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -320,7 +320,7 @@ const Mortgage_Application_Third = (props) => {
                       </span>
                       <Form.Control
                         className={
-                          formError && no_of_dependents == ""
+                          formError && !no_of_dependents
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -337,7 +337,7 @@ const Mortgage_Application_Third = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && next_of_kin_name == ""
+                          formError && !next_of_kin_name
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -350,7 +350,7 @@ const Mortgage_Application_Third = (props) => {
                         required
                         value={next_of_kin_name}
                         className={
-                          formError && next_of_kin_name == ""
+                          formError && !next_of_kin_name
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -363,7 +363,7 @@ const Mortgage_Application_Third = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && next_of_kin_relationship == ""
+                          formError && !next_of_kin_relationship
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -376,7 +376,7 @@ const Mortgage_Application_Third = (props) => {
                         required
                         value={next_of_kin_relationship}
                         className={
-                          formError && next_of_kin_relationship == ""
+                          formError && !next_of_kin_relationship
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -391,7 +391,7 @@ const Mortgage_Application_Third = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && address == ""
+                          formError && !address
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -404,7 +404,7 @@ const Mortgage_Application_Third = (props) => {
                         required
                         value={next_of_kin_dob}
                         className={
-                          formError && next_of_kin_dob == ""
+                          formError && !next_of_kin_dob == ""
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -417,7 +417,7 @@ const Mortgage_Application_Third = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && next_of_kin_address == ""
+                          formError && !next_of_kin_address == ""
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -430,7 +430,7 @@ const Mortgage_Application_Third = (props) => {
                         required
                         value={next_of_kin_address}
                         className={
-                          formError && next_of_kin_address == ""
+                          formError && !next_of_kin_address
                             ? "fmc formerror"
                             : "fmc"
                         }
