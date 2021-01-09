@@ -76,7 +76,7 @@ const NewSignUp = (props) => {
         const { token } = res.data.data;
         localStorage.setItem("jwtToken", token);
         localStorage.setItem("loggedInDetails", JSON.stringify(res.data.data));
-          props.history.push("/user-profile")
+          props.history.push("/account-verification")
       })
       .catch((err) => {
         console.log(err?.response);

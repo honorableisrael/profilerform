@@ -9,6 +9,22 @@ import { ReactComponent as Home } from "../../assets/Home.svg";
 import { Link } from "react-router-dom";
 
 const SideBarProfile = (props) => {
+  const [state, setState] = React.useState({
+    email:""
+  });
+  React.useEffect(() => {
+    window.scrollTo(-0, -0);
+    const userData = localStorage.getItem("loggedInDetails");
+    const currentUser = userData
+      ? JSON.parse(userData)
+      : window.location.assign("/signin");
+    console.log(currentUser);
+    setState({
+      ...state,
+      email:currentUser?.user?.email
+    })
+    // if(currentUser.is_verified)
+  }, []);
   return (
     <>
       <Col md={3} className="dashbdsidenav tealbg">

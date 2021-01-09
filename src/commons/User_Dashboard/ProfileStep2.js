@@ -114,14 +114,14 @@ const Profile_2 = (props) => {
     console.log(year_to_retirement);
     console.log(year_to_retirement);
     if (
-      year_to_retirement == "" ||
-      bvn == "" ||
+      !year_to_retirement ||
+      !bvn ||
       // employer_address == "" ||
-      employment_id == "" ||
-      employment_present_position == "" ||
-      employment_state == "" ||
-      nhf_registration_number == "" ||
-      work_experience == ""
+      !employment_id||
+      !employment_present_position ||
+      !employment_state ||
+      !nhf_registration_number ||
+      !work_experience 
     ) {
       notify("Please fill the required feilds");
       return setState({
@@ -262,7 +262,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && employment_id == ""
+                          formError && !employment_id
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -275,7 +275,7 @@ const Profile_2 = (props) => {
                         required
                         value={employment_id}
                         className={
-                          formError && employment_id == ""
+                          formError && !employment_id
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -288,7 +288,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && employer_address == ""
+                          formError && !employer_address
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -301,7 +301,7 @@ const Profile_2 = (props) => {
                         required
                         value={employer_address}
                         className={
-                          formError && employer_address == ""
+                          formError && !employer_address
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -316,7 +316,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && employment_present_position == ""
+                          formError && !employment_present_position 
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -326,7 +326,7 @@ const Profile_2 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && employment_present_position == ""
+                          formError && !employment_present_position
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -346,7 +346,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && employment_state == ""
+                          formError && !employment_state
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -356,7 +356,7 @@ const Profile_2 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && employment_state == ""
+                          formError && !employment_state
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -378,7 +378,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && work_experience == ""
+                          formError && !work_experience
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -391,7 +391,7 @@ const Profile_2 = (props) => {
                         required
                         value={work_experience}
                         className={
-                          formError && work_experience == ""
+                          formError && !work_experience
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -407,7 +407,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && year_to_retirement == ""
+                          formError && !year_to_retirement
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -420,7 +420,7 @@ const Profile_2 = (props) => {
                         required
                         value={year_to_retirement}
                         className={
-                          formError && year_to_retirement == ""
+                          formError && !year_to_retirement
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -438,9 +438,9 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && nhf_registration_number == ""
+                          formError && !nhf_registration_number
                             ? "userprofile formerror1"
-                            : (formError && nhf_registration_number == null?"userprofile formerror1":"userprofile")
+                            : (formError && !nhf_registration_number ?"userprofile formerror1":"userprofile")
                         }
                       >
                         NHF Number
@@ -451,7 +451,7 @@ const Profile_2 = (props) => {
                         required
                         value={nhf_registration_number}
                         className={
-                          formError && nhf_registration_number == ""
+                          formError && !nhf_registration_number
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -464,7 +464,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && bvn == ""
+                          formError && !bvn
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -477,7 +477,7 @@ const Profile_2 = (props) => {
                         required
                         value={bvn}
                         className={
-                          formError && bvn == "" ? "fmc formerror" : "fmc"
+                          formError && !bvn ? "fmc formerror" : "fmc"
                         }
                         name="bvn"
                         placeholder=""

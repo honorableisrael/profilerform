@@ -102,14 +102,14 @@ const Profile_3 = (props) => {
   };
   const validateForm = () => {
     if (
-      total_annual_pay == "" ||
-      monthly_gross_pay == "" ||
+      !total_annual_pay ||
+      !monthly_gross_pay ||
       // have_equity == "" ||
-      employment_state == "" ||
-      monthly_expenses == "" ||
-      loan_repayments == "" ||
-      monthly_repayment == "" ||
-      payment_option == ""
+      !employment_state ||
+      !monthly_expenses ||
+      !loan_repayments ||
+      !monthly_repayment ||
+      !payment_option
     ) {
       notify("Please fill the required feilds");
       return setState({
@@ -243,7 +243,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && total_annual_pay == ""
+                          formError && !total_annual_pay
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -256,7 +256,7 @@ const Profile_3 = (props) => {
                         required
                         value={total_annual_pay}
                         className={
-                          formError && total_annual_pay == ""
+                          formError && !total_annual_pay
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -272,7 +272,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && monthly_gross_pay == ""
+                          formError && !monthly_gross_pay
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -285,7 +285,7 @@ const Profile_3 = (props) => {
                         required
                         value={monthly_gross_pay}
                         className={
-                          formError && monthly_gross_pay == ""
+                          formError && !monthly_gross_pay
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -303,7 +303,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && have_equity !== 0 && have_equity !== 1
+                          formError && !have_equity 
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -313,7 +313,7 @@ const Profile_3 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && have_equity !== 0 && have_equity !== 1
+                          formError && !have_equity && !have_equity
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -332,13 +332,12 @@ const Profile_3 = (props) => {
                       </Form.Control>
                     </Form.Group>
                   </Col>
-
                   <Col md={6} className="eachfield2">
                     {have_equity == 1 && (
                       <Form.Group>
                         <span
                           className={
-                            formError && down_payment == ""
+                            formError && !down_payment
                               ? "userprofile formerror1"
                               : "userprofile"
                           }
@@ -351,7 +350,7 @@ const Profile_3 = (props) => {
                           required
                           value={down_payment}
                           className={
-                            formError && down_payment == ""
+                            formError && !down_payment
                               ? "fmc formerror"
                               : "fmc"
                           }
@@ -367,7 +366,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && monthly_expenses == ""
+                          formError && !monthly_expenses
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -380,7 +379,7 @@ const Profile_3 = (props) => {
                         required
                         value={monthly_expenses}
                         className={
-                          formError && monthly_expenses == ""
+                          formError && !monthly_expenses
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -396,7 +395,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && monthly_repayment == ""
+                          formError && !monthly_repayment
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -409,7 +408,7 @@ const Profile_3 = (props) => {
                         required
                         value={monthly_repayment}
                         className={
-                          formError && monthly_repayment == ""
+                          formError && !monthly_repayment
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -427,7 +426,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && payment_option == ""
+                          formError && !payment_option
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -437,7 +436,7 @@ const Profile_3 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && payment_option == ""
+                          formError && !payment_option
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -471,7 +470,7 @@ const Profile_3 = (props) => {
                       <Form.Group>
                         <span
                           className={
-                            formError && budget == ""
+                            formError && !budget
                               ? "userprofile formerror1"
                               : "userprofile"
                           }
@@ -484,7 +483,7 @@ const Profile_3 = (props) => {
                           required
                           value={budget}
                           className={
-                            formError && budget == "" ? "fmc formerror" : "fmc"
+                            formError && !budget ? "fmc formerror" : "fmc"
                           }
                           name="budget"
                           placeholder=""
@@ -495,7 +494,7 @@ const Profile_3 = (props) => {
                       <Form.Group>
                         <span
                           className={
-                            formError && budget == ""
+                            formError && !budget
                               ? "userprofile formerror1"
                               : "userprofile"
                           }
@@ -508,7 +507,7 @@ const Profile_3 = (props) => {
                           required
                           value={budget}
                           className={
-                            formError && budget == "" ? "fmc formerror" : "fmc"
+                            formError && !budget ? "fmc formerror" : "fmc"
                           }
                           name="budget"
                           placeholder=""

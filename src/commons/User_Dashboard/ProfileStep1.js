@@ -125,7 +125,17 @@ const Profile_1 = (props) => {
       firstname == "" ||
       lastname == "" ||
       mode_of_contact == "" ||
-      no_of_dependents == ""
+      no_of_dependents == "" ||
+      !address ||
+     !email ||
+      !phone ||
+      !dob ||
+      !state_of_origin||
+      !current_apartment_status ||
+      !firstname ||
+      !lastname ||
+      !mode_of_contact ||
+      !no_of_dependents
     ) {
       notify("Please fill the required feilds");
       return setState({
@@ -258,7 +268,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && firstname == ""
+                          formError && !firstname
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -271,7 +281,7 @@ const Profile_1 = (props) => {
                         required
                         value={firstname}
                         className={
-                          formError && firstname == "" ? "fmc formerror" : "fmc"
+                          formError && !firstname ? "fmc formerror" : "fmc"
                         }
                         name="firstname"
                         placeholder=""
@@ -282,7 +292,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && lastname == ""
+                          formError && !lastname
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -295,7 +305,7 @@ const Profile_1 = (props) => {
                         required
                         value={lastname}
                         className={
-                          formError && lastname == "" ? "fmc formerror" : "fmc"
+                          formError && !lastname ? "fmc formerror" : "fmc"
                         }
                         name="lastname"
                         placeholder="   "
@@ -308,7 +318,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && address == ""
+                          formError && !address
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -321,7 +331,7 @@ const Profile_1 = (props) => {
                         required
                         value={address}
                         className={
-                          formError && address == "" ? "fmc formerror" : "fmc"
+                          formError && !address ? "fmc formerror" : "fmc"
                         }
                         name="address"
                         placeholder=""
@@ -334,7 +344,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && email == ""
+                          formError && !email
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -347,7 +357,7 @@ const Profile_1 = (props) => {
                         required
                         value={email}
                         className={
-                          formError && email == "" ? "fmc formerror" : "fmc"
+                          formError && !email ? "fmc formerror" : "fmc"
                         }
                         name="email"
                         placeholder=""
@@ -358,7 +368,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && phone == ""
+                          formError && !phone
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -371,7 +381,7 @@ const Profile_1 = (props) => {
                         required
                         value={phone}
                         className={
-                          formError && phone == "" ? "fmc formerror" : "fmc"
+                          formError && !phone ? "fmc formerror" : "fmc"
                         }
                         name="phone"
                         placeholder=""
@@ -384,7 +394,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && dob == ""
+                          formError && !dob
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -398,7 +408,7 @@ const Profile_1 = (props) => {
                         as={"input"}
                         value={dob}
                         className={
-                          formError && dob == ""
+                          formError && !dob
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -411,7 +421,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                     <span
                         className={
-                          formError && state_of_origin == ""
+                          formError && !state_of_origin
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -421,7 +431,7 @@ const Profile_1 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && state_of_origin == ""
+                          formError && !state_of_origin
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -443,7 +453,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && marital_status == ""
+                          formError && !marital_status
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -453,7 +463,7 @@ const Profile_1 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && marital_status == ""
+                          formError && !marital_status
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -472,7 +482,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && current_apartment_status == ""
+                          formError && !current_apartment_status
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -482,7 +492,7 @@ const Profile_1 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && current_apartment_status == ""
+                          formError && !current_apartment_status
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -502,7 +512,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && mode_of_contact == ""
+                          formError && !mode_of_contact
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -512,7 +522,7 @@ const Profile_1 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && mode_of_contact == ""
+                          formError && !mode_of_contact
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -530,7 +540,7 @@ const Profile_1 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && no_of_dependents == ""
+                          formError && !no_of_dependents
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -543,7 +553,7 @@ const Profile_1 = (props) => {
                         required
                         value={no_of_dependents}
                         className={
-                          formError && no_of_dependents == ""
+                          formError && !no_of_dependents
                             ? "fmc formerror"
                             : "fmc"
                         }

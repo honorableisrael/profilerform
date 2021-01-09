@@ -207,3 +207,13 @@
     display: none;
   }
 }
+
+.cicck {
+  font-size: 14px;
+  text-align: center;
+  color: #999999;
+  padding-bottom: 1rem;
+}
+.plicy1q{
+  cursor: pointer;
+}

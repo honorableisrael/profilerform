@@ -20,7 +20,7 @@ const HeaderStats = (props) => {
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData
       ? JSON.parse(userData)
-      : window.location.assign("/login");
+      : window.location.assign("/signin");
     console.log(currentUser);
     setState({
       ...state,

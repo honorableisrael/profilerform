@@ -10,27 +10,24 @@ import Axios from "axios";
 import { API } from "../../config";
 import { Alert } from "react-bootstrap";
 
-const PasswordRecovery = (props) => {
+const AccountVerification = (props) => {
   const [state, setState] = React.useState({
-    firstname: "",
-    lastname: "",
-    password: "",
-    email: "",
+    code: "",
     formError: "",
     passwordIsVisible: false,
     isloading: false,
+    isLoading: false,
     errorMessage: "",
     success: "",
+    email:""
   });
   const {
-    firstname,
-    lastname,
-    email,
-    password,
+    code,
     errorMessage,
     passwordIsVisible,
     formError,
     isloading,
+    isLoading,
     success,
   } = state;
   const onchange = (e) => {
@@ -38,7 +35,7 @@ const PasswordRecovery = (props) => {
       ...state,
       [e.target.name]: e.target.value,
       errorMessage: "",
-      success:"",
+      success: "",
     });
   };
   const HidePassword = () => {
@@ -47,9 +44,21 @@ const PasswordRecovery = (props) => {
       passwordIsVisible: passwordIsVisible ? false : true,
     });
   };
+  React.useEffect(() => {
+    window.scrollTo(-0, -0);
+    const userData = localStorage.getItem("loggedInDetails");
+    const currentUser = userData
+      ? JSON.parse(userData)
+      : window.location.assign("/signin");
+    console.log(currentUser);
+    setState({
+      ...state,
+      email:currentUser?.user?.email
+    })
+  }, []);
   const validateForm = (e) => {
-    e.preventDefault()
-    if (email == "") {
+    e.preventDefault();
+    if (code == "") {
       return setState({
         ...state,
         formError: "Please fill",
@@ -58,21 +67,30 @@ const PasswordRecovery = (props) => {
     submitForm();
   };
   const submitForm = () => {
+    const userToken = localStorage.getItem("jwtToken");
+    const userData = localStorage.getItem("loggedInDetails");
+    const currentUser = userData
+      ? JSON.parse(userData)
+      : window.location.assign("/signin");
     setState({
       ...state,
       isloading: true,
     });
     const data = {
-      email,
+      code,
     };
-    Axios.post(`${API}/auth/forgot-password`, data)
+    Axios.post(`${API}/user/verify-account`, data, {
+      headers: { Authorization: `Bearer ${userToken}` },
+    })
       .then((res) => {
         console.log(res);
         setState({
           ...state,
           isloading: false,
           success: res?.data?.message,
+          errorMessage: "",
         });
+        props.history.push("/user-profile");
       })
       .catch((err) => {
         console.log(err?.response);
@@ -90,6 +108,48 @@ const PasswordRecovery = (props) => {
         });
       });
   };
+  const ResendCode = () => {
+    const userToken = localStorage.getItem("jwtToken");
+    const userData = localStorage.getItem("loggedInDetails");
+    const currentUser = userData
+      ? JSON.parse(userData)
+      : window.location.assign("/signin");
+
+    setState({
+      ...state,
+      isLoading: true,
+    });
+    const data = {
+      code,
+    };
+    Axios.get(`${API}/user/resend-verify-code `, {
+      headers: { Authorization: `Bearer ${userToken}` },
+    })
+      .then((res) => {
+        console.log(res);
+        setState({
+          ...state,
+          isLoading: false,
+          success: res?.data?.message,
+          errorMessage: "",
+        });
+      })
+      .catch((err) => {
+        console.log(err?.response);
+        if (err?.response?.status == 404) {
+          return setState({
+            ...state,
+            errorMessage: err.response.data.data,
+            isLoading: false,
+          });
+        }
+        setState({
+          ...state,
+          errorMessage: "Failed to submit please try again later",
+          isLoading: false,
+        });
+      });
+  };
   return (
     <>
       <HomeNav></HomeNav>
@@ -97,8 +157,11 @@ const PasswordRecovery = (props) => {
         <Row className="tmid">
           <Col md={6} className="whitcont1">
             <Form onSubmit={validateForm}>
-              <div className="ctrl1">Password Recovery</div>
-              <div></div>
+              <div className="ctrl1">Account Verification</div>
+              <div className="cicck">
+                A code has been sent to {state.email}, please enter code below to
+                Verify your Account
+              </div>
               <div>
                 {errorMessage && (
                   <Alert variant={"danger"} className="infoo1">
@@ -116,27 +179,33 @@ const PasswordRecovery = (props) => {
                   <Form.Group>
                     <span
                       className={
-                        formError && email?.trim() == ""
+                        formError && code?.trim() == ""
                           ? "userprofile formerror1 bg-white23"
                           : "userprofile bg-white23"
                       }
                     >
-                      Email{" "}
+                      {" "}
                     </span>
                     <Form.Control
                       type="text"
                       onChange={onchange}
                       required
-                      value={email}
+                      value={code}
                       className={
-                        formError && email?.trim() == ""
+                        formError && code?.trim() == ""
                           ? "fmc2 formerror"
                           : "fmc2"
                       }
-                      name="email"
-                      placeholder="Enter the email address you registered with"
+                      name="code"
+                      placeholder="Enter Verification Code"
                     />
                   </Form.Group>
+                  <div className="text-right">
+                    <span className="plicy plicy1q" onClick={ResendCode}>
+                      {" "}
+                      {!isLoading ? "Resend" : "Resending"}
+                    </span>
+                  </div>
                 </Col>
               </Row>
               <Row>
@@ -144,15 +213,6 @@ const PasswordRecovery = (props) => {
                   <Button className="signnp" onClick={validateForm}>
                     {isloading ? "Submitting" : "Submit"}
                   </Button>
-                </Col>
-                <Col md={12}>
-                  <div className="rigistxt">
-                    Already have an account?
-                    <Link to="/signup" className="plicy">
-                      {" "}
-                      Sign Up
-                    </Link>
-                  </div>
                 </Col>
               </Row>
             </Form>
@@ -163,4 +223,4 @@ const PasswordRecovery = (props) => {
   );
 };
 
-export default PasswordRecovery;
+export default AccountVerification;

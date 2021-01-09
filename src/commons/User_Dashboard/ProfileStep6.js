@@ -35,7 +35,7 @@ const Profile_6 = (props) => {
     isUploading: false,
     nhf_number: "",
     isloading: false,
-    isDeleting: false,
+    isLoading: false,
     monthlygross: "",
     number_of_bedrooms: "",
     number_of_bathrooms: "",
@@ -142,11 +142,11 @@ const Profile_6 = (props) => {
   };
   const validateForm = () => {
     if (
-      number_of_bedrooms == "" ||
-      Home_value =="" ||
+      !number_of_bedrooms ||
+      !Home_value ||
       // home_type == "" ||
       // paymentOption == "" ||
-      number_of_bathrooms == ""
+      !number_of_bathrooms
     ) {
       return setState({
         ...state,
@@ -163,7 +163,7 @@ const Profile_6 = (props) => {
       : window.location.assign("/signin");
     setState({
       ...state,
-      isUploading: true,
+      isLoading: true,
     });
     const data = {
       property_id: null,
@@ -187,7 +187,7 @@ const Profile_6 = (props) => {
         console.log(res);
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         setTimeout(() => {
           window.location.assign("/userdashboard");
@@ -196,7 +196,7 @@ const Profile_6 = (props) => {
       .catch((err) => {
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         notifyFailed("Failed to save");
         console.log(err.response);
@@ -270,7 +270,7 @@ const Profile_6 = (props) => {
     BVN,
     States,
     allCities,
-    number_of_dependants,
+    isLoading,
   } = state;
   console.log(desired_city);
   console.log(desired_state);
@@ -308,7 +308,7 @@ const Profile_6 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && home_type == ""
+                          formError && !home_type
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -318,7 +318,7 @@ const Profile_6 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && home_type == "" ? "fmc formerror" : "fmc"
+                          formError && !home_type ? "fmc formerror" : "fmc"
                         }
                         name="home_type"
                         onChange={handleChange}
@@ -352,7 +352,7 @@ const Profile_6 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && Home_value == ""
+                          formError && !Home_value
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -365,7 +365,7 @@ const Profile_6 = (props) => {
                         required
                         value={Home_value}
                         className={
-                          formError && Home_value == ""
+                          formError && !Home_value
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -383,7 +383,7 @@ const Profile_6 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && number_of_bedrooms == ""
+                          formError && !number_of_bedrooms
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -396,7 +396,7 @@ const Profile_6 = (props) => {
                         required
                         value={number_of_bedrooms}
                         className={
-                          formError && number_of_bedrooms == ""
+                          formError && !number_of_bedrooms
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -412,7 +412,7 @@ const Profile_6 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && number_of_bathrooms == ""
+                          formError && !number_of_bathrooms
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -425,7 +425,7 @@ const Profile_6 = (props) => {
                         required
                         value={number_of_bathrooms}
                         className={
-                          formError && number_of_bathrooms == ""
+                          formError && !number_of_bathrooms
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -504,7 +504,7 @@ const Profile_6 = (props) => {
                   </Col>
                   <Col md={6}>
                     <Button className="continue1 innc" onClick={validateForm}>
-                      Continue
+                      {!isLoading?"Continue":"Processing"}
                     </Button>
                   </Col>
                 </Row>

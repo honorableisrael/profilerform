@@ -62,6 +62,7 @@ const NewSIGNIN = (props) => {
     };
     Axios.post(`${API}/auth/login`, data)
       .then((res) => {
+        console.log(res)
         const { token } = res.data.data;
         localStorage.setItem("jwtToken", token);
         localStorage.setItem("loggedInDetails", JSON.stringify(res.data.data));
