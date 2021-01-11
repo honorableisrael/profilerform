@@ -39,7 +39,7 @@ const Profile_2 = (props) => {
     isloading: false,
     isDeleting: false,
     year_to_retirement: "",
-    employment_id: "",
+    Error:"",
     employment_present_position: "",
     policeRank: [],
     employment_state: "",
@@ -107,12 +107,13 @@ const Profile_2 = (props) => {
     return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   const validateForm = () => {
-    console.log(year_to_retirement);
-    console.log(employment_id);
-    console.log(employment_present_position);
-
-    console.log(year_to_retirement);
-    console.log(year_to_retirement);
+    if (bvn.length < 11 ||  bvn.length > 11) {
+      return setState({
+        ...state,
+        Error: "Invalid BVN",
+        formError: "Error",
+      });
+    }
     if (
       !year_to_retirement ||
       !bvn ||
@@ -181,7 +182,28 @@ const Profile_2 = (props) => {
         console.log(err);
       });
   };
-
+  const onInputChange = (e) => {
+    const letterNumber = /^[A-Za-z]+$/;
+    if (e.target.value < 0) {
+      return setState({
+        ...state,
+        [e.target.name]: 0,
+      });
+    }
+    if (e.target.value) {
+      return setState({
+        ...state,
+        [e.target.name]: e.target.value.replace(/[^0-9]+/g, ""), //only accept numbers
+      });
+    }
+    if (e.target.value === "") {
+      return setState({
+        ...state,
+        [e.target.name]: 0,
+      });
+    }
+  };
+  
   const checkIfIsOdd = (n) => {
     return Math.abs(n % 2) == 1;
   };
@@ -226,6 +248,7 @@ const Profile_2 = (props) => {
     formError,
     isloading,
     bvn,
+    Error,
     number_of_dependants,
     policeRank,
   } = state;
@@ -271,9 +294,9 @@ const Profile_2 = (props) => {
                       </span>
                       <Form.Control
                         type="text"
-                        onChange={onchange}
+                        onChange={onInputChange}
                         required
-                        value={employment_id}
+                        value={FormatAmount(employment_id)}
                         className={
                           formError && !employment_id
                             ? "fmc formerror"
@@ -471,9 +494,20 @@ const Profile_2 = (props) => {
                       >
                         BVN
                       </span>
+                      {(bvn.length < 11 || bvn.length > 11)  &&(
+                        <span
+                          className={
+                            (bvn.length < 11  || bvn.length > 11)
+                              ? "userprofile formerror13"
+                              : "userprofile"
+                          }
+                        >
+                          {Error}
+                        </span>
+                      )}
                       <Form.Control
-                        type="number"
-                        onChange={onchange}
+                        type="text"
+                        onChange={onInputChange}
                         required
                         value={bvn}
                         className={

@@ -95,7 +95,7 @@ const PasswordRecovery = (props) => {
       <HomeNav></HomeNav>
       <Container fluid={true} className="pushtopundernav">
         <Row className="tmid">
-          <Col md={6} className="whitcont1">
+          <Col md={5} className="whitcont1">
             <Form onSubmit={validateForm}>
               <div className="ctrl1">Password Recovery</div>
               <div></div>

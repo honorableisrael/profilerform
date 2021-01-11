@@ -83,6 +83,7 @@ const Userdashboard = (props) => {
       .then(
         axios.spread((res, res1, res2, res3) => {
           console.log(res3);
+          console.log(res1);
           if (res.status === 200) {
             setState({
               ...state,
@@ -294,7 +295,7 @@ const Userdashboard = (props) => {
               </div>
             </div>
             <Row>
-              <Col md={7}>
+              <Col md={7} className="uyud1">
                 <div className="udashbdaccdiv">
                   <Accordion defaultActiveKey="">
                     <Card className="udashbdacrd">

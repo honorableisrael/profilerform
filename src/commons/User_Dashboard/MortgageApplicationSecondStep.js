@@ -53,6 +53,7 @@ const MortgageApplication_SecondStep = (props) => {
     dob: "",
     employer_address: "",
     email: "",
+    Error: "",
     phone: "",
     year_to_retirement: "",
     married_status: "",
@@ -60,6 +61,7 @@ const MortgageApplication_SecondStep = (props) => {
     employer_name: "",
     employment_is_confirmed: "",
     work_experience: "",
+    employers_phone: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -112,6 +114,13 @@ const MortgageApplication_SecondStep = (props) => {
     return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   const validateForm = () => {
+    if (employers_phone.length < 11 || employers_phone.length > 11) {
+      return setState({
+        ...state,
+        Error: "Invalid Phone number",
+        formError: "Error",
+      });
+    }
     if (
       !employer_address ||
       !employer_email ||
@@ -119,7 +128,8 @@ const MortgageApplication_SecondStep = (props) => {
       !employers_phone ||
       !employment_present_position ||
       !employment_is_confirmed ||
-      !work_experience
+      !work_experience ||
+      !year_to_retirement
     ) {
       return setState({
         ...state,
@@ -155,7 +165,7 @@ const MortgageApplication_SecondStep = (props) => {
         headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((res) => {
-        notify("Successfully");
+        notify("Successful");
         console.log(res);
         setState({
           ...state,
@@ -204,7 +214,7 @@ const MortgageApplication_SecondStep = (props) => {
     });
   };
   const {
-    email,
+    Error,
     totalDoc,
     employer_address,
     employer_email,
@@ -220,7 +230,7 @@ const MortgageApplication_SecondStep = (props) => {
     isloading,
     firstname,
     lastname,
-    dob
+    dob,
   } = state;
   console.log(totalDoc);
   return (
@@ -269,9 +279,7 @@ const MortgageApplication_SecondStep = (props) => {
                         required
                         value={employer_name}
                         className={
-                          formError && !employer_name
-                            ? "fmc formerror"
-                            : "fmc"
+                          formError && !employer_name ? "fmc formerror" : "fmc"
                         }
                         name="employer_name"
                         placeholder=""
@@ -295,9 +303,7 @@ const MortgageApplication_SecondStep = (props) => {
                         required
                         value={employer_email}
                         className={
-                          formError && !employer_email
-                            ? "fmc formerror"
-                            : "fmc"
+                          formError && !employer_email ? "fmc formerror" : "fmc"
                         }
                         name="employer_email"
                         placeholder="   "
@@ -317,8 +323,19 @@ const MortgageApplication_SecondStep = (props) => {
                       >
                         Employers Phone Number
                       </span>
+                      {employers_phone.length !== 11 && (
+                        <span
+                          className={
+                            employers_phone?.length !== 11
+                              ? "userprofile formerror13"
+                              : "userprofile"
+                          }
+                        >
+                          {Error}
+                        </span>
+                      )}
                       <Form.Control
-                        type="text"
+                        type="number"
                         onChange={onchange}
                         required
                         value={employers_phone}
@@ -400,7 +417,7 @@ const MortgageApplication_SecondStep = (props) => {
                         Number of years to Retirement
                       </span>
                       <Form.Control
-                        type="text"
+                        type="number"
                         className={
                           formError && !year_to_retirement
                             ? "fmc formerror"
@@ -468,7 +485,7 @@ const MortgageApplication_SecondStep = (props) => {
                       className="continue1 nomargn"
                       onClick={validateForm}
                     >
-                      {!isLoading?"Continue":"Processing"}
+                      {!isLoading ? "Continue" : "Processing"}
                     </Button>
                   </Col>
                 </Row>

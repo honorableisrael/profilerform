@@ -27,12 +27,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Spinner from "react-bootstrap/Spinner";
 import Form from "react-bootstrap/Form";
-import {formatDate} from "./controller"
+import { formatDate } from "./controller";
 import SideBarProfile from "./SidebarProfile";
 import HeaderStats from "./HeaderStats";
 import SecondNavComponent from "./SecondNavComponent";
 import { States } from "./states";
-
 
 const Profile_1 = (props) => {
   const [state, setState] = React.useState({
@@ -47,7 +46,7 @@ const Profile_1 = (props) => {
     totalDoc: {},
     isloading: false,
     isDeleting: false,
-    isLoading:false,
+    isLoading: false,
     documentId: "",
     firstname: "",
     lastname: "",
@@ -59,6 +58,7 @@ const Profile_1 = (props) => {
     marital_status: "",
     current_apartment_status: "",
     mode_of_contact: "",
+    Error: "",
     no_of_dependents: "",
   });
   let fileRef = useRef(null);
@@ -81,14 +81,15 @@ const Profile_1 = (props) => {
         }),
         axios.get(`${API}/user/get-profile`, {
           headers: { Authorization: `Bearer ${userToken}` },
-        })
+        }),
       ])
       .then(
-        axios.spread((res,res2) => {
-          console.log(res2.data.data)
+        axios.spread((res, res2) => {
+          console.log(res2.data.data);
           if (res.status === 200) {
             setState({
               ...state,
+              dob:formatDate(res2.data.data.dob),
               ...res2.data.data,
               propertyList: res.data.data,
               user: currentUser.user,
@@ -115,6 +116,13 @@ const Profile_1 = (props) => {
     return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   const validateForm = () => {
+    if (phone.length < 11 || phone.length > 11) {
+      return setState({
+        ...state,
+        Error: "Invalid Phone number",
+        formError: "Error",
+      });
+    }
     if (
       address === "" ||
       email == "" ||
@@ -127,10 +135,10 @@ const Profile_1 = (props) => {
       mode_of_contact == "" ||
       no_of_dependents == "" ||
       !address ||
-     !email ||
+      !email ||
       !phone ||
       !dob ||
-      !state_of_origin||
+      !state_of_origin ||
       !current_apartment_status ||
       !firstname ||
       !lastname ||
@@ -178,9 +186,9 @@ const Profile_1 = (props) => {
           ...state,
           isLoading: false,
         });
-        setTimeout(() => {
-          props.history.push("/user-employment-info");
-        }, 3000);
+        // setTimeout(() => {
+        //   props.history.push("/user-employment-info");
+        // }, 3000);
       })
       .catch((err) => {
         console.log(err);
@@ -192,7 +200,7 @@ const Profile_1 = (props) => {
         console.log(err);
       });
   };
-
+ 
   const checkIfIsOdd = (n) => {
     return Math.abs(n % 2) == 1;
   };
@@ -233,13 +241,12 @@ const Profile_1 = (props) => {
     firstname,
     lastname,
     mode_of_contact,
-    deleteModal,
+    Error,
     formError,
     isloading,
     marital_status,
     no_of_dependents,
   } = state;
-  console.log(formatDate());
   return (
     <div>
       <Container fluid>
@@ -256,7 +263,11 @@ const Profile_1 = (props) => {
             <HeaderStats />
             <Col md={12} className="lldl">
               <div className="oll12">
-                Hi <span className="name2p"> {firstname} {lastname}</span>
+                Hi{" "}
+                <span className="name2p">
+                  {" "}
+                  {firstname} {lastname}
+                </span>
               </div>
               <div className="selg">Tell us about your self</div>
               <div className="straightdivider"></div>
@@ -375,6 +386,17 @@ const Profile_1 = (props) => {
                       >
                         Phone Number
                       </span>
+                      {(phone.length < 11 ||  phone.length > 11) &&(
+                        <span
+                          className={
+                            phone.length < 11 || phone.length > 11
+                              ? "userprofile formerror13"
+                              : "userprofile"
+                          }
+                        >
+                          {Error}
+                        </span>
+                      )}
                       <Form.Control
                         type="number"
                         onChange={onchange}
@@ -406,12 +428,8 @@ const Profile_1 = (props) => {
                         onChange={onchange}
                         required
                         as={"input"}
-                        value={formatDate(dob)}
-                        className={
-                          formError && !dob
-                            ? "fmc formerror"
-                            : "fmc"
-                        }
+                        value={dob}
+                        className={formError && !dob ? "fmc formerror" : "fmc"}
                         name="dob"
                         placeholder={dob}
                       />
@@ -419,7 +437,7 @@ const Profile_1 = (props) => {
                   </Col>
                   <Col md={6} className="eachfield2">
                     <Form.Group>
-                    <span
+                      <span
                         className={
                           formError && !state_of_origin
                             ? "userprofile formerror1"
@@ -463,9 +481,7 @@ const Profile_1 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && !marital_status
-                            ? "fmc formerror"
-                            : "fmc"
+                          formError && !marital_status ? "fmc formerror" : "fmc"
                         }
                         name="marital_status"
                         onChange={handleChange}
@@ -569,7 +585,7 @@ const Profile_1 = (props) => {
                       className="continue1 nomargn"
                       onClick={validateForm}
                     >
-                      {!isLoading?"Continue":"Updating"}
+                      {!isLoading ? "Continue" : "Updating"}
                     </Button>
                   </Col>
                 </Row>

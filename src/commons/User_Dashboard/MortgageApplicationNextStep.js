@@ -9,18 +9,7 @@ import loader from "../../assets/loader.png";
 import caretdwn from "../../assets/caret_down.png";
 import equity from "../../assets/equity.png";
 import Button from "react-bootstrap/Button";
-import cavetleft from "../../assets/caretleft.png";
-import cavetright from "../../assets/caretright.png";
-import board from "../../assets/board.png";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import house from "../../assets/house.png";
-import house2 from "../../assets/house2.png";
-import pen from "../../assets/pen.png";
-import cross from "../../assets/cross.png";
-import uploadimg from "../../assets/uploadimg.png";
-import CreditReport from "./creditreport";
-import Mortgagecards from "./mortgagecards";
 import { API } from "../../config";
 import axios from "axios";
 
@@ -34,6 +23,7 @@ import NavComponent from "./NavComponent";
 import HeaderStats from "./HeaderStats";
 import { Link } from "react-router-dom";
 import SecondNavComponent from "./SecondNavComponent";
+import { formatDate } from "./controller";
 
 const Mortgage_Application_Third = (props) => {
   const [state, setState] = React.useState({
@@ -80,6 +70,7 @@ const Mortgage_Application_Third = (props) => {
       ])
       .then(
         axios.spread((res) => {
+          console.log(res)
           if (res.status === 200) {
             setState({
               ...state,
@@ -118,7 +109,7 @@ const Mortgage_Application_Third = (props) => {
       !next_of_kin_address ||
       !no_of_dependents
     ) {
-      notify("Please fill all required fields")
+      notify("Please fill all required fields");
       return setState({
         ...state,
         formError: "Please fill",
@@ -147,7 +138,7 @@ const Mortgage_Application_Third = (props) => {
       no_of_dependents,
       firstname,
       lastname,
-      dob
+      dob,
     };
     axios
       .post(`${API}/user/profile`, data, {
@@ -270,7 +261,7 @@ const Mortgage_Application_Third = (props) => {
                         name="current_apartment_status"
                         onChange={handleChange}
                       >
-                        <option></option>
+                        <option>{current_apartment_status}</option>
                         <option value="Owned" class="otherss">
                           Owned
                         </option>
@@ -292,9 +283,7 @@ const Mortgage_Application_Third = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && !marital_status
-                            ? "fmc formerror"
-                            : "fmc"
+                          formError && !marital_status ? "fmc formerror" : "fmc"
                         }
                         name="marital_status"
                         onChange={handleChange}
@@ -327,8 +316,7 @@ const Mortgage_Application_Third = (props) => {
                         value={no_of_dependents}
                         name="no_of_dependents"
                         onChange={handleChange}
-                      >
-                      </Form.Control>
+                      ></Form.Control>
                     </Form.Group>
                   </Col>
                 </Row>

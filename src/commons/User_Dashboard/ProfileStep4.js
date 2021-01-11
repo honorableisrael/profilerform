@@ -28,6 +28,8 @@ import "react-multi-carousel/lib/styles.css";
 import mkshift from "../../assets/mkshift.png";
 import SecondNavComponent from "./SecondNavComponent";
 import { data } from "jquery";
+import "../styles.css"
+
 
 const Profile_4 = (props) => {
   const [state, setState] = React.useState({

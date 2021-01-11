@@ -104,7 +104,7 @@ const NewSignUp = (props) => {
             <span className="plicy"> Terms of Use</span> and our
             <span className="plicy"> Privacy Policy </span>
           </Col>
-          <Col md={6} className="whitcont1">
+          <Col md={5} className="whitcont1">
             <Form onSubmit={validateForm}>
               <div className="ctrl1">Sign Up</div>
               <div className={"text-center"}>

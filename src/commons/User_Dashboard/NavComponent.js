@@ -4,6 +4,7 @@ import userimg from "../../assets/user-img.png";
 import arrowhead from "../../assets/arrowhead.png";
 import searchImage from "../../assets/search.png";
 import Navbar from "./navbar";
+import { Link } from "react-router-dom";
 
 const NavComponent = (props) => {
   const logOut = () => {
@@ -35,8 +36,10 @@ const NavComponent = (props) => {
               <img src={userimg} className="uimg" />
               <Dropdown.Toggle id="dropdown-basic" className="usernavdrpdwn" />
               <Dropdown.Menu className="animated fadeIn">
-                <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                <Dropdown.Item href="#/action-1">Settings</Dropdown.Item>
+                <Dropdown.Item href="#/action-1">
+                  <Link to="/user-profile">Profile</Link>
+                </Dropdown.Item>
+                {/* <Dropdown.Item href="#/action-1"><Link to="/user-profile">Settings</Link></Dropdown.Item> */}
                 <Dropdown.Item href="#/action-2" onClick={logOut}>
                   Log out
                 </Dropdown.Item>

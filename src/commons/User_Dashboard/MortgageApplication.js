@@ -49,7 +49,7 @@ const MortgageApplication = (props) => {
     totalDoc: {},
     isloading: false,
     isLoading: false,
-    isDeleting: false,
+    Error: false,
     documentId: "",
     firstname: "",
     lastname: "",
@@ -101,6 +101,9 @@ const MortgageApplication = (props) => {
               ...state,
               ...res.data.data,
               user: currentUser.user,
+              id_issue_date:formatDate(res.data.data.id_issue_date),
+              id_expire_date:formatDate(res.data.data.id_expire_date),
+              
               isloading: false,
             });
           }
@@ -121,6 +124,15 @@ const MortgageApplication = (props) => {
   const notify = (message) => toast(message, { containerId: "t" });
   const notifyFailed = (message) => toast(message, { containerId: "f" });
   const validateForm = () => {
+
+    
+    if (phone?.length < 10) {
+      return setState({
+        ...state,
+        Error: "Incorrect Phone number",
+        formError: "Error",
+      });
+    }
     if (
       !address ||
       !email ||
@@ -187,7 +199,7 @@ const MortgageApplication = (props) => {
         headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((res) => {
-        notify("Successfully");
+        notify("Successful");
         console.log(res);
         setState({
           ...state,
@@ -237,7 +249,7 @@ const MortgageApplication = (props) => {
   };
   const test = ["New", "Old"];
   const {
-    user,
+    Error,
     state_of_origin,
     totalDoc,
     address,
@@ -388,7 +400,7 @@ const MortgageApplication = (props) => {
                         onChange={onchange}
                         required
                         value={mother_middle_name}
-                        className={
+                        className = {
                           formError && !mother_middle_name
                             ? "fmc formerror"
                             : "fmc"
@@ -461,6 +473,17 @@ const MortgageApplication = (props) => {
                       >
                         Phone Number
                       </span>
+                      {phone?.length < 10 && (
+                        <span
+                          className={
+                            phone?.length < 10
+                              ? "userprofile formerror13"
+                              : "userprofile"
+                          }
+                        >
+                          {Error}
+                        </span>
+                      )}
                       <Form.Control
                         type="number"
                         onChange={onchange}
@@ -744,7 +767,7 @@ const MortgageApplication = (props) => {
                         type="date"
                         onChange={onchange}
                         required
-                        value={formatDate(id_issue_date)}
+                        value={id_issue_date}
                         className={
                           formError && !id_issue_date
                             ? "fmc formerror"
@@ -770,7 +793,7 @@ const MortgageApplication = (props) => {
                         type="date"
                         onChange={onchange}
                         required
-                        value={formatDate(id_expire_date)}
+                        value={id_expire_date}
                         className={
                           formError && !id_expire_date
                             ? "fmc formerror"

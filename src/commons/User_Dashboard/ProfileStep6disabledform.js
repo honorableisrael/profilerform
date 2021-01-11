@@ -143,8 +143,8 @@ const Profile_6_disabled_pop = (props) => {
     const data = {
       property_id: property.id,
       found_property: 0,
-      state_id: currentProperty.state_id,
-      city_id: 3,
+      state_id: property?.state_id,
+      city_id: property.city_id,
       property_type_id: 4,
       request_type: "Home",
       property_value: property?.property_price,
@@ -173,7 +173,7 @@ const Profile_6_disabled_pop = (props) => {
           isUploading: false,
         });
         notifyFailed("Failed to save");
-        console.log(err);
+        console.log(err.response);
       });
   };
 

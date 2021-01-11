@@ -42,7 +42,7 @@ const Profile_3 = (props) => {
     number_of_dependants: "",
     monthly_expenses: "",
     monthly_repayment: "",
-    loan_repayments:"",
+    loan_repayments: "",
     budget: "",
     payment_option: "",
     down_payment: "",
@@ -99,8 +99,32 @@ const Profile_3 = (props) => {
   const notify = (message) => toast(message, { containerId: "w" });
   const notifyFailed = (message) => toast(message, { containerId: "f" });
   const FormatAmount = (amount) => {
-    return parseInt(amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+    if (amount) {
+      return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
   };
+  const onInputChange = (e) => {
+    const letterNumber = /^[A-Za-z]+$/;
+    if (e.target.value) {
+      return setState({
+        ...state,
+        [e.target.name]: e.target.value.replace(/[^0-9]+/g, ""), //only accept numbers
+      });
+    }
+    if (e.target.value < 0) {
+      return setState({
+        ...state,
+        [e.target.name]: 0,
+      });
+    }
+    if (e.target.value === "") {
+      return setState({
+        ...state,
+        [e.target.name]: 0,
+      });
+    }
+  };
+
   const validateForm = () => {
     if (
       !total_annual_pay ||
@@ -117,14 +141,14 @@ const Profile_3 = (props) => {
         formError: "Please fill",
       });
     }
-    if(have_equity=="1" && down_payment==""){
+    if (have_equity == "1" && down_payment == "") {
       notify("Please fill the required feilds");
       return setState({
         ...state,
         formError: "Please fill",
       });
     }
-    if(payment_option=="Installment Payment" && budget==""){
+    if (payment_option == "Installment Payment" && budget == "") {
       notify("Please fill the required feilds");
       return setState({
         ...state,
@@ -212,7 +236,7 @@ const Profile_3 = (props) => {
     number_of_dependants,
     down_payment,
   } = state;
-  console.log(have_equity);
+  console.log(total_annual_pay);
   return (
     <div>
       <Container fluid>
@@ -251,10 +275,9 @@ const Profile_3 = (props) => {
                         What is your total annual salary? (₦)
                       </span>
                       <Form.Control
-                        type="number"
-                        onChange={onchange}
-                        required
-                        value={total_annual_pay}
+                        type="text"
+                        onChange={onInputChange}
+                        value={FormatAmount(total_annual_pay)}
                         className={
                           formError && !total_annual_pay
                             ? "fmc formerror"
@@ -280,10 +303,10 @@ const Profile_3 = (props) => {
                         What is your monthly gross salary? (₦)
                       </span>
                       <Form.Control
-                        type="number"
-                        onChange={onchange}
+                        type="text"
+                        onChange={onInputChange}
                         required
-                        value={monthly_gross_pay}
+                        value={FormatAmount(monthly_gross_pay)}
                         className={
                           formError && !monthly_gross_pay
                             ? "fmc formerror"
@@ -303,7 +326,7 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && !have_equity 
+                          formError && !have_equity
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -345,14 +368,12 @@ const Profile_3 = (props) => {
                           How much equity do you have? (₦)
                         </span>
                         <Form.Control
-                          type="number"
-                          onChange={onchange}
+                          type="text"
+                          onChange={onInputChange}
                           required
-                          value={down_payment}
+                          value={FormatAmount(down_payment)}
                           className={
-                            formError && !down_payment
-                              ? "fmc formerror"
-                              : "fmc"
+                            formError && !down_payment ? "fmc formerror" : "fmc"
                           }
                           name="down_payment"
                           placeholder=""
@@ -374,10 +395,10 @@ const Profile_3 = (props) => {
                         Monthly Expenses
                       </span>
                       <Form.Control
-                        type="number"
-                        onChange={onchange}
+                        type="text"
+                        onChange={onInputChange}
                         required
-                        value={monthly_expenses}
+                        value={FormatAmount(monthly_expenses)}
                         className={
                           formError && !monthly_expenses
                             ? "fmc formerror"
@@ -403,10 +424,10 @@ const Profile_3 = (props) => {
                         Existing loan Repayments
                       </span>
                       <Form.Control
-                        type="number"
-                        onChange={onchange}
+                        type="text"
+                        onChange={onInputChange}
                         required
-                        value={loan_repayments}
+                        value={FormatAmount(loan_repayments)}
                         className={
                           formError && !loan_repayments
                             ? "fmc formerror"
@@ -436,9 +457,7 @@ const Profile_3 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && !payment_option
-                            ? "fmc formerror"
-                            : "fmc"
+                          formError && !payment_option ? "fmc formerror" : "fmc"
                         }
                         name="payment_option"
                         onChange={handleChange}
@@ -478,10 +497,10 @@ const Profile_3 = (props) => {
                           What is your annual budget? (₦)
                         </span>
                         <Form.Control
-                          type="number"
-                          onChange={onchange}
+                          type="text"
+                          onChange={onInputChange}
                           required
-                          value={budget}
+                          value={FormatAmount(budget)}
                           className={
                             formError && !budget ? "fmc formerror" : "fmc"
                           }
@@ -502,10 +521,10 @@ const Profile_3 = (props) => {
                           What is your monthly budget? (₦)
                         </span>
                         <Form.Control
-                          type="number"
-                          onChange={onchange}
+                          type="text"
+                          onChange={onInputChange}
                           required
-                          value={budget}
+                          value={FormatAmount(budget)}
                           className={
                             formError && !budget ? "fmc formerror" : "fmc"
                           }

@@ -20,6 +20,7 @@
   padding-right: 25px;
   padding-left: 22px;
   padding-bottom: 120px;
+  min-height: 100vh;
 }
 .mobdashbdsidenav {
   background-color: #5fb49c;
@@ -442,7 +443,7 @@
 }
 .itemprice {
   color: rgba(0, 0, 0, 0.63);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
 }
 .statsreview-btn {
@@ -588,7 +589,7 @@
 }
 .equityamt {
   color: rgba(0, 0, 0, 0.63);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
 }
 .equityamtdivs {
@@ -896,7 +897,7 @@
   padding-right: 2.6rem;
 }
 .proffl {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 29px;
   color: #333333;
   font-weight: 700;
@@ -960,6 +961,7 @@
   line-height: 17px;
   margin-bottom: 0.8rem;
   color: #e9f2e9;
+  min-width: 180px;
 }
 
 .mza {
@@ -1018,12 +1020,16 @@
   border-radius: 8px;
   background: #f9f9f9 !important;
   padding-right: 1.5rem;
+  font-size: 14px;
 }
 .eachfield {
-  padding-right: 1.5rem;
+  padding-right: 1rem;
 }
 .eachfield2 {
-  padding-left: 1.5rem;
+  padding-left: 1rem;
+}
+.form-group {
+  margin-bottom: 0.5rem;
 }
 .fmc:focus,
 .fmc:active {
@@ -1061,15 +1067,31 @@
 .formerror1 {
   color: #ff523d;
 }
+.formerror13 {
+  color: #ff523d;
+  left: 7rem;
+}
 .otherss {
   color: #333333;
 }
 select .form-control {
   color: #333333 !important;
 }
+@media (min-width: 780px) {
+  .equityamtdivs,
+  .equitywrapper {
+    min-width: 367px !important;
+  }
+  .uyud1 {
+    min-width: 480px;
+  }
+}
 @media (max-width: 780px) {
   .badge22 {
     display: none;
+  }
+  .eqrghtdv {
+    width: 50%;
   }
   .mss {
     width: 100%;
@@ -1522,28 +1544,28 @@ select .form-control {
   font-size: 24px;
   line-height: 29px;
   color: #333333;
-  padding-bottom: .5rem;
+  padding-bottom: 0.5rem;
 }
-.moddtitle1{
+.moddtitle1 {
   text-align: center;
   font-size: 24px;
   line-height: 29px;
   color: #333333;
-  padding-bottom: .7rem;
+  padding-bottom: 0.7rem;
 }
 
-.nue1a{
+.nue1a {
   margin-bottom: 0px;
 }
 @media (max-width: 506px) {
-  .flex23{
+  .flex23 {
     display: block;
   }
-  .nue1a{
+  .nue1a {
     /* width: 100% !important; */
     margin-left: 0px;
   }
-  .pdkd2{
+  .pdkd2 {
     width: 100% !important;
   }
 }
@@ -1552,75 +1574,81 @@ select .form-control {
   width: 70%;
   margin: auto;
 }
-.nestt{
-  background: linear-gradient(78.18deg, #5FB49C 0%, rgba(15, 188, 73, 0.88) 57.23%, #2E6AF0 119.44%);
+.nestt {
+  background: linear-gradient(
+    78.18deg,
+    #5fb49c 0%,
+    rgba(15, 188, 73, 0.88) 57.23%,
+    #2e6af0 119.44%
+  );
   border-radius: 8px;
-  color :white;
+  color: white;
 }
-.bnone{
-  margin-bottom: .1rem;
+.bnone {
+  margin-bottom: 0.1rem;
 }
-.handshake{
+.handshake {
   width: 100px !important;
 }
-.moddw .modal-dialog{
+.moddw .modal-dialog {
   max-width: 690px;
 }
-.nvnvv{
+.nvnvv {
   font-weight: 325;
   font-size: 14px;
   line-height: 17px;
   text-align: center;
   color: #666666;
 }
-.pushh1{
+.pushh1 {
   padding-bottom: 1.6rem;
   padding-top: 1rem;
 }
-.centerww{
-  padding-bottom: .3rem;
+.centerww {
+  padding-bottom: 0.3rem;
 }
-.polld1q{
+.polld1q {
   margin-left: 8px;
 }
-.innc{
+.innc {
   margin-left: 10px;
 }
 
 @media (max-width: 480px) {
-  .slidewrapplarge{
+  .slidewrapplarge {
     height: 320px;
     width: 100%;
   }
-  .housee1a{
+  .housee1a {
     padding-top: 0px;
   }
-  .fina11{
+  .fina11 {
     border-top: 1px solid #e6e6e6;
     margin-top: 1rem;
   }
-  .polld1q{
+  .polld1q {
     margin-left: 0px;
   }
-  .equityamtdivs{
+  .equityamtdivs {
     flex-wrap: wrap;
   }
-  .eqrghtdv{
+  .eqrghtdv {
     border-left: none;
     padding-left: 0px;
   }
 
-  .react-multiple-carousel__arrow--right, .react-multiple-carousel__arrow--left{
+  .react-multiple-carousel__arrow--right,
+  .react-multiple-carousel__arrow--left {
     top: initial;
   }
   .sdnnavrow {
-    margin-right: .1rem;
+    margin-right: 0.1rem;
   }
-  .dapadd{
+  .dapadd {
     padding-right: 0px;
   }
-  .container-fluid{
-    padding-right: .5rem;
+  .container-fluid {
+    padding-right: 0.5rem;
   }
 }
 @media (max-width: 1024px) {
@@ -1631,43 +1659,44 @@ select .form-control {
     padding: 20px 20px 20px 4px;
   }
 }
-.meanas{
+.meanas {
   font-style: normal;
-font-weight: bold;
-font-size: 14px;
-line-height: 17px;
-color: #666666;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+  color: #666666;
 }
-.fofof{
+.fofof {
   padding-bottom: 1rem;
 }
-.fofofd{
-  border: 1px solid #ced4da ;
-  padding: 1rem .4rem;
+.fofofd {
+  border: 1px solid #ced4da;
+  padding: 1rem 0.4rem;
   border-radius: 10px;
   margin: 1rem 0rem;
 }
-a{
+a {
   color: inherit;
   text-decoration: none !important;
 }
-a:hover{
+a:hover {
   color: inherit;
 }
 
 @media (max-width: 380px) {
-  .maxa12{
+  .maxa12 {
     flex-wrap: wrap;
   }
-  .firs122,.sec122{
+  .firs122,
+  .sec122 {
     width: 100%;
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
-  .ton1{
+  .ton1 {
     margin-bottom: 0px;
   }
 }
-.center-changed1 ul li{
+.center-changed1 ul li {
   padding-left: 0px;
 }
 .slidewrapplarge3 {
@@ -1675,11 +1704,12 @@ a:hover{
   height: 400px;
   padding: 0px;
 }
-.center-changed1 .react-multiple-carousel__arrow--right, .react-multiple-carousel__arrow--left{
+.center-changed1 .react-multiple-carousel__arrow--right,
+.react-multiple-carousel__arrow--left {
   top: initial;
 }
 
-.descro1{
+.descro1 {
   border-top-right-radius: 1rem !important;
   border-top-left-radius: 1rem !important;
 }
@@ -1689,10 +1719,26 @@ a:hover{
   /* position: absolute; */
   right: 0px;
 }
-.times42{
+.times42 {
   position: relative;
   bottom: -5rem;
   right: 2rem;
   z-index: 100;
   cursor: pointer;
+}
+.bg-info {
+  background: linear-gradient(
+    78.18deg,
+    #5fb49c 0%,
+    rgba(15, 188, 73, 0.87) 57.23%,
+    #2e6af0 119.44%
+  ) !important;
+}
+.Toastify__toast-body{
+  padding: 1rem 1rem;
+}
+
+.Toastify__toast--default{
+  border-radius: .4rem !important;
+  border: 3px solid white;
 }
