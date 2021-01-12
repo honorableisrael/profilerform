@@ -14,13 +14,7 @@ import cavetright from "../../assets/caretright.png";
 import board from "../../assets/board.png";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import house from "../../assets/house.png";
-import house2 from "../../assets/house2.png";
-import pen from "../../assets/pen.png";
-import cross from "../../assets/cross.png";
-import uploadimg from "../../assets/uploadimg.png";
-import CreditReport from "./creditreport";
-import Mortgagecards from "./mortgagecards";
+import UserdashboardSideBar from "./Sidebar";
 import { API } from "../../config";
 import axios from "axios";
 
@@ -31,10 +25,10 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import SideBarProfile from "./SidebarProfile";
 import { Link } from "react-router-dom";
-import HeaderStats from "./HeaderStats";
 import SecondNavComponent from "./SecondNavComponent";
 import { States } from "./states";
 import { formatDate } from "./controller";
+import NavComponent from "./NavComponent";
 
 const MortgageApplication = (props) => {
   const [state, setState] = React.useState({
@@ -283,9 +277,9 @@ const MortgageApplication = (props) => {
     <div>
       <Container fluid>
         <Row className="sdnnavrow">
-          <SideBarProfile profile={true} />
+          <UserdashboardSideBar hideads={true} profile={true} />
           <Col md={9} className="udshboard">
-            <SecondNavComponent hideSearch={true} />
+            <NavComponent hideSearch={true} />
             {isloading && (
               <div className="text-center">
                 <Spinner animation="grow" variant="info" />

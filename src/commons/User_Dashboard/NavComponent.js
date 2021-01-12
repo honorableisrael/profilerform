@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Dropdown, Card } from "react-bootstrap";
-import userimg from "../../assets/user-img.png";
+import userimg from "../../assets/avatar.svg";
 import arrowhead from "../../assets/arrowhead.png";
 import searchImage from "../../assets/search.png";
 import Navbar from "./navbar";

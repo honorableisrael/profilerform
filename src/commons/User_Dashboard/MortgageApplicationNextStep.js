@@ -5,9 +5,7 @@ import "./user_dashboard.css";
 import eye from "../../assets/show.png";
 import close from "../../assets/close.png";
 import "./animate.css";
-import loader from "../../assets/loader.png";
-import caretdwn from "../../assets/caret_down.png";
-import equity from "../../assets/equity.png";
+
 import Button from "react-bootstrap/Button";
 import "react-multi-carousel/lib/styles.css";
 import { API } from "../../config";
@@ -20,9 +18,9 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import SideBarProfile from "./SidebarProfile";
 import NavComponent from "./NavComponent";
+import UserdashboardSideBar from "./Sidebar";
 import HeaderStats from "./HeaderStats";
 import { Link } from "react-router-dom";
-import SecondNavComponent from "./SecondNavComponent";
 import { formatDate } from "./controller";
 
 const Mortgage_Application_Third = (props) => {
@@ -215,9 +213,9 @@ const Mortgage_Application_Third = (props) => {
     <div>
       <Container fluid>
         <Row className="sdnnavrow">
-          <SideBarProfile profile={true} />
+        <UserdashboardSideBar hideads={true} profile={true} />
           <Col md={9} className="udshboard">
-            <SecondNavComponent hideSearch={true} />
+            <NavComponent hideSearch={true} />
             {isloading && (
               <div className="text-center">
                 <Spinner animation="grow" variant="info" />

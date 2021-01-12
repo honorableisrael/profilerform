@@ -1742,3 +1742,9 @@ a:hover {
   border-radius: .4rem !important;
   border: 3px solid white;
 }
+.uimg{
+  max-width: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

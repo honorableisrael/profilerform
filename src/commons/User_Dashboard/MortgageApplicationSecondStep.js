@@ -31,7 +31,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import SideBarProfile from "./SidebarProfile";
 import NavComponent from "./NavComponent";
-import HeaderStats from "./HeaderStats";
+import UserdashboardSideBar from "./Sidebar";
 import SecondNavComponent from "./SecondNavComponent";
 
 const MortgageApplication_SecondStep = (props) => {
@@ -237,9 +237,9 @@ const MortgageApplication_SecondStep = (props) => {
     <div>
       <Container fluid>
         <Row className="sdnnavrow">
-          <SideBarProfile profile={true} />
+          <UserdashboardSideBar hideads={true} profile={true} />
           <Col md={9} className="udshboard">
-            <SecondNavComponent hideSearch={true} />
+            <NavComponent hideSearch={true} />
             {isloading && (
               <div className="text-center">
                 <Spinner animation="grow" variant="info" />

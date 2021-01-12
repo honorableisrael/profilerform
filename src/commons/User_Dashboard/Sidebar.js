@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const UserdashboardSideBar = (props) => {
   const [state, setState] = React.useState({
-    email:""
+    email: "",
   });
   React.useEffect(() => {
     window.scrollTo(-0, -0);
@@ -22,8 +22,8 @@ const UserdashboardSideBar = (props) => {
     console.log(currentUser);
     setState({
       ...state,
-      email:currentUser?.user?.email
-    })
+      email: currentUser?.user?.email,
+    });
   }, []);
   return (
     <>
@@ -71,21 +71,25 @@ const UserdashboardSideBar = (props) => {
             <Link to="/mortage-request"> Apply for Mortgage </Link>
           </div>
         </div>
-        <div className="sdenavline2">
-          <img src={line} className="img-fluid" />{" "}
-        </div>
-        <div className="sidnavsavingsdv">
-          <h5 className="savingsheader">Easy way to Equity Saving</h5>
-          <div className="savingspgphdiv">
-            {" "}
-            <p className="savingsprgrph">
-              with our all in one platform you can organise all your savings in
-              one place and on the go
-            </p>
-          </div>
-          <img src={male} className="img-fluid" />
-          <span className="sdenavsavingsbtn">Get the App</span>
-        </div>
+        {!props.hideads && (
+          <>
+            <div className="sdenavline2">
+              <img src={line} className="img-fluid" />{" "}
+            </div>
+            <div className="sidnavsavingsdv">
+              <h5 className="savingsheader">Easy way to Equity Saving</h5>
+              <div className="savingspgphdiv">
+                {" "}
+                <p className="savingsprgrph">
+                  with our all in one platform you can organise all your savings
+                  in one place and on the go
+                </p>
+              </div>
+              <img src={male} className="img-fluid" />
+              <span className="sdenavsavingsbtn">Get the App</span>
+            </div>
+          </>
+        )}
       </Col>
     </>
   );
