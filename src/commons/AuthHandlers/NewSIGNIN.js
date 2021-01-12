@@ -62,12 +62,26 @@ const NewSIGNIN = (props) => {
     };
     Axios.post(`${API}/auth/login`, data)
       .then((res) => {
-        console.log(res)
+        console.log(res);
+        if (res.data.message == "Validation Error") {
+          const [email] = res.data.data;
+          console.log(email);
+          return setState({
+            ...state,
+            errorMessage: email?.email[0],
+          });
+        }
+        if (res.data.message == "login failed") {
+          return setState({
+            ...state,
+            errorMessage: res.data.data,
+          });
+        }
         const { token } = res.data.data;
         localStorage.setItem("jwtToken", token);
         localStorage.setItem("loggedInDetails", JSON.stringify(res.data.data));
-        if(res?.data?.data?.is_verified==0){
-          return props.history.push("/account-verification")
+        if (res?.data?.data?.is_verified == 0) {
+          return props.history.push("/account-verification");
         }
         if (res?.data?.data?.user?.has_profile == 0) {
           props.history.push("/user-profile");
@@ -81,9 +95,9 @@ const NewSIGNIN = (props) => {
         });
       })
       .catch((err) => {
-        console.log(err?.response);
+        console.log(err);
         if (err?.response?.status == 404) {
-         return setState({
+          return setState({
             ...state,
             errorMessage: err.response.data.data,
             isloading: false,

@@ -189,7 +189,7 @@ const Profile_3 = (props) => {
         });
         setTimeout(() => {
           props.history.push("/user-property-request");
-        }, 2000);
+        }, 4000);
       })
       .catch((err) => {
         setState({

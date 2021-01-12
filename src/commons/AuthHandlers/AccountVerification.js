@@ -184,7 +184,7 @@ const AccountVerification = (props) => {
                           : "userprofile bg-white23"
                       }
                     >
-                      {" "}
+                      {"Code"}
                     </span>
                     <Form.Control
                       type="text"

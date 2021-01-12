@@ -186,9 +186,9 @@ const Profile_1 = (props) => {
           ...state,
           isLoading: false,
         });
-        // setTimeout(() => {
-        //   props.history.push("/user-employment-info");
-        // }, 3000);
+        setTimeout(() => {
+          props.history.push("/user-employment-info");
+        }, 3000);
       })
       .catch((err) => {
         console.log(err);
