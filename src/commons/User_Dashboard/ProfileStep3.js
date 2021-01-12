@@ -132,7 +132,7 @@ const Profile_3 = (props) => {
       // have_equity == "" ||
       !monthly_expenses ||
       !loan_repayments ||
-      !monthly_repayment ||
+      // !monthly_repayment ||
       !payment_option
     ) {
       notify("Please fill the required feilds");
@@ -141,20 +141,20 @@ const Profile_3 = (props) => {
         formError: "Please fill",
       });
     }
-    if (have_equity == "1" && down_payment == "") {
-      notify("Please fill the required feilds");
-      return setState({
-        ...state,
-        formError: "Please fill",
-      });
-    }
-    if (payment_option == "Installment Payment" && budget == "") {
-      notify("Please fill the required feilds");
-      return setState({
-        ...state,
-        formError: "Please fill",
-      });
-    }
+    // if (have_equity == "1" && down_payment == "") {
+    //   notify("Please fill the required feilds");
+    //   return setState({
+    //     ...state,
+    //     formError: "Please fill",
+    //   });
+    // }
+    // if (payment_option == "Installment Payment" && budget == "") {
+    //   notify("Please fill the required feilds");
+    //   return setState({
+    //     ...state,
+    //     formError: "Please fill",
+    //   });
+    // }
     SumitForm();
   };
   const SumitForm = () => {
@@ -181,7 +181,7 @@ const Profile_3 = (props) => {
       })
       .then((res) => {
         window.scrollTo(-0, -0);
-        notify("Successfully, Loanable amount updated");
+        notify("Successful Loanable Amount Updated ");
         console.log(res);
         setState({
           ...state,
