@@ -39,7 +39,7 @@ const Profile_2 = (props) => {
     isloading: false,
     isDeleting: false,
     year_to_retirement: "",
-    Error:"",
+    Error: "",
     employment_present_position: "",
     policeRank: [],
     employment_state: "",
@@ -107,7 +107,7 @@ const Profile_2 = (props) => {
     return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   const validateForm = () => {
-    if (bvn.length < 11 ||  bvn.length > 11) {
+    if (bvn?.length !== 11) {
       return setState({
         ...state,
         Error: "Invalid BVN",
@@ -118,11 +118,11 @@ const Profile_2 = (props) => {
       !year_to_retirement ||
       !bvn ||
       // employer_address == "" ||
-      !employment_id||
+      !employment_id ||
       !employment_present_position ||
       !employment_state ||
       !nhf_registration_number ||
-      !work_experience 
+      !work_experience
     ) {
       notify("Please fill the required feilds");
       return setState({
@@ -203,7 +203,7 @@ const Profile_2 = (props) => {
       });
     }
   };
-  
+
   const checkIfIsOdd = (n) => {
     return Math.abs(n % 2) == 1;
   };
@@ -298,9 +298,7 @@ const Profile_2 = (props) => {
                         required
                         value={FormatAmount(employment_id)}
                         className={
-                          formError && !employment_id
-                            ? "fmc formerror"
-                            : "fmc"
+                          formError && !employment_id ? "fmc formerror" : "fmc"
                         }
                         name="employment_id"
                         placeholder=""
@@ -339,7 +337,7 @@ const Profile_2 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && !employment_present_position 
+                          formError && !employment_present_position
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
@@ -463,7 +461,9 @@ const Profile_2 = (props) => {
                         className={
                           formError && !nhf_registration_number
                             ? "userprofile formerror1"
-                            : (formError && !nhf_registration_number ?"userprofile formerror1":"userprofile")
+                            : formError && !nhf_registration_number
+                            ? "userprofile formerror1"
+                            : "userprofile"
                         }
                       >
                         NHF Number
@@ -494,10 +494,10 @@ const Profile_2 = (props) => {
                       >
                         BVN
                       </span>
-                      {(bvn.length < 11 || bvn.length > 11)  &&(
+                      {bvn?.length !== 11 && (
                         <span
                           className={
-                            (bvn.length < 11  || bvn.length > 11)
+                            bvn?.length !== 11
                               ? "userprofile formerror13"
                               : "userprofile"
                           }
@@ -510,9 +510,7 @@ const Profile_2 = (props) => {
                         onChange={onInputChange}
                         required
                         value={bvn}
-                        className={
-                          formError && !bvn ? "fmc formerror" : "fmc"
-                        }
+                        className={formError && !bvn ? "fmc formerror" : "fmc"}
                         name="bvn"
                         placeholder=""
                       />
