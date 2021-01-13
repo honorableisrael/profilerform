@@ -9,6 +9,7 @@ import male from "../../assets/superhero.png";
 import grid from "../../assets/grid.png";
 import gridwhite from "../../assets/whitegrid.png";
 import { Link } from "react-router-dom";
+import { logOut } from "./controller";
 
 const Navbar = () => {
   const [state, setState] = useState({
@@ -27,7 +28,6 @@ const Navbar = () => {
       showNav: action,
     });
   };
-
   return (
     <div>
       <img src={bars} onClick={openNav} className="barsimg" />
@@ -81,6 +81,10 @@ const Navbar = () => {
             <div className="sidnavoptionsna ">
               <img src={gridwhite} className="sidenvimg" />
               Apply for Mortgage
+            </div>
+            <div className="sidnavoptionsna " onClick={logOut}>
+              <img src={gridwhite} className="sidenvimg" />
+              log out
             </div>
           </div>
         </Col>

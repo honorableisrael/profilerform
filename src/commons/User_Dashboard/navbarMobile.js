@@ -7,6 +7,7 @@ import { ReactComponent as Profile } from "../../assets/Profile.svg";
 import { ReactComponent as Wallet } from "../../assets/Wallet.svg";
 import { ReactComponent as Home } from "../../assets/Home.svg";
 import { Link } from "react-router-dom";
+import { logOut } from "./controller";
 
 const NavbarMobile = (props) => {
   const [state, setState] = useState({
@@ -66,6 +67,17 @@ const NavbarMobile = (props) => {
             >
               <Home className="sidenvimg" fill="#039c71" stroke="#039c71" />
               <Link to="/user-request-form">Property Request</Link>
+            </div>
+            <div
+              className={
+                props.affordability == true
+                  ? "sidnavoptions"
+                  : "sidnavoptionsna"
+              }
+              onClick={logOut}
+            >
+              <Wallet className="sidenvimg" fill="#039c71" stroke="#039c71" />
+              Log out
             </div>
           </div>
         </Col>
