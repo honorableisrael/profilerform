@@ -46,6 +46,7 @@ const Profile_3 = (props) => {
     budget: "",
     payment_option: "",
     down_payment: "",
+    have_loans: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -126,12 +127,18 @@ const Profile_3 = (props) => {
   };
 
   const validateForm = () => {
+    if(have_loans=="Yes" && !loan_repayments ){
+      notify("Please fill the required feilds");
+      return setState({
+        ...state,
+        formError: "Please fill",
+      });
+    }
     if (
       !total_annual_pay ||
       !monthly_gross_pay ||
       // have_equity == "" ||
       !monthly_expenses ||
-      !loan_repayments ||
       // !monthly_repayment ||
       !payment_option
     ) {
@@ -224,7 +231,7 @@ const Profile_3 = (props) => {
     total_annual_pay,
     monthly_expenses,
     budget,
-    monthly_repayment,
+    have_loans,
     monthly_gross_pay,
     isLoading,
     deleteModal,
@@ -262,7 +269,7 @@ const Profile_3 = (props) => {
             </Col>
             <Col md={12} className="formwrapper1">
               <Form>
-                <Row>
+                <Row className="hht4 have_d">
                   <Col md={6} className="eachfield">
                     <Form.Group>
                       <span
@@ -321,7 +328,7 @@ const Profile_3 = (props) => {
                     </Form.Group>
                   </Col>
                 </Row>
-                <Row className="poll878">
+                <Row className="poll878 hht4">
                   <Col md={6} className="eachfield">
                     <Form.Group>
                       <span
@@ -382,7 +389,7 @@ const Profile_3 = (props) => {
                     )}
                   </Col>
                 </Row>
-                <Row className="poll878">
+                <Row className="poll878 hh44">
                   <Col md={6} className="eachfield">
                     <Form.Group>
                       <span
@@ -416,31 +423,64 @@ const Profile_3 = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && !loan_repayments
+                          formError && !have_loans
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Existing loan Repayments
+                        Do you have existing loans?
                       </span>
                       <Form.Control
-                        type="text"
-                        onChange={onInputChange}
-                        required
-                        value={FormatAmount(loan_repayments)}
+                        as="select"
                         className={
-                          formError && !loan_repayments
+                          formError && !have_loans && !have_loans
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="loan_repayments"
-                        placeholder=""
-                      />
-                      <div className="spna12">
-                        <span className="spna122">Monthly</span>
-                      </div>
+                        name="have_loans"
+                        onChange={onchange}
+                      >
+                        <option>
+                          {have_loans}
+                        </option>
+                        <option value={"Yes"}>Yes</option>
+                        <option value={"No"}>No</option>
+                      </Form.Control>
                     </Form.Group>
                   </Col>
+                </Row>
+                <Row>
+                  {have_loans =="Yes" && (
+                    <Col md={12}>
+                      <Form.Group>
+                        <span
+                          className={
+                            formError && !loan_repayments
+                              ? "userprofile formerror1"
+                              : "userprofile"
+                          }
+                        >
+                          Existing loan Repayments
+                        </span>
+                        <Form.Control
+                          type="text"
+                          onChange={onInputChange}
+                          required
+                          value={FormatAmount(loan_repayments)}
+                          className={
+                            formError && !loan_repayments
+                              ? "fmc formerror"
+                              : "fmc"
+                          }
+                          name="loan_repayments"
+                          placeholder=""
+                        />
+                        <div className="spna12">
+                          <span className="spna122">Monthly</span>
+                        </div>
+                      </Form.Group>
+                    </Col>
+                  )}
                 </Row>
                 <Row className="poll878">
                   <Col md={6} className="eachfield">

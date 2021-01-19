@@ -51,6 +51,7 @@ const Profile_1 = (props) => {
     firstname: "",
     lastname: "",
     dob: "",
+    dobError: "",
     address: "",
     email: "",
     phone: "",
@@ -89,7 +90,7 @@ const Profile_1 = (props) => {
           if (res.status === 200) {
             setState({
               ...state,
-              dob:formatDate(res2.data.data.dob),
+              dob: formatDate(res2.data.data.dob),
               ...res2.data.data,
               propertyList: res.data.data,
               user: currentUser.user,
@@ -120,6 +121,26 @@ const Profile_1 = (props) => {
       return setState({
         ...state,
         Error: "Invalid Phone number",
+        formError: "Error",
+      });
+    }
+    //date of birth validation
+    const today = new Date();
+    const thisyear = today.getFullYear();
+    const user_age = thisyear - parseInt(dob.split("-")[0]);
+    console.log(parseInt(dob.split("-")[0]) - thisyear);
+    if (dob.length !== 10 || parseInt(dob) > thisyear) {
+      return setState({
+        ...state,
+        dobError: "Invalid date of birth",
+        formError: "Error",
+      });
+    }
+    if (user_age < 21) {
+      console.log(user_age);
+      return setState({
+        ...state,
+        dobError: "User must be older than 21",
         formError: "Error",
       });
     }
@@ -200,7 +221,7 @@ const Profile_1 = (props) => {
         console.log(err);
       });
   };
- 
+
   const checkIfIsOdd = (n) => {
     return Math.abs(n % 2) == 1;
   };
@@ -221,17 +242,19 @@ const Profile_1 = (props) => {
     setState({
       ...state,
       [e.target.name]: e.target.value,
+      dobError: "",
     });
   };
   const handleChange = (e) => {
     setState({
       ...state,
       [e.target.name]: e.target.value,
+      dobError: "",
     });
   };
   const {
     isLoading,
-    totalDoc,
+    dobError,
     address,
     email,
     phone,
@@ -386,7 +409,7 @@ const Profile_1 = (props) => {
                       >
                         Phone Number
                       </span>
-                      {(phone.length < 11 ||  phone.length > 11) &&(
+                      {(phone.length < 11 || phone.length > 11) && (
                         <span
                           className={
                             phone.length < 11 || phone.length > 11
@@ -423,6 +446,18 @@ const Profile_1 = (props) => {
                       >
                         Date of Birth
                       </span>
+                      {dob.length !== 10 ||
+                        (dobError && "userprofile formerror1" && (
+                          <span
+                            className={
+                              dob.length !== 10
+                                ? "userprofile formerror13"
+                                : "userprofile"
+                            }
+                          >
+                            {dobError}
+                          </span>
+                        ))}
                       <Form.Control
                         type="date"
                         onChange={onchange}

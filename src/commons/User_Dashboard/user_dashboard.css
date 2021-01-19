@@ -595,10 +595,22 @@
 .equityamtdivs {
   display: flex;
   justify-content: space-between;
-  background-color: #fff;
   padding: 0px 25px 0px 17px;
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
+}
+.equityamtdivs2{
+  background-color: #fff;
+}
+.ddod{
+  display: flex;
+  justify-content: center;
+  border-top: 0.1px solid #bbbbbb65;
+}
+.ddod a span{
+  margin: auto;
+  margin-top: .7rem;
+  margin-bottom: .7rem;
 }
 .eqrghtdv {
   border-left: 0.1px solid #bbbbbb65;
@@ -619,7 +631,6 @@
   display: inline-block;
   /* background-image: url(../../assets/house.png); */
   height: 25%;
-  background-image: url(../../assets/house.png);
   border-top-right-radius: 8px;
   width: 100%;
   background-repeat: no-repeat;
@@ -819,7 +830,7 @@
 .housess {
   width: 538px;
   position: relative;
-  left: -1.2rem;
+  left: 0rem;
   max-width: 538px;
   height: 170px;
   max-height: 170px;
@@ -1747,4 +1758,21 @@ a:hover {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+}
+@media(min-width:1300px){
+  .housess{
+      max-width: 120%;
+      width: 100% !important;
+  }
+  .uyud1{
+    max-width: 590px;
+  }
+}
+.uyud1 .react-multiple-carousel__arrow--right, .react-multiple-carousel__arrow--left{
+  top: initial;
+  right: initial;
+  left: initial;
+}
+.uyud1,ul .react-multi-carousel-item {
+  padding-left: 0px !important;
 }

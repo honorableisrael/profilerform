@@ -294,9 +294,9 @@ const Profile_2 = (props) => {
                       </span>
                       <Form.Control
                         type="text"
-                        onChange={onInputChange}
+                        onChange={onchange}
                         required
-                        value={FormatAmount(employment_id)}
+                        value={employment_id}
                         className={
                           formError && !employment_id ? "fmc formerror" : "fmc"
                         }

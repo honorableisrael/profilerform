@@ -5,7 +5,6 @@ import "./user_dashboard.css";
 
 import eye from "../../assets/show.png";
 
-
 import close from "../../assets/close.png";
 import "./animate.css";
 import loader from "../../assets/loader.png";
@@ -34,6 +33,7 @@ import Modal from "react-bootstrap/Modal";
 import UserdashboardSideBar from "./Sidebar";
 import NavComponent from "./NavComponent";
 import SecondNavComponent from "./SecondNavComponent";
+import { Link } from "react-router-dom";
 
 const Userdashboard = (props) => {
   const [state, setState] = React.useState({
@@ -222,9 +222,9 @@ const Userdashboard = (props) => {
     <div>
       <Container fluid>
         <Row className="sdnnavrow">
-          <UserdashboardSideBar/>
+          <UserdashboardSideBar />
           <Col md={9} className="udshboard">
-            <NavComponent/>
+            <NavComponent />
             <div className="userdahbdname">
               Good Morning{" "}
               <span>
@@ -528,22 +528,29 @@ const Userdashboard = (props) => {
               <Col md={5}>
                 <div className="equitywrapper ">
                   <div>
-                    <p className="udashboadprimheader"> Equity Savings</p>
-                    <p className="equitytext">Total Equity Needed</p>
+                    <p className="udashboadprimheader"> Affordability Status</p>
+                    <p className="equitytext">Total Loanable Amount</p>
                     <p className="equityamt">₦70,000,000.00</p>
                   </div>
                   <div>
                     <img src={equity} className="equityimg" />
                   </div>
                 </div>
-                <div className="equityamtdivs">
-                  <div className="eqleftdv">
-                    <p className="equitytext">Total Saved</p>
-                    <p className="equityamt">₦30,000,000.00</p>
+                <div className="equityamtdivs2">
+                  <div className="equityamtdivs">
+                    <div className="eqleftdv">
+                      <p className="equitytext">Monthly Repayment</p>
+                      <p className="equityamt">₦40,000,000.00</p>
+                    </div>
+                    <div className="eqrghtdv">
+                      <p className="equitytext">Monthly Income</p>
+                      <p className="equityamt">₦30,000,000.00</p>
+                    </div>
                   </div>
-                  <div className="eqrghtdv">
-                    <p className="equitytext">Current Balance</p>
-                    <p className="equityamt">₦40,000,000.00</p>
+                  <div className="ddod">
+                    <Link to="/mortgage-request">
+                      <span className="mortgage-btn">Apply</span>
+                    </Link>
                   </div>
                 </div>
                 <CreditReport />

@@ -40,7 +40,7 @@ const Navbar = () => {
       >
         <Col md={3} className="mobdashbdsidenav">
           <h2 className="dshbdlogo">LOGO</h2>
-          <Accordion defaultActiveKey="" className="sidenavacc">
+          {/* <Accordion defaultActiveKey="" className="sidenavacc">
             <Accordion.Toggle
               as={Card.Header}
               className="sidenavaccheader sidenavaccheader12"
@@ -63,7 +63,7 @@ const Navbar = () => {
           </Accordion>
           <div className="sdenavline">
             <img src={line} className="img-fluid" />{" "}
-          </div>
+          </div> */}
           <div className="mrginbttm">
             <div className="sidnavoptions">
               <img src={grid} className="sidenvimg" />

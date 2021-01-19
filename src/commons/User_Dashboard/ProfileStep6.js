@@ -202,7 +202,27 @@ const Profile_6 = (props) => {
         console.log(err.response);
       });
   };
-
+  const onInputChange = (e) => {
+    const letterNumber = /^[A-Za-z]+$/;
+    if (e.target.value) {
+      return setState({
+        ...state,
+        [e.target.name]: e.target.value.replace(/[^0-9]+/g, ""), //only accept numbers
+      });
+    }
+    if (e.target.value < 0) {
+      return setState({
+        ...state,
+        [e.target.name]: 0,
+      });
+    }
+    if (e.target.value === "") {
+      return setState({
+        ...state,
+        [e.target.name]: 0,
+      });
+    }
+  };
   const checkIfIsOdd = (n) => {
     return Math.abs(n % 2) == 1;
   };
@@ -360,10 +380,10 @@ const Profile_6 = (props) => {
                         Home Value
                       </span>
                       <Form.Control
-                        type="number"
-                        onChange={onchange}
+                        type="text"
+                        onChange={onInputChange}
                         required
-                        value={Home_value}
+                        value={FormatAmount(Home_value)}
                         className={
                           formError && !Home_value
                             ? "fmc formerror"

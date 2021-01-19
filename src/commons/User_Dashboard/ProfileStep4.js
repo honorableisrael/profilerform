@@ -309,7 +309,7 @@ const Profile_4 = (props) => {
                 </Row>
                 <Row className="poll878 polz2">
                   <Col md={6}>
-                    <Link to="/user-property-request">
+                    <Link to="/user-affordability-test">
                       <Button className="continue1 polld">Previous</Button>
                     </Link>
                   </Col>

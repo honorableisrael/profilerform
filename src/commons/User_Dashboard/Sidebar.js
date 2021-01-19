@@ -29,7 +29,7 @@ const UserdashboardSideBar = (props) => {
     <>
       <Col md={3} className="dashbdsidenav">
         <h2 className="dshbdlogo">LOGO</h2>
-        <Accordion defaultActiveKey="" className="sidenavacc">
+        {/* <Accordion defaultActiveKey="" className="sidenavacc">
           <Accordion.Toggle
             as={Card.Header}
             className="sidenavaccheader sidenavaccheader12"
@@ -49,10 +49,10 @@ const UserdashboardSideBar = (props) => {
               <Card.Body className="sidenavaccbody">Equity Savings</Card.Body>
             </>
           </Accordion.Collapse>
-        </Accordion>
-        <div className="sdenavline">
+        </Accordion> */}
+        {/* <div className="sdenavline">
           <img src={line} className="img-fluid" />{" "}
-        </div>
+        </div> */}
         <div className="mrginbttm">
           <div className="sidnavoptions">
             <img src={grid} className="sidenvimg" />
