@@ -275,7 +275,7 @@ const EquityFinance = (props) => {
                 <Spinner animation="grow" variant="info" />
               </div>
             )}
-            <div className="proffl">Equity Finance</div>
+            <div className="proffl">Equity Savings</div>
             <Col md={12} className="">
               <div className="selg"></div>
               <div className="cominga">

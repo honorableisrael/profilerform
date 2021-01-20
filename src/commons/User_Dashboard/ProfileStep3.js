@@ -125,15 +125,26 @@ const Profile_3 = (props) => {
       });
     }
   };
-
+  const sendWarning = () => {
+    notify("Please fill the required feilds");
+    return setState({
+      ...state,
+      formError: "Please fill",
+    });
+  };
   const validateForm = () => {
-    if(have_loans=="Yes" && !loan_repayments ){
-      notify("Please fill the required feilds");
-      return setState({
-        ...state,
-        formError: "Please fill",
-      });
+    if (have_loans == "Yes" && !loan_repayments) {
+      sendWarning();
+      return
     }
+    if (!have_equity) {
+      sendWarning();
+      return
+    }
+    // if (have_equity == 1  &&  !down_payment) {
+    //   sendWarning();
+    //   return
+    // }
     if (
       !total_annual_pay ||
       !monthly_gross_pay ||
@@ -142,11 +153,8 @@ const Profile_3 = (props) => {
       // !monthly_repayment ||
       !payment_option
     ) {
-      notify("Please fill the required feilds");
-      return setState({
-        ...state,
-        formError: "Please fill",
-      });
+      sendWarning();
+      return
     }
     // if (have_equity == "1" && down_payment == "") {
     //   notify("Please fill the required feilds");
@@ -343,7 +351,7 @@ const Profile_3 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && !have_equity && !have_equity
+                          formError && !have_equity
                             ? "fmc formerror"
                             : "fmc"
                         }
@@ -357,6 +365,7 @@ const Profile_3 = (props) => {
                             ? "No"
                             : ""}
                         </option>
+                        <option value={""}></option>
                         <option value={1}>Yes</option>
                         <option value={0}>No</option>
                       </Form.Control>
@@ -440,9 +449,7 @@ const Profile_3 = (props) => {
                         name="have_loans"
                         onChange={onchange}
                       >
-                        <option>
-                          {have_loans}
-                        </option>
+                        <option>{have_loans}</option>
                         <option value={"Yes"}>Yes</option>
                         <option value={"No"}>No</option>
                       </Form.Control>
@@ -450,7 +457,7 @@ const Profile_3 = (props) => {
                   </Col>
                 </Row>
                 <Row>
-                  {have_loans =="Yes" && (
+                  {have_loans == "Yes" && (
                     <Col md={12}>
                       <Form.Group>
                         <span

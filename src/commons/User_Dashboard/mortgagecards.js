@@ -7,7 +7,7 @@ const CreditReport = () => {
     <>
       <Col md={4} className="mnww">
         <Card className="mortgage-section">
-          <Card.Header className="mortgage-header">Equity Savings</Card.Header>
+          <Card.Header className="mortgage-header">Equity Finance</Card.Header>
           <Card.Body className="mortgage-body">
             <p>Sed lorem turpis tellus, nisl, vel</p>
             <p>quis rhoncus purus quis.</p>

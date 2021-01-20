@@ -67,7 +67,9 @@ const UserdashboardSideBar = (props) => {
           </div>
           <div className="sidnavoptionsna ">
             <img src={gridwhite} className="sidenvimg" />
+            <Link to="/equity-finance"> 
             Equity Savings
+            </Link>
           </div>
           <div className="sidnavoptionsna ">
             <img src={gridwhite} className="sidenvimg" />
