@@ -107,21 +107,21 @@ const Profile_2 = (props) => {
     return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   const validateForm = () => {
-    if (bvn?.length !== 11) {
-      return setState({
-        ...state,
-        Error: "Invalid BVN",
-        formError: "Error",
-      });
-    }
+    // if (bvn?.length !== 11) {
+    //   return setState({
+    //     ...state,
+    //     Error: "Invalid BVN",
+    //     formError: "Error",
+    //   });
+    // }
     if (
       !year_to_retirement ||
-      !bvn ||
+      // !bvn ||
       // employer_address == "" ||
       !employment_id ||
       !employment_present_position ||
       !employment_state ||
-      !nhf_registration_number ||
+      // !nhf_registration_number ||
       !work_experience
     ) {
       notify("Please fill the required feilds");
@@ -498,7 +498,7 @@ const Profile_2 = (props) => {
                         <span
                           className={
                             bvn?.length !== 11
-                              ? "userprofile formerror13"
+                              ? "userprofile "
                               : "userprofile"
                           }
                         >
@@ -510,7 +510,8 @@ const Profile_2 = (props) => {
                         onChange={onInputChange}
                         required
                         value={bvn}
-                        className={formError && !bvn ? "fmc formerror" : "fmc"}
+                        className={"fmc"}
+                        // className={formError && !bvn ? "fmc formerror" : "fmc"}
                         name="bvn"
                         placeholder=""
                       />

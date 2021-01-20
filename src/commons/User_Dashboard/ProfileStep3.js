@@ -503,7 +503,7 @@ const Profile_3 = (props) => {
                         onChange={handleChange}
                       >
                         <option>{payment_option}</option>
-                        <option value={"nhf"} className="otherss">
+                        <option value={"NHF"} className="otherss">
                           NHF
                         </option>
                         <option value={"Mortgage"} className="otherss">

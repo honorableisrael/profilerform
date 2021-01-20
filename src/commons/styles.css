@@ -1,7 +1,9 @@
 .react-multiple-carousel__arrow--left, .react-multiple-carousel__arrow--right{
     position: none;
 }
-
+.react-multiple-carousel__arrow--left, .react-multiple-carousel__arrow--right {
+    position: absolute;
+}
 .hh44{
     bottom: 0px;
     margin-bottom: 0px;

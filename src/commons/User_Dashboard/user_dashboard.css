@@ -135,6 +135,7 @@
   background-color: #f9f9f9;
   padding-right: 2.5rem;
   padding-left: 2.5rem;
+  min-height: 90vh;
 }
 .udashsearchdiv {
   padding-top: 25px;
@@ -1775,4 +1776,19 @@ a:hover {
 }
 .uyud1,ul .react-multi-carousel-item {
   padding-left: 0px !important;
+}
+.cominga{
+  width: 254px;
+}
+.cominga{
+  text-align: center;
+  margin: auto;
+}
+.comingsoon2{
+  width: 90%;
+}
+.ssoon{
+  font-size: 20px;
+  padding-top: 2rem;
+  animation-iteration-count: infinite;
 }

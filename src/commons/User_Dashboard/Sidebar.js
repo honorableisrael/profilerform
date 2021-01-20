@@ -1,13 +1,14 @@
 import React from "react";
 import { Container, Row, Col, Dropdown, Card } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
-import plus from "../../assets/plus.png";
+import { ReactComponent as Dashboard } from "../../assets/dashboard.svg";
 import line from "../../assets/sidnavline.png";
 import grid from "../../assets/grid.png";
 import gridwhite from "../../assets/whitegrid.png";
 import male from "../../assets/superhero.png";
 import statusline from "../../assets/statusline.png";
 import { Link } from "react-router-dom";
+
 
 const UserdashboardSideBar = (props) => {
   const [state, setState] = React.useState({
@@ -54,9 +55,11 @@ const UserdashboardSideBar = (props) => {
           <img src={line} className="img-fluid" />{" "}
         </div> */}
         <div className="mrginbttm">
-          <div className="sidnavoptions">
-            <img src={grid} className="sidenvimg" />
-            Dashboard
+          <div className={
+              props.dashboard == true ? "sidnavoptions" : "sidnavoptionsna"
+            }>
+            <Dashboard className="sidenvimg" fill="white" stroke="white"/>
+            <Link to="/userdashboard">Dashboard</Link>
           </div>
           <div className="sidnavoptionsna">
             <img src={gridwhite} className="sidenvimg" />
@@ -69,6 +72,10 @@ const UserdashboardSideBar = (props) => {
           <div className="sidnavoptionsna ">
             <img src={gridwhite} className="sidenvimg" />
             <Link to="/mortage-request"> Apply for Mortgage </Link>
+          </div>
+          <div className="sidnavoptionsna ">
+            <img src={gridwhite} className="sidenvimg" />
+            <Link to="/personal-loans"> Personal Loans </Link>
           </div>
         </div>
         {!props.hideads && (

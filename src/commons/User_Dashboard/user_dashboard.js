@@ -222,7 +222,7 @@ const Userdashboard = (props) => {
     <div>
       <Container fluid>
         <Row className="sdnnavrow">
-          <UserdashboardSideBar />
+          <UserdashboardSideBar dashboard={true}/>
           <Col md={9} className="udshboard">
             <NavComponent />
             <div className="userdahbdname">
@@ -482,7 +482,7 @@ const Userdashboard = (props) => {
                     </div>
                   </div>
                   <div className="propprice">
-                    <div className="prpnme">Date of Purchase</div>
+                    <div className="prpnme">Application date</div>
                     <div className="prpnme3">30th October 2020</div>
                   </div>
                 </div>

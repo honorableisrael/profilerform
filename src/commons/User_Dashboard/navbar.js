@@ -82,6 +82,14 @@ const Navbar = () => {
               <img src={gridwhite} className="sidenvimg" />
               Apply for Mortgage
             </div>
+            <div className="sidnavoptionsna ">
+              <img src={gridwhite} className="sidenvimg" />
+              <Link to="/equity-finance"> Equity Finance </Link>
+            </div>
+            <div className="sidnavoptionsna ">
+              <img src={gridwhite} className="sidenvimg" />
+              <Link to="/personal-loans"> Personal Loans </Link>
+            </div>
             <div className="sidnavoptionsna " onClick={logOut}>
               <img src={gridwhite} className="sidenvimg" />
               log out

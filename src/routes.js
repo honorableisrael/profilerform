@@ -39,6 +39,8 @@ import NewSIGNIN from "./commons/AuthHandlers/NewSIGNIN";
 import PasswordRecovery from "./commons/AuthHandlers/ForgotPassword";
 import Profile_6_disabled_pop from "./commons/User_Dashboard/ProfileStep6disabledform";
 import AccountVerification from "./commons/AuthHandlers/AccountVerification";
+import EquityFinance from "./commons/User_Dashboard/EquityFinance";
+import PersonalLoans from "./commons/User_Dashboard/PersonalLoans";
 
 //check for token
 if (localStorage.token && localStorage.user) {
@@ -70,18 +72,9 @@ class Routes extends Component {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route exact path="/" component={NewHomepage} />
+            {/* <Route exact path="/" /> */}
 
             {/* AUTH Routes */}
-            <Route exact path={LOGIN_PAGE_URL} component={LoginPage} />
-
-            <Route exact path={REGISTER_URL} component={RegisterPage} />
-            <Route exact path="/get-started" component={GetStartedPage} />
-            <Route
-              exact
-              path="/mortgage-application"
-              component={NewMortgageForm}
-            />
             <Route exact path="/userdashboard" component={Userdashboard} />
             <Route exact path="/signup" component={NewSignUp} />
             <Route exact path="/signin" component={NewSIGNIN} />
@@ -96,48 +89,20 @@ class Routes extends Component {
             <Route exact path="/mortage-request-step-2" component={MortgageApplication_SecondStep} />
             <Route exact path="/user-request-form-view" component={Profile_6_disabled_pop} />   
             <Route exact path="/account-verification" component={AccountVerification} />   
-                   
+            <Route exact path="/equity-finance" component={EquityFinance} />   
+            <Route exact path="/personal-loans" component={PersonalLoans} />   
             {/* <Route
               exact
               path='/auth/resetPassword'
               component={ResetPassword}
             /> */}
-
-            {/* <Route
-              exact
-              path='/application'
-              component={NewApplicationPage}
-            />
-            
-            <Route
-              exact
-              path='/application/nhf'
-              component={NewApplicationPage}
-            /> */}
-
-            {/* <Route
-              exact
-              path='/application'
-              component={NewApplicationPage}
-            />  */}
-            <Switch>
+            {/* <Switch>
               <PrivateRoute
                 exact
                 path="/application"
                 component={NewApplicationPage}
               />
-            </Switch>
-
-            {/* <Route
-              exact
-              path='/application/profile'
-              component={ProfilePage}
-            /> */}
-            {/* <Route
-              exact
-              path='/application/affordability'
-              component={NewAffordabilityForm}
-            />             */}
+            </Switch> */}
             <Route component={Error404Page} />
           </Switch>
         </div>
