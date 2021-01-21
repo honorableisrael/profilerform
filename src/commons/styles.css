@@ -1,17 +1,28 @@
-.react-multiple-carousel__arrow--left, .react-multiple-carousel__arrow--right{
-    position: none;
+.react-multiple-carousel__arrow--left,
+.react-multiple-carousel__arrow--right {
+  position: none;
 }
-.react-multiple-carousel__arrow--left, .react-multiple-carousel__arrow--right {
-    position: absolute;
+.react-multiple-carousel__arrow--left,
+.react-multiple-carousel__arrow--right {
+  position: absolute;
 }
-.hh44{
-    bottom: 0px;
-    margin-bottom: 0px;
+.hh44 {
+  bottom: 0px;
+  margin-bottom: 0px;
 }
-.hht4{
-    bottom: 0px;
+.hht4 {
+  bottom: 0px;
 }
-.have_d{
-    position: relative;
-    top: .8rem;
+.have_d {
+  position: relative;
+  top: 0.8rem;
+}
+.dsx22 {
+  boxbox-shadow: 3px 3px 5px 6px #ccc;
+}
+.nomargnda {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 40% !important;
+    min-width: 150px;
 }

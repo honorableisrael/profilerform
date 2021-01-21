@@ -41,6 +41,7 @@ import Profile_6_disabled_pop from "./commons/User_Dashboard/ProfileStep6disable
 import AccountVerification from "./commons/AuthHandlers/AccountVerification";
 import EquityFinance from "./commons/User_Dashboard/EquityFinance";
 import PersonalLoans from "./commons/User_Dashboard/PersonalLoans";
+import AccountSettings from "./commons/User_Dashboard/AccountSettings";
 
 //check for token
 if (localStorage.token && localStorage.user) {
@@ -118,6 +119,8 @@ class Routes extends Component {
             />
             <Route exact path="/equity-finance" component={EquityFinance} />
             <Route exact path="/personal-loans" component={PersonalLoans} />
+            <Route exact path="/account-settings" component={AccountSettings} />
+            
             <Route
               exact
               path="/auth/login"
