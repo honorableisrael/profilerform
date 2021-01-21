@@ -35,16 +35,16 @@ const NavComponent = (props) => {
               <img src={userimg} className="uimg" />
               <Dropdown.Toggle id="dropdown-basic" className="usernavdrpdwn" />
               <Dropdown.Menu className="animated fadeIn">
-                <Dropdown.Item
-                  href="#/action-1"
-                  className="animated fadeInLeft"
-                >
+                <Dropdown.Item className="animated fadeInLeft">
                   <img src={settings} className="exit" />{" "}
                   <Link to="/user-profile">Profile</Link>
                 </Dropdown.Item>
+                <Dropdown.Item className="animated fadeInLeft">
+                  <img src={settings} className="exit" />{" "}
+                  <Link to="/account-settings">Account Settings</Link>
+                </Dropdown.Item>
                 {/* <Dropdown.Item href="#/action-1"><Link to="/user-profile">Settings</Link></Dropdown.Item> */}
                 <Dropdown.Item
-                  href="#/action-2"
                   className="animated fadeInLeft"
                   onClick={logOut}
                 >

@@ -17,7 +17,7 @@ const SecondNavComponent = (props) => {
   return (
     <>
       <Row className="udashsearchdiv">
-        <Col md={8} sm={12} xs={12} className="nolefft">
+        <Col md={8} sm={12} xs={12}>
           {!props.hideSearch && (
             <form className="dxxa">
               <span className="sassa">
@@ -39,15 +39,26 @@ const SecondNavComponent = (props) => {
               <img src={userimg} className="uimg" />
               <Dropdown.Toggle id="dropdown-basic" className="usernavdrpdwn" />
               <Dropdown.Menu className="animated fadeIn">
-                <Dropdown.Item href="#/action-1" className="animated fadeInDown">
+                <Dropdown.Item
+                  href="#/action-1"
+                  className="animated fadeInDown"
+                >
                   <Link to="/user-profile">
                     {" "}
                     <img src={settings} className="exit" />
                     Profile
                   </Link>
                 </Dropdown.Item>
+                <Dropdown.Item className="animated fadeInLeft">
+                  <img src={settings} className="exit" />{" "}
+                  <Link to="/account-settings">Account Settings</Link>
+                </Dropdown.Item>
                 {/* <Dropdown.Item href="#/action-1">Settings</Dropdown.Item> */}
-                <Dropdown.Item href="#/action-2" className="animated fadeInDown" onClick={logOut}>
+                <Dropdown.Item
+                  href="#/action-2"
+                  className="animated fadeInDown"
+                  onClick={logOut}
+                >
                   <img src={exit} className="exit" /> Log out
                 </Dropdown.Item>
               </Dropdown.Menu>
