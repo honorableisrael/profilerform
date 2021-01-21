@@ -1,3 +1,8 @@
+$myteal: #039c71;
+
+.sidenvimg path{
+  fill: white;
+}
 * {
   margin: 0;
   padding: 0;
@@ -15,7 +20,7 @@
   margin-bottom: 0px;
 }
 .dashbdsidenav {
-  background-color: #5fb49c;
+  background-color: $myteal;
   /* min-width: 27%; */
   padding-right: 25px;
   padding-left: 22px;
@@ -23,7 +28,7 @@
   min-height: 100vh;
 }
 .mobdashbdsidenav {
-  background-color: #5fb49c;
+  background-color: $myteal;
   min-width: 100%;
   padding-right: 25px;
   padding-left: 22px;
@@ -31,7 +36,7 @@
 }
 .strtbtn {
   background-color: #e9f2e9;
-  color: #5fb49c;
+  color: $myteal;
   font-weight: 700;
   font-size: 17px;
   text-align: center;
@@ -47,7 +52,7 @@
 }
 .sidnavoptions {
   background-color: #fff;
-  color: #5fb49c;
+  color: $myteal;
   font-weight: 700;
   font-size: 16px;
   padding: 20px 20px 20px 57px;
@@ -65,7 +70,7 @@
   transition: all 0.1s;
 }
 .sidnavoptionsna:hover {
-  color: #5fb49c !important;
+  color: $myteal !important;
   background-color: #fff;
   cursor: pointer;
 }
@@ -86,7 +91,7 @@
 
 .sidenavaccheader:hover {
   background-color: #fff;
-  color: #5fb49c;
+  color: $myteal;
 }
 .mrginbttm {
   margin-bottom: 244px;
@@ -101,7 +106,7 @@
   padding: 20px;
 }
 .savingsheader {
-  color: #5fb49c;
+  color: $myteal;
   font-size: 17px;
   font-weight: 700;
 }
@@ -116,8 +121,8 @@
 }
 .sdenavsavingsbtn {
   display: inline-block;
-  border: 1px solid #5fb49c;
-  color: #5fb49c;
+  border: 1px solid $myteal;
+  color: $myteal;
   border-radius: 6px;
   font-size: 14px;
   padding: 8px 22px;
@@ -128,7 +133,7 @@
 }
 .sdenavsavingsbtn:hover {
   color: #fff;
-  background-color: #5fb49c;
+  background-color: $myteal;
   cursor: pointer;
 }
 .udshboard {
@@ -198,8 +203,8 @@
 }
 .mobviewbtn {
   width: 46%;
-  color: #5fb49c;
-  border: 1px solid #5fb49c;
+  color: $myteal;
+  border: 1px solid $myteal;
   border-radius: 6px;
   text-align: center;
   padding: 8px;
@@ -208,7 +213,7 @@
 
 .mobprintbtn {
   width: 50%;
-  background-color: #5fb49c;
+  background-color: $myteal;
   color: #fff;
   border-radius: 6px;
   text-align: center;
@@ -396,7 +401,7 @@
   margin-bottom: 17px;
 }
 .udashboadprimheader {
-  color: #5fb49c;
+  color: $myteal;
   font-weight: 700;
   font-size: 18px;
 }
@@ -458,7 +463,7 @@
 }
 .statsprints-btn {
   color: #fff;
-  background-color: #5fb49c;
+  background-color: $myteal;
   border-radius: 6px;
   padding: 7px 45px;
   font-weight: 700;
@@ -729,7 +734,7 @@
 .creditreport-header {
   background-color: #fff;
   border-bottom: none;
-  color: #5fb49c;
+  color: $myteal;
   font-weight: 700;
   font-size: 20px;
 }
@@ -751,7 +756,7 @@
   background-color: #fff;
   border-bottom: none;
   text-align: center;
-  color: #5fb49c;
+  color: $myteal;
   font-weight: 700;
   font-size: 18px;
 }
@@ -765,8 +770,8 @@
 }
 .mortgage-btn {
   display: inline-block;
-  border: 1px solid #5fb49c;
-  color: #5fb49c;
+  border: 1px solid $myteal;
+  color: $myteal;
   border-radius: 6px;
   font-size: 14px;
   padding: 8px 54px;
@@ -775,7 +780,7 @@
   transition: all 0.4s;
 }
 .mortgage-btn:hover {
-  background-color: #5fb49c;
+  background-color: $myteal;
   color: #fff;
   cursor: pointer;
 }
@@ -801,7 +806,7 @@
 
 .react-multiple-carousel__arrow--right,
 .react-multiple-carousel__arrow--left {
-  background: #5fb49c !important;
+  background: $myteal !important;
   border: none;
   outline: none;
   position: relative;
@@ -915,12 +920,12 @@
   font-weight: 700;
 }
 .tealbg {
-  background: #039c71;
+  background: $myteal;
 }
 .gradwrap {
   background: linear-gradient(
     78.18deg,
-    #5fb49c 0%,
+    $myteal 0%,
     rgba(15, 188, 73, 0.88) 57.23%,
     #2e6af0 119.44%
   );
@@ -1054,11 +1059,11 @@
   width: 98% !important;
   background: linear-gradient(
     78.18deg,
-    #5fb49c 0%,
+    $myteal 0%,
     rgba(15, 188, 73, 0.88) 57.23%,
     #2e6af0 119.44%
   );
-  border: 1px solid #5fb49c;
+  border: 1px solid $myteal;
   border-radius: 8px;
   padding: 1.2rem 1rem;
   border: none;
@@ -1151,18 +1156,18 @@ select .form-control {
   bottom: 1.6rem;
 }
 .polld {
-  border: 1px solid #5fb49c;
+  border: 1px solid $myteal;
   background: none;
-  color: #5fb49c;
+  color: $myteal;
   margin-right: 1rem;
   margin-left: 0rem;
 }
 
 .polld:hover,
 .polld:active {
-  border: 1px solid #5fb49c;
+  border: 1px solid $myteal;
   background: none;
-  color: #5fb49c;
+  color: $myteal;
 }
 .polz2 {
   bottom: 2.5rem;
@@ -1237,13 +1242,13 @@ select .form-control {
 .proptybtn:hover,
 .proptybtn:focus,
 .proptybtn:active {
-  background: #039c71;
+  background: $myteal;
   width: 100% !important;
   font-weight: bold;
   font-size: 14px;
   line-height: 17px;
   color: #ffffff;
-  border: 1px solid #039c71;
+  border: 1px solid $myteal;
   padding: 1rem;
   margin-top: 0.7rem;
 }
@@ -1324,13 +1329,13 @@ select .form-control {
   font-size: 28px;
   line-height: 41px;
   letter-spacing: -0.005em;
-  color: #039c71;
+  color: $myteal;
 }
 .aamt {
   font-weight: 700;
   font-size: 28px;
   letter-spacing: -0.005em;
-  color: #039c71;
+  color: $myteal;
   align-self: center;
   width: 37%;
   text-align: center;
@@ -1373,7 +1378,7 @@ select .form-control {
 
 .newhomes,
 .newhomes a {
-  color: #039c71;
+  color: $myteal;
   font-weight: 500;
   text-decoration: none;
   text-align: right;
@@ -1522,11 +1527,11 @@ select .form-control {
   width: 98% !important;
   background: linear-gradient(
     78.18deg,
-    #5fb49c 0%,
+    $myteal 0%,
     rgba(15, 188, 73, 0.88) 57.23%,
     #2e6af0 119.44%
   );
-  border: 1px solid #5fb49c;
+  border: 1px solid $myteal;
   border-radius: 8px;
   padding: 0.7rem 1rem;
   border: none;
@@ -1539,9 +1544,9 @@ select .form-control {
   margin-bottom: 1rem;
 }
 .nue1b {
-  border: 1px solid #5fb49c;
+  border: 1px solid $myteal;
   background: none;
-  color: #5fb49c;
+  color: $myteal;
   margin-left: 0.1rem;
 }
 
@@ -1589,7 +1594,7 @@ select .form-control {
 .nestt {
   background: linear-gradient(
     78.18deg,
-    #5fb49c 0%,
+    $myteal 0%,
     rgba(15, 188, 73, 0.88) 57.23%,
     #2e6af0 119.44%
   );
@@ -1741,7 +1746,7 @@ a:hover {
 .bg-info {
   background: linear-gradient(
     78.18deg,
-    #5fb49c 0%,
+    $myteal 0%,
     rgba(15, 188, 73, 0.87) 57.23%,
     #2e6af0 119.44%
   ) !important;

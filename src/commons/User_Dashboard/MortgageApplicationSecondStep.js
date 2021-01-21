@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Container, Row, Col, Dropdown, Card } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
-import "./user_dashboard.css";
+import "./user_dashboard.scss";
 import eye from "../../assets/show.png";
 import close from "../../assets/close.png";
 import "./animate.css";
@@ -237,7 +237,7 @@ const MortgageApplication_SecondStep = (props) => {
     <div>
       <Container fluid>
         <Row className="sdnnavrow">
-          <UserdashboardSideBar hideads={true} profile={true} />
+          <UserdashboardSideBar hideads={true} mortgage={true} />
           <Col md={9} className="udshboard">
             <NavComponent hideSearch={true} />
             {isloading && (

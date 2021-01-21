@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Container, Row, Col, Dropdown, Card } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
-import "./user_dashboard.css";
+import "./user_dashboard.scss";
 import eye from "../../assets/show.png";
 import close from "../../assets/close.png";
 import "./animate.css";

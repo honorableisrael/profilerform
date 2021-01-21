@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
 // Auth Routes
 import LoginPage from "./containers/LoginPage";
@@ -78,19 +78,57 @@ class Routes extends Component {
             <Route exact path="/userdashboard" component={Userdashboard} />
             <Route exact path="/signup" component={NewSignUp} />
             <Route exact path="/signin" component={NewSIGNIN} />
-            <Route exact path="/password-recovery" component={PasswordRecovery} />
+            <Route
+              exact
+              path="/password-recovery"
+              component={PasswordRecovery}
+            />
             <Route exact path="/user-profile" component={Profile_1} />
             <Route exact path="/user-employment-info" component={Profile_2} />
-            <Route exact path="/user-affordability-test" component={Profile_3} />
+            <Route
+              exact
+              path="/user-affordability-test"
+              component={Profile_3}
+            />
             <Route exact path="/user-property-request" component={Profile_4} />
             <Route exact path="/user-request-form" component={Profile_6} />
-            <Route exact path="/mortage-request" component={MortgageApplication} />
-            <Route exact path="/mortage-request-step-3" component={Mortgage_Application_Third} />
-            <Route exact path="/mortage-request-step-2" component={MortgageApplication_SecondStep} />
-            <Route exact path="/user-request-form-view" component={Profile_6_disabled_pop} />   
-            <Route exact path="/account-verification" component={AccountVerification} />   
-            <Route exact path="/equity-finance" component={EquityFinance} />   
-            <Route exact path="/personal-loans" component={PersonalLoans} />   
+            <Route
+              exact
+              path="/mortage-request"
+              component={MortgageApplication}
+            />
+            <Route
+              exact
+              path="/mortage-request-step-3"
+              component={Mortgage_Application_Third}
+            />
+            <Route
+              exact
+              path="/mortage-request-step-2"
+              component={MortgageApplication_SecondStep}
+            />
+            <Route
+              exact
+              path="/user-request-form-view"
+              component={Profile_6_disabled_pop}
+            />
+            <Route
+              exact
+              path="/account-verification"
+              component={AccountVerification}
+            />
+            <Route exact path="/equity-finance" component={EquityFinance} />
+            <Route exact path="/personal-loans" component={PersonalLoans} />
+            <Route
+              exact
+              path="/auth/login"
+              component={() => {
+                return(
+                  <Redirect to="/signin" />
+                )
+              }}
+            />
+
             {/* <Route
               exact
               path='/auth/resetPassword'

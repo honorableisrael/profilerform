@@ -9,7 +9,6 @@ import male from "../../assets/superhero.png";
 import statusline from "../../assets/statusline.png";
 import { Link } from "react-router-dom";
 
-
 const UserdashboardSideBar = (props) => {
   const [state, setState] = React.useState({
     email: "",
@@ -25,6 +24,9 @@ const UserdashboardSideBar = (props) => {
       ...state,
       email: currentUser?.user?.email,
     });
+    if(currentUser.is_verified==0){
+      window.location.assign("/account-verification")
+    }
   }, []);
   return (
     <>
@@ -55,28 +57,69 @@ const UserdashboardSideBar = (props) => {
           <img src={line} className="img-fluid" />{" "}
         </div> */}
         <div className="mrginbttm">
-          <div className={
+          <div
+            className={
               props.dashboard == true ? "sidnavoptions" : "sidnavoptionsna"
-            }>
-            <Dashboard className="sidenvimg" fill="white" stroke="white"/>
+            }
+          >
+            <Dashboard
+              className="sidenvimg"
+              fill="white"
+              stroke="#039c71"
+              style={{ fill: "white", strokeWidth: 0.4 }}
+            />
             <Link to="/userdashboard">Dashboard</Link>
           </div>
-          <div className="sidnavoptionsna">
-            <img src={gridwhite} className="sidenvimg" />
+          <div
+            className={
+              props.applications == true ? "sidnavoptions" : "sidnavoptionsna"
+            }
+          >
+            <Dashboard
+              className="sidenvimg"
+              fill="white"
+              stroke="#039c71"
+              style={{ fill: "white", strokeWidth: 0.4 }}
+            />
             Applications
           </div>
-          <div className="sidnavoptionsna ">
-            <img src={gridwhite} className="sidenvimg" />
-            <Link to="/equity-finance"> 
-            Equity Savings
-            </Link>
+          <div
+            className={
+              props.equity == true ? "sidnavoptions" : "sidnavoptionsna"
+            }
+          >
+            <Dashboard
+              className="sidenvimg"
+              fill="white"
+              stroke="#039c71"
+              style={{ fill: "white", strokeWidth: 0.4 }}
+            />
+            <Link to="/equity-finance">Equity Savings</Link>
           </div>
-          <div className="sidnavoptionsna ">
-            <img src={gridwhite} className="sidenvimg" />
+          <div
+            className={
+              props.mortgage == true ? "sidnavoptions" : "sidnavoptionsna"
+            }
+          >
+            <Dashboard
+              className="sidenvimg"
+              fill="white"
+              stroke="#039c71"
+              style={{ fill: "white", strokeWidth: 0.4 }}
+            />
             <Link to="/mortage-request"> Apply for Mortgage </Link>
           </div>
-          <div className="sidnavoptionsna ">
-            <img src={gridwhite} className="sidenvimg" />
+          <div
+            className={
+              props.loans == true ? "sidnavoptions" : "sidnavoptionsna"
+            }
+          >
+            <Dashboard
+              className="sidenvimg"
+              fill="white"
+              stroke="#039c71"
+              style={{ fill: "white", strokeWidth: 0.4 }}
+            />
             <Link to="/personal-loans"> Personal Loans </Link>
           </div>
         </div>

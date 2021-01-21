@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./user_dashboard.css";
+import "./user_dashboard.scss";
 import bars from "../../assets/bars.png";
 import SideNav from "react-simple-sidenav";
 import { Col, Accordion, Card } from "react-bootstrap";
