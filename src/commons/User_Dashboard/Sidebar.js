@@ -24,7 +24,7 @@ const UserdashboardSideBar = (props) => {
       ...state,
       email: currentUser?.user?.email,
     });
-    if(currentUser.is_verified==0){
+    if(currentUser?.is_verified==0){
       window.location.assign("/account-verification")
     }
   }, []);

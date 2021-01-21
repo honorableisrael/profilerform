@@ -19,7 +19,6 @@ const HomeNav = () => {
   useEffect(() => {
     const userData = localStorage.getItem("loggedInDetails");
     const currentUser = userData ? JSON.parse(userData) : null;
-    console.log(currentUser.has_profile);
     if (currentUser) {
       setState({
         ...state,
