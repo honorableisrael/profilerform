@@ -17,7 +17,7 @@ const SecondNavComponent = (props) => {
   return (
     <>
       <Row className="udashsearchdiv">
-        <Col md={8} sm={12} xs={12}>
+        <Col md={8} sm={12} xs={12} className="nolefft">
           {!props.hideSearch && (
             <form className="dxxa">
               <span className="sassa">

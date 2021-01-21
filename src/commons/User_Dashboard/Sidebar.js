@@ -30,7 +30,7 @@ const UserdashboardSideBar = (props) => {
   }, []);
   return (
     <>
-      <Col md={3} className="dashbdsidenav">
+      <Col md={3} className="dashbdsidenav ">
         <h2 className="dshbdlogo">LOGO</h2>
         {/* <Accordion defaultActiveKey="" className="sidenavacc">
           <Accordion.Toggle

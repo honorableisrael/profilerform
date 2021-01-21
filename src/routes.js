@@ -72,7 +72,7 @@ class Routes extends Component {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route exact path="/NewSIGNIN" />
+            <Route exact path="/" component={NewSIGNIN} />
             {/* AUTH Routes */}
             <Route exact path="/userdashboard" component={Userdashboard} />
             <Route exact path="/signup" component={NewSignUp} />

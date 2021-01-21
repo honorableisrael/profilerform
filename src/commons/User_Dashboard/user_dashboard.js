@@ -222,10 +222,10 @@ const Userdashboard = (props) => {
     <div>
       <Container fluid>
         <Row className="sdnnavrow">
-          <UserdashboardSideBar dashboard={true}/>
+          <UserdashboardSideBar dashboard={true} />
           <Col md={9} className="udshboard">
             <NavComponent />
-            <div className="userdahbdname">
+            <div className="userdahbdname nolefft dnolefft">
               Good Morning{" "}
               <span>
                 {user?.firstname} {user.lastname}
@@ -236,37 +236,47 @@ const Userdashboard = (props) => {
                 <Spinner animation="grow" variant="info" />
               </div>
             )}
-            <div className="apstatus-section">
-              <div className="applctnheader">
-                <p className="udashboadprimheader">Application status</p>
-                <div>
-                  <img src={eye} className="udshbdeye" /> View
+            <Row className="neerrr">
+              <Col className="apstatus-sectiondd">
+                <div className="apstatus-section">
+                  <div className="applctnheader">
+                    <p className="udashboadprimheader">Application status</p>
+                    <div>
+                      <img src={eye} className="udshbdeye" /> View
+                    </div>
+                  </div>
+                  <div className="appstatusheadings">
+                    <div>Home Name</div>
+                    <div>Home Value</div>
+                    <div>Status</div>
+                    <div></div>
+                  </div>
+                  <div className="statusline-img"></div>
+                  <div className="appstatus">
+                    <div className="statsitem">
+                      {applicationStatus[0]?.property_info[0]?.name}
+                    </div>
+                    <div className="itemprice">
+                      ₦{FormatAmount(applicationStatus[0]?.property_value)}
+                    </div>
+                    {false && (
+                      <div className="statsreview-btn">Under Review</div>
+                    )}
+                    {false && (
+                      <div className="statsreview-btn completed12">
+                        Completed
+                      </div>
+                    )}
+                    {true && (
+                      <div className="statsreview-btn notstarted">
+                        Not Started
+                      </div>
+                    )}
+                    <div className="statsprints-btn">Print</div>
+                  </div>
                 </div>
-              </div>
-              <div className="appstatusheadings">
-                <div>Home Name</div>
-                <div>Home Value</div>
-                <div>Status</div>
-                <div></div>
-              </div>
-              <div className="statusline-img"></div>
-              <div className="appstatus">
-                <div className="statsitem">
-                  {applicationStatus[0]?.property_info[0]?.name}
-                </div>
-                <div className="itemprice">
-                  ₦{FormatAmount(applicationStatus[0]?.property_value)}
-                </div>
-                {false && <div className="statsreview-btn">Under Review</div>}
-                {false && (
-                  <div className="statsreview-btn completed12">Completed</div>
-                )}
-                {true && (
-                  <div className="statsreview-btn notstarted">Not Started</div>
-                )}
-                <div className="statsprints-btn">Print</div>
-              </div>
-            </div>
+              </Col>
+            </Row>
             <div className="mobile_appstatus_section">
               <div className="mobileappstatsheader">
                 <p className="udashboadprimheader">Application status</p>
