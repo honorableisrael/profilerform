@@ -41,7 +41,12 @@ const PasswordRecovery = (props) => {
       :""
     console.log(currentUser);
     if(currentUser){
-      window.location.assign("/user-profile")
+      if (currentUser?.user?.has_profile == 1) {
+      return  window.location.assign("/userdashboard");
+      }
+      else{
+        window.location.assign("/user-profile")
+      }
     }
   }, []);
   const onchange = (e) => {
