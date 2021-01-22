@@ -33,6 +33,17 @@ const PasswordRecovery = (props) => {
     isloading,
     success,
   } = state;
+  React.useEffect(() => {
+    window.scrollTo(-0, -0);
+    const userData = localStorage.getItem("loggedInDetails");
+    const currentUser = userData
+      ? JSON.parse(userData)
+      :""
+    console.log(currentUser);
+    if(currentUser){
+      window.location.assign("/user-profile")
+    }
+  }, []);
   const onchange = (e) => {
     setState({
       ...state,

@@ -28,6 +28,22 @@ const NewSIGNIN = (props) => {
     passwordIsVisible,
     formError,
   } = state;
+  React.useEffect(() => {
+    window.scrollTo(-0, -0);
+    const userData = localStorage.getItem("loggedInDetails");
+    const currentUser = userData
+      ? JSON.parse(userData)
+      :""
+    console.log(currentUser);
+    if(currentUser){
+      if (currentUser?.user?.has_profile == 1) {
+      return  window.location.assign("/userdashboard");
+      }
+      else{
+        window.location.assign("/user-profile")
+      }
+    }
+  }, []);
   const onchange = (e) => {
     setState({
       ...state,

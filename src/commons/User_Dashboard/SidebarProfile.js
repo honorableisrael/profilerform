@@ -24,7 +24,7 @@ const SideBarProfile = (props) => {
       email:currentUser?.user?.email
     })
     if(currentUser?.is_verified==0){
-      props.history.push("/account-verification")
+      window.location.assign("/account-verification")
     }
   }, []);
   return (
