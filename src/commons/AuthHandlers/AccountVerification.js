@@ -84,6 +84,7 @@ const AccountVerification = (props) => {
     })
       .then((res) => {
         console.log(res);
+        localStorage.setItem("loggedInDetails", JSON.stringify(res.data.data));
         setState({
           ...state,
           isloading: false,

@@ -111,11 +111,25 @@ const NewSIGNIN = (props) => {
         });
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
         if (err?.response?.status == 404) {
           return setState({
             ...state,
             errorMessage: err.response.data.data,
+            isloading: false,
+          });
+        }
+        if (err?.response?.status == 403) {
+          return setState({
+            ...state,
+            errorMessage: err.response.data.data[0].email[0],
+            isloading: false,
+          });
+        }
+        if (err?.response?.status == 401) {
+          return setState({
+            ...state,
+            errorMessage: err.response.data.data[0],
             isloading: false,
           });
         }

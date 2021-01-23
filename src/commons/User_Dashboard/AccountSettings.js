@@ -143,13 +143,7 @@ const AccountSettings = (props) => {
       !sex ||
       !place_of_birth ||
       !state_of_origin ||
-      !profession ||
-      !highest_education ||
-      !means_of_identification ||
-      !id_number ||
-      !id_issue_date ||
-      !id_expire_date ||
-      !employment_status
+      !profession
     ) {
       return setState({
         ...state,
@@ -157,6 +151,24 @@ const AccountSettings = (props) => {
       });
     }
     SumitForm();
+  };
+  const validatePassword = () => {
+    if (new_password !== confirm_password) {
+      notify("new password does not match with confirm password")
+      return setState({
+        ...state,
+        Error: "new password does not match with confirm password",
+        formError: "Error",
+      });
+    }
+    if (!password || !new_password || !confirm_password) {
+      notify("Please enter password");
+      return setState({
+        ...state,
+        formError: "Please enter password",
+      });
+    }
+    changePassword();
   };
   const SumitForm = () => {
     const userToken = localStorage.getItem("jwtToken");
@@ -185,11 +197,6 @@ const AccountSettings = (props) => {
       nationality,
       age,
       sex,
-      highest_education,
-      place_of_birth,
-      id_expire_date,
-      id_issue_date,
-      id_number,
     };
     axios
       .post(`${API}/user/profile`, data, {
@@ -202,9 +209,40 @@ const AccountSettings = (props) => {
           ...state,
           isLoading: false,
         });
-        setTimeout(() => {
-          props.history.push("/mortage-request-step-2");
-        }, 2000);
+      })
+      .catch((err) => {
+        setState({
+          ...state,
+          isLoading: false,
+        });
+        notifyFailed("Failed to save");
+        console.log(err.response);
+      });
+  };
+  const changePassword = () => {
+    const userToken = localStorage.getItem("jwtToken");
+    const userData = localStorage.getItem("loggedInDetails");
+    const currentUser = userData
+      ? JSON.parse(userData)
+      : window.location.assign("/signin");
+    setState({
+      ...state,
+      isLoading: true,
+    });
+    const data = {
+      password,
+    };
+    axios
+      .post(`${API}/user/change-password-auth`, data, {
+        headers: { Authorization: `Bearer ${userToken}` },
+      })
+      .then((res) => {
+        notify("Successfully changed password");
+        console.log(res);
+        setState({
+          ...state,
+          isLoading: false,
+        });
       })
       .catch((err) => {
         setState({
@@ -613,7 +651,7 @@ const AccountSettings = (props) => {
                     <Col md={6}>
                       <Button
                         className="continue1 nomargnda dsx22"
-                        onClick={validateForm}
+                        onClick={validatePassword}
                       >
                         {!isLoading ? "Save Changes" : "Saving"}
                       </Button>
