@@ -90,14 +90,14 @@ const MortgageApplication = (props) => {
       ])
       .then(
         axios.spread((res) => {
+          console.log(currentUser)
           if (res.status === 200) {
             setState({
               ...state,
               ...res.data.data,
-              user: currentUser.user,
-              id_issue_date:formatDate(res.data.data.id_issue_date),
-              id_expire_date:formatDate(res.data.data.id_expire_date),
-              
+              user: currentUser?.user,
+              // id_issue_date:formatDate(res?.data?.data?.id_issue_date),
+              // id_expire_date:formatDate(res?.data?.data?.id_expire_date),
               isloading: false,
             });
           }

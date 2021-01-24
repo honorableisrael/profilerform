@@ -84,6 +84,7 @@ const AccountVerification = (props) => {
     })
       .then((res) => {
         console.log(res);
+        localStorage.removeItem("loggedInDetails")
         localStorage.setItem("loggedInDetails", JSON.stringify(res.data.data));
         setState({
           ...state,
@@ -91,7 +92,7 @@ const AccountVerification = (props) => {
           success: res?.data?.message,
           errorMessage: "",
         });
-        props.history.push("/user-profile");
+        window.location.assign("/user-profile");
       })
       .catch((err) => {
         console.log(err?.response);

@@ -41,6 +41,7 @@ const AccountSettings = (props) => {
     propertySlide: {},
     isUploading: false,
     totalDoc: {},
+    dobError: "",
     isloading: false,
     isLoading: false,
     Error: false,
@@ -51,24 +52,15 @@ const AccountSettings = (props) => {
     email: "",
     phone: "",
     dob: "",
-    state_of_origin: "",
-    married_status: "",
-    home_status: "",
-    mode_of_contact: "",
-    number_of_dependants: "",
     middlename: "",
     mother_middle_name: "",
-    age: "",
     sex: "",
     nationality: "",
     place_of_birth: "",
     profession: "",
     highest_education: "",
     means_of_identification: "",
-    id_number: "",
-    id_issue_date: "",
-    id_expire_date: "",
-    employment_status: "",
+    passwordError:"",
     password: "",
     confirm_password: "",
     new_password: "",
@@ -99,9 +91,6 @@ const AccountSettings = (props) => {
               ...state,
               ...res.data.data,
               user: currentUser.user,
-              id_issue_date: formatDate(res.data.data.id_issue_date),
-              id_expire_date: formatDate(res.data.data.id_expire_date),
-
               isloading: false,
             });
           }
@@ -111,7 +100,7 @@ const AccountSettings = (props) => {
         })
       )
       .catch((err) => {
-        console.log(err.response);
+        console.log(err);
         setState({
           ...state,
           isloading: false,
@@ -129,21 +118,34 @@ const AccountSettings = (props) => {
         formError: "Error",
       });
     }
+    const today = new Date();
+    const thisyear = today.getFullYear();
+    const user_age = thisyear - parseInt(dob.split("-")[0]);
+    console.log(parseInt(dob.split("-")[0]) - thisyear);
+    if (dob.length !== 10 || parseInt(dob) > thisyear) {
+      return setState({
+        ...state,
+        dobError: "Invalid date of birth",
+        formError: "Error",
+      });
+    }
+    if (user_age < 21) {
+      console.log(user_age);
+      return setState({
+        ...state,
+        dobError: "User must be older than 21",
+        formError: "Error",
+      });
+    }
     if (
       !address ||
       !email ||
       !phone ||
-      !state_of_origin ||
       !firstname ||
       !lastname ||
-      !mother_middle_name ||
       !middlename ||
-      !nationality ||
-      !age ||
       !sex ||
-      !place_of_birth ||
-      !state_of_origin ||
-      !profession
+      !dob
     ) {
       return setState({
         ...state,
@@ -158,14 +160,14 @@ const AccountSettings = (props) => {
       return setState({
         ...state,
         Error: "new password does not match with confirm password",
-        formError: "Error",
+        passwordError: "Error",
       });
     }
     if (!password || !new_password || !confirm_password) {
       notify("Please enter password");
       return setState({
         ...state,
-        formError: "Please enter password",
+        passwordError: "Please enter password",
       });
     }
     changePassword();
@@ -187,16 +189,10 @@ const AccountSettings = (props) => {
       lastname,
       email,
       phone,
-      number_of_dependants,
-      state_of_origin,
       home_status,
-      means_of_identification,
-      mode_of_contact,
       profession,
       middlename,
-      nationality,
       age,
-      sex,
     };
     axios
       .post(`${API}/user/profile`, data, {
@@ -274,18 +270,20 @@ const AccountSettings = (props) => {
     setState({
       ...state,
       [e.target.name]: e.target.value,
+      dobError: "",
     });
   };
   const handleChange = (e) => {
     setState({
       ...state,
       [e.target.name]: e.target.value,
+      dobError: "",
     });
   };
   const test = ["New", "Old"];
   const {
     Error,
-    state_of_origin,
+    dobError,
     totalDoc,
     address,
     email,
@@ -295,23 +293,14 @@ const AccountSettings = (props) => {
     home_status,
     firstname,
     lastname,
-    mode_of_contact,
     deleteModal,
     formError,
     isloading,
     isLoading,
-    means_of_identification,
-    number_of_dependants,
     sex,
-    nationality,
-    mother_middle_name,
     age,
-    highest_education,
-    place_of_birth,
+    passwordError,
     middlename,
-    id_expire_date,
-    id_issue_date,
-    id_number,
     employment_status,
     password,
     confirm_password,
@@ -527,25 +516,34 @@ const AccountSettings = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && !employment_status
+                          formError && !dob
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Employement Status
+                        Date of Birth
                       </span>
+                      {dob.length !== 10 ||
+                        (dobError && "userprofile formerror1" && (
+                          <span
+                            className={
+                              dob.length !== 10
+                                ? "userprofile formerror13"
+                                : "userprofile"
+                            }
+                          >
+                            {dobError}
+                          </span>
+                        ))}
                       <Form.Control
-                        type="text"
+                        type="date"
                         onChange={onchange}
                         required
-                        value={employment_status}
-                        className={
-                          formError && !employment_status
-                            ? "fmc formerror"
-                            : "fmc"
-                        }
-                        name="employment_status"
-                        placeholder=""
+                        as={"input"}
+                        value={dob}
+                        className={formError && !dob ? "fmc formerror" : "fmc"}
+                        name="dob"
+                        placeholder={dob}
                       />
                     </Form.Group>
                   </Col>
@@ -574,7 +572,7 @@ const AccountSettings = (props) => {
                       <Form.Group>
                         <span
                           className={
-                            formError && !password
+                            passwordError && !password
                               ? "userprofile formerror1"
                               : "userprofile"
                           }
@@ -587,7 +585,7 @@ const AccountSettings = (props) => {
                           required
                           value={password}
                           className={
-                            formError && !password ? "fmc formerror" : "fmc"
+                            passwordError && !password ? "fmc formerror" : "fmc"
                           }
                           name="password"
                           placeholder=""
@@ -598,7 +596,7 @@ const AccountSettings = (props) => {
                       <Form.Group>
                         <span
                           className={
-                            formError && !new_password
+                            passwordError && !new_password
                               ? "userprofile formerror1"
                               : "userprofile"
                           }
@@ -611,7 +609,7 @@ const AccountSettings = (props) => {
                           required
                           value={new_password}
                           className={
-                            formError && !new_password ? "fmc formerror" : "fmc"
+                            passwordError && !new_password ? "fmc formerror" : "fmc"
                           }
                           name="new_password"
                           placeholder=""
@@ -624,7 +622,7 @@ const AccountSettings = (props) => {
                       <Form.Group>
                         <span
                           className={
-                            formError && !confirm_password
+                            passwordError && !confirm_password
                               ? "userprofile formerror1"
                               : "userprofile"
                           }
@@ -632,12 +630,12 @@ const AccountSettings = (props) => {
                           Confirm Password
                         </span>
                         <Form.Control
-                          type="text"
+                          type="password"
                           onChange={onchange}
                           required
                           value={confirm_password}
                           className={
-                            formError && !confirm_password
+                            passwordError && !confirm_password
                               ? "fmc formerror"
                               : "fmc"
                           }
