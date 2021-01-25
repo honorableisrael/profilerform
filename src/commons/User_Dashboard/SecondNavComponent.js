@@ -41,7 +41,7 @@ const SecondNavComponent = (props) => {
               </Dropdown.Toggle>
               <Dropdown.Toggle id="dropdown-basic" className="usernavdrpdwn" />
               <Dropdown.Menu className="animated fadeIn">
-                <Dropdown.Item
+                {/* <Dropdown.Item
                   href="#/action-1"
                   className="animated fadeInDown"
                 >
@@ -50,7 +50,7 @@ const SecondNavComponent = (props) => {
                     <img src={settings} className="exit" />
                     Profile
                   </Link>
-                </Dropdown.Item>
+                </Dropdown.Item> */}
                 <Dropdown.Item className="animated fadeInLeft">
                   <img src={settings} className="exit" />{" "}
                   <Link to="/account-settings">Account Settings</Link>

@@ -8,6 +8,10 @@ import gridwhite from "../../assets/whitegrid.png";
 import male from "../../assets/superhero.png";
 import statusline from "../../assets/statusline.png";
 import { Link } from "react-router-dom";
+import { API } from "../../config";
+import axios from "axios";
+
+
 
 const UserdashboardSideBar = (props) => {
   const [state, setState] = React.useState({
@@ -25,7 +29,39 @@ const UserdashboardSideBar = (props) => {
       ...state,
       email: currentUser?.user?.email,
     });
+    const userToken = localStorage.getItem("jwtToken");
+    axios
+      .all([
+        axios.get(`${API}/user/get-profile`, {
+          headers: { Authorization: `Bearer ${userToken}` },
+        }),
+      ])
+      .then(
+        axios.spread((res4) => {
+          if (res4?.data?.data?.is_verified == 0) {
+            window.location.assign("/account-verification");
+          }
+          console.log(res4);
+          if (res4.status === 200) {
+            setState({
+              ...state,
+              loggedinuser: res4.data.data,
+            });
+          }
+          if (res4.status == 400) {
+            props.history.push("/signin");
+          }
+        })
+      )
+      .catch((err) => {
+        console.log(err.response);
+        setState({
+          ...state,
+          isloading: false,
+        });
+      });
   }, []);
+  const { loggedinuser } = state;
   return (
     <>
       <Col md={3} className="dashbdsidenav ">
@@ -94,19 +130,22 @@ const UserdashboardSideBar = (props) => {
             />
             <Link to="/equity-finance">Equity Savings</Link>
           </div>
-          <div
-            className={
-              props.mortgage == true ? "sidnavoptions" : "sidnavoptionsna"
-            }
-          >
-            <Dashboard
-              className="sidenvimg"
-              fill="white"
-              stroke="#039c71"
-              style={{ fill: "white", strokeWidth: 0.4 }}
-            />
-            <Link to="/mortage-request"> Apply for Mortgage </Link>
-          </div>
+          {loggedinuser.has_profile == 1 && (
+            <div
+              className={
+                props.mortgage == true ? "sidnavoptions" : "sidnavoptionsna"
+              }
+            >
+              <Dashboard
+                className="sidenvimg"
+                fill="white"
+                stroke="#039c71"
+                style={{ fill: "white", strokeWidth: 0.4 }}
+              />
+              <Link to="/mortage-request"> Apply for Mortgage </Link>
+            </div>
+          )}
+
           <div
             className={
               props.loans == true ? "sidnavoptions" : "sidnavoptionsna"

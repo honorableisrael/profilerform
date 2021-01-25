@@ -91,6 +91,7 @@ const Userdashboard = (props) => {
           }
           console.log(res4);
           console.log(res1);
+          console.log(res3);
           if (res.status === 200) {
             setState({
               ...state,
@@ -226,7 +227,7 @@ const Userdashboard = (props) => {
     isloading,
     loggedinuser,
   } = state;
-  console.log(totalDoc);
+  console.log(applicationStatus);
   return (
     <div>
       <Container fluid>
@@ -250,11 +251,16 @@ const Userdashboard = (props) => {
                 <div className="apstatus-section">
                   <div className="applctnheader">
                     <p className="udashboadprimheader">Application status</p>
-                    <div>
-                      <Link to="/printpage" target="blank">
-                        <img src={eye} className="udshbdeye" /> View
-                      </Link>
-                    </div>
+
+                    {loggedinuser.have_request == 1 ? (
+                      <div>
+                        <Link to="/printpage" target="blank">
+                          <img src={eye} className="udshbdeye" /> View
+                        </Link>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <div className="appstatusheadings">
                     <div>Home Name</div>
@@ -268,7 +274,9 @@ const Userdashboard = (props) => {
                       {applicationStatus[0]?.property_info[0]?.name}
                     </div>
                     <div className="itemprice">
-                      ₦{FormatAmount(applicationStatus[0]?.property_value)}
+                      {applicationStatus[0]?.property_value &&
+                        "₦" +
+                          FormatAmount(applicationStatus[0]?.property_value)}
                     </div>
                     {false && (
                       <div className="statsreview-btn">Under Review</div>
@@ -283,7 +291,7 @@ const Userdashboard = (props) => {
                         Not Started
                       </div>
                     )}
-                    <div className="statsprints-btn">Print</div>
+                    {/* <div className="statsprints-btn">Print</div> */}
                   </div>
                 </div>
               </Col>
@@ -309,10 +317,18 @@ const Userdashboard = (props) => {
                 </div>
               </div>
               <div className="viewdiv">
-                <div className="mobviewbtn">
-                  <img src={eye2} /> View
-                </div>
-                <div className="mobprintbtn">Print</div>
+                {loggedinuser.have_request == 1 ? (
+                  <div className="mobviewbtn">
+                    <img src={eye2} /> View
+                  </div>
+                ) : (
+                  ""
+                )}
+                {loggedinuser.have_request == 1 ? (
+                  <div className="mobprintbtn">Print</div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <Row>
@@ -571,9 +587,9 @@ const Userdashboard = (props) => {
                     </div>
                     <div className="eqrghtdv">
                       <p className="equitytext">Monthly Income</p>
-                      {loggedinuser?.monthly_net_pay ? (
+                      {loggedinuser?.monthly_gross_pay ? (
                         <p className="equityamt">
-                          {FormatAmount(loggedinuser?.monthly_net_pay)}
+                          ₦{FormatAmount(loggedinuser?.monthly_gross_pay)}
                         </p>
                       ) : (
                         <p className="equityamt">--/--</p>
@@ -581,9 +597,13 @@ const Userdashboard = (props) => {
                     </div>
                   </div>
                   <div className="ddod">
-                    <Link to="/mortgage-request">
-                      <span className="mortgage-btn">Apply</span>
-                    </Link>
+                    {loggedinuser.has_profile == 1 ? (
+                      <Link to="/mortage-request">
+                        <span className="mortgage-btn">Apply</span>
+                      </Link>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
                 <CreditReport />

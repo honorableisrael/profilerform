@@ -49,13 +49,13 @@ const HomeNav = () => {
               <img src={userimg} className="uimg" />
               <Dropdown.Toggle id="dropdown-basic" className="usernavdrpdwn" />
               <Dropdown.Menu className="animated fadeIn">
-                <Dropdown.Item
+                {/* <Dropdown.Item
                   href="#/action-1"
                   className="animated fadeInLeft"
                 >
                   <img src={settings} className="exit" />{" "}
                   <Link to="/user-profile">Profile</Link>
-                </Dropdown.Item>
+                </Dropdown.Item> */}
                 <Dropdown.Item
                   href="#/action-1"
                   className="animated fadeInLeft"
