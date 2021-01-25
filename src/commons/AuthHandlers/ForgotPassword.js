@@ -21,6 +21,8 @@ const PasswordRecovery = (props) => {
     isloading: false,
     errorMessage: "",
     success: "",
+    code: "",
+    canResetPassword: false,
   });
   const {
     firstname,
@@ -36,16 +38,13 @@ const PasswordRecovery = (props) => {
   React.useEffect(() => {
     window.scrollTo(-0, -0);
     const userData = localStorage.getItem("loggedInDetails");
-    const currentUser = userData
-      ? JSON.parse(userData)
-      :""
+    const currentUser = userData ? JSON.parse(userData) : "";
     console.log(currentUser);
-    if(currentUser){
+    if (currentUser) {
       if (currentUser?.user?.has_profile == 1) {
-      return  window.location.assign("/userdashboard");
-      }
-      else{
-        window.location.assign("/user-profile")
+        return window.location.assign("/userdashboard");
+      } else {
+        window.location.assign("/user-profile");
       }
     }
   }, []);
@@ -54,7 +53,7 @@ const PasswordRecovery = (props) => {
       ...state,
       [e.target.name]: e.target.value,
       errorMessage: "",
-      success:"",
+      success: "",
     });
   };
   const HidePassword = () => {
@@ -64,7 +63,7 @@ const PasswordRecovery = (props) => {
     });
   };
   const validateForm = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (email == "") {
       return setState({
         ...state,
@@ -73,6 +72,17 @@ const PasswordRecovery = (props) => {
     }
     submitForm();
   };
+  const validatePassword = (e) => {
+    e.preventDefault();
+    if (email == "" || code == "" || password == "") {
+      return setState({
+        ...state,
+        formError: "Please fill",
+      });
+    }
+    submitNewPassword();
+  };
+
   const submitForm = () => {
     setState({
       ...state,
@@ -88,6 +98,7 @@ const PasswordRecovery = (props) => {
           ...state,
           isloading: false,
           success: res?.data?.message,
+          canResetPassword: true,
         });
       })
       .catch((err) => {
@@ -106,6 +117,43 @@ const PasswordRecovery = (props) => {
         });
       });
   };
+  const submitNewPassword = () => {
+    setState({
+      ...state,
+      isloading: true,
+    });
+    const data = {
+      password,
+      code,
+      email,
+    };
+    Axios.post(`${API}/auth/change-password-code`, data)
+      .then((res) => {
+        console.log(res);
+        setState({
+          ...state,
+          isloading: false,
+          success: res?.data?.message,
+          canResetPassword: false,
+        });
+      })
+      .catch((err) => {
+        console.log(err?.response);
+        if (err?.response?.status == 404) {
+          return setState({
+            ...state,
+            errorMessage: err.response.data.data,
+            isloading: false,
+          });
+        }
+        setState({
+          ...state,
+          errorMessage: "Failed to submit please try again later",
+          isloading: false,
+        });
+      });
+  };
+  const { code, canResetPassword } = state;
   return (
     <>
       <HomeNav></HomeNav>
@@ -154,12 +202,75 @@ const PasswordRecovery = (props) => {
                     />
                   </Form.Group>
                 </Col>
+                {canResetPassword && (
+                  <Col md={12} className="">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && password?.trim() == ""
+                            ? "userprofile formerror1 bg-white23"
+                            : "userprofile bg-white23"
+                        }
+                      >
+                        Password{" "}
+                      </span>
+                      <Form.Control
+                        type="text"
+                        onChange={onchange}
+                        required
+                        value={password}
+                        className={
+                          formError && password?.trim() == ""
+                            ? "fmc2 formerror"
+                            : "fmc2"
+                        }
+                        name="password"
+                        placeholder="Enter your new password "
+                      />
+                    </Form.Group>
+                  </Col>
+                )}
+                {canResetPassword && (
+                  <Col md={12} className="">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && code?.trim() == ""
+                            ? "userprofile formerror1 bg-white23"
+                            : "userprofile bg-white23"
+                        }
+                      >
+                        Code{" "}
+                      </span>
+                      <Form.Control
+                        type="text"
+                        onChange={onchange}
+                        required
+                        value={code}
+                        className={
+                          formError && code?.trim() == ""
+                            ? "fmc2 formerror"
+                            : "fmc2"
+                        }
+                        name="code"
+                        placeholder="Enter the code sent to your email"
+                      />
+                    </Form.Group>
+                  </Col>
+                )}
               </Row>
               <Row>
                 <Col md={12} className="">
-                  <Button className="signnp" onClick={validateForm}>
-                    {isloading ? "Submitting" : "Submit"}
-                  </Button>
+                  {!canResetPassword && (
+                    <Button className="signnp" onClick={validateForm}>
+                      {isloading ? "Submitting" : "Submit"}
+                    </Button>
+                  )}
+                  {canResetPassword && (
+                    <Button className="signnp" onClick={validatePassword}>
+                      {isloading ? "Updating" : "Change Password"}
+                    </Button>
+                  )}
                 </Col>
                 <Col md={12}>
                   <div className="rigistxt">

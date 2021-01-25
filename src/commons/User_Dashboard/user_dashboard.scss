@@ -1,5 +1,5 @@
 $myteal: #039c71;
-$lightborder:#f1ededaf;
+$lightborder: #f1ededaf;
 
 .sidenvimg path {
   fill: white;
@@ -1865,7 +1865,7 @@ ul .react-multi-carousel-item {
   padding-bottom: 2rem;
   min-width: 1000px;
 }
-.personlatitle{
+.personlatitle {
   color: $myteal;
   padding-bottom: 1rem;
   margin-top: 1rem;
@@ -1875,56 +1875,56 @@ ul .react-multi-carousel-item {
   display: flex;
   justify-content: space-between;
 }
-.frntrowtable{
+.frntrowtable {
   display: flex;
   justify-content: space-between;
   border: 1px solid $myteal;
-  padding: .3rem 1rem;
+  padding: 0.3rem 1rem;
   border-radius: 6px;
   margin-bottom: 2rem;
 }
 .printtitle {
   font-weight: 600;
   text-transform: uppercase;
-  padding-bottom: .5rem;
+  padding-bottom: 0.5rem;
 }
 
-.nnxg{
+.nnxg {
   flex: 1;
   margin-top: 1rem;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   min-width: 260px;
   // max-width: 270px !important;
 }
-.printbody{
+.printbody {
   color: #666666;
 }
 
-.divvder{
+.divvder {
   border: 1px solid $lightborder;
   margin-top: 1.4rem;
   margin-bottom: 1.5rem;
 }
-.printood{
+.printood {
   padding-top: 2rem;
 }
-.textlf{
+.textlf {
   text-align: right;
 }
-.textlf span{
+.textlf span {
   cursor: pointer;
   font-weight: bold;
 }
-#dropdown-basic{
+#dropdown-basic {
   background: none;
-    border: none;
-    width: fit-content;
-    padding: none;
-    max-width: fit-content;
-    outline: none !important;
-    box-shadow: none;
+  border: none;
+  width: fit-content;
+  padding: none;
+  max-width: fit-content;
+  outline: none !important;
+  box-shadow: none;
 }
-button#dropdown-basic.ddprdown.dropdown-toggle.btn.btn-primary::after{
+button#dropdown-basic.ddprdown.dropdown-toggle.btn.btn-primary::after {
   display: block;
   color: transparent;
 }

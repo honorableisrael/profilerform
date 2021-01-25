@@ -186,9 +186,10 @@ const Profile_3 = (props) => {
       monthly_gross_pay,
       total_annual_pay,
       monthly_expenses,
-      payment_option: "nhf",
+      payment_option,
       have_equity,
       budget,
+      down_payment,
     };
     axios
       .post(`${API}/user/affordability-test`, data, {

@@ -117,11 +117,11 @@
 .wrapa1 {
   text-align: right;
   padding-right: 1rem;
-  position: relative;
-  bottom: 2.5rem;
 }
 .esyes {
   cursor: pointer;
+  position: relative;
+  bottom: 2.5rem;
 }
 .charvalid {
   font-size: 8px;

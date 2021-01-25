@@ -9,7 +9,9 @@ const PreviewPage = () => {
           Affordability Test - Finance Plus | Real Estate, Apartments, Mortgages
           & Home Values
         </div>
-        <div className="textlf"><span onClick={()=>window.print()}>Print Page</span></div>
+        <div className="textlf">
+          <span onClick={() => window.print()}>Print Page</span>
+        </div>
         <div className="personalinfo">
           <div className="personlatitle">PERSONAL INFORMATION</div>
           <div className="frntrow">
@@ -131,11 +133,8 @@ const PreviewPage = () => {
               <div className="printtitle">SPOUSE'S ANNUAL INCOME</div>
               <div className="printbody">N/A</div>
             </div>
-            <div className="nnxg">
-            </div>
-            <div className="nnxg">
-
-            </div>
+            <div className="nnxg"></div>
+            <div className="nnxg"></div>
           </div>
           <div className="printtitle printood">CHILDREN/OTHER DEPENDENTS</div>
           <div className="frntrowtable">

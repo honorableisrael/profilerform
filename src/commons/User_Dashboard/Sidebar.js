@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 const UserdashboardSideBar = (props) => {
   const [state, setState] = React.useState({
     email: "",
+    loggedinuser: "",
   });
   React.useEffect(() => {
     window.scrollTo(-0, -0);
@@ -24,9 +25,6 @@ const UserdashboardSideBar = (props) => {
       ...state,
       email: currentUser?.user?.email,
     });
-    if(currentUser?.is_verified==0){
-      window.location.assign("/account-verification")
-    }
   }, []);
   return (
     <>
