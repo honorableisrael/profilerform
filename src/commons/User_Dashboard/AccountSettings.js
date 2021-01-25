@@ -60,7 +60,7 @@ const AccountSettings = (props) => {
     profession: "",
     highest_education: "",
     means_of_identification: "",
-    passwordError:"",
+    passwordError: "",
     password: "",
     confirm_password: "",
     new_password: "",
@@ -156,7 +156,7 @@ const AccountSettings = (props) => {
   };
   const validatePassword = () => {
     if (new_password !== confirm_password) {
-      notify("new password does not match with confirm password")
+      notify("new password does not match with confirm password");
       return setState({
         ...state,
         Error: "new password does not match with confirm password",
@@ -193,6 +193,7 @@ const AccountSettings = (props) => {
       profession,
       middlename,
       age,
+      sex
     };
     axios
       .post(`${API}/user/profile`, data, {
@@ -609,7 +610,9 @@ const AccountSettings = (props) => {
                           required
                           value={new_password}
                           className={
-                            passwordError && !new_password ? "fmc formerror" : "fmc"
+                            passwordError && !new_password
+                              ? "fmc formerror"
+                              : "fmc"
                           }
                           name="new_password"
                           placeholder=""

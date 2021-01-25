@@ -42,6 +42,7 @@ import AccountVerification from "./commons/AuthHandlers/AccountVerification";
 import EquityFinance from "./commons/User_Dashboard/EquityFinance";
 import PersonalLoans from "./commons/User_Dashboard/PersonalLoans";
 import AccountSettings from "./commons/User_Dashboard/AccountSettings";
+import PreviewPage from "./commons/User_Dashboard/PrintPreview";
 
 //check for token
 if (localStorage.token && localStorage.user) {
@@ -120,6 +121,8 @@ class Routes extends Component {
             <Route exact path="/equity-finance" component={EquityFinance} />
             <Route exact path="/personal-loans" component={PersonalLoans} />
             <Route exact path="/account-settings" component={AccountSettings} />
+            <Route exact path="/printpage" component={PreviewPage} />
+            
             
             <Route
               exact

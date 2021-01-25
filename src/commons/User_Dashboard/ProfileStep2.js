@@ -488,13 +488,13 @@ const Profile_2 = (props) => {
                       <span
                         className={
                           formError && !bvn
-                            ? "userprofile formerror1"
+                            ? "userprofile"
                             : "userprofile"
                         }
                       >
                         BVN
                       </span>
-                      {bvn?.length !== 11 && (
+                      {/* {bvn?.length == 11 && (
                         <span
                           className={
                             bvn?.length !== 11
@@ -504,7 +504,7 @@ const Profile_2 = (props) => {
                         >
                           {Error}
                         </span>
-                      )}
+                      )} */}
                       <Form.Control
                         type="text"
                         onChange={onInputChange}

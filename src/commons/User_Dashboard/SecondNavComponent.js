@@ -34,9 +34,11 @@ const SecondNavComponent = (props) => {
         </Col>
         <Col md={4} sm={12} xs={12}>
           <div className="userdashids">
-            <Dropdown className="uddrpdwndiv">
+            <Dropdown  className="uddrpdwndiv">
               <img src={arrowhead} className="arrimg" />
-              <img src={userimg} className="uimg" />
+              <Dropdown.Toggle className="ddprdown" id="dropdown-basic">
+                <img src={userimg} className="uimg" />
+              </Dropdown.Toggle>
               <Dropdown.Toggle id="dropdown-basic" className="usernavdrpdwn" />
               <Dropdown.Menu className="animated fadeIn">
                 <Dropdown.Item

@@ -50,6 +50,7 @@ const Userdashboard = (props) => {
     isloading: false,
     isDeleting: false,
     documentId: "",
+    loggedinuser: "",
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -79,10 +80,16 @@ const Userdashboard = (props) => {
         axios.get(`${API}/user/user-property-request`, {
           headers: { Authorization: `Bearer ${userToken}` },
         }),
+        axios.get(`${API}/user/get-profile`, {
+          headers: { Authorization: `Bearer ${userToken}` },
+        }),
       ])
       .then(
-        axios.spread((res, res1, res2, res3) => {
-          console.log(res3);
+        axios.spread((res, res1, res2, res3, res4) => {
+          if (res4?.data?.data?.is_verified == 0) {
+            window.location.assign("/account-verification");
+          }
+          console.log(res4);
           console.log(res1);
           if (res.status === 200) {
             setState({
@@ -93,6 +100,7 @@ const Userdashboard = (props) => {
               totalDoc: res2.data.data,
               propertySlide: res3.data.data,
               isloading: false,
+              loggedinuser: res4.data.data,
             });
           }
           if (res.status == 400) {
@@ -216,6 +224,7 @@ const Userdashboard = (props) => {
     deleteModal,
     propertySlide,
     isloading,
+    loggedinuser,
   } = state;
   console.log(totalDoc);
   return (
@@ -242,7 +251,9 @@ const Userdashboard = (props) => {
                   <div className="applctnheader">
                     <p className="udashboadprimheader">Application status</p>
                     <div>
-                      <img src={eye} className="udshbdeye" /> View
+                      <Link to="/printpage" target="blank">
+                        <img src={eye} className="udshbdeye" /> View
+                      </Link>
                     </div>
                   </div>
                   <div className="appstatusheadings">
@@ -540,7 +551,9 @@ const Userdashboard = (props) => {
                   <div>
                     <p className="udashboadprimheader"> Affordability Status</p>
                     <p className="equitytext">Total Loanable Amount</p>
-                    <p className="equityamt">₦70,000,000.00</p>
+                    <p className="equityamt">
+                      ₦{FormatAmount(loggedinuser?.loanable_amount)}
+                    </p>
                   </div>
                   <div>
                     <img src={equity} className="equityimg" />
@@ -550,11 +563,21 @@ const Userdashboard = (props) => {
                   <div className="equityamtdivs">
                     <div className="eqleftdv">
                       <p className="equitytext">Monthly Repayment</p>
-                      <p className="equityamt">₦40,000,000.00</p>
+                      <p className="equityamt">
+                        {loggedinuser?.monthly_repayment
+                          ? "₦" + FormatAmount(loggedinuser?.monthly_repayment)
+                          : "--/--"}
+                      </p>
                     </div>
                     <div className="eqrghtdv">
                       <p className="equitytext">Monthly Income</p>
-                      <p className="equityamt">₦30,000,000.00</p>
+                      {loggedinuser?.monthly_net_pay ? (
+                        <p className="equityamt">
+                          {FormatAmount(loggedinuser?.monthly_net_pay)}
+                        </p>
+                      ) : (
+                        <p className="equityamt">--/--</p>
+                      )}
                     </div>
                   </div>
                   <div className="ddod">

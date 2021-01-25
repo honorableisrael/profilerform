@@ -30,9 +30,11 @@ const NavComponent = (props) => {
         </Col>
         <Col md={4} sm={12} xs={12}>
           <div className="userdashids">
-            <Dropdown className="uddrpdwndiv">
+            <Dropdown  className="uddrpdwndiv">
               <img src={arrowhead} className="arrimg" />
-              <img src={userimg} className="uimg" />
+              <Dropdown.Toggle className="ddprdown" id="dropdown-basic">
+                <img src={userimg} className="uimg" />
+              </Dropdown.Toggle>
               <Dropdown.Toggle id="dropdown-basic" className="usernavdrpdwn" />
               <Dropdown.Menu className="animated fadeIn">
                 <Dropdown.Item className="animated fadeInLeft">
@@ -44,10 +46,7 @@ const NavComponent = (props) => {
                   <Link to="/account-settings">Account Settings</Link>
                 </Dropdown.Item>
                 {/* <Dropdown.Item href="#/action-1"><Link to="/user-profile">Settings</Link></Dropdown.Item> */}
-                <Dropdown.Item
-                  className="animated fadeInLeft"
-                  onClick={logOut}
-                >
+                <Dropdown.Item className="animated fadeInLeft" onClick={logOut}>
                   <img src={exit} className="exit" /> Log out
                 </Dropdown.Item>
               </Dropdown.Menu>

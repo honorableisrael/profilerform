@@ -86,7 +86,7 @@ const Profile_1 = (props) => {
       ])
       .then(
         axios.spread((res, res2) => {
-          console.log(res2.data.data);
+          console.log(res2.data);
           if (res.status === 200) {
             setState({
               ...state,

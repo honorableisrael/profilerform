@@ -90,7 +90,7 @@ const MortgageApplication = (props) => {
       ])
       .then(
         axios.spread((res) => {
-          console.log(currentUser)
+          console.log(res)
           if (res.status === 200) {
             setState({
               ...state,
@@ -711,14 +711,19 @@ const MortgageApplication = (props) => {
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="state_of_origin"
+                        name="means_of_identification"
                         onChange={handleChange}
                       >
                         <option>{means_of_identification}</option>
                         <option value="ID" class="otherss">
                           ID
                         </option>
-                        <option value="ID">ID</option>
+                        <option value="Drivers License" class="otherss">
+                          Drivers License
+                        </option>
+                        <option value="International Passport" class="otherss">
+                          International Passport
+                        </option>
                       </Form.Control>
                     </Form.Group>
                   </Col>

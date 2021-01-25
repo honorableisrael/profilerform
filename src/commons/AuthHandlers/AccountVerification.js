@@ -84,7 +84,7 @@ const AccountVerification = (props) => {
     })
       .then((res) => {
         console.log(res);
-        localStorage.removeItem("loggedInDetails")
+        // localStorage.removeItem("loggedInDetails")
         localStorage.setItem("loggedInDetails", JSON.stringify(res.data.data));
         setState({
           ...state,

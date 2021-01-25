@@ -1,4 +1,5 @@
 $myteal: #039c71;
+$lightborder:#f1ededaf;
 
 .sidenvimg path {
   fill: white;
@@ -1843,4 +1844,87 @@ ul .react-multi-carousel-item {
 .formwrapper1aa {
   padding: 1rem 0rem;
   padding-top: 2rem;
+}
+.pagetitlepr {
+  text-align: center;
+  font-weight: 500;
+}
+.printwrapp {
+  padding: 2rem 1rem;
+  font-size: 14px;
+  width: 80%;
+  margin: auto;
+}
+.personalinfo {
+  width: 100%;
+  border: 2px solid $myteal;
+  border-radius: 6px;
+  padding: 1rem 2rem;
+  padding-left: 3rem;
+  margin-top: 2rem;
+  padding-bottom: 2rem;
+  min-width: 1000px;
+}
+.personlatitle{
+  color: $myteal;
+  padding-bottom: 1rem;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+.frntrow {
+  display: flex;
+  justify-content: space-between;
+}
+.frntrowtable{
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid $myteal;
+  padding: .3rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+}
+.printtitle {
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-bottom: .5rem;
+}
+
+.nnxg{
+  flex: 1;
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+  min-width: 260px;
+  // max-width: 270px !important;
+}
+.printbody{
+  color: #666666;
+}
+
+.divvder{
+  border: 1px solid $lightborder;
+  margin-top: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+.printood{
+  padding-top: 2rem;
+}
+.textlf{
+  text-align: right;
+}
+.textlf span{
+  cursor: pointer;
+  font-weight: bold;
+}
+#dropdown-basic{
+  background: none;
+    border: none;
+    width: fit-content;
+    padding: none;
+    max-width: fit-content;
+    outline: none !important;
+    box-shadow: none;
+}
+button#dropdown-basic.ddprdown.dropdown-toggle.btn.btn-primary::after{
+  display: block;
+  color: transparent;
 }
