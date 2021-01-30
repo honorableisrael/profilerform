@@ -44,6 +44,7 @@ const MortgageApplication_SecondStep = (props) => {
     file: "",
     propertySlide: {},
     isLoading: false,
+    have_apply_for_mortgage:"",
     totalDoc: {},
     isloading: false,
     isDeleting: false,
@@ -114,6 +115,7 @@ const MortgageApplication_SecondStep = (props) => {
     return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   const validateForm = () => {
+    window.scrollTo(-0,-0)
     if (employers_phone.length < 11 || employers_phone.length > 11) {
       return setState({
         ...state,
@@ -228,6 +230,7 @@ const MortgageApplication_SecondStep = (props) => {
     deleteModal,
     formError,
     isloading,
+    have_apply_for_mortgage,
     firstname,
     lastname,
     dob,

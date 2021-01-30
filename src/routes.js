@@ -34,6 +34,8 @@ import Profile_6 from "./commons/User_Dashboard/ProfileStep6";
 import MortgageApplication from "./commons/User_Dashboard/MortgageApplication";
 import Mortgage_Application_Third from "./commons/User_Dashboard/MortgageApplicationNextStep";
 import MortgageApplication_SecondStep from "./commons/User_Dashboard/MortgageApplicationSecondStep";
+import Mortgage_Application_FourthStep from "./commons/User_Dashboard/MortgageApplicationFourthStep";
+import MortgageApplicationFifthStep from "./commons/User_Dashboard/MortgageApplicationFifthStep";
 import NewSignUp from "./commons/AuthHandlers/NewSignUp";
 import NewSIGNIN from "./commons/AuthHandlers/NewSIGNIN";
 import PasswordRecovery from "./commons/AuthHandlers/ForgotPassword";
@@ -43,6 +45,7 @@ import EquityFinance from "./commons/User_Dashboard/EquityFinance";
 import PersonalLoans from "./commons/User_Dashboard/PersonalLoans";
 import AccountSettings from "./commons/User_Dashboard/AccountSettings";
 import PreviewPage from "./commons/User_Dashboard/PrintPreview";
+import Landing_page from "./commons/Landing_page/landing";
 
 //check for token
 if (localStorage.token && localStorage.user) {
@@ -74,7 +77,7 @@ class Routes extends Component {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route exact path="/" component={NewSIGNIN} />
+            <Route exact path="/" component={Landing_page} />
             {/* AUTH Routes */}
             <Route exact path="/userdashboard" component={Userdashboard} />
             <Route exact path="/signup" component={NewSignUp} />
@@ -105,6 +108,16 @@ class Routes extends Component {
             />
             <Route
               exact
+              path="/mortage-request-step-4"
+              component={Mortgage_Application_FourthStep}
+            />
+            <Route
+              exact
+              path="/mortage-request-step-5"
+              component={MortgageApplicationFifthStep}
+            />
+            <Route
+              exact
               path="/mortage-request-step-2"
               component={MortgageApplication_SecondStep}
             />
@@ -122,15 +135,13 @@ class Routes extends Component {
             <Route exact path="/personal-loans" component={PersonalLoans} />
             <Route exact path="/account-settings" component={AccountSettings} />
             <Route exact path="/printpage" component={PreviewPage} />
-            
-            
+            <Route exact path="/" component={Landing_page} />
+
             <Route
               exact
               path="/auth/login"
               component={() => {
-                return(
-                  <Redirect to="/signin" />
-                )
+                return <Redirect to="/signin" />;
               }}
             />
 

@@ -68,8 +68,9 @@ const MortgageApplication = (props) => {
     id_number: "",
     id_issue_date: "",
     id_expire_date: "",
+    have_apply_for_mortgage:""
   });
-  let fileRef = useRef(null);
+
   React.useEffect(() => {
     const userToken = localStorage.getItem("jwtToken");
     const userData = localStorage.getItem("loggedInDetails");
@@ -118,8 +119,7 @@ const MortgageApplication = (props) => {
   const notify = (message) => toast(message, { containerId: "t" });
   const notifyFailed = (message) => toast(message, { containerId: "f" });
   const validateForm = () => {
-
-    
+    window.scrollTo(-0,-0)
     if (phone?.length < 10) {
       return setState({
         ...state,
@@ -230,10 +230,15 @@ const MortgageApplication = (props) => {
     });
   };
   const onchange = (e) => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value,
-    });
+    if(have_apply_for_mortgage==0){
+      setState({
+        ...state,
+        [e.target.name]: e.target.value,
+      });
+    }
+    else{
+      notify("You cannot change this feild after applying for mortgage")
+    }
   };
   const handleChange = (e) => {
     setState({
@@ -257,6 +262,7 @@ const MortgageApplication = (props) => {
     mode_of_contact,
     deleteModal,
     formError,
+    have_apply_for_mortgage,
     isloading,
     isLoading,
     means_of_identification,

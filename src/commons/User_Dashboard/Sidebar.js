@@ -10,6 +10,7 @@ import statusline from "../../assets/statusline.png";
 import { Link } from "react-router-dom";
 import { API } from "../../config";
 import axios from "axios";
+import logo from "../../assets/afrealwhite.png"
 
 
 
@@ -65,7 +66,7 @@ const UserdashboardSideBar = (props) => {
   return (
     <>
       <Col md={3} className="dashbdsidenav ">
-        <h2 className="dshbdlogo">LOGO</h2>
+        <h2 className="dshbdlogo"><img src={logo} className="afreallogo"/></h2>
         {/* <Accordion defaultActiveKey="" className="sidenavacc">
           <Accordion.Toggle
             as={Card.Header}

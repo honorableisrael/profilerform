@@ -40,6 +40,7 @@ const Profile_1 = (props) => {
     formError: "",
     applicationStatus: {},
     deleteModal: false,
+    has_profile: "",
     file: "",
     propertySlide: {},
     isUploading: false,
@@ -117,6 +118,7 @@ const Profile_1 = (props) => {
     return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   const validateForm = () => {
+    window.scrollTo(-0, -0);
     if (phone.length < 11 || phone.length > 11) {
       return setState({
         ...state,
@@ -221,29 +223,35 @@ const Profile_1 = (props) => {
         console.log(err);
       });
   };
-
-  const checkIfIsOdd = (n) => {
-    return Math.abs(n % 2) == 1;
-  };
-  const closeDeleteModal = () => {
-    setState({
-      ...state,
-      deleteModal: false,
-    });
-  };
-  const openDeleteModal = (id) => {
-    setState({
-      ...state,
-      deleteModal: true,
-      documentId: id,
-    });
-  };
   const onchange = (e) => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value,
-      dobError: "",
-    });
+    if (has_profile == 0) {
+      setState({
+        ...state,
+        [e.target.name]: e.target.value,
+        dobError: "",
+      });
+    }
+    if (
+      (has_profile == 1 && e.target.name == "phone") ||
+      e.target.name == "address" ||
+      e.target.name == "mode_of_contact"
+    ) {
+      setState({
+        ...state,
+        [e.target.name]: e.target.value,
+        dobError: "",
+      });
+    } //preventing users from changing some basic infomation after submitting their profile
+    else {
+      return notify(
+        " You cannot change this field after submitting application"
+      );
+    }
+    // setState({
+    //   ...state,
+    //   [e.target.name]: e.target.value,
+    //   dobError: "",
+    // });
   };
   const handleChange = (e) => {
     setState({
@@ -262,6 +270,7 @@ const Profile_1 = (props) => {
     state_of_origin,
     current_apartment_status,
     firstname,
+    has_profile,
     lastname,
     mode_of_contact,
     Error,

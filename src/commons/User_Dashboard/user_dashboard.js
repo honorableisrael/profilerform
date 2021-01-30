@@ -51,6 +51,7 @@ const Userdashboard = (props) => {
     isDeleting: false,
     documentId: "",
     loggedinuser: "",
+    WarningModal: false,
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -90,7 +91,7 @@ const Userdashboard = (props) => {
             window.location.assign("/account-verification");
           }
           console.log(res4);
-          console.log(res1);
+          console.log(res);
           console.log(res3);
           if (res.status === 200) {
             setState({
@@ -102,6 +103,7 @@ const Userdashboard = (props) => {
               propertySlide: res3.data.data,
               isloading: false,
               loggedinuser: res4.data.data,
+              WarningModal:res4?.data?.data?.have_apply_for_mortgage==1?true:false
             });
           }
           if (res.status == 400) {
@@ -215,7 +217,18 @@ const Userdashboard = (props) => {
       documentId: id,
     });
   };
-
+  const closeWarningModal = () => {
+    setState({
+      ...state,
+      WarningModal: false,
+    });
+  };
+  const openWarningModal = () => {
+    setState({
+      ...state,
+      WarningModal: true,
+    });
+  };
   const {
     user,
     propertyList,
@@ -223,6 +236,7 @@ const Userdashboard = (props) => {
     applicationStatus,
     isUploading,
     deleteModal,
+    WarningModal,
     propertySlide,
     isloading,
     loggedinuser,
@@ -513,7 +527,7 @@ const Userdashboard = (props) => {
                     </div>
                   </div>
                   <div className="propprice">
-                    <div className="prpnme">Payment Type</div>
+                    <div className="prpnme">Purchase Option</div>
                     <div className="prpnme2">
                       {propertySlide?.payment_option}
                     </div>
@@ -553,7 +567,7 @@ const Userdashboard = (props) => {
                     <p className="mobprop">₦200,000,000.00</p>
                   </div>
                   <div className="mobbung">
-                    <p className="mobsubheading">Payment Type</p>
+                    <p className="mobsubheading">Purchase Option</p>
                     <p className="mobprop">{propertySlide?.payment_option}</p>
                   </div>
                   <div className="mobbung lastprop">
@@ -656,6 +670,122 @@ const Userdashboard = (props) => {
               {!state.isDeleting ? "Delete" : "Processing"}
             </Button>
           </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        show={WarningModal}
+        className="modd2 fixmodal"
+        centered={true}
+        onHide={closeWarningModal}
+      >
+        <div className="dllel">
+          <Modal.Title className="modal_title">
+            Opps you have not uploaded the required document
+          </Modal.Title>
+          <a className="close_view" onClick={closeWarningModal}>
+            <img className="closeview" src={close} alt="close" />
+          </a>
+        </div>
+        <Modal.Body>
+          <Accordion defaultActiveKey="">
+            <Card className="udashbdacrd">
+              <Accordion.Toggle
+                as={Card.Header}
+                className="udashbdacc"
+                eventKey="5"
+              >
+                <p className="udashboadprimheader">Documents Upload</p>
+                <div className="doctxt">
+                  <div>
+                    <img src={loader} className="dshloader" />
+                    {totalDoc["Total Uploaded"]}{" "}
+                    <span className="thinss"> out of</span>{" "}
+                    {totalDoc?.total_doc} {"  "} Documents Uploaded
+                  </div>
+                  <img src={caretdwn} className="dshgreencar" />
+                </div>
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="5">
+                <Card.Body className="dashacccdbdy">
+                  <div className="dashbdaccbdydescr">
+                    <div className="tyofdoc">Type of Documents</div>
+                    <div className="stats">status</div>
+                  </div>
+                  {propertyList?.map((data, i) => (
+                    <div
+                      className={
+                        checkIfIsOdd(i)
+                          ? "dashbdaccbdyitems whitebackground"
+                          : "dashbdaccbdyitems"
+                      }
+                    >
+                      <div className="dashbdacbdyitem1">
+                        {data?.doc_name}
+                        {console.log(data.is_uploaded)}
+                      </div>
+                      {data.is_uploaded == 1 ? (
+                        <div className="dashbdacbdyitem2">
+                          <a href={data.filename} target={"blank"}>
+                            Uploaded{" "}
+                            {isUploading && (
+                              <span className="blank1w">
+                                {" "}
+                                <Spinner
+                                  animation="grow"
+                                  className="qloading"
+                                  variant="success"
+                                />
+                              </span>
+                            )}
+                          </a>
+                        </div>
+                      ) : data.is_uploaded == 0 ? (
+                        <div className="dashbdacbdyitem2 pendingbtn">
+                          Pending{" "}
+                        </div>
+                      ) : (
+                        <div className="dashbdacbdyitem2 pendingbtn">
+                          Rejected{" "}
+                        </div>
+                      )}
+                      <div className="dashbdacbdyitem3">
+                        <img src={pen} onClick={() => fileRef?.click()} />
+                      </div>
+                      {data?.is_uploaded == 1 ? (
+                        <div className="dashbdacbdyitem4">
+                          <img
+                            src={cross}
+                            title="delete document"
+                            onClick={() => {
+                              openDeleteModal(data.id);
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div className="dashbdacbdyitem4">
+                          <img
+                            src={uploadimg}
+                            onClick={() => fileRef?.click()}
+                          />
+                        </div>
+                      )}
+                      <input
+                        type="file"
+                        onChange={(e) => handleImageChange(e, data.id)}
+                        style={{ display: "none" }}
+                        ref={(fileInput) => (fileRef = fileInput)}
+                      />
+                    </div>
+                  ))}
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
+          {/* <div className="od122">
+            <Button className="btn-success succsss" onClick={closeWarningModal}>
+              Continue
+            </Button>
+          </div> */}
         </Modal.Body>
       </Modal>
     </div>

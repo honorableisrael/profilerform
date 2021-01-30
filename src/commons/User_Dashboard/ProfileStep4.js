@@ -5,7 +5,6 @@ import "./user_dashboard.scss";
 import close from "../../assets/close.png";
 import "./animate.css";
 import Button from "react-bootstrap/Button";
-import "react-multi-carousel/lib/styles.css";
 
 import { API } from "../../config";
 import axios from "axios";

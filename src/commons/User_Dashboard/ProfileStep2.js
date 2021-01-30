@@ -114,6 +114,7 @@ const Profile_2 = (props) => {
     //     formError: "Error",
     //   });
     // }
+    window.scrollTo(-0,-0)
     if (
       !year_to_retirement ||
       // !bvn ||
@@ -183,6 +184,7 @@ const Profile_2 = (props) => {
       });
   };
   const onInputChange = (e) => {
+    if(has_profile== 0){
     const letterNumber = /^[A-Za-z]+$/;
     if (e.target.value < 0) {
       return setState({
@@ -202,6 +204,7 @@ const Profile_2 = (props) => {
         [e.target.name]: 0,
       });
     }
+  } 
   };
 
   const checkIfIsOdd = (n) => {
@@ -225,6 +228,12 @@ const Profile_2 = (props) => {
       ...state,
       [e.target.name]: e.target.value,
     });
+    if (has_profile == 1 && e.target.name == "employment_state" || e.target.name=="employment_present_position" || e.target.name=="employer_address" ){
+      setState({
+        ...state,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
   const handleChange = (e) => {
     setState({
@@ -237,6 +246,7 @@ const Profile_2 = (props) => {
     employment_id,
     firstname,
     lastname,
+    has_profile,
     dob,
     nhf_registration_number,
     year_to_retirement,

@@ -45,6 +45,7 @@ const Profile_3 = (props) => {
     loan_repayments: "",
     budget: "",
     payment_option: "",
+    has_profile: "",
     down_payment: "",
     have_loans: "",
   });
@@ -105,24 +106,31 @@ const Profile_3 = (props) => {
     }
   };
   const onInputChange = (e) => {
-    const letterNumber = /^[A-Za-z]+$/;
-    if (e.target.value) {
-      return setState({
-        ...state,
-        [e.target.name]: e.target.value.replace(/[^0-9]+/g, ""), //only accept numbers
-      });
+    if (has_profile == 0) {
+      const letterNumber = /^[A-Za-z]+$/;
+      if (e.target.value) {
+        return setState({
+          ...state,
+          [e.target.name]: e.target.value.replace(/[^0-9]+/g, ""), //only accept numbers
+        });
+      }
+      if (e.target.value < 0) {
+        return setState({
+          ...state,
+          [e.target.name]: 0,
+        });
+      }
+      if (e.target.value === "") {
+        return setState({
+          ...state,
+          [e.target.name]: 0,
+        });
+      }
     }
-    if (e.target.value < 0) {
-      return setState({
-        ...state,
-        [e.target.name]: 0,
-      });
-    }
-    if (e.target.value === "") {
-      return setState({
-        ...state,
-        [e.target.name]: 0,
-      });
+    else {
+      return notify(
+        " You cannot change this field after submitting application"
+      );
     }
   };
   const sendWarning = () => {
@@ -133,13 +141,14 @@ const Profile_3 = (props) => {
     });
   };
   const validateForm = () => {
-    if (have_loans == "Yes" && !loan_repayments) {
+    window.scrollTo(-0, -0);
+    if (have_loans == "Yes" && !loan_repayments && has_profile==0) {
       sendWarning();
-      return
+      return;
     }
-    if (!have_equity) {
+    if (!have_equity && has_profile==0) {
       sendWarning();
-      return
+      return;
     }
     // if (have_equity == 1  &&  !down_payment) {
     //   sendWarning();
@@ -151,10 +160,11 @@ const Profile_3 = (props) => {
       // have_equity == "" ||
       !monthly_expenses ||
       // !monthly_repayment ||
-      !payment_option
+      !payment_option 
+      && has_profile==0
     ) {
       sendWarning();
-      return
+      return;
     }
     // if (have_equity == "1" && down_payment == "") {
     //   notify("Please fill the required feilds");
@@ -223,18 +233,25 @@ const Profile_3 = (props) => {
     });
   };
   const onchange = (e) => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const handleChange = (e) => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value,
-    });
+    if (has_profile == 0) {
+      return setState({
+        ...state,
+        [e.target.name]: e.target.value,
+      });
+    }
+    if (has_profile == 1 && e.target.name == "payment_option") {
+      return setState({
+        ...state,
+        [e.target.name]: e.target.value,
+      });
+    } else {
+      return notify(
+        " You cannot change this field after submitting application"
+      );
+    }
   };
   const {
+    has_profile,
     user,
     payment_option,
     total_annual_pay,
@@ -352,12 +369,11 @@ const Profile_3 = (props) => {
                       <Form.Control
                         as="select"
                         className={
-                          formError && !have_equity
-                            ? "fmc formerror"
-                            : "fmc"
+                          formError && !have_equity ? "fmc formerror" : "fmc"
                         }
                         name="have_equity"
-                        onChange={handleChange}
+                        onChange={onchange}
+                        disabled={has_profile==1?true:false}
                       >
                         <option>
                           {have_equity === 1
@@ -442,6 +458,7 @@ const Profile_3 = (props) => {
                       </span>
                       <Form.Control
                         as="select"
+                        disabled={has_profile==1?true:false}
                         className={
                           formError && !have_loans && !have_loans
                             ? "fmc formerror"
@@ -508,7 +525,7 @@ const Profile_3 = (props) => {
                           formError && !payment_option ? "fmc formerror" : "fmc"
                         }
                         name="payment_option"
-                        onChange={handleChange}
+                        onChange={onchange}
                       >
                         <option>{payment_option}</option>
                         <option value={"NHF"} className="otherss">

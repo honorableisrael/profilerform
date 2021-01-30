@@ -36,7 +36,7 @@ const Profile_6_disabled_pop = (props) => {
     isUploading: false,
     nhf_number: "",
     isloading: false,
-    isDeleting: false,
+    isLoading: false,
     monthlygross: "",
     number_of_bedrooms: "",
     number_of_bathrooms: "",
@@ -138,7 +138,7 @@ const Profile_6_disabled_pop = (props) => {
       : window.location.assign("/signin");
     setState({
       ...state,
-      isUploading: true,
+      isLoading: true,
     });
     const data = {
       property_id: property.id,
@@ -161,7 +161,7 @@ const Profile_6_disabled_pop = (props) => {
         console.log(res);
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         setTimeout(() => {
           window.location.assign("/userdashboard");
@@ -170,7 +170,7 @@ const Profile_6_disabled_pop = (props) => {
       .catch((err) => {
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         notifyFailed("Failed to save");
         console.log(err.response);
@@ -235,6 +235,7 @@ const Profile_6_disabled_pop = (props) => {
     paymentOption,
     selectPopUp,
     formError,
+    isLoading,
     isloading,
     BVN,
     number_of_dependants,
@@ -687,7 +688,7 @@ const Profile_6_disabled_pop = (props) => {
                       className="continue1 polld1q"
                       onClick={submitForm}
                     >
-                      I’m Sure, Submit Order
+                   {!isLoading?" I’m Sure, Submit Order":"Processing"}
                     </Button>
                   </Col>
                 </Row>

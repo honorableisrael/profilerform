@@ -809,7 +809,10 @@ $lightborder: #f1ededaf;
     margin-top: 1rem;
   }
 }
+.succsss{
+  background: $myteal;
 
+}
 .react-multiple-carousel__arrow--right,
 .react-multiple-carousel__arrow--left {
   background: $myteal !important;
@@ -909,6 +912,9 @@ $lightborder: #f1ededaf;
 }
 .od12 {
   text-align: right;
+}
+.od122{
+  text-align: center;
 }
 .modal_title {
   font-size: 16px;
@@ -1937,4 +1943,25 @@ ul .react-multi-carousel-item {
 button#dropdown-basic.ddprdown.dropdown-toggle.btn.btn-primary::after {
   display: block;
   color: transparent;
+}
+.movebbt{
+  position: relative;
+  bottom: 2rem;
+}
+.neew11{
+  display: flex;
+  justify-content: space-between;
+}
+.saveneew{
+  font-style: normal;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 17px;
+  color: $myteal;
+  cursor: pointer;
+  animation-iteration-count: infinite;
+}
+.listt{
+  background: rgb(212, 239, 240) !important;
+  cursor: not-allowed;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./style.css";
 import { Button, Dropdown } from "react-bootstrap";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/afreal_logo.png";
 import "../User_Dashboard/animate.css";
 import { Link } from "react-router-dom";
 import userimg from "../../assets/avatar.svg";
@@ -46,7 +46,9 @@ const HomeNav = () => {
         {state.theUserIsLoggedIn && (
           <div className="prrf">
             <Dropdown className="uddrpdwndiv">
-              <img src={userimg} className="uimg" />
+              <Dropdown.Toggle className="ddprdown" id="dropdown-basic">
+                <img src={userimg} className="uimg" />
+              </Dropdown.Toggle>
               <Dropdown.Toggle id="dropdown-basic" className="usernavdrpdwn" />
               <Dropdown.Menu className="animated fadeIn">
                 {/* <Dropdown.Item
@@ -57,7 +59,6 @@ const HomeNav = () => {
                   <Link to="/user-profile">Profile</Link>
                 </Dropdown.Item> */}
                 <Dropdown.Item
-                  href="#/action-1"
                   className="animated fadeInLeft"
                 >
                   <img src={settings} className="exit" />{" "}

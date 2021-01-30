@@ -6,6 +6,7 @@ import line from "../../assets/sidnavline.png";
 import { ReactComponent as Profile } from "../../assets/Profile.svg";
 import { ReactComponent as Wallet } from "../../assets/Wallet.svg";
 import { ReactComponent as Home } from "../../assets/Home.svg";
+import logo from "../../assets/afrealwhite.png"
 import { Link } from "react-router-dom";
 import { API } from "../../config";
 import axios from "axios";
@@ -14,7 +15,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 
+
 const SideBarProfile = (props) => {
+  
   const [state, setState] = React.useState({
     email:""
   });
@@ -66,7 +69,7 @@ const SideBarProfile = (props) => {
   return (
     <>
       <Col md={3} className="dashbdsidenav tealbg">
-        <h2 className="dshbdlogo">LOGO</h2>
+        <h2 className="dshbdlogo"><img src={logo} className="afreallogo"/></h2>
         <div className="mrginbttm">
           <div
             className={

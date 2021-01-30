@@ -23,30 +23,30 @@ import HeaderStats from "./HeaderStats";
 import { Link } from "react-router-dom";
 import { formatDate } from "./controller";
 
-const Mortgage_Application_Third = (props) => {
+const MortgageApplicationFifthStep = (props) => {
   const [state, setState] = React.useState({
     user: {},
-    have_apply_for_mortgage:"",
     propertyList: [],
     formError: "",
     applicationStatus: {},
     no_of_dependents: false,
     file: "",
     propertySlide: {},
-    isUploading: false,
+    isLoading: false,
     totalDoc: {},
     isloading: false,
     isDeleting: false,
     current_apartment_status: "",
+    total_annual_pay: "",
+    monthly_gross_pay: "",
     marital_status: "",
-    do_you_have_children: "",
-    next_of_kin_name: "",
-    next_of_kin_relationship: "",
-    next_of_kin_dob: "",
+    have_loans: "",
+    loan_repayments: "",
+    monthly_net_pay: "",
+    monthly_expenses: "",
     firstname: "",
     lastname: "",
-    dob: "",
-    next_of_kin_address: "",
+    have_apply_for_mortgage:""
   });
   let fileRef = useRef(null);
   React.useEffect(() => {
@@ -69,7 +69,7 @@ const Mortgage_Application_Third = (props) => {
       ])
       .then(
         axios.spread((res) => {
-          console.log(res)
+          console.log(res);
           if (res.status === 200) {
             setState({
               ...state,
@@ -99,16 +99,7 @@ const Mortgage_Application_Third = (props) => {
   };
   const validateForm = () => {
     window.scrollTo(-0,-0)
-    if (
-      !current_apartment_status ||
-      !marital_status ||
-      !no_of_dependents ||
-      !next_of_kin_name ||
-      !next_of_kin_relationship ||
-      !next_of_kin_dob ||
-      !next_of_kin_address ||
-      !no_of_dependents
-    ) {
+    if (!current_apartment_status) {
       notify("Please fill all required fields");
       return setState({
         ...state,
@@ -125,21 +116,9 @@ const Mortgage_Application_Third = (props) => {
       : window.location.assign("/signin");
     setState({
       ...state,
-      isUploading: true,
+      isLoading: true,
     });
-    const data = {
-      current_apartment_status,
-      marital_status,
-      do_you_have_children,
-      next_of_kin_name,
-      next_of_kin_relationship,
-      next_of_kin_dob,
-      next_of_kin_address,
-      no_of_dependents,
-      firstname,
-      lastname,
-      dob,
-    };
+    const data = {};
     axios
       .post(`${API}/user/profile`, data, {
         headers: { Authorization: `Bearer ${userToken}` },
@@ -149,37 +128,42 @@ const Mortgage_Application_Third = (props) => {
         console.log(res);
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         setTimeout(() => {
-          props.history.push("/mortage-request-step-3");
+          window.location.reload();
         }, 2000);
       })
       .catch((err) => {
         setState({
           ...state,
-          isUploading: false,
+          isLoading: false,
         });
         notifyFailed("Failed to save");
         console.log(err.response);
       });
   };
 
-  const checkIfIsOdd = (n) => {
-    return Math.abs(n % 2) == 1;
-  };
-  const closeDeleteModal = () => {
-    setState({
-      ...state,
-      deleteModal: false,
-    });
-  };
-  const openDeleteModal = (id) => {
-    setState({
-      ...state,
-      deleteModal: true,
-      documentId: id,
-    });
+  const onInputChange = (e) => {
+    const letterNumber = /^[A-Za-z]+$/;
+    if (e.target.value) {
+      return setState({
+        ...state,
+        [e.target.name]: e.target.value.replace(/[^0-9]+/g, ""), //only accept numbers
+      });
+    }
+    if (e.target.value < 0) {
+      return setState({
+        ...state,
+        [e.target.name]: 0,
+      });
+    }
+    if (e.target.value === "") {
+      return setState({
+        ...state,
+        [e.target.name]: 0,
+      });
+    }
   };
   const onchange = (e) => {
     setState({
@@ -194,29 +178,27 @@ const Mortgage_Application_Third = (props) => {
     });
   };
   const {
-    no_of_dependents,
     totalDoc,
-    address,
+    total_annual_pay,
+    loan_repayments,
     current_apartment_status,
-    marital_status,
-    do_you_have_children,
-    next_of_kin_name,
-    next_of_kin_relationship,
-    next_of_kin_dob,
-    next_of_kin_address,
-    dob,
+    have_loans,
+    monthly_net_pay,
+    monthly_expenses,
     formError,
     isloading,
     firstname,
-    have_apply_for_mortgage,
     lastname,
+    have_apply_for_mortgage,
+    isLoading,
+    monthly_gross_pay,
   } = state;
   console.log(totalDoc);
   return (
     <div>
       <Container fluid>
         <Row className="sdnnavrow">
-        <UserdashboardSideBar hideads={true} mortgage={true} />
+          <UserdashboardSideBar hideads={true} mortgage={true} />
           <Col md={9} className="udshboard">
             <NavComponent hideSearch={true} />
             {isloading && (
@@ -226,124 +208,35 @@ const Mortgage_Application_Third = (props) => {
             )}
             <div className="proffl">Mortgage Application</div>
             <Col md={12} className="lldl">
-              <div className="oll12">
-                Hi{" "}
-                <span className="name2p">
-                  {" "}
-                  {firstname} {lastname}
-                </span>
-              </div>
               <div className="selg">
-                Please provide details of next of kin and dependents
+                Loan info and Declaration
               </div>
               <div className="straightdivider"></div>
             </Col>
             <Col md={12} className="formwrapper1">
               <Form>
-                <Row>
-                  <Col md={4} className="eachfield">
-                    <Form.Group>
-                      <span
-                        className={
-                          formError && !current_apartment_status
-                            ? "userprofile formerror1"
-                            : "userprofile"
-                        }
-                      >
-                        Current Home Status
-                      </span>
-                      <Form.Control
-                        as="select"
-                        className={
-                          formError && !current_apartment_status
-                            ? "fmc formerror"
-                            : "fmc"
-                        }
-                        name="current_apartment_status"
-                        onChange={handleChange}
-                      >
-                        <option>{current_apartment_status}</option>
-                        <option value="Owned" class="otherss">
-                          Owned
-                        </option>
-                        <option value="Rent">Rent</option>
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
-                  <Col md={4} className="eachfield2">
-                    <Form.Group>
-                      <span
-                        className={
-                          formError && !marital_status
-                            ? "userprofile formerror1"
-                            : "userprofile"
-                        }
-                      >
-                        Marital Status
-                      </span>
-                      <Form.Control
-                        as="select"
-                        className={
-                          formError && !marital_status ? "fmc formerror" : "fmc"
-                        }
-                        name="marital_status"
-                        onChange={handleChange}
-                      >
-                        <option>{marital_status}</option>
-                        <option value="single" class="otherss">
-                          Single
-                        </option>
-                        <option value="married">Married</option>
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
-                  <Col md={4} className="eachfield2">
-                    <Form.Group>
-                      <span
-                        className={
-                          formError && !no_of_dependents
-                            ? "userprofile formerror1"
-                            : "userprofile"
-                        }
-                      >
-                        Number of Children/Dependants
-                      </span>
-                      <Form.Control
-                        className={
-                          formError && !no_of_dependents
-                            ? "fmc formerror"
-                            : "fmc"
-                        }
-                        value={no_of_dependents}
-                        name="no_of_dependents"
-                        onChange={handleChange}
-                      ></Form.Control>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row>
+                <Row className="hht4 have_d">
                   <Col md={6} className="eachfield">
                     <Form.Group>
                       <span
                         className={
-                          formError && !next_of_kin_name
+                          formError && !total_annual_pay
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Next-of-Kin’s Full Name
+                        Property Value (₦)
                       </span>
                       <Form.Control
                         type="text"
-                        onChange={onchange}
-                        required
-                        value={next_of_kin_name}
+                        onChange={onInputChange}
+                        value={FormatAmount(total_annual_pay)}
                         className={
-                          formError && !next_of_kin_name
+                          formError && !total_annual_pay
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="next_of_kin_name"
+                        name="total_annual_pay"
                         placeholder=""
                       />
                     </Form.Group>
@@ -352,78 +245,135 @@ const Mortgage_Application_Third = (props) => {
                     <Form.Group>
                       <span
                         className={
-                          formError && !next_of_kin_relationship
+                          formError && !monthly_gross_pay
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Relationship with Next-of-Kin
+                        Proposed Equity Contribution
                       </span>
                       <Form.Control
                         type="text"
-                        onChange={onchange}
+                        onChange={onInputChange}
                         required
-                        value={next_of_kin_relationship}
+                        value={FormatAmount(monthly_gross_pay)}
                         className={
-                          formError && !next_of_kin_relationship
+                          formError && !monthly_gross_pay
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="next_of_kin_relationship"
-                        placeholder="   "
+                        name="monthly_gross_pay"
+                        placeholder=""
                       />
                     </Form.Group>
                   </Col>
                 </Row>
-                <Row>
-                  <Col md={6} className="">
+                <Row> 
+                  <Col md={6} className="eachfield">
                     <Form.Group>
                       <span
                         className={
-                          formError && !address
+                          formError && !monthly_net_pay
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Next-of-Kin’s Date Of Birth
+                        Loanable amount? (₦)
                       </span>
                       <Form.Control
-                        type="date"
-                        onChange={onchange}
+                        type="text"
+                        onChange={onInputChange}
                         required
-                        value={next_of_kin_dob}
+                        value={FormatAmount(monthly_net_pay)}
                         className={
-                          formError && !next_of_kin_dob == ""
+                          formError && !monthly_net_pay
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="next_of_kin_dob"
+                        name="monthly_net_pay"
                         placeholder=""
                       />
+                      <div className="spna12">
+                        <span className="spna122">Monthly</span>
+                      </div>
                     </Form.Group>
                   </Col>
                   <Col md={6} className="eachfield2">
                     <Form.Group>
                       <span
                         className={
-                          formError && !next_of_kin_address == ""
+                          formError && !monthly_net_pay
                             ? "userprofile formerror1"
                             : "userprofile"
                         }
                       >
-                        Address
+                        Property title
                       </span>
                       <Form.Control
                         type="text"
                         onChange={onchange}
                         required
-                        value={next_of_kin_address}
+                        value={monthly_net_pay}
                         className={
-                          formError && !next_of_kin_address
+                          formError && !monthly_net_pay
                             ? "fmc formerror"
                             : "fmc"
                         }
-                        name="next_of_kin_address"
+                        name="monthly_net_pay"
+                        placeholder=""
+                      />
+                    </Form.Group>{" "}
+                  </Col>
+                </Row>
+                <Row className='movebbt'>
+                  <Col md={6} className="eachfield">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && !monthly_expenses
+                            ? "userprofile formerror1"
+                            : "userprofile"
+                        }
+                      >
+                        Property Address
+                      </span>
+                      <Form.Control
+                        type="text"
+                        onChange={onInputChange}
+                        required
+                        value={FormatAmount(monthly_expenses)}
+                        className={
+                          formError && !monthly_expenses
+                            ? "fmc formerror"
+                            : "fmc"
+                        }
+                        name="monthly_expenses"
+                        placeholder=""
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={6} className="eachfield">
+                    <Form.Group>
+                      <span
+                        className={
+                          formError && !monthly_expenses
+                            ? "userprofile formerror1"
+                            : "userprofile"
+                        }
+                      >
+                        Property Description
+                      </span>
+                      <Form.Control
+                        type="text"
+                        onChange={onInputChange}
+                        required
+                        value={FormatAmount(monthly_expenses)}
+                        className={
+                          formError && !monthly_expenses
+                            ? "fmc formerror"
+                            : "fmc"
+                        }
+                        name="monthly_expenses"
                         placeholder=""
                       />
                     </Form.Group>
@@ -431,13 +381,14 @@ const Mortgage_Application_Third = (props) => {
                 </Row>
                 <Row>
                   <Col md={6}>
-                    <Link to="/mortage-request-step-2">
+                    <Link to="/mortage-request-step-4">
                       <Button className="continue1 polld">Previous</Button>
                     </Link>
                   </Col>
                   <Col md={6}>
                     <Button className="continue1" onClick={validateForm}>
-                      Continue
+
+                    {!isLoading?"Continue":"Processing..."}
                     </Button>
                   </Col>
                 </Row>
@@ -463,4 +414,4 @@ const Mortgage_Application_Third = (props) => {
     </div>
   );
 };
-export default Mortgage_Application_Third;
+export default MortgageApplicationFifthStep;
