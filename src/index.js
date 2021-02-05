@@ -7,24 +7,11 @@ import "bootstrap/dist/js/bootstrap.min.js";
 
 import "./index.css";
 import Routes from "./routes";
-import store from "./store";
-import { persistedStore } from "./store";
-import * as serviceWorker from "./serviceWorker";
 import "./responsive.css";
-import CircularLoader from "./containers/CircularLoader";
-// import { CookiesProvider } from "react-cookie";
 
 ReactDOM.render(
-  // <CookiesProvider>
-    <Provider store={store}>
-      <PersistGate
-        loading={<CircularLoader isLoading={true} />}
-        persistor={persistedStore}
-      >
-        <Routes />
-      </PersistGate>
-    </Provider>,
-//  </CookiesProvider>,
+       
+  <Routes />,
   document.getElementById("root")
 );
-serviceWorker.unregister();
+// serviceWorker.unregister();
