@@ -14,7 +14,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { API } from "../config";
 import axios from "axios";
 import SweetAlert from "sweetalert2-react";
-var currencyFormatter = require("currency-formatter");
 
 const ApplicationForm = (props) => {
   const [state, setState] = React.useState({
@@ -138,7 +137,7 @@ const ApplicationForm = (props) => {
   const validateForm = () => {
     window.scrollTo(-0, -0);
 
-    //date of birth validation
+    // date of birth validation
     const today = new Date();
     const thisyear = today.getFullYear();
     const user_age = thisyear - parseInt(dob.split("-")[0]);
@@ -159,20 +158,13 @@ const ApplicationForm = (props) => {
       });
     }
     if (
-      property_subscribed === "" ||
-      email == "" ||
-      down_payment == "" ||
-      dob == "" ||
-      employment_status == "" ||
       !property_subscribed ||
       !down_payment ||
-      !dob ||
-      !fullname ||
+      // !dob ||
       !employment_status ||
-      !current_apartment_status ||
-      !developer ||
-      !development ||
-      // !ras_holder ||
+      developer == "" ||
+      development == "" ||
+      !ras_holder ||
       !monthly_pay
     ) {
       notify("Please fill the required feilds");
@@ -184,11 +176,6 @@ const ApplicationForm = (props) => {
     SumitForm();
   };
   const SumitForm = () => {
-    const userToken = localStorage.getItem("jwtToken");
-    const userData = localStorage.getItem("loggedInDetails");
-    const currentUser = userData
-      ? JSON.parse(userData)
-      : window.location.assign("/signin");
     setState({
       ...state,
       isLoading: true,
@@ -198,24 +185,22 @@ const ApplicationForm = (props) => {
       property_id: development,
       unit_id: property_subscribed,
       name: fullname,
-      email,
       down_payment,
       monthly_income: monthly_pay,
-      dob,
       employment_status,
       employer,
-      no_of_dependents,
+      dob,
       borrower_type,
       purchase_price,
       mode_of_payment: form_of_payment,
       interested_in_mortgage: need_mortgage,
-      form_of_payment,
       joint_borrower_monthly_income: joint_borrower,
       is_ras_holder: ras_holder,
-      have_mortgage,
+      // have_mortgage,
     };
+    console.log(data);
     axios
-      .post(`${API}/general/house-owner-affordability-test`)
+      .post(`${API}/general/house-owner-affordability-test`, data)
       .then((res) => {
         console.log(res);
         setState({
@@ -223,7 +208,9 @@ const ApplicationForm = (props) => {
           isLoading: false,
           show: true,
         });
-        setTimeout(() => {}, 3000);
+        setTimeout(() => {
+          window.location.reload()
+        }, 3000);
       })
       .catch((err) => {
         console.log(err);
@@ -231,21 +218,21 @@ const ApplicationForm = (props) => {
           ...state,
           isLoading: false,
         });
-        notifyFailed("Failed to save");
-        console.log(err);
+        notifyFailed("Failed to process");
+        console.log(err.response);
       });
   };
   const handleDeveloperId = (e) => {
     setState({
       ...state,
-      [e.target.name]: e.target.value,
+      developer: e.target.value,
     });
     getDeveloperProperties(e.target.value);
   };
   const handlePropertyUnit = (e) => {
     setState({
       ...state,
-      [e.target.name]: e.target.value,
+      development: e.target.value,
     });
     getPropertiesUnit(e.target.value);
   };
@@ -276,6 +263,7 @@ const ApplicationForm = (props) => {
         setState({
           ...state,
           isLoading: false,
+          development: id,
           PropertyUnits: res.data.data,
         });
       })
@@ -298,44 +286,45 @@ const ApplicationForm = (props) => {
       isLoading: true,
     });
     axios
-      .get(`${API}/general/property-units/${id}`)
+      .get(`${API}/general/developer-properties/${id}`)
       .then((res) => {
         console.log(res);
         setState({
           ...state,
           isLoading: false,
-          PropertyUnits: res.data.data,
+          Developement: res.data.data,
+          developer: id,
         });
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
         setState({
           ...state,
           isLoading: false,
         });
-        notifyFailed("Failed to fetch");
+        notify("Failed to fetch");
         console.log(err);
       });
   };
   const onInputChange = (e) => {
-      const letterNumber = /^[A-Za-z]+$/;
-      if (e.target.value) {
-        return setState({
-          ...state,
-          [e.target.name]: e.target.value.replace(/[^0-9]+/g, ""), //only accept numbers
-        });
-      }
-      if (e.target.value < 0) {
-        return setState({
-          ...state,
-          [e.target.name]: 0,
-        });
-      }
-      if (e.target.value === "") {
-        return setState({
-          ...state,
-          [e.target.name]: 0,
-        });
+    const letterNumber = /^[A-Za-z]+$/;
+    if (e.target.value) {
+      return setState({
+        ...state,
+        [e.target.name]: e.target.value.replace(/[^0-9]+/g, ""), //only accept numbers
+      });
+    }
+    if (e.target.value < 0) {
+      return setState({
+        ...state,
+        [e.target.name]: 0,
+      });
+    }
+    if (e.target.value === "") {
+      return setState({
+        ...state,
+        [e.target.name]: 0,
+      });
     }
   };
   const FormatAmount = (amount) => {
@@ -343,7 +332,8 @@ const ApplicationForm = (props) => {
       return amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   };
-  const States = [];
+  console.log(development);
+  console.log(developer);
   return (
     <Container className="profileerr">
       <SweetAlert
@@ -363,7 +353,7 @@ const ApplicationForm = (props) => {
                 <Form.Group>
                   <span
                     className={
-                      formError && !developer
+                      formError && developer == ""
                         ? "userprofile formerror1"
                         : "userprofile"
                     }
@@ -375,7 +365,7 @@ const ApplicationForm = (props) => {
                     onChange={handleDeveloperId}
                     required
                     className={
-                      formError && !developer ? "fmc formerror" : "fmc"
+                      formError && developer == "" ? "fmc formerror" : "fmc"
                     }
                     name="developer"
                     placeholder=""
@@ -393,7 +383,7 @@ const ApplicationForm = (props) => {
                 <Form.Group>
                   <span
                     className={
-                      formError && !development
+                      formError && development == ""
                         ? "userprofile formerror1"
                         : "userprofile"
                     }
@@ -402,10 +392,10 @@ const ApplicationForm = (props) => {
                   </span>
                   <Form.Control
                     as="select"
-                    onChange={onchange}
+                    onChange={handlePropertyUnit}
                     required
                     className={
-                      formError && !development ? "fmc formerror" : "fmc"
+                      formError && development == "" ? "fmc formerror" : "fmc"
                     }
                     name="development"
                     placeholder=""
@@ -413,13 +403,15 @@ const ApplicationForm = (props) => {
                     <option></option>
                     {Developement?.map((data, i) => (
                       <option value={data.id} key={i}>
-                        {data?.name}
+                        {data?.property_name} {data.property_city}{" "}
+                        {data.property_state}
                       </option>
                     ))}
                   </Form.Control>
                 </Form.Group>
               </Col>
             </Row>
+
             <Row>
               <Col md={6} className="dapadd">
                 <Form.Group>
@@ -434,7 +426,7 @@ const ApplicationForm = (props) => {
                   </span>
                   <Form.Control
                     as="select"
-                    onChange={handlePropertyUnit}
+                    onChange={onchange}
                     required
                     value={property_subscribed}
                     className={
@@ -448,13 +440,54 @@ const ApplicationForm = (props) => {
                     <option></option>
                     {PropertyUnits?.map((data, i) => (
                       <option value={data?.id} key={i}>
-                        {data?.name}
+                        {data?.unit_bathrooms}-
+                        {data?.unit_bathrooms == 1 ? "Bathroom" : "Bathrooms"}{" "}
+                        {data?.unit_bedrooms}-
+                        {data?.unit_bedrooms == 1 ? "Bedroom" : "Bedrooms"}
+                        --Price-{"N" + "" + FormatAmount(data?.unit_price)}
                       </option>
                     ))}
                   </Form.Control>
                 </Form.Group>
               </Col>
-              <Col md={6} className="dapadd">
+              <Col md={6} className="eachfield">
+                <Form.Group>
+                  <span
+                    className={
+                      formError && !dob
+                        ? "userprofile formerror1"
+                        : "userprofile"
+                    }
+                  >
+                    Date of Birth
+                  </span>
+                  {dob.length !== 10 ||
+                    (dobError && "userprofile formerror1" && (
+                      <span
+                        className={
+                          dob.length !== 10
+                            ? "userprofile formerror13"
+                            : "userprofile"
+                        }
+                      >
+                        {dobError}
+                      </span>
+                    ))}
+                  <Form.Control
+                    type="date"
+                    onChange={onchange}
+                    required
+                    as={"input"}
+                    value={dob}
+                    className={formError && !dob ? "fmc formerror" : "fmc"}
+                    name="dob"
+                    placeholder={dob}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12} className="dapadd">
                 <Form.Group>
                   <span
                     className={
@@ -510,7 +543,7 @@ const ApplicationForm = (props) => {
                         : "userprofile"
                     }
                   >
-                    Equity Contribution Profile (₦)
+                    Equity paid so far (₦)
                   </span>
                   <Form.Control
                     type="text"
@@ -539,16 +572,20 @@ const ApplicationForm = (props) => {
                     RSA Holder
                   </span>
                   <Form.Control
-                    type={'text'}
+                    as="select"
                     onChange={onchange}
                     required
                     value={ras_holder}
                     className={
                       formError && !ras_holder ? "fmc formerror" : "fmc"
                     }
-                    name="down_payment"
+                    name="ras_holder"
                     placeholder=""
-                  />
+                  >
+                    <option></option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                  </Form.Control>
                 </Form.Group>
               </Col>
               <Col md={6} className="eachfield2">
@@ -750,8 +787,8 @@ const ApplicationForm = (props) => {
                     onChange={onchange}
                   >
                     <option></option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
@@ -766,6 +803,13 @@ const ApplicationForm = (props) => {
           </Form>
         </Col>
       </Row>
+      <ToastContainer
+        enableMultiContainer
+        containerId={"f"}
+        toastClassName="bg-danger text-white"
+        hideProgressBar={true}
+        position={toast.POSITION.TOP_CENTER}
+      />
     </Container>
   );
 };
