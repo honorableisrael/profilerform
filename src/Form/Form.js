@@ -496,7 +496,7 @@ const ApplicationForm = (props) => {
                         : "userprofile"
                     }
                   >
-                    Full name
+                    Full Name
                   </span>
                   <Form.Control
                     type="text"
@@ -608,11 +608,13 @@ const ApplicationForm = (props) => {
                     onChange={handleChange}
                   >
                     <option>{employment_status}</option>
-
-                    <option value={"Employed"} class="otherss">
-                     Self Employed
+                    <option value={"Boss"} class="otherss">
+                     Boss
                     </option>
-                    <option value="Employer">Employer</option>
+                    <option value={"Employed"} class="otherss">
+                     Employed
+                    </option>
+                    <option value="Self Employed">Self Employed</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
