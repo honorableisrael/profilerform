@@ -344,7 +344,7 @@ const ApplicationForm = (props) => {
       />
       <Row>
         <Col>
-          <div className="fgh">HSF Profiler and Affordability</div>
+          <div className="fgh">Off-Taker Profiler</div>
         </Col>
         <Col md={12} className="formwrapper1">
           <Form>
@@ -610,7 +610,7 @@ const ApplicationForm = (props) => {
                     <option>{employment_status}</option>
 
                     <option value={"Employed"} class="otherss">
-                      Employed
+                     Self Employed
                     </option>
                     <option value="Employer">Employer</option>
                   </Form.Control>
