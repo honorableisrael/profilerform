@@ -2015,3 +2015,9 @@ button#dropdown-basic.ddprdown.dropdown-toggle.btn.btn-primary::after {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
+
+@media(max-width:450px){
+  .profileerr {
+    padding-left: 2rem;
+  }
+}
